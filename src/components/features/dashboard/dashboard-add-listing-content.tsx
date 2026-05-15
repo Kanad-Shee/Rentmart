@@ -102,7 +102,8 @@ export function DashboardAddListingContent() {
   const phoneVerified = user?.phoneVerified ?? false;
   const listingId = searchParams.get("listingId");
   const editingListing =
-    ownerEquipmentQuery.data?.find((listing) => listing.id === listingId) ?? null;
+    ownerEquipmentQuery.data?.find((listing) => listing.id === listingId) ??
+    null;
   const isEditing = Boolean(listingId);
   const deferredAddress = useDeferredValue(formState.address);
   const [debouncedAddress, setDebouncedAddress] = useState("");
@@ -178,7 +179,11 @@ export function DashboardAddListingContent() {
     ) ?? null;
 
   useEffect(() => {
-    if (!listingId || !editingListing || hydratedListingIdRef.current === listingId) {
+    if (
+      !listingId ||
+      !editingListing ||
+      hydratedListingIdRef.current === listingId
+    ) {
       return;
     }
 
@@ -259,7 +264,8 @@ export function DashboardAddListingContent() {
     setFormState((current) => ({
       ...current,
       images: (() => {
-        const remainingSlots = 5 - current.existingImages.length - current.images.length;
+        const remainingSlots =
+          5 - current.existingImages.length - current.images.length;
         return [...current.images, ...nextFiles].slice(
           0,
           current.images.length + Math.max(remainingSlots, 0),
@@ -278,7 +284,9 @@ export function DashboardAddListingContent() {
   function removeExistingImage(imageId: string) {
     setFormState((current) => ({
       ...current,
-      existingImages: current.existingImages.filter((image) => image.id !== imageId),
+      existingImages: current.existingImages.filter(
+        (image) => image.id !== imageId,
+      ),
     }));
   }
 
@@ -315,7 +323,8 @@ export function DashboardAddListingContent() {
       return baseValidationError;
     }
 
-    const totalImages = formState.existingImages.length + formState.images.length;
+    const totalImages =
+      formState.existingImages.length + formState.images.length;
 
     if (totalImages < 3 || totalImages > 5) {
       return "Upload between 3 and 5 images.";
@@ -603,7 +612,7 @@ export function DashboardAddListingContent() {
           <p className='text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]'>
             Owner Workspace
           </p>
-          <h1 className='text-4xl font-extrabold tracking-[-0.04em] text-primary'>
+          <h1 className='text-2xl lg:text-3xl font-extrabold tracking-[-0.04em] text-primary'>
             Edit Equipment Listing
           </h1>
         </div>
@@ -630,10 +639,10 @@ export function DashboardAddListingContent() {
   }
 
   const categories = categoriesQuery.data;
-  const totalImageCount = formState.existingImages.length + formState.images.length;
+  const totalImageCount =
+    formState.existingImages.length + formState.images.length;
   const isSubmitting =
-    createEquipmentMutation.isPending ||
-    submitOwnerEquipmentMutation.isPending;
+    createEquipmentMutation.isPending || submitOwnerEquipmentMutation.isPending;
   const isSavingDraft =
     saveDraftMutation.isPending || updateOwnerEquipmentMutation.isPending;
   const isDeleting = deleteOwnerEquipmentMutation.isPending;
@@ -647,7 +656,9 @@ export function DashboardAddListingContent() {
           Owner Workspace
         </p>
         <h1 className='text-4xl font-extrabold tracking-[-0.04em] text-primary'>
-          {isEditing ? "Edit Equipment Listing" : "Create New Equipment Listing"}
+          {isEditing
+            ? "Edit Equipment Listing"
+            : "Create New Equipment Listing"}
         </h1>
         <p className='max-w-3xl text-sm leading-7 text-muted-foreground'>
           {isEditing
@@ -665,7 +676,8 @@ export function DashboardAddListingContent() {
             </h2>
           </div>
           <p className='mt-3 max-w-3xl text-sm leading-7 text-[#5b4300]'>
-            You can still save this listing as a draft now. Phone verification is required only when you submit it for admin review.
+            You can still save this listing as a draft now. Phone verification
+            is required only when you submit it for admin review.
           </p>
           <Link
             href='/dashboard/settings'
@@ -678,7 +690,7 @@ export function DashboardAddListingContent() {
       ) : null}
 
       <div className='space-y-8'>
-        <section className='rounded-xl border border-border bg-background p-6 shadow-sm sm:p-8'>
+        <section className='rounded-xl border border-border bg-emerald-900/5 p-6 shadow-sm sm:p-8'>
           <h2 className='mb-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-primary'>
             <span className='h-1.5 w-1.5 rounded-full bg-primary' />
             Basic Details
@@ -797,7 +809,7 @@ export function DashboardAddListingContent() {
           </div>
         </section>
 
-        <section className='rounded-xl border border-border bg-background p-6 shadow-sm sm:p-8'>
+        <section className='rounded-xl border border-border bg-emerald-900/2 p-6 shadow-sm sm:p-8'>
           <h2 className='mb-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-primary'>
             <span className='h-1.5 w-1.5 rounded-full bg-primary' />
             Media & Documentation
@@ -826,7 +838,11 @@ export function DashboardAddListingContent() {
               {imagePreviews.length > 0 ? (
                 imagePreviews.map((item, index) => (
                   <div
-                    key={item.kind === "existing" ? item.id : `${item.name}-${index}`}
+                    key={
+                      item.kind === "existing"
+                        ? item.id
+                        : `${item.name}-${index}`
+                    }
                     className='rounded-lg border border-border bg-muted/20 p-4'
                   >
                     <div className='flex items-start gap-3'>
@@ -864,7 +880,9 @@ export function DashboardAddListingContent() {
                     <div className='mt-4'>
                       <div className='mb-2 flex items-center justify-between text-xs font-medium'>
                         <span className='text-primary'>
-                          {item.kind === "existing" ? "Saved to listing" : "Ready to upload"}
+                          {item.kind === "existing"
+                            ? "Saved to listing"
+                            : "Ready to upload"}
                         </span>
                         <span className='text-primary'>
                           {index + 1} / {totalImageCount}
@@ -888,7 +906,7 @@ export function DashboardAddListingContent() {
           </div>
         </section>
 
-        <section className='rounded-xl border border-border bg-background p-6 shadow-sm sm:p-8'>
+        <section className='rounded-xl border border-border bg-emerald-900/2 p-6 shadow-sm sm:p-8'>
           <h2 className='mb-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-primary'>
             <span className='h-1.5 w-1.5 rounded-full bg-primary' />
             Logistics & Availability
@@ -1082,7 +1100,9 @@ export function DashboardAddListingContent() {
             </button>
             <button
               type='submit'
-              disabled={isSubmitting || isSavingDraft || isDeleting || !phoneVerified}
+              disabled={
+                isSubmitting || isSavingDraft || isDeleting || !phoneVerified
+              }
               className='inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-60'
             >
               {isSubmitting ? (

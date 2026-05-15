@@ -155,8 +155,7 @@ export function Navbar({
   const resolvedLinks = useMemo(() => {
     const hasTermsLink = links.some(
       (link) =>
-        link.href === "/terms" ||
-        link.label.trim().toLowerCase() === "terms",
+        link.href === "/terms" || link.label.trim().toLowerCase() === "terms",
     );
 
     if (hasTermsLink) {
@@ -259,20 +258,22 @@ export function Navbar({
     >
       <div
         className={[
-          "mx-auto flex min-h-20 max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8",
+          "mx-auto flex h-18 max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8",
           containerClassName,
         ].join(" ")}
       >
         <div className='flex items-center gap-4 lg:gap-10'>
           <div className='flex items-center gap-2 sm:gap-3'>
             <motion.div
-              whileHover={shouldReduceMotion ? undefined : { y: -1, scale: 1.01 }}
+              whileHover={
+                shouldReduceMotion ? undefined : { y: -1, scale: 1.01 }
+              }
               transition={{ duration: 0.2 }}
             >
               <Link
                 href={brandHref}
                 className={[
-                  "text-xl font-black tracking-[-0.04em] text-primary sm:text-2xl",
+                  "text-xl font-brand font-black text-primary sm:text-2xl",
                   brandClassName,
                 ].join(" ")}
               >
@@ -363,7 +364,7 @@ export function Navbar({
                   <Link
                     href={link.href}
                     className={[
-                      "text-sm font-medium transition-colors hover:text-primary",
+                      "text-sm font-display font-medium transition-colors hover:text-primary",
                       link.active
                         ? "border-b-2 border-primary pb-1 text-primary"
                         : "text-muted-foreground",

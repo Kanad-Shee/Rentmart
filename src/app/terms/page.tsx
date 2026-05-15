@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/common/navbar";
+import { MarketingFooter } from "@/components/common/marketing-footer";
 
 const sections = [
   { id: "definitions", title: "1. Definitions" },
@@ -47,9 +48,8 @@ function getDisclaimerQuoteClass(isActive: boolean) {
 }
 
 export default function TermsPage() {
-  const [activeSection, setActiveSection] = useState<(typeof sections)[number]["id"]>(
-    "disclaimer",
-  );
+  const [activeSection, setActiveSection] =
+    useState<(typeof sections)[number]["id"]>("disclaimer");
 
   const sectionIds = useMemo(() => sections.map((section) => section.id), []);
 
@@ -116,7 +116,7 @@ export default function TermsPage() {
   return (
     <main className='min-h-screen bg-[#f9faf6] text-foreground'>
       <Navbar
-        brand='Rentmart'
+        brand='RENTMART'
         links={[
           { href: "/#featured", label: "Marketplace" },
           { href: "/about", label: "About Us" },
@@ -144,9 +144,16 @@ export default function TermsPage() {
             aria-label='Breadcrumb'
             className='flex items-center gap-2 text-lg text-[#6b7075]'
           >
-            <Link href='/' className='transition-colors hover:text-primary'>Home</Link>
+            <Link href='/' className='transition-colors hover:text-primary'>
+              Home
+            </Link>
             <ChevronRight className='h-4 w-4' />
-            <Link href='/terms' className='transition-colors hover:text-primary'>Legal</Link>
+            <Link
+              href='/terms'
+              className='transition-colors hover:text-primary'
+            >
+              Legal
+            </Link>
             <ChevronRight className='h-4 w-4' />
             <span className='font-medium text-primary'>Terms of Service</span>
           </nav>
@@ -315,7 +322,11 @@ export default function TermsPage() {
                 Rentmart is not an insurance company, brokerage, or agent. We
                 are a technology facilitator.
               </Paragraph>
-              <p className={getDisclaimerQuoteClass(activeSection === "disclaimer")}>
+              <p
+                className={getDisclaimerQuoteClass(
+                  activeSection === "disclaimer",
+                )}
+              >
                 You agree that Rentmart shall not be liable for any damage to or
                 loss of machinery, personal injury, or catastrophic loss, and
                 all legal disputes are between owner and renter directly.
@@ -369,7 +380,7 @@ export default function TermsPage() {
         </article>
       </div>
 
-      <footer className='border-t border-[#e2e3e0] bg-white'>
+      {/* <footer className='border-t border-[#e2e3e0] bg-white'>
         <div className='mx-auto flex max-w-[1440px] flex-col gap-10 px-6 py-14 lg:flex-row lg:items-start lg:justify-between lg:px-16 lg:py-16'>
           <div className='max-w-sm'>
             <Link
@@ -393,7 +404,8 @@ export default function TermsPage() {
             <FooterLink>Contact Support</FooterLink>
           </div>
         </div>
-      </footer>
+      </footer> */}
+      <MarketingFooter />
     </main>
   );
 }

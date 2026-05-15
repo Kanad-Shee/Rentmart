@@ -181,7 +181,7 @@ export function DashboardSidebar({ config }: DashboardSidebarProps) {
         >
           <Link
             href='/'
-            className='text-2xl font-black tracking-[-0.04em] text-primary'
+            className='text-2xl font-brand font-black uppercase text-primary'
           >
             {config.brand}
           </Link>

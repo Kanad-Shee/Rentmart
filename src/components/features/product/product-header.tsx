@@ -10,7 +10,7 @@ const navItems = [
 export function ProductHeader() {
   return (
     <Navbar
-      brand="Rentmart"
+      brand="RENTMART"
       links={navItems}
       authActions={{
         signIn: { href: "/sign-in", label: "Sign In" },

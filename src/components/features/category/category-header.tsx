@@ -5,7 +5,7 @@ const navItems = ["Marketplace", "About Us", "Support", "Terms"];
 export function CategoryHeader() {
   return (
     <Navbar
-      brand="Rentmart"
+      brand="RENTMART"
       links={navItems.map((item, index) => ({
         href:
           item === "Marketplace"
