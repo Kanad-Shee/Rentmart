@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "error": "#ba1a1a",
+                "primary-fixed": "#c1ecd4",
+                "tertiary-fixed-dim": "#f5b7b4",
+                "on-tertiary": "#ffffff",
+                "on-error-container": "#93000a",
+                "error-container": "#ffdad6",
+                "background": "#f9faf6",
+                "surface-dim": "#dadad7",
+                "surface-container-high": "#e8e8e5",
+                "secondary-container": "#dee0e2",
+                "on-surface-variant": "#414844",
+                "on-tertiary-fixed-variant": "#673a39",
+                "surface": "#f9faf6",
+                "tertiary-fixed": "#ffdad8",
+                "on-tertiary-fixed": "#331111",
+                "on-primary-container": "#86af99",
+                "surface-bright": "#f9faf6",
+                "on-primary": "#ffffff",
+                "surface-container-highest": "#e2e3e0",
+                "on-surface": "#1a1c1a",
+                "on-secondary-container": "#606365",
+                "tertiary-container": "#5a302f",
+                "on-primary-fixed-variant": "#274e3d",
+                "tertiary": "#401b1b",
+                "inverse-on-surface": "#f0f1ee",
+                "surface-tint": "#3f6653",
+                "on-secondary": "#ffffff",
+                "on-background": "#1a1c1a",
+                "secondary": "#5c5f60",
+                "on-tertiary-container": "#d29895",
+                "surface-container-low": "#f3f4f1",
+                "primary-fixed-dim": "#a5d0b9",
+                "primary": "#012d1d",
+                "outline": "#717973",
+                "secondary-fixed": "#e1e2e4",
+                "inverse-surface": "#2f312f",
+                "secondary-fixed-dim": "#c5c6c8",
+                "surface-variant": "#e2e3e0",
+                "surface-container-lowest": "#ffffff",
+                "inverse-primary": "#a5d0b9",
+                "primary-container": "#1b4332",
+                "on-secondary-fixed": "#191c1e",
+                "surface-container": "#eeeeeb",
+                "outline-variant": "#c1c8c2",
+                "on-primary-fixed": "#002114",
+                "on-error": "#ffffff",
+                "on-secondary-fixed-variant": "#444749"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "unit": "8px",
+                "stack-md": "16px",
+                "section-gap": "80px",
+                "margin-page": "64px",
+                "container-max": "1440px",
+                "gutter": "32px",
+                "stack-sm": "8px",
+                "stack-lg": "32px"
+            },
+            "fontFamily": {
+                "display-xl": ["Inter"],
+                "caption": ["Inter"],
+                "h1": ["Inter"],
+                "h3": ["Inter"],
+                "h2": ["Inter"],
+                "body-base": ["Inter"],
+                "label-sm": ["Inter"],
+                "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9faf6; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-selection { background-color: #c1ecd4; border-right: 4px solid #1B4332; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="flex min-h-screen text-on-surface">
+<!-- SideNavBar (Shared Component) -->
+<aside class="flex flex-col fixed left-0 top-0 h-full w-64 py-6 px-4 bg-[#F4F5F7] border-r border-slate-200 z-50">
+<div class="mb-10 px-2">
+<h1 class="text-xl font-black text-[#1B4332] tracking-tighter">Rentmart</h1>
+<p class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Admin Console</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all rounded font-medium text-[13px]" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Overview
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 bg-white text-[#1B4332] border-r-4 border-[#1B4332] transition-all font-bold text-[13px]" href="#">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+                Verifications
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all rounded font-medium text-[13px]" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+                User Management
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all rounded font-medium text-[13px]" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+                Transactions
+            </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-200 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all rounded font-medium text-[13px]" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-200/50 transition-all rounded font-medium text-[13px]" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center h-16 px-6 w-full bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+<div class="flex items-center bg-surface-container-low rounded-lg px-3 py-1.5 w-96 border border-slate-200">
+<span class="material-symbols-outlined text-slate-400 text-xl mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full p-0 placeholder-slate-400" placeholder="Search verifications..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-500 hover:bg-slate-50 p-2 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-slate-500 hover:bg-slate-50 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-slate-200">
+<img alt="Admin Avatar" data-alt="A professional headshot of a senior corporate administrator in a modern office environment. He wears a crisp white shirt and professional attire. The lighting is bright and clean, emphasizing a high-trust, industrial marketplace atmosphere. The background is softly blurred, showing a high-end architectural glass workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTzSW2MHPgtfXStCDcVqOXQWBujKdmjY29f1OMx7iSDl7Qg2sZZlUNvCTI-QqQrLyf--KwPnOLBOdmZ8i1wf7ifklRu1PyNXXVPTjw-lq6Zjo_KuUarsPDCE3j-ccUtofySnTFs_lNHrX8KMaKIyipJnfPOfRo57DDilb6Uw91fEqqwDxKAtdMKFpqqgBLW_jVkTFDQD1lPiY56F5Fjj7kIzmxFqw4IyeCrJ-MdeaV6VioqZA6gU4enj77ym7LYmYO0M2XXAeW4S4"/>
+</div>
+</div>
+</header>
+<!-- Verification Dashboard Split Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Pane: The Queue (35%) -->
+<section class="w-[35%] border-r border-slate-200 bg-white flex flex-col">
+<div class="p-6 border-b border-slate-200 bg-surface-bright">
+<h2 class="font-h2 text-h2 text-primary flex items-center gap-2">
+                        Pending Verifications
+                        <span class="bg-primary-fixed text-on-primary-fixed-variant px-2 py-0.5 rounded text-sm font-bold">12</span>
+</h2>
+<p class="text-caption font-caption text-slate-500 mt-1">Review new listings and equipment data.</p>
+</div>
+<div class="flex-1 overflow-y-auto hide-scrollbar">
+<!-- Queue Items -->
+<!-- Active Item -->
+<div class="p-4 border-b border-slate-100 flex gap-4 cursor-pointer active-selection transition-colors">
+<img class="w-16 h-16 rounded object-cover border border-slate-200 bg-slate-100" data-alt="A high-resolution profile shot of a yellow JCB backhoe loader parked on a construction site during a clear day. The machinery looks rugged, well-maintained, and professional. The background shows a clean, organized site with warm natural lighting that highlights the metallic textures of the equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA67UXX61Javm9onLwPl-Ukn_uAmip-LttlwCzKRtRurVMyu5GtvhHuRvisChdqGrAL1xSXlzFFiSFbproicQTQyPoYc3BJGa8_a3o7Dw2m14IeaOqp-J-nEehCb6ZqAZ4BarZ0MlZGxI8PEsu1SjVOtb-rvQhwaMlr8fSKGOpwn1wzeuSrd2WzvqUPR0Tyf2e0byizAwEOAkG1vLnuGKtkEsta1l2g98y1ce_yp6kQnMRUtw8Dm0oip3DGE5bNFOVIcxeVJxtKLI0"/>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-h3 text-base text-primary truncate leading-tight">JCB Backhoe Loader</h4>
+<span class="text-[10px] font-bold text-slate-400 uppercase">2h ago</span>
+</div>
+<p class="text-label-sm font-label-sm text-secondary truncate">Owner: Titan Earthworks Ltd.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 bg-white text-primary border border-primary-fixed text-[10px] font-bold rounded uppercase">Heavy Excavation</span>
+</div>
+</div>
+</div>
+<!-- Other Items -->
+<div class="p-4 border-b border-slate-100 flex gap-4 cursor-pointer hover:bg-slate-50 transition-colors">
+<img class="w-16 h-16 rounded object-cover border border-slate-200 bg-slate-100" data-alt="A sharp, medium shot of a large industrial diesel generator unit in a clean factory warehouse setting. The machine is vibrant orange with metallic accents, reflecting the high-capital trust of the Rentmart brand. Professional lighting creates subtle shadows and emphasizes the technical precision of the equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCae5u089dwjzpto_cHMgyJ8CclEH0m8Y-uTOnK_a1f3FoWPZu2VVn6PdhuaDM3RGhHyjlzUwmb7iholG2YFFNLAQHxR1jbSJkZXUIi_10oOMDvRoh6Wl5wEjQP7ehxWlkstJfp4gHz-7czqBBBYA1W3Yh6ePg_ZafYQFmaI_hQsu_XyUOjfN742y-9gXLcFnLxLyDt65VHlqkg8Rgv0AoQACrZ2iLQmpHM1tAEJuKAJ7aXvcquXarkdyKlWXlQftpThBpLU37s55M"/>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-h3 text-base text-primary truncate leading-tight">Cat 500kVA Generator</h4>
+<span class="text-[10px] font-bold text-slate-400 uppercase">5h ago</span>
+</div>
+<p class="text-label-sm font-label-sm text-secondary truncate">Owner: Power Solutions Inc.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 bg-slate-100 text-slate-500 border border-slate-200 text-[10px] font-bold rounded uppercase">Power Systems</span>
+</div>
+</div>
+</div>
+<div class="p-4 border-b border-slate-100 flex gap-4 cursor-pointer hover:bg-slate-50 transition-colors">
+<img class="w-16 h-16 rounded object-cover border border-slate-200 bg-slate-100" data-alt="A detailed shot of a white mini-excavator positioned on a lush green landscape. The image is bright and crisp, showcasing the modern design and clean condition of the rental equipment. The aesthetic is minimalist and high-end, fitting for a premium procurement platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVGik0kyfJKtuXT1e12jAc5iAqcpOCjFoeQ1MnSK6JY9BjeSc9CPSfSqxlLQSEFxQf3-ya0KHIkO9lZlCFvB41Sen0YCBjy2S0ZejcXXLYWw1DzF8Xir_2rFVopbNFzMTKJW-kvO6g2yscWef6Npn6F20Xlhk3xEhwr0AcWMhUnKK65w_bnc2L8TXy7Om32OUnv-R4PSDD7E7f_PMBf4VRzCCLChGS8s5KlzcL9QWtLKxlWuKV4P3eyWAfZC-iHZeqAuN4IGsgiPk"/>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h4 class="font-h3 text-base text-primary truncate leading-tight">Bobcat E35 Compact</h4>
+<span class="text-[10px] font-bold text-slate-400 uppercase">8h ago</span>
+</div>
+<p class="text-label-sm font-label-sm text-secondary truncate">Owner: GreenBuild Rental</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 bg-slate-100 text-slate-500 border border-slate-200 text-[10px] font-bold rounded uppercase">Compact Mach.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Pane: Detail View (65%) -->
+<section class="flex-1 flex flex-col bg-white overflow-y-auto relative">
+<!-- Detail Header -->
+<div class="p-8 border-b border-slate-100 flex justify-between items-center bg-surface-container-lowest">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="px-3 py-1 bg-[#FFF4E5] text-[#B45309] text-[11px] font-bold rounded-full uppercase tracking-widest border border-[#FDE68A]">Pending Review</span>
+<span class="text-slate-400 text-sm font-medium">Ref ID: RM-8829-XL</span>
+</div>
+<h2 class="font-h1 text-h1 text-primary">JCB 3CX Backhoe Loader (2022)</h2>
+</div>
+<div class="flex gap-2">
+<button class="p-2 border border-slate-200 rounded-lg text-slate-500 hover:bg-slate-50">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Content Body -->
+<div class="p-8 space-y-stack-lg pb-32">
+<!-- Image Gallery Masonry Grid -->
+<div class="grid grid-cols-12 gap-4 h-[400px]">
+<div class="col-span-7 h-full">
+<img class="w-full h-full object-cover rounded-lg border border-slate-200" data-alt="A wide, professional architectural photograph of a yellow JCB Backhoe Loader from a 45-degree front angle. The equipment is spotless, highlighting its mechanical components and heavy-duty tires. The lighting is diffused afternoon sun, creating a premium, commercial photography look suitable for high-capital trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOqZIrqw3IFHHvloV6EfHDqmMQgB4RrBc6-U1tcUddWa3vCs_M9yhDNgDwwK8ppsrYBCaOVz52ULZmb0UWcvvUTNtnuHlAqkGySE2g24yXEbmgmjgu9zqMLgQaC9aAg_HPGoBJiRiyujAkOzS8aKEH7VLNrttrH4yAFy-qnvIA0AwZ0jGX0obL3K1wSc43Jqx4ehwE9Fo1gpoSg9IKLQxtnTn2o7XmrTPidtx4x1MkTGtxEDPma5zap8RqqXAAX-jXYu5uS63KDkg"/>
+</div>
+<div class="col-span-5 flex flex-col gap-4">
+<div class="flex-1">
+<img class="w-full h-full object-cover rounded-lg border border-slate-200" data-alt="A macro detail shot of the control cabin and hydraulic levers of a JCB machinery unit. The focus is on the precision-engineered dashboard and heavy-duty controls. The lighting is clean and interior-focused, emphasizing the professional maintenance and modern technology of the rental listing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-VPF2uCLY4IBry7hRjUzNrErjwQpEksFi6TTWAfAMF_ovJl7txIz0UEZUYp39xuxDVKq5Zl5zTuFCR3FPpoZ7dZGDZJtwSAZLDsSdw4Bq_S53Lehqm4b-SE23Ly1uQb_3nZ3X45kHWM8P7FQ7LmOEsE83V7F5S8QAGJzQftl2E6U7yuKrn1dHDg1qQ9zZpnOaYNIHgpStBSEhTmjZGd76WOMvKsVhZJ5U_xp_o2q7TNYDHOy2q7UDlH1NokM8uoEHFLDmDonqeAg"/>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-4">
+<img class="w-full h-full object-cover rounded-lg border border-slate-200" data-alt="Close up image of the large, industrial-grade tires and rear stabilizers of a yellow backhoe loader. The photo highlights the texture of the rubber and the strength of the steel components. High-key lighting creates a bright, modern, and trustworthy aesthetic consistent with professional machinery rental platforms." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB26Enj8OGasHpew9PzOfEtICL6z0SJrlT5V_sBdjs3IH1Jn3Q4UH-n1Zbr5CNgDaUA51SLPbmgasabwK5pvCQS4lVDqcuoL6k9ASN0-n8kaFB0hbcfgJdZTGGZLCpl9_5CguLz7XB_u5F4NZPqUQtZhHTid652fCZJsFkat5OMST78ML9h6IGhVa9-e0fjv_-7WS0oc3ZD_IW2oS9P9ZhNPYn9t1sARLc3-lnl9269lG0LWjVQXZE9rs28drGn8MmhE8PGS1ZjGZ0"/>
+<div class="bg-slate-100 rounded-lg flex items-center justify-center border border-dashed border-slate-300 relative overflow-hidden group">
+<span class="text-slate-400 font-bold text-lg">+2 more</span>
+<img class="absolute inset-0 w-full h-full object-cover opacity-20" data-alt="A blurred view of a technical inspection checklist resting on the hood of heavy machinery. The background suggests a professional maintenance yard. The lighting is soft and consistent with a high-end enterprise application, conveying meticulous verification processes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArktzae7WsUCyeF8mmaIEo0MO73ZYtoUal9R9QeYKoINpLMlvZsXZPiYU8N27f9g85JdcmHmHEoE84yncGy6JKCpME9BRiJdz_-XSeA28cL4fiubO49sa-aONGbTbZt5p4a8r1Kex0VBN2tw65kfmM7pipFJQ7Pjq6E6u36G-Ljs8Lb0MpOqGlqURW9ymaPxBRn6VwH5op1oqs7VzP_tbvzcTHYuvEwmEaOYUSW-WGgvFBBz4R0DeGyV8j5suZihKOrTLUF6-Pccs"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Grid Section -->
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Column 1: Owner & Logistics -->
+<div class="space-y-stack-lg">
+<div class="p-6 border border-slate-200 rounded-xl bg-white shadow-sm">
+<h4 class="font-label-sm text-label-sm text-slate-500 uppercase tracking-widest mb-4">Owner Information</h4>
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 bg-primary-fixed flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-primary text-2xl" data-weight="fill">business</span>
+</div>
+<div>
+<p class="font-h3 text-base text-primary">Titan Earthworks Ltd.</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+<span class="text-xs text-slate-500 font-medium">KYC Verified (Tier 2)</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 gap-4">
+<div>
+<span class="text-[10px] text-slate-400 uppercase font-bold">Member Since</span>
+<p class="text-sm font-medium text-on-surface">March 2021</p>
+</div>
+<div>
+<span class="text-[10px] text-slate-400 uppercase font-bold">Total Listings</span>
+<p class="text-sm font-medium text-on-surface">14 Active Units</p>
+</div>
+</div>
+</div>
+<div class="p-6 border border-slate-200 rounded-xl bg-white shadow-sm">
+<h4 class="font-label-sm text-label-sm text-slate-500 uppercase tracking-widest mb-4">Logistics &amp; Range</h4>
+<div class="w-full h-32 bg-slate-200 rounded-lg mb-4 overflow-hidden relative border border-slate-100">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist digital map view of a metropolitan area with a subtle green circular radius highlighted around a central pin. The map design is professional and high-contrast, designed for a high-end logistics dashboard. The lighting is flat and clear for optimal legibility of city names and transport routes." data-location="London" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACgDt3zjcyWVYwXOZL77I1d7k9X78ZLWhaT3d9yXUYrwdnTuwtN0ptwOiYgQq6Up3Yc_3-dQAf2svhPBnlfMCljA8X8LWCmTLuO0hyQIHK9SdoMKX-wl3fE8EUBpJ5-Zo1aIaEIgCMjpH1SIcizZpOpSt5tesmhz0C1KDeS7ZJccv-BdYiYVZA8tmQ6qPow6YOjUjNdNT-7CUDbK96Dde9I3cxrNFulxkZs87FWd7L7Dlr3axnSlm8PH1IpN7_RPpx4wsrqhd1Z1c"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-16 h-16 bg-primary/10 rounded-full border-2 border-primary animate-pulse"></div>
+<div class="w-2 h-2 bg-primary rounded-full absolute"></div>
+</div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500">Delivery Radius</span>
+<span class="font-bold text-primary">50 miles from London</span>
+</div>
+</div>
+</div>
+<!-- Column 2: Equipment & Specs -->
+<div class="space-y-stack-lg">
+<div class="p-6 border border-slate-200 rounded-xl bg-white shadow-sm">
+<h4 class="font-label-sm text-label-sm text-slate-500 uppercase tracking-widest mb-4">Equipment Info</h4>
+<div class="grid grid-cols-2 gap-y-4">
+<div>
+<span class="text-[10px] text-slate-400 uppercase font-bold">Category</span>
+<p class="text-sm font-medium text-on-surface">Backhoe Loader</p>
+</div>
+<div>
+<span class="text-[10px] text-slate-400 uppercase font-bold">Daily Rate</span>
+<p class="text-sm font-bold text-[#1B4332]">£340.00 / day</p>
+</div>
+<div>
+<span class="text-[10px] text-slate-400 uppercase font-bold">Model Year</span>
+<p class="text-sm font-medium text-on-surface">2022</p>
+</div>
+<div>
+<span class="text-[10px] text-slate-400 uppercase font-bold">Hours Used</span>
+<p class="text-sm font-medium text-on-surface">1,240 hrs</p>
+</div>
+</div>
+</div>
+<div class="p-6 border border-slate-200 rounded-xl bg-white shadow-sm">
+<h4 class="font-label-sm text-label-sm text-slate-500 uppercase tracking-widest mb-4">Description</h4>
+<p class="text-body-base font-body-base text-on-surface leading-relaxed">
+                                    Expertly maintained JCB 3CX available for medium to long-term hire. Features advanced EasyControl system, 55kW engine, and standard 4-in-1 bucket. Fully serviced as of June 2023 with complete technical documentation available for inspection.
+                                </p>
+<button class="mt-4 text-primary font-bold text-xs flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">attachment</span>
+                                    VIEW FULL TECH SPECS (PDF)
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Action Bar -->
+<div class="absolute bottom-0 left-0 right-0 p-6 bg-white border-t border-slate-200 flex items-center justify-between gap-4 shadow-[0_-10px_30px_rgba(0,0,0,0.02)]">
+<div class="flex items-center gap-4">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm text-slate-600">Notify owner via email</span>
+</label>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 border border-error text-error font-bold rounded-lg hover:bg-error/5 transition-colors uppercase tracking-wider text-xs">
+                            Reject Listing
+                        </button>
+<button class="px-10 py-3 bg-primary-container text-white font-bold rounded-lg hover:bg-opacity-90 transition-all uppercase tracking-wider text-xs shadow-md active:scale-[0.98]">
+                            Approve &amp; Publish
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

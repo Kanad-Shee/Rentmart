@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#c1ecd4",
+                        "tertiary-fixed-dim": "#f5b7b4",
+                        "surface-variant": "#e2e3e0",
+                        "secondary-fixed-dim": "#c5c6c8",
+                        "surface-bright": "#f9faf6",
+                        "primary-fixed-dim": "#a5d0b9",
+                        "on-tertiary-fixed-variant": "#673a39",
+                        "on-secondary-fixed-variant": "#444749",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#401b1b",
+                        "inverse-surface": "#2f312f",
+                        "on-tertiary-container": "#d29895",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "secondary": "#5c5f60",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1a",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e2e3e0",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1b4332",
+                        "on-primary-fixed-variant": "#274e3d",
+                        "on-secondary-container": "#606365",
+                        "surface-container": "#eeeeeb",
+                        "on-background": "#1a1c1a",
+                        "tertiary-fixed": "#ffdad8",
+                        "secondary-container": "#dee0e2",
+                        "outline-variant": "#c1c8c2",
+                        "surface-tint": "#3f6653",
+                        "on-surface-variant": "#414844",
+                        "on-secondary-fixed": "#191c1e",
+                        "primary": "#012d1d",
+                        "on-tertiary-fixed": "#331111",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f0f1ee",
+                        "on-primary-fixed": "#002114",
+                        "surface-dim": "#dadad7",
+                        "secondary-fixed": "#e1e2e4",
+                        "surface": "#f9faf6",
+                        "surface-container-low": "#f3f4f1",
+                        "on-primary-container": "#86af99",
+                        "background": "#f9faf6",
+                        "outline": "#717973",
+                        "inverse-primary": "#a5d0b9",
+                        "tertiary-container": "#5a302f",
+                        "surface-container-high": "#e8e8e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-page": "64px",
+                        "stack-lg": "32px",
+                        "section-gap": "80px",
+                        "unit": "8px",
+                        "gutter": "32px",
+                        "container-max": "1440px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Inter"], "h1": ["Inter"], "display-xl": ["Inter"], "body-base": ["Inter"], "body-lg": ["Inter"], "caption": ["Inter"], "h2": ["Inter"], "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-heart {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body class="antialiased">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 flex flex-col h-full py-8 px-4 gap-y-2 z-50">
+<div class="mb-10 px-4">
+<span class="text-2xl font-black tracking-tighter text-emerald-900 dark:text-emerald-500">Rentmart</span>
+<p class="font-sans text-sm antialiased text-slate-500">Heavy Machinery Rental</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all font-sans text-sm antialiased" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all font-sans text-sm antialiased" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span>My Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-emerald-900 dark:text-emerald-400 font-semibold border-l-4 border-emerald-900 dark:border-emerald-500 rounded-r-sm font-sans text-sm antialiased" href="#">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span>Saved Machinery</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all font-sans text-sm antialiased" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-slate-200 pt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all font-sans text-sm antialiased" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none z-40">
+<div class="flex items-center justify-between px-8 py-3 w-full max-w-[calc(1440px-256px)] mx-auto">
+<div class="flex-1 max-w-md">
+<div class="relative flex items-center group">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 group-focus-within:text-emerald-900 transition-colors">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-50 border-none rounded-lg focus:ring-1 focus:ring-emerald-900 transition-all font-sans text-sm placeholder:text-slate-400" placeholder="Search saved equipment..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-200 rounded-full relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-emerald-600 rounded-full border-2 border-white"></span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-slate-200">
+<div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-900 font-bold text-xs">JD</div>
+<span class="font-sans text-sm font-medium text-emerald-900">John Doe</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 pb-20 min-h-screen">
+<div class="max-w-[1440px] px-margin-page mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-stack-lg mt-stack-lg">
+<div>
+<h2 class="font-h2 text-h2 text-primary">Saved Machinery</h2>
+<p class="font-body-base text-body-base text-secondary">You have 6 saved items in your wishlist.</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-secondary uppercase">Sort By:</span>
+<div class="relative">
+<select class="appearance-none bg-white border border-slate-200 rounded-lg pl-4 pr-10 py-2 font-body-base text-sm focus:ring-emerald-900 focus:border-emerald-900 cursor-pointer">
+<option>Recently Added</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Machinery Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-white border border-slate-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] group">
+<div class="relative h-56 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A heavy-duty yellow industrial excavator parked on a professional construction site during the golden hour. The lighting is warm and directional, emphasizing the machine's robust hydraulic components and heavy steel frame. The aesthetic is clean, professional, and corporate, reflecting a high-capital marketplace with a forest green and slate grey color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRsrn6SVn2J8GZG7B2Tr7wtiAbzdk399bxSLIoZr6XMZrDV5LSO-VTvqZWHRLFf-hdlQ6FFHRnXvKfYvGcVEtrPVth3Y0jndQ2N_hAs2KZ1sqy3ZTWk-b8HtPh12Vi8n5HLclMlAPz64pHFjzd2e7Ho-TBilLWx02JIPBvUdXxAMxVDTBY0OVfUt9wNV7e0EszTZtCnGQ5kpa1Mlg0aE5gLwxjlO0bSzO-aJA89Vt8vGfQc2PYrGPZ9dVg19YoR8iFjv9fA1RH-sc"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-error shadow-sm hover:bg-white transition-colors">
+<span class="material-symbols-outlined active-heart" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex items-start justify-between mb-2">
+<div>
+<span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 font-label-sm text-[10px] rounded mb-1 uppercase">Excavator</span>
+<h3 class="font-h3 text-h3 text-primary truncate">CAT 320 Next Gen</h3>
+</div>
+<div class="flex items-center text-slate-500 gap-1 text-sm font-body-base">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>12km away</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-label-sm text-sm text-emerald-700">Available Now</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 pt-4">
+<div>
+<span class="font-h3 text-primary">$450</span>
+<span class="text-secondary font-body-base text-sm">/day</span>
+</div>
+<button class="px-4 py-2 border border-emerald-900 text-emerald-900 font-label-sm rounded-lg hover:bg-emerald-50 transition-colors">View &amp; Rent</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white border border-slate-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] group">
+<div class="relative h-56 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Close-up of a premium JCB 3DX Backhoe loader with high-resolution details on its front bucket and cab. The setting is a clean industrial lot with clear blue skies, creating a bright and airy atmosphere. The image uses soft, diffused sunlight to highlight the industrial textures while maintaining a minimalist, high-end marketplace aesthetic consistent with white and emerald tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDe-WB8YELqOVwieYlSVtc-e-uV8FS4h2G7mtnROnNxLcVK1Ixi1GrQdLnh-5iy6dksDSvQrbVid_f3xTBn49MkGlnESp8_7JbKY-eHeuwQJwd9Jx78qa_AMVE3BPWUmnzA1J7ARqTPayIk9c-mka9e9SbvxCJt2Q1LlwqyDsvXMBAoTJzpGPn74v-17f2QS3AP_60ySDSyfTdB7sUPUXCKowVggIh_3Dh1EVWd6PPK0Mwh4PlC1sV2Np7_Fse6zVeNMpwd5CL9qk"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-error shadow-sm hover:bg-white transition-colors">
+<span class="material-symbols-outlined active-heart" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex items-start justify-between mb-2">
+<div>
+<span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 font-label-sm text-[10px] rounded mb-1 uppercase">Backhoe</span>
+<h3 class="font-h3 text-h3 text-primary truncate">JCB 3DX Super</h3>
+</div>
+<div class="flex items-center text-slate-500 gap-1 text-sm font-body-base">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>8km away</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="font-label-sm text-sm text-amber-700">Available Oct 24</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 pt-4">
+<div>
+<span class="font-h3 text-primary">$340</span>
+<span class="text-secondary font-body-base text-sm">/day</span>
+</div>
+<button class="px-4 py-2 border border-emerald-900 text-emerald-900 font-label-sm rounded-lg hover:bg-emerald-50 transition-colors">View &amp; Rent</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white border border-slate-200 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] group">
+<div class="relative h-56 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A modern Bobcat S76 Skid-Steer loader displayed against a minimalist, architectural concrete background. The lighting is high-key and bright, creating a clean light-mode look. The color palette focuses on monochromatic greys and sharp blacks with the machine's signature white body, aligning with a professional procurement platform's branding and sturdiness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCe5jk8YkiWmBx73BvDqJYLinnRPtyt1WiY3WcQHmtG-nvrCafkuZXfIiwIjTszS4nJ8FJovbw6NTQ2PVke8SrUmIEwTFL7p2tVCqNA9ErkBorsLCTBrCvvj0QQ-Bdl4juSPKVumuTN9H-xEPCCafxyHe9OsWYX0e3W6Fip_Qb5PLQdYuzzzge0gjzB1LX3AK0qQ0B-dLRkQkfe3nFqN-CMjULxHNM2HAKxkYTLV7wzamOJbTR9DS7pmQcyELP7VuFW71h6jZ1_kw"/>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-error shadow-sm hover:bg-white transition-colors">
+<span class="material-symbols-outlined active-heart" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex items-start justify-between mb-2">
+<div>
+<span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 font-label-sm text-[10px] rounded mb-1 uppercase">Loader</span>
+<h3 class="font-h3 text-h3 text-primary truncate">Bobcat S76 Skid-Steer</h3>
+</div>
+<div class="flex items-center text-slate-500 gap-1 text-sm font-body-base">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>15km away</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-label-sm text-sm text-emerald-700">Available Now</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-100 pt-4">
+<div>
+<span class="font-h3 text-primary">$210</span>
+<span class="text-secondary font-body-base text-sm">/day</span>
+</div>
+<button class="px-4 py-2 border border-emerald-900 text-emerald-900 font-label-sm rounded-lg hover:bg-emerald-50 transition-colors">View &amp; Rent</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Reference (Bottom) -->
+<div class="mt-section-gap">
+<div class="border-2 border-dashed border-slate-200 rounded-xl p-12 flex flex-col items-center justify-center text-center bg-white/40">
+<div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-stack-md">
+<span class="material-symbols-outlined text-slate-400 text-3xl" data-icon="bookmark">bookmark</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary mb-2">No saved machinery yet</h3>
+<p class="font-body-base text-secondary max-w-sm mb-stack-lg">Build your wishlist for upcoming projects. Browse our marketplace to find the best heavy equipment for your needs.</p>
+<button class="bg-primary-container text-on-primary px-8 py-3 rounded font-label-sm hover:bg-primary transition-all shadow-lg shadow-emerald-900/10 flex items-center gap-2">
+<span>Explore Marketplace</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

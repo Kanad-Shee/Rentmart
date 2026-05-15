@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Listing | Rentmart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "surface": "#f9faf6",
+                    "primary-container": "#1b4332",
+                    "surface-variant": "#e2e3e0",
+                    "secondary-fixed": "#e1e2e4",
+                    "outline-variant": "#c1c8c2",
+                    "primary-fixed": "#c1ecd4",
+                    "primary-fixed-dim": "#a5d0b9",
+                    "inverse-primary": "#a5d0b9",
+                    "surface-container-high": "#e8e8e5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdad8",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#5a302f",
+                    "on-tertiary-container": "#d29895",
+                    "inverse-on-surface": "#f0f1ee",
+                    "surface-dim": "#dadad7",
+                    "inverse-surface": "#2f312f",
+                    "tertiary-fixed-dim": "#f5b7b4",
+                    "surface-container": "#eeeeeb",
+                    "on-secondary-fixed-variant": "#444749",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1a",
+                    "on-primary-fixed-variant": "#274e3d",
+                    "outline": "#717973",
+                    "surface-tint": "#3f6653",
+                    "surface-bright": "#f9faf6",
+                    "on-secondary-fixed": "#191c1e",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#606365",
+                    "background": "#f9faf6",
+                    "on-primary-container": "#86af99",
+                    "primary": "#012d1d",
+                    "secondary-fixed-dim": "#c5c6c8",
+                    "on-tertiary-fixed": "#331111",
+                    "tertiary": "#401b1b",
+                    "error": "#ba1a1a",
+                    "secondary": "#5c5f60",
+                    "on-surface-variant": "#414844",
+                    "secondary-container": "#dee0e2",
+                    "on-primary-fixed": "#002114",
+                    "surface-container-low": "#f3f4f1",
+                    "on-tertiary-fixed-variant": "#673a39",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e2e3e0",
+                    "on-background": "#1a1c1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "container-max": "1440px",
+                    "section-gap": "80px",
+                    "margin-page": "64px",
+                    "stack-lg": "32px",
+                    "gutter": "32px",
+                    "stack-sm": "8px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "h3": ["Inter"],
+                    "h2": ["Inter"],
+                    "caption": ["Inter"],
+                    "body-base": ["Inter"],
+                    "display-xl": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "h1": ["Inter"]
+            },
+            "fontSize": {
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #012d1d !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar -->
+<aside class="w-64 h-screen border-r fixed left-0 top-0 border-slate-200 bg-slate-50 flex flex-col h-full py-8 px-4 z-50 antialiased text-sm font-medium">
+<div class="mb-10 px-2">
+<span class="text-xl font-bold tracking-tight text-emerald-900">Rentmart</span>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Navigation items from JSON -->
+<a class="flex items-center gap-3 p-3 transition-colors duration-200 text-slate-600 hover:text-emerald-900 hover:bg-slate-100 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 p-3 transition-colors duration-200 text-slate-600 hover:text-emerald-900 hover:bg-slate-100 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="construction">construction</span>
+<span>My Equipment</span>
+</a>
+<!-- Active State: Add Listing -->
+<a class="flex items-center gap-3 p-3 transition-colors duration-200 bg-white text-emerald-900 font-semibold shadow-sm ring-1 ring-slate-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="add_box" style="font-variation-settings: 'FILL' 1;">add_box</span>
+<span>Add Listing</span>
+</a>
+<a class="flex items-center gap-3 p-3 transition-colors duration-200 text-slate-600 hover:text-emerald-900 hover:bg-slate-100 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span>Orders</span>
+</a>
+</nav>
+<div class="mt-auto space-y-6">
+<div class="px-2">
+<button class="w-full py-2 bg-primary-container text-on-primary font-semibold rounded-lg text-xs tracking-wide uppercase">Support Center</button>
+</div>
+<div class="space-y-1">
+<a class="flex items-center gap-3 p-3 text-slate-600 hover:text-emerald-900 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-slate-600 hover:text-emerald-900 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+<div class="pt-6 border-t border-slate-200 flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-slate-300 overflow-hidden ring-2 ring-white">
+<img alt="Kanad's Profile Picture" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional male fleet manager in a clean white shirt, soft natural office lighting, blurred modern background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaEtxpufGmgJC__-hrmAPlOHMLJCWGoyNpDJY3HALbspBsn3x_jPed5Tuu7uKsYaeLEsd7t3J34hn_PzwrsdwDp1zTchdM5zlbhRuniWFnfjnMm465aiep0E7EM_JHTkfq3pJ9Zv1O9HjHmMilbG3rmM-eaSjnuIl7qwqfHHb7Ddz4UvJi6FDIgUauGpMFF3YcZAnKwFBdoNcA4pQz_GIHjDkLciXtkSCw1tYH3l1UKwJL8pIofipPfWU1xyMkLUkP_bH2quk_wFI"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Kanad</p>
+<p class="text-xs text-slate-500">Fleet Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="h-16 w-full border-b sticky top-0 z-40 bg-white border-slate-200 flex items-center justify-between px-8 ml-64 max-w-[calc(100%-16rem)]">
+<h1 class="font-h3 text-h3 text-primary">New Listing</h1>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-slate-200 rounded-full text-sm w-64" placeholder="Search orders..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-slate-500">
+<button class="hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 p-margin-page max-w-container-max mx-auto min-h-[calc(100vh-4rem)]">
+<div class="max-w-4xl">
+<!-- Header Text -->
+<div class="mb-stack-lg">
+<h2 class="font-h2 text-h2 text-primary mb-2">Create New Equipment Listing</h2>
+<p class="font-body-base text-secondary">Provide accurate details to ensure your machinery is verified and listed as soon as possible.</p>
+</div>
+<!-- Form Structure -->
+<div class="space-y-stack-lg">
+<!-- Section 1: Basic Details -->
+<section class="bg-white p-stack-lg rounded-xl border border-slate-200 shadow-sm">
+<h3 class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-stack-md flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Basic Details
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="col-span-full">
+<label class="font-label-sm text-label-sm mb-2 block text-on-surface-variant">Listing Title</label>
+<input class="w-full px-4 py-3 border border-outline-variant rounded bg-surface-container-lowest font-body-base" placeholder="e.g., CAT 320 GC Hydraulic Excavator - 2022" type="text"/>
+</div>
+<div>
+<label class="font-label-sm text-label-sm mb-2 block text-on-surface-variant">Category</label>
+<select class="w-full px-4 py-3 border border-outline-variant rounded bg-surface-container-lowest font-body-base appearance-none">
+<option>Select a category</option>
+<option>Tractors</option>
+<option selected="">Excavators</option>
+<option>Loaders</option>
+<option>Generators</option>
+</select>
+</div>
+<div>
+<label class="font-label-sm text-label-sm mb-2 block text-on-surface-variant">Price per day ($)</label>
+<input class="w-full px-4 py-3 border border-outline-variant rounded bg-surface-container-lowest font-body-base" type="number" value="450"/>
+</div>
+</div>
+</section>
+<!-- Section 2: Image Upload Zone -->
+<section class="bg-white p-stack-lg rounded-xl border border-slate-200 shadow-sm">
+<h3 class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-stack-md flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Media &amp; Documentation
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md">
+<div class="md:col-span-2 aspect-[16/9] border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 flex flex-col items-center justify-center p-8 transition-all hover:bg-slate-100 group cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-slate-400 mb-4 group-hover:scale-110 transition-transform" data-icon="cloud_upload">cloud_upload</span>
+<p class="font-body-base font-semibold text-primary">Upload 3 to 5 high-resolution images</p>
+<p class="font-caption text-secondary mt-1 text-center">Drag and drop your files here or click to browse. JPEG, PNG supported (Max 10MB each).</p>
+</div>
+<div class="space-y-stack-md">
+<!-- Currently Uploading Card -->
+<div class="bg-surface-container-low p-stack-md rounded-lg border border-slate-200">
+<div class="flex gap-stack-md items-center mb-3">
+<div class="w-16 h-16 rounded overflow-hidden flex-shrink-0">
+<img alt="Tractor Upload" class="w-full h-full object-cover" data-alt="Close-up of a modern yellow agricultural tractor in a sunny field, sharp focus, industrial design aesthetics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0seKDmF1v5xWQ3gfny0Q_AWTpEVxvTPLuv4r2QezczduAJLl6F7jwu31vuprCaZp0b0ZwUxVH-qzZw2U8rDighOAWdwslEmUpPhbMSjHSwAMdhbQym2kJGQJczUJRoXKElg5XbirDCHXJjFfqb8r-RTO-0MwI5b5WmHusdvwh7OUEG8fgWqrBquVSG_gPyZRzd5wjB2z7E0TQrtnBV-qiWLZzpEp6tqdA0pRfVABBdj63abuD74TYuF1a4YBEOUiXRx0LaEJPA-o"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate">front_view_CAT320.jpg</p>
+<p class="text-xs text-secondary">2.4 MB</p>
+</div>
+<button class="text-slate-400 hover:text-error">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+</button>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-primary-container">Uploading...</span>
+<span class="text-primary-container">75%</span>
+</div>
+<div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 75%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Location & Delivery -->
+<section class="bg-white p-stack-lg rounded-xl border border-slate-200 shadow-sm">
+<h3 class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-stack-md flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Logistics &amp; Availability
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<div class="space-y-stack-md">
+<div>
+<label class="font-label-sm text-label-sm mb-2 block text-on-surface-variant">Pickup Address</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<input class="w-full pl-9 pr-4 py-3 border border-outline-variant rounded bg-surface-container-lowest font-body-base" placeholder="Enter physical location of the equipment" type="text" value="Industrial Estate West, Houston, TX"/>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-4">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Delivery Radius</label>
+<span class="font-label-sm text-primary-container bg-primary-fixed px-2 py-0.5 rounded">45 km</span>
+</div>
+<input class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary-container" max="100" min="0" type="range" value="45"/>
+<div class="flex justify-between text-xs text-slate-400 mt-2">
+<span>0km</span>
+<span>50km</span>
+<span>100km</span>
+</div>
+</div>
+</div>
+<!-- Map UI -->
+<div class="relative h-64 rounded-xl overflow-hidden border border-slate-200">
+<img alt="Location Map" class="w-full h-full object-cover" data-alt="Top-down satellite map view of an industrial area with roads and warehouses, muted colors, professional UI overlay" data-location="Houston" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaAZpf1E00Jf-OxK8AvFE7uWWHxjrN1KDMkX4PU9wUKSSXMGhxO51a8UrRUs0ePjgzakJ-p0geAVoHCVxZdlu_vtFxBiI9ax7wxBi1HsEbf-eVn24cjvPRD1r2brSeHgWMQtFpVobrwsmgrtaPQbQpeYbm7qZuTIkMTNdkimKSHJlA162eE1WXyw3jK81iaY9z4WGYmkwLozMwC6ZqcfJ1CJIR7kBwwc6bJV7DMYs7drZYkDSPPXTKeDxoKyBnCgwaNMa-SCIzeqQ"/>
+<!-- Radius Overlay Simulation -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-32 h-32 rounded-full bg-primary-container/20 border-2 border-primary-container/50 flex items-center justify-center">
+<div class="w-4 h-4 bg-primary-container border-2 border-white rounded-full shadow-lg"></div>
+</div>
+</div>
+<div class="absolute bottom-3 right-3 bg-white px-2 py-1 rounded shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="near_me">near_me</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Live Preview</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Form Actions -->
+<div class="mt-section-gap mb-stack-lg border-t border-slate-200 pt-stack-lg flex items-center justify-between">
+<div>
+<button class="px-6 py-3 font-label-sm text-secondary hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="delete">delete</span> Discard Draft
+                    </button>
+</div>
+<div class="flex gap-stack-md">
+<button class="px-8 py-3 font-label-sm bg-white border border-slate-200 text-primary hover:bg-slate-50 transition-colors rounded-lg font-semibold">
+                        Save as Draft
+                    </button>
+<button class="px-8 py-3 font-label-sm bg-primary-container text-white rounded-lg font-semibold shadow-lg hover:shadow-xl hover:translate-y-[-2px] active:scale-[0.98] transition-all flex items-center gap-2">
+                        Submit for Verification <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed based on rules for Details/Form screens) -->
+</body></html>
