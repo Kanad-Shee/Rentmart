@@ -32,7 +32,7 @@ function formatCurrency(value: number) {
 }
 
 function getImageSrc(booking: BookingSummary) {
-  return booking.equipment.imageUrl ?? "/assets/landing/landing-tractor.png";
+  return booking.equipment.imageUrl ?? "/assets/landing/landing-tractor.webp";
 }
 
 function formatDateRange(startDate: string, endDate: string) {

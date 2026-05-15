@@ -22,7 +22,7 @@ const ownerSteps = [
     step: "STEP 01",
     title: "List Your Machine",
     image:
-      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/list_your_machine.png",
+      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/list_your_machine.webp",
     alt: "Illustration showing a construction machine listed on the platform",
     body: "Upload photos, add commercial specs, define delivery coverage, and publish an equipment page that gives renters the details they need to book with confidence.",
   },
@@ -30,7 +30,7 @@ const ownerSteps = [
     step: "STEP 02",
     title: "Accept Bookings & Verify",
     image:
-      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/accept_bookings.png",
+      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/accept_bookings.webp",
     alt: "Illustration showing booking approval and verification",
     body: "Review incoming rental requests from verified businesses, confirm scheduling, and rely on Rentmart checks to keep identity, communication, and job expectations clear before handoff.",
   },
@@ -38,7 +38,7 @@ const ownerSteps = [
     step: "STEP 03",
     title: "Get Paid Safely",
     image:
-      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/get_paid_safely.png",
+      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/get_paid_safely.webp",
     alt: "Illustration showing secure payment transfer",
     body: "Secure escrow handling and milestone-based releases help owners avoid payment friction while keeping every rental traceable from confirmation through completion.",
   },
@@ -49,7 +49,7 @@ const renterSteps = [
     step: "STEP 01",
     title: "Search & Book Locally",
     image:
-      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/search_and_book_locally.png",
+      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/search_and_book_locally.webp",
     alt: "Illustration showing local equipment search",
     body: "Filter by category, price, availability, and distance to find the right equipment near your project site without waiting on long procurement cycles or uncertain callbacks.",
   },
@@ -57,7 +57,7 @@ const renterSteps = [
     step: "STEP 02",
     title: "Safe Delivery & Handoff",
     image:
-      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/safe_delivery.png",
+      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/safe_delivery.webp",
     alt: "Illustration showing delivery and handoff logistics",
     body: "Coordinate pickup or delivery, document machine condition, and keep both parties aligned on timing, site access, and operating readiness before work begins.",
   },
@@ -65,7 +65,7 @@ const renterSteps = [
     step: "STEP 03",
     title: "Complete the Job",
     image:
-      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/complete_the_job.png",
+      "/assets/rentmart-marketplace-assets/rentmart_about_page_design/complete_the_job.webp",
     alt: "Illustration showing successful equipment use on-site",
     body: "Use dependable equipment to keep the job moving, then close out the rental with a transparent return flow and review system that strengthens future trust.",
   },

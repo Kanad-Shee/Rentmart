@@ -60,7 +60,7 @@ function formatDateRange(startDate: string, endDate: string) {
 }
 
 function getImageSrc(booking: BookingSummary) {
-  return booking.equipment.imageUrl ?? "/assets/landing/landing-tractor.png";
+  return booking.equipment.imageUrl ?? "/assets/landing/landing-tractor.webp";
 }
 
 function normalizeLabel(value: string) {

@@ -208,7 +208,7 @@ export default function SignInPage() {
               <div className='absolute inset-0 rounded-md bg-primary-fixed/40 blur-3xl' />
               <div className='relative h-full w-full overflow-hidden rounded-md border border-[#dce0db] bg-white shadow-[0_20px_50px_rgba(1,45,29,0.08)]'>
                 <Image
-                  src='/assets/landing/harvesting.png'
+                  src='/assets/landing/harvesting.webp'
                   alt='Modern harvester machine'
                   fill
                   priority
