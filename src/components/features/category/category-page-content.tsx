@@ -23,6 +23,7 @@ import type {
 } from "./category-data";
 
 const PAGE_SIZE = 8;
+const DELIVERY_RADIUS_BUCKETS = [10, 25, 50, 100] as const;
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("en-IN", {
@@ -88,13 +89,31 @@ function filterByRadius(listings: EquipmentListing[], radiusValue: string) {
     return listings;
   }
 
-  const parsedRadius = Number.parseInt(radiusValue.replace(/[^\d]/g, ""), 10);
+  const selectedRadius = Number.parseInt(radiusValue.replace(/[^\d]/g, ""), 10);
 
-  if (!Number.isFinite(parsedRadius)) {
+  if (!Number.isFinite(selectedRadius)) {
     return listings;
   }
 
-  return listings.filter((listing) => listing.deliveryRadius <= parsedRadius);
+  const selectedBucketIndex = DELIVERY_RADIUS_BUCKETS.findIndex(
+    (bucket) => bucket === selectedRadius,
+  );
+
+  if (selectedBucketIndex === -1) {
+    return listings;
+  }
+
+  return listings.filter((listing) => {
+    const assignedBucketIndex = DELIVERY_RADIUS_BUCKETS.findIndex(
+      (bucket) => listing.deliveryRadius <= bucket,
+    );
+    const normalizedBucketIndex =
+      assignedBucketIndex === -1
+        ? DELIVERY_RADIUS_BUCKETS.length - 1
+        : assignedBucketIndex;
+
+    return selectedBucketIndex <= normalizedBucketIndex;
+  });
 }
 
 function filterByAvailability(
@@ -276,10 +295,10 @@ export function CategoryPageContent({
         value: radiusValue,
         options: [
           "Any Radius",
-          "Under 10km",
-          "Under 25km",
-          "Under 50km",
-          "Under 100km",
+          "Within 10km",
+          "Within 25km",
+          "Within 50km",
+          "Within 100km",
         ],
       },
       {
