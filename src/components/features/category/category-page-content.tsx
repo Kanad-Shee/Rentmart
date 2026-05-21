@@ -84,18 +84,17 @@ function sortListings(listings: EquipmentListing[], sortValue: string) {
 }
 
 function filterByRadius(listings: EquipmentListing[], radiusValue: string) {
-  switch (radiusValue) {
-    case "Within 10km":
-      return listings.filter((listing) => listing.deliveryRadius <= 10);
-    case "Within 25km":
-      return listings.filter((listing) => listing.deliveryRadius <= 25);
-    case "Within 50km":
-      return listings.filter((listing) => listing.deliveryRadius <= 50);
-    case "Within 100km":
-      return listings.filter((listing) => listing.deliveryRadius <= 100);
-    default:
-      return listings;
+  if (radiusValue === "Any Radius") {
+    return listings;
   }
+
+  const parsedRadius = Number.parseInt(radiusValue.replace(/[^\d]/g, ""), 10);
+
+  if (!Number.isFinite(parsedRadius)) {
+    return listings;
+  }
+
+  return listings.filter((listing) => listing.deliveryRadius <= parsedRadius);
 }
 
 function filterByAvailability(
@@ -277,10 +276,10 @@ export function CategoryPageContent({
         value: radiusValue,
         options: [
           "Any Radius",
-          "Within 10km",
-          "Within 25km",
-          "Within 50km",
-          "Within 100km",
+          "Under 10km",
+          "Under 25km",
+          "Under 50km",
+          "Under 100km",
         ],
       },
       {
