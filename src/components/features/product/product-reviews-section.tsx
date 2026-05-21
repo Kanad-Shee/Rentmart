@@ -2,8 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { Loader2, MessageSquarePlus, Star, Upload, X } from "lucide-react";
+import { ChevronDown, Loader2, MessageSquarePlus, Star, Upload, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -61,6 +60,22 @@ function buildFormFromReview(review: EquipmentReviewSummary | null) {
     rating: review.rating,
     title: review.title,
     description: review.description,
+  };
+}
+
+function buildReviewPreview(description: string, maxWords = 200) {
+  const words = description.trim().split(/\s+/).filter(Boolean);
+
+  if (words.length <= maxWords) {
+    return {
+      text: description.trim(),
+      isTruncated: false,
+    };
+  }
+
+  return {
+    text: `${words.slice(0, maxWords).join(" ")}...`,
+    isTruncated: true,
   };
 }
 
@@ -163,6 +178,73 @@ function NewPhotoChip({
         <X className='h-4 w-4' />
       </button>
     </div>
+  );
+}
+
+function ReviewCard({ review }: { review: EquipmentReviewSummary }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const preview = useMemo(
+    () => buildReviewPreview(review.description, 200),
+    [review.description],
+  );
+
+  return (
+    <article className='flex w-[360px] shrink-0 flex-col rounded border border-[#c1c8c2] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]'>
+      <div className='flex items-center gap-3'>
+        <div className='flex h-10 w-10 items-center justify-center rounded-full bg-[#e8e8e5] text-sm font-semibold text-primary'>
+          {review.renter.fullName.slice(0, 1).toUpperCase()}
+        </div>
+        <div>
+          <p className='text-base font-bold text-[#1a1c1a]'>{review.renter.fullName}</p>
+          <RatingStars rating={review.rating} size='sm' />
+        </div>
+      </div>
+
+      <h3 className='mt-5 text-lg font-semibold text-primary'>{review.title}</h3>
+      <p className='mt-3 text-sm leading-7 text-[#414844]'>
+        {isExpanded ? review.description : preview.text}
+      </p>
+
+      {preview.isTruncated ? (
+        <button
+          type='button'
+          onClick={() => setIsExpanded((current) => !current)}
+          className='mt-3 inline-flex items-center gap-2 self-start text-xs font-semibold uppercase tracking-[0.16em] text-primary transition-colors hover:text-[#274e3d]'
+          aria-expanded={isExpanded}
+        >
+          {isExpanded ? "Show less" : "Read more"}
+          <ChevronDown
+            className={`h-4 w-4 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+          />
+        </button>
+      ) : null}
+
+      {review.images.length > 0 ? (
+        <div className='mt-4 grid grid-cols-3 gap-2'>
+          {review.images.slice(0, 3).map((image) => (
+            <div
+              key={image.id}
+              className='relative h-20 overflow-hidden rounded border border-[#c1c8c2] bg-[#f3f4f1]'
+            >
+              <Image
+                src={image.url}
+                alt={`${review.title} review photo`}
+                fill
+                className='object-cover'
+                unoptimized
+              />
+            </div>
+          ))}
+        </div>
+      ) : null}
+
+      <div className='mt-auto flex items-center justify-between pt-5'>
+        <span className='text-xs text-[#717973]'>{formatLongDate(review.updatedAt)}</span>
+        <span className='text-xs font-semibold uppercase tracking-[0.16em] text-[#5c5f60]'>
+          Verified renter
+        </span>
+      </div>
+    </article>
   );
 }
 
@@ -355,41 +437,6 @@ export function ProductReviewsSection({ product }: { product: EquipmentDetails }
                   {product.reviewCount} global rating{product.reviewCount === 1 ? "" : "s"}
                 </p>
               </div>
-
-              <div>
-                <p className='text-xs font-semibold uppercase tracking-[0.18em] text-[#5c5f60]'>
-                  Reviews With Images
-                </p>
-                <div className='mt-3 flex items-center gap-2'>
-                  {reviewGalleryPhotos.length > 0 ? (
-                    <>
-                      {reviewGalleryPhotos.map((photo) => (
-                        <div
-                          key={photo.id}
-                          className='relative h-12 w-12 overflow-hidden rounded border border-[#c1c8c2] bg-white'
-                        >
-                          <Image
-                            src={photo.url}
-                            alt={photo.title}
-                            fill
-                            className='object-cover'
-                            unoptimized
-                          />
-                        </div>
-                      ))}
-                      {product.reviews.flatMap((review) => review.images).length > 4 ? (
-                        <div className='flex h-12 w-12 items-center justify-center rounded border border-[#c1c8c2] bg-[#eeeeeb] text-xs font-bold text-primary'>
-                          +{product.reviews.flatMap((review) => review.images).length - 4}
-                        </div>
-                      ) : null}
-                    </>
-                  ) : (
-                    <div className='rounded border border-dashed border-[#c1c8c2] px-4 py-3 text-xs text-[#5c5f60]'>
-                      Photos from renters will appear here.
-                    </div>
-                  )}
-                </div>
-              </div>
             </div>
 
             {canOpenModal ? (
@@ -410,17 +457,8 @@ export function ProductReviewsSection({ product }: { product: EquipmentDetails }
             </div>
           ) : null}
 
-          {!viewerState.isLoggedIn ? (
-            <div className='mt-6 flex flex-wrap items-center gap-4 rounded-lg border border-[#c1c8c2] bg-white px-5 py-4'>
-              <p className='text-sm text-[#5c5f60]'>{viewerState.message}</p>
-              <Link
-                href='/sign-in'
-                className='inline-flex items-center rounded bg-[#1b4332] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d]'
-              >
-                Sign in
-              </Link>
-            </div>
-          ) : viewerState.code === "ROLE_NOT_ALLOWED" || viewerState.code === "BOOKING_NOT_COMPLETED" ? (
+          {viewerState.isLoggedIn &&
+          (viewerState.code === "ROLE_NOT_ALLOWED" || viewerState.code === "BOOKING_NOT_COMPLETED") ? (
             <div className='mt-6 rounded-lg border border-[#c1c8c2] bg-white px-5 py-4 text-sm text-[#5c5f60]'>
               {viewerState.message}
             </div>
@@ -430,59 +468,7 @@ export function ProductReviewsSection({ product }: { product: EquipmentDetails }
         <div className='group relative mt-8'>
           <div className='no-scrollbar flex gap-8 overflow-x-auto pb-4'>
             {product.reviews.length > 0 ? (
-              product.reviews.map((review) => (
-                <article
-                  key={review.id}
-                  className='flex w-[360px] shrink-0 flex-col rounded border border-[#c1c8c2] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]'
-                >
-                  <div className='flex items-center gap-3'>
-                    <div className='flex h-10 w-10 items-center justify-center rounded-full bg-[#e8e8e5] text-sm font-semibold text-primary'>
-                      {review.renter.fullName.slice(0, 1).toUpperCase()}
-                    </div>
-                    <div>
-                      <p className='text-base font-bold text-[#1a1c1a]'>
-                        {review.renter.fullName}
-                      </p>
-                      <RatingStars rating={review.rating} size='sm' />
-                    </div>
-                  </div>
-
-                  <h3 className='mt-5 text-lg font-semibold text-primary'>
-                    {review.title}
-                  </h3>
-                  <p className='mt-3 line-clamp-5 text-sm leading-7 text-[#414844]'>
-                    {review.description}
-                  </p>
-
-                  {review.images.length > 0 ? (
-                    <div className='mt-4 grid grid-cols-3 gap-2'>
-                      {review.images.slice(0, 3).map((image) => (
-                        <div
-                          key={image.id}
-                          className='relative h-20 overflow-hidden rounded border border-[#c1c8c2] bg-[#f3f4f1]'
-                        >
-                          <Image
-                            src={image.url}
-                            alt={`${review.title} review photo`}
-                            fill
-                            className='object-cover'
-                            unoptimized
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-
-                  <div className='mt-auto flex items-center justify-between pt-5'>
-                    <span className='text-xs text-[#717973]'>
-                      {formatLongDate(review.updatedAt)}
-                    </span>
-                    <span className='text-xs font-semibold uppercase tracking-[0.16em] text-[#5c5f60]'>
-                      Verified renter
-                    </span>
-                  </div>
-                </article>
-              ))
+              product.reviews.map((review) => <ReviewCard key={review.id} review={review} />)
             ) : (
               <div className='w-full rounded border border-dashed border-[#c1c8c2] bg-white px-6 py-12 text-center text-sm text-[#5c5f60]'>
                 No reviews yet. Completed renters will be able to share the first review here.
@@ -490,6 +476,26 @@ export function ProductReviewsSection({ product }: { product: EquipmentDetails }
             )}
           </div>
         </div>
+
+        {reviewGalleryPhotos.length > 0 ? (
+          <div className='mt-8 border-t border-[#c1c8c2] pt-6'>
+            <div className='flex flex-wrap items-center gap-3'>
+              {reviewGalleryPhotos.map((photo) => (
+                <div
+                  key={photo.id}
+                  className='relative h-16 w-16 overflow-hidden rounded border border-[#c1c8c2] bg-white'
+                >
+                  <Image src={photo.url} alt={photo.title} fill className='object-cover' unoptimized />
+                </div>
+              ))}
+              {product.reviews.flatMap((review) => review.images).length > 4 ? (
+                <div className='flex h-16 w-16 items-center justify-center rounded border border-[#c1c8c2] bg-[#eeeeeb] text-sm font-bold text-primary'>
+                  +{product.reviews.flatMap((review) => review.images).length - 4}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
 
         <div className='mt-8 flex justify-center'>
           <button

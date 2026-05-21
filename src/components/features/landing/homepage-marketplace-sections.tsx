@@ -23,6 +23,8 @@ import type { Category } from "@/lib/category";
 import type { EquipmentListing } from "@/lib/equipment";
 import { type Route } from "next";
 
+const HERO_FALLBACK_IMAGE = "/assets/landing/landing-tractor.webp";
+
 function SectionEyebrow({ children }: { children: string }) {
   return (
     <p className='text-xs font-semibold uppercase tracking-[0.28em] text-[#86af99]'>
@@ -79,6 +81,22 @@ function HeroFeaturedSkeleton() {
         <div className='h-6 w-24 rounded bg-muted' />
         <div className='h-4 w-24 rounded bg-muted' />
       </div>
+    </div>
+  );
+}
+
+function HeroFallbackImage() {
+  return (
+    <div className='absolute inset-0'>
+      <Image
+        src={HERO_FALLBACK_IMAGE}
+        alt='Featured machinery preview'
+        fill
+        priority
+        className='object-cover'
+        sizes='(max-width: 1024px) 100vw, 50vw'
+      />
+      <div className='absolute inset-0 bg-[linear-gradient(180deg,rgba(14,31,24,0.08),rgba(14,31,24,0.18))]' />
     </div>
   );
 }
@@ -583,7 +601,7 @@ export function HomepageMarketplaceSections() {
                     )}
                   </AnimatePresence>
                 ) : featuredEquipmentQuery.isPending ? (
-                  <div className='h-full animate-pulse bg-muted' />
+                  <HeroFallbackImage />
                 ) : (
                   <div className='flex h-full items-center justify-center bg-muted/30 text-sm text-muted-foreground'>
                     New listings coming soon
