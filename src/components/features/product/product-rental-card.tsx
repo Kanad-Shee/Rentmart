@@ -87,6 +87,8 @@ export function ProductRentalCard({
 
   const currentUser = currentUserQuery.data;
   const isGuest = !currentUserQuery.isPending && !currentUser;
+  const showBookingPricingDetails =
+    !currentUserQuery.isPending && Boolean(currentUser);
   const isRenter = currentUser?.role === "RENTER";
   const isPhoneVerified = Boolean(currentUser?.phoneVerified);
   const hasFullRange = Boolean(selectedRange?.from && selectedRange.to);
@@ -184,42 +186,44 @@ export function ProductRentalCard({
         </div>
 
         <div className="mb-6 space-y-4">
-          <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
-            <PopoverTrigger
-              className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/15 px-4 py-4 text-left transition-colors hover:border-primary/30 hover:bg-muted/30"
-              aria-label="Open rental date picker"
-            >
-              <div className="min-w-0">
-                <div className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
-                  <CalendarDays className="h-3.5 w-3.5" />
-                  Rental Dates
+          {showBookingPricingDetails ? (
+            <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+              <PopoverTrigger
+                className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/15 px-4 py-4 text-left transition-colors hover:border-primary/30 hover:bg-muted/30"
+                aria-label="Open rental date picker"
+              >
+                <div className="min-w-0">
+                  <div className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                    <CalendarDays className="h-3.5 w-3.5" />
+                    Rental Dates
+                  </div>
+                  <p className="truncate text-sm font-medium text-foreground">
+                    {formatRangeLabel(selectedRange)}
+                  </p>
                 </div>
-                <p className="truncate text-sm font-medium text-foreground">
-                  {formatRangeLabel(selectedRange)}
-                </p>
-              </div>
-              <CalendarDays className="h-4 w-4 shrink-0 text-primary" />
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <Calendar
-                mode="range"
-                numberOfMonths={2}
-                pagedNavigation
-                selected={selectedRange}
-                onSelect={(range) => {
-                  setSelectedRange(range);
-                  setFeedback(null);
+                <CalendarDays className="h-4 w-4 shrink-0 text-primary" />
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="range"
+                  numberOfMonths={2}
+                  pagedNavigation
+                  selected={selectedRange}
+                  onSelect={(range) => {
+                    setSelectedRange(range);
+                    setFeedback(null);
 
-                  if (range?.from && range.to) {
-                    setCalendarOpen(false);
-                  }
-                }}
-                disabled={{
-                  before: getTodayAtLocalMidnight(),
-                }}
-              />
-            </PopoverContent>
-          </Popover>
+                    if (range?.from && range.to) {
+                      setCalendarOpen(false);
+                    }
+                  }}
+                  disabled={{
+                    before: getTodayAtLocalMidnight(),
+                  }}
+                />
+              </PopoverContent>
+            </Popover>
+          ) : null}
 
           <div className="rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4">
             <div className="flex gap-3">
@@ -277,14 +281,16 @@ export function ProductRentalCard({
               {pricing ? formatCurrency(pricing.securityDeposit) : "Select dates"}
             </span>
           </div>
-          <div className="flex justify-between gap-4 border-t border-border pt-4 text-lg font-semibold text-primary">
-            <span>Total Authorized</span>
-            <span>
-              {pricing
-                ? formatCurrency(pricing.totalAuthorized)
-                : "Select dates"}
-            </span>
-          </div>
+          {showBookingPricingDetails ? (
+            <div className="flex justify-between gap-4 border-t border-border pt-4 text-lg font-semibold text-primary">
+              <span>Total Authorized</span>
+              <span>
+                {pricing
+                  ? formatCurrency(pricing.totalAuthorized)
+                  : "Select dates"}
+              </span>
+            </div>
+          ) : null}
         </div>
 
         <Button

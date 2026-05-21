@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { AlertTriangle } from "lucide-react";
+import { useCurrentUserQuery } from "@/hooks/use-auth";
 import { useCategoriesQuery, useCategoryQuery } from "@/hooks/use-category";
 import { usePublicEquipmentListingsQuery } from "@/hooks/use-equipment";
 import type { EquipmentListing } from "@/lib/equipment";
@@ -247,11 +248,10 @@ function ExploreMoreCategories({
 
 export function CategoryPageContent({
   categoryId,
-  userRole,
 }: {
   categoryId: string;
-  userRole?: string;
 }) {
+  const currentUserQuery = useCurrentUserQuery();
   const categoryQuery = useCategoryQuery(categoryId);
   const categoriesQuery = useCategoriesQuery();
   const equipmentQuery = usePublicEquipmentListingsQuery(categoryId);
@@ -373,6 +373,7 @@ export function CategoryPageContent({
 
   const category = categoryQuery.data;
   const allListingCount = equipmentQuery.data?.length ?? 0;
+  const userRole = currentUserQuery.data?.role;
 
   return (
     <div className='min-h-screen bg-background text-foreground'>

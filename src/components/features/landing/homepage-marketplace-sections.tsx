@@ -386,9 +386,7 @@ export function HomepageMarketplaceSections() {
 
     if (categoryMatch) {
       setSearchError(null);
-      router.push(
-        currentUserQuery.data ? `/category/${categoryMatch.id}` : "/sign-in",
-      );
+      router.push(`/category/${categoryMatch.id}`);
       return;
     }
 

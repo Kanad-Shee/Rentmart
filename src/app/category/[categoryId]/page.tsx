@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { CategoryPageContent } from "@/components/features/category/category-page-content";
-import { requireUser } from "@/lib/user";
 
 type CategoryPageProps = {
   params: Promise<{
@@ -26,7 +25,6 @@ export async function generateMetadata({
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { categoryId } = await params;
-  const { role } = await requireUser();
 
-  return <CategoryPageContent userRole={role} categoryId={categoryId} />;
+  return <CategoryPageContent categoryId={categoryId} />;
 }
