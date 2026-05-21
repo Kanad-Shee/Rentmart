@@ -277,6 +277,7 @@ export function OwnerEquipmentContent() {
         id: listing.id,
         input: {
           title: listing.title,
+          description: listing.description ?? "",
           categoryId: listing.category.id,
           price: listing.price,
           deliveryRadius: listing.deliveryRadius,

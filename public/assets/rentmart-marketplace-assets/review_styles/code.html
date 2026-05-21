@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9faf6;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .star-filled {
+      font-variation-settings: 'FILL' 1;
+      color: #FFB800;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#ffffff",
+            "inverse-primary": "#a5d0b9",
+            "on-tertiary-fixed": "#331111",
+            "surface-bright": "#f9faf6",
+            "primary-fixed": "#c1ecd4",
+            "surface-container-high": "#e8e8e5",
+            "primary-fixed-dim": "#a5d0b9",
+            "surface-variant": "#e2e3e0",
+            "on-primary": "#ffffff",
+            "on-secondary-fixed": "#191c1e",
+            "on-error": "#ffffff",
+            "on-tertiary-container": "#d29895",
+            "surface-container-highest": "#e2e3e0",
+            "outline": "#717973",
+            "primary": "#012d1d",
+            "on-primary-fixed": "#002114",
+            "primary-container": "#1b4332",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed-variant": "#444749",
+            "tertiary-container": "#5a302f",
+            "tertiary-fixed-dim": "#f5b7b4",
+            "on-surface": "#1a1c1a",
+            "on-secondary": "#ffffff",
+            "surface-dim": "#dadad7",
+            "on-tertiary-fixed-variant": "#673a39",
+            "tertiary-fixed": "#ffdad8",
+            "surface": "#f9faf6",
+            "inverse-on-surface": "#f0f1ee",
+            "secondary-fixed": "#e1e2e4",
+            "on-background": "#1a1c1a",
+            "on-secondary-container": "#606365",
+            "background": "#f9faf6",
+            "on-primary-fixed-variant": "#274e3d",
+            "surface-container-low": "#f3f4f1",
+            "error": "#ba1a1a",
+            "surface-tint": "#3f6653",
+            "secondary-container": "#dee0e2",
+            "secondary": "#5c5f60",
+            "on-surface-variant": "#414844",
+            "secondary-fixed-dim": "#c5c6c8",
+            "outline-variant": "#c1c8c2",
+            "inverse-surface": "#2f312f",
+            "error-container": "#ffdad6",
+            "tertiary": "#401b1b",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#86af99",
+            "surface-container": "#eeeeeb"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "unit": "8px",
+            "stack-lg": "32px",
+            "stack-sm": "8px",
+            "stack-md": "16px",
+            "margin-page": "64px",
+            "gutter": "32px",
+            "container-max": "1440px",
+            "section-gap": "80px"
+          },
+          "fontSize": {
+            "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+            "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
+            "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }</style></head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar Implementation from JSON -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-page max-w-container-max mx-auto h-20 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-stack-lg">
+<span class="font-h3 text-h3 font-bold tracking-tight text-primary">HEAVYRENT</span>
+<nav class="hidden md:flex items-center gap-stack-md ml-stack-lg">
+<a class="font-body-base text-body-base text-on-surface-variant hover:text-primary-container transition-colors duration-200" href="#">Marketplace</a>
+<a class="font-body-base text-body-base text-on-surface-variant hover:text-primary-container transition-colors duration-200" href="#">Categories</a>
+<a class="font-body-base text-body-base text-on-surface-variant hover:text-primary-container transition-colors duration-200" href="#">Fleet</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="font-body-base text-body-base text-on-surface-variant hover:text-primary transition-colors">Sign In</button>
+<button class="bg-primary-container text-on-primary px-stack-md py-2 rounded font-body-base hover:opacity-90 active:opacity-80 transition-all">List Machinery</button>
+</div>
+</header>
+<main class="pt-20">
+<!-- Customer Reviews Section Container -->
+<section class="bg-surface-container-low py-section-gap">
+<div class="max-w-container-max mx-auto px-margin-page"><!-- Header Area: Rating + Photos + Add Button -->
+<div class="flex flex-col lg:flex-row justify-between items-end gap-stack-lg mb-stack-lg border-b border-outline-variant pb-stack-lg">
+<div class="flex flex-col md:flex-row items-start md:items-center gap-stack-lg">
+<!-- Aggregate Rating -->
+<div class="flex flex-col">
+<h2 class="font-h3 text-h3 text-primary mb-1">Customer Reviews</h2>
+<div class="flex items-center gap-2">
+<div class="flex items-center">
+<span class="material-symbols-outlined star-filled text-[20px]">star</span>
+<span class="material-symbols-outlined star-filled text-[20px]">star</span>
+<span class="material-symbols-outlined star-filled text-[20px]">star</span>
+<span class="material-symbols-outlined star-filled text-[20px]">star</span>
+<span class="material-symbols-outlined star-filled text-[20px] opacity-50">star_half</span>
+</div>
+<span class="font-h3 text-primary">4.8 out of 5</span>
+</div>
+<span class="font-caption text-on-surface-variant">24 global ratings</span>
+</div>
+<!-- Customer Photos Gallery -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm uppercase text-on-surface-variant">Reviews with images</span>
+<div class="flex gap-2">
+<img class="w-12 h-12 object-cover rounded border border-outline-variant hover:opacity-80 cursor-pointer transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0ujqfVZ9FycKPhMJKxaaXdMVpdhE9DOyyUQJ6GhMx1n05aaWPHt_0Wsu5_lke7EK5PMl9lpW1-VAG_GAKBl1tZUAn2y-JcE4zMYW2oiO0D5je7dNJCPuHscLdapix0pbzSkIZY3eWK27KZRMPjG4fs5ou9d9yzoYbReQxWZuSUpDKqdPm2RqJ185UQgEFSs7UHxm8APApAutD_ahSRDhl_7MH5sDq7om6iupSDcWyeSCisQuZOKYsPG_uXM"/>
+<img class="w-12 h-12 object-cover rounded border border-outline-variant hover:opacity-80 cursor-pointer transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiaqFX7dpa88imqjM6Bhxi6fHMA9xc9h8AabVCdKEx7heEusKbGN3uI1q54cg8v_QtxsugG4ckDBxm6YMWzGxGJWlI80jbwvj7zHA8xSKZi9eOaULqpLwvvg8eUigVWIHeFAOSvDhdw94hv9iivpG87UCJNpHUdAoXZqb9EVjeE6oy0RTPERv8ylhSGTWZLKTowp3wl5DmQtNDqPmZkTm7gWbMYrK86Hp4HQIxZXZoiwxms90oxBn88HxNASp5UBQNysEH0ODzUrQ"/>
+<img class="w-12 h-12 object-cover rounded border border-outline-variant hover:opacity-80 cursor-pointer transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO5xN-RUCfBrdtnDl8Nlz4YSBd6m1ReU1-8l9gMzEYLhWjQnP28Iu5RRACcYHhjSPR5RSqLmpJsdq3K1GfL8Xsf_EMse7CJXWkAxcmJXNtCANbV8QsIvi1DvtWVNrpnsQeY9na0zU13jpRHt08wwNxNe-emjHK97s9JmW7UQeNF4TnQRW5sJ7Q9e3qCh6Nk9jb6n7L9CJqY6x-YgS8Rg6AROwcX4dOWJJUaykBoAkKipi_C2zRldxqxjGWWivM0LR6J24VF7j2sXA"/>
+<div class="w-12 h-12 rounded border border-outline-variant bg-surface-container flex items-center justify-center text-primary font-bold cursor-pointer hover:bg-surface-variant transition-colors">
+<span class="text-xs">+5</span>
+</div>
+</div>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary px-stack-lg py-stack-md rounded font-label-sm uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+    Add Your Review
+  </button>
+</div>
+<!-- Horizontal Review Scroll -->
+<div class="relative group">
+<!-- Nav Arrows -->
+<button class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 bg-surface border border-outline-variant rounded-full flex items-center justify-center shadow-md hover:bg-surface-container opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">chevron_left</span>
+</button>
+<button class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 bg-surface border border-outline-variant rounded-full flex items-center justify-center shadow-md hover:bg-surface-container opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</button>
+<!-- The Row -->
+<div class="flex overflow-x-auto gap-gutter pb-4 no-scrollbar scroll-smooth">
+<!-- Card 1 -->
+<div class="flex-shrink-0 w-[400px] bg-surface-container-lowest border border-outline-variant rounded p-stack-lg flex flex-col gap-3 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr4nZyyF03jho_sMoY6xHKjuiFCA-D4Ie3A_I6zG6I3hK5BwZ0-wT-oLWMcApvYxzzZtRDP8raOfIGdDX75oB8V-ZgMpqk9OKJAxzHLJ8lFmAmm_c6l8ei-zGyB3qnvaE8kaCWTzvV03o7qQv2xz8U0LsbeTMVtIEPDOaremfrSibvPMr3fR56x9HIFPTcH_K1o1l60_X_saoQuK51vPzN9OGUqC-VGThNy30u1ZNDTCal22S67SubUFAXN1W69wiUw5HCoX6jK4g"/>
+<div>
+<h4 class="font-body-base font-bold text-on-surface">Marcus Thorne</h4>
+<div class="flex items-center text-[14px]">
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+</div>
+</div>
+</div>
+<p class="font-body-base text-on-surface-variant line-clamp-4">The excavator was delivered on time and operated perfectly for our trenching project. Hydraulic response was crisp and the cab climate control made a huge difference.</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-caption text-on-surface-variant">Oct 12, 2023</span>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">thumb_up</span>
+<span class="font-caption">12</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex-shrink-0 w-[400px] bg-surface-container-lowest border border-outline-variant rounded p-stack-lg flex flex-col gap-3 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT8dFTr0mhOw1PRuQLJO2PWc9S_DIVlB98Ln7C8xkgQWeJf2-M_zjFnzYQUNL6vQNb40_QXtzpdnFu7ZYOOm0lW32581YtIMfvvbt7SOUghwcp2PIN5465DUk38Q2gQf6ji26T2gqZW_7jznuRE-UWki6p9KFZmJGw6WJdxvEpgAkrtkL8myjZ2VDDOTgzGqdw4proTZyLBlqQsy73svQcKwGxPSeqXq4O_uRbk2tMzrNN0KYZjXt-lZAMCptc2QolYEbiCVQCrzo"/>
+<div>
+<h4 class="font-body-base font-bold text-on-surface">Sarah Jenkins</h4>
+<div class="flex items-center text-[14px]">
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined text-outline-variant">star</span>
+</div>
+</div>
+</div>
+<p class="font-body-base text-on-surface-variant line-clamp-4">Solid machine performance. We used this for a 3-day foundation pour and it didn't skip a beat. Logistics were handled professionally.</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-caption text-on-surface-variant">Sep 28, 2023</span>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">thumb_up</span>
+<span class="font-caption">4</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="flex-shrink-0 w-[400px] bg-surface-container-lowest border border-outline-variant rounded p-stack-lg flex flex-col gap-3 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaafLjGxdasZFcUTxc3ziXkHlkX2jkVdECLsA6rvXbBrtBLHUAgkfmaKjSTZq1kKoCb6OYOkSyMzK_k6YR8iRtjWe6w2MjcDwUFs9iOKaQlXSDaEgQPs-ldl3LvkB_b7eYbRUxvxCiy7IOn1l9ZQWUoj-91XeglrUkPcLVmwCriM4JdgVRpuHwC1MWtNRCvhdZgHUVwoTTNVHcPEgYYl2U1HtNsiKb5ikoLnrrH5tQGjduyzovLb59Vmy8mS7BsO-mOR2V2UyPocI"/>
+<div>
+<h4 class="font-body-base font-bold text-on-surface">David Chen</h4>
+<div class="flex items-center text-[14px]">
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+</div>
+</div>
+</div>
+<p class="font-body-base text-on-surface-variant line-clamp-4">Exceptional fuel efficiency for this model class. Our operators found the interface intuitive which reduced onboarding time significantly. The return process was seamless.</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-caption text-on-surface-variant">Aug 15, 2023</span>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">thumb_up</span>
+<span class="font-caption">8</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="flex-shrink-0 w-[400px] bg-surface-container-lowest border border-outline-variant rounded p-stack-lg flex flex-col gap-3 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrjEVn3JG6n45TGlmi27uTQMX8I-lsRu4I8UUwcXfheIGTUst11teAqvrfkEJqOfaQJ3NfEegMWU1M6LWRbdhmNSLYtVAG4vqO4eOoJHMUtPWjR_5Ntruqz36tRhIA5Sww-1wkGRg7lZ9JFNbkmSV6QzI2tBqG5yiiXkwRjmphDm7PyWYWI0y5DcSsDQGh5mTLj4FbBkyLrTnAV0GUsbOuqZHilOSmHRTuO7YFARPreHAYe7Sx6BrCev0xbeQchPrFfma4n_L1XC0"/>
+<div>
+<h4 class="font-body-base font-bold text-on-surface">Elena Rodriguez</h4>
+<div class="flex items-center text-[14px]">
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+<span class="material-symbols-outlined star-filled">star</span>
+</div>
+</div>
+</div>
+<p class="font-body-base text-on-surface-variant line-clamp-4">Highly satisfied with the maintenance records provided. Knowing the machine was serviced just 10 hours before our rental gave us peace of mind.</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-caption text-on-surface-variant">July 22, 2023</span>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">thumb_up</span>
+<span class="font-caption">15</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Pagination -->
+<div class="mt-stack-lg flex justify-center">
+<button class="text-primary font-label-sm uppercase tracking-wider hover:underline flex items-center gap-2">
+    View All 24 Reviews
+    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div></div>
+</section>
+</main>
+<!-- Footer Implementation from JSON -->
+<footer class="bg-surface-container-low border-t border-outline-variant">
+<div class="w-full py-stack-lg px-margin-page max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-stack-md">
+<div class="flex flex-col gap-2 text-center md:text-left">
+<span class="font-h2 text-h2 font-bold text-primary">HEAVYRENT</span>
+<p class="font-caption text-caption text-on-surface-variant">© 2024 HeavyRent Industrial Marketplace. Built for heavy-duty reliability.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-stack-md">
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-all" href="#">Terms of Service</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-all" href="#">Privacy Policy</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-all" href="#">Support</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-all" href="#">Help Center</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-all" href="#">Contact Us</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-all" href="#">Fleet Partners</a>
+</div>
+</div>
+</footer>
+<script>
+    // Micro-interaction for buttons
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('mousedown', () => btn.classList.add('scale-[0.98]'));
+      btn.addEventListener('mouseup', () => btn.classList.remove('scale-[0.98]'));
+      btn.addEventListener('mouseleave', () => btn.classList.remove('scale-[0.98]'));
+    });
+
+    // Helpful count simulation
+    const helpfulBtns = document.querySelectorAll('.group');
+    helpfulBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const span = this.querySelector('.font-caption');
+        const match = span.innerText.match(/\d+/);
+        if (match && !this.dataset.voted) {
+          const newVal = parseInt(match[0]) + 1;
+          span.innerText = `Helpful (${newVal})`;
+          this.dataset.voted = "true";
+          this.style.color = "var(--primary)";
+        }
+      });
+    });
+  </script>
+</body></html>

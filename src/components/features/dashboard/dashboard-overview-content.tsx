@@ -192,7 +192,7 @@ function RenterOverview() {
         <SectionTitle
           eyebrow='Renter Workspace'
           title='Rental Overview'
-          description='Keep an eye on approvals, Razorpay payment steps, active rentals, wishlisted machines, and new updates from owners.'
+          description='Keep an eye on approvals, Cashfree payment steps, active rentals, wishlisted machines, and new updates from owners.'
         />
       </motion.div>
 
@@ -213,7 +213,7 @@ function RenterOverview() {
           {
             label: "Payment Needed",
             value: String(stats.waitingOnPayment),
-            helper: "Approved requests waiting on your Razorpay payment step.",
+            helper: "Approved requests waiting on your Cashfree payment step.",
           },
           {
             label: "Saved Machines",
@@ -366,7 +366,7 @@ function RenterOverview() {
                 <p className='mt-1 text-sm leading-6 text-muted-foreground'>
                   {stats.waitingOnPayment > 0
                     ? `${stats.waitingOnPayment} approved booking${stats.waitingOnPayment === 1 ? "" : "s"} need your next step.`
-                    : "No approved requests are waiting on your Razorpay payment confirmation."}
+                    : "No approved requests are waiting on your Cashfree payment confirmation."}
                 </p>
               </div>
             </div>

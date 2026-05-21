@@ -10,8 +10,6 @@ export type AdminPaymentEvent = {
   payload: unknown;
   linkedOrderId: string | null;
   linkedPaymentId: string | null;
-  linkedTransferId: string | null;
-  linkedRefundId: string | null;
   linkedBooking: {
     id: string;
     equipmentTitle: string;

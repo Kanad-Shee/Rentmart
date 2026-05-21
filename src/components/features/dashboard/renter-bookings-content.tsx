@@ -87,30 +87,11 @@ function getPaymentDeadlineLabel(deadline: string | null) {
   return `Pay within ${formatDistanceToNowStrict(deadlineDate)}`;
 }
 
-type RazorpayCheckoutInstance = {
-  open: () => void;
-};
-
-type RazorpayCheckoutOptions = {
-  key: string;
-  amount: number;
-  currency: string;
-  name: string;
-  description: string;
-  order_id: string;
-  handler: (response: {
-    razorpay_order_id: string;
-    razorpay_payment_id: string;
-    razorpay_signature: string;
-  }) => void | Promise<void>;
-  prefill?: {
-    name?: string;
-    email?: string;
-    contact?: string;
-  };
-  theme?: {
-    color?: string;
-  };
+type CashfreeCheckoutInstance = {
+  checkout: (options: {
+    paymentSessionId: string;
+    redirectTarget?: "_self" | "_blank" | "_top" | "_modal";
+  }) => Promise<unknown>;
 };
 
 function SectionHeader({
@@ -336,68 +317,57 @@ export function RenterBookingsContent() {
     try {
       const order = await completePaymentMutation.mutateAsync(booking.id);
       const checkoutWindow = window as Window & {
-        Razorpay?: new (
-          options: RazorpayCheckoutOptions,
-        ) => RazorpayCheckoutInstance;
+        Cashfree?: (options: {
+          mode: "sandbox" | "production";
+        }) => CashfreeCheckoutInstance;
       };
 
-      if (!checkoutWindow.Razorpay) {
-        throw new Error("Razorpay Checkout is not available yet.");
+      if (!checkoutWindow.Cashfree) {
+        throw new Error("Cashfree Checkout is not available yet.");
       }
 
-      const razorpay = new checkoutWindow.Razorpay({
-        key: order.keyId,
-        amount: order.amount,
-        currency: order.currency,
-        name: "RentMart",
-        description: order.description,
-        order_id: order.orderId,
-        handler: async (response) => {
-          try {
-            await verifyPaymentMutation.mutateAsync({
-              bookingId: booking.id,
-              input: {
-                razorpayOrderId: response.razorpay_order_id,
-                razorpayPaymentId: response.razorpay_payment_id,
-                razorpaySignature: response.razorpay_signature,
-              },
-            });
-
-            await bookingsQuery.refetch();
-            setFeedback(
-              "Payment received. Your booking is syncing with Razorpay and should appear as confirmed shortly.",
-            );
-          } catch (error) {
-            if (
-              error instanceof ApiError &&
-              error.code === "INVALID_BOOKING_STATUS"
-            ) {
-              await bookingsQuery.refetch();
-              setFeedback(
-                "Payment received and your booking is already being confirmed. Refreshing the latest status now.",
-              );
-              return;
-            }
-
-            throw error;
-          }
-        },
-        prefill: {
-          name: order.renterName,
-          email: order.renterEmail,
-          contact: order.renterPhone ?? undefined,
-        },
-        theme: {
-          color: "#1b4332",
-        },
+      const cashfree = checkoutWindow.Cashfree({
+        mode: order.environment,
       });
 
-      razorpay.open();
+      await cashfree.checkout({
+        paymentSessionId: order.paymentSessionId,
+        redirectTarget: "_modal",
+      });
+
+      try {
+        const updatedBooking = await verifyPaymentMutation.mutateAsync({
+          bookingId: booking.id,
+          input: {
+            cashfreeOrderId: order.orderId,
+          },
+        });
+
+        await bookingsQuery.refetch();
+        setFeedback(
+          updatedBooking.status === "CONFIRMED"
+            ? "Payment received. Your booking is confirmed."
+            : "Payment step completed. We’re checking the latest Cashfree status now.",
+        );
+      } catch (error) {
+        if (
+          error instanceof ApiError &&
+          error.code === "INVALID_BOOKING_STATUS"
+        ) {
+          await bookingsQuery.refetch();
+          setFeedback(
+            "Payment received and your booking is already being confirmed. Refreshing the latest status now.",
+          );
+          return;
+        }
+
+        throw error;
+      }
     } catch (error) {
       setFeedback(
         error instanceof ApiError
           ? error.message
-          : "We could not start Razorpay checkout right now.",
+          : "We could not start Cashfree checkout right now.",
       );
     } finally {
       setActivePaymentBookingId(null);
@@ -407,7 +377,7 @@ export function RenterBookingsContent() {
   return (
     <section className='space-y-16'>
       <Script
-        src='https://checkout.razorpay.com/v1/checkout.js'
+        src='https://sdk.cashfree.com/js/v3/cashfree.js'
         strategy='afterInteractive'
       />
       <div className='flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between'>
@@ -416,7 +386,7 @@ export function RenterBookingsContent() {
             My Bookings
           </h1>
           <p className='mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]'>
-            Track owner approvals, complete Razorpay checkout when a request is
+            Track owner approvals, complete Cashfree checkout when a request is
             accepted, and follow your rental progress until the admin settles
             owner payout and your deposit refund.
           </p>
@@ -475,7 +445,7 @@ export function RenterBookingsContent() {
                           <p className='mt-1 text-xs leading-6 text-muted-foreground'>
                             No payment hold is placed yet. If the owner
                             approves, you will get a 1-hour window to complete
-                            payment in Razorpay.
+                            payment in Cashfree.
                           </p>
                         </div>
                       </div>
@@ -493,7 +463,7 @@ export function RenterBookingsContent() {
           <section className='space-y-6'>
             <SectionHeader
               title='Complete Payment'
-              description='When an owner approves your request, the dates stay reserved for 1 hour while you complete Razorpay checkout.'
+              description='When an owner approves your request, the dates stay reserved for 1 hour while you complete Cashfree checkout.'
               count={groupedBookings.awaitingPayment.length}
             />
 
@@ -516,7 +486,7 @@ export function RenterBookingsContent() {
                           <p className='mt-1 text-xs leading-6 text-[#7c5a00]'>
                             These dates are reserved for you until the payment
                             window ends. Your booking will be confirmed only
-                            after Razorpay payment verification completes, and
+                            after Cashfree payment confirmation completes, and
                             the deposit will be refunded manually by admin after
                             a safe return.
                           </p>
@@ -544,7 +514,7 @@ export function RenterBookingsContent() {
                         activePaymentBookingId === booking.id ? (
                           <Loader2 className='h-4 w-4 animate-spin' />
                         ) : null}
-                        Pay with Razorpay
+                        Pay with Cashfree
                       </button>
                     }
                   />

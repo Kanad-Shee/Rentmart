@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   approveEquipment,
+  createEquipmentReview,
   createEquipment,
   deleteOwnerEquipment,
   equipmentQueryKeys,
@@ -10,6 +11,7 @@ import {
   getAddressLocationByPlaceId,
   getAddressSuggestions,
   getFeaturedEquipment,
+  getEquipmentReviews,
   getMyEquipment,
   getPendingEquipment,
   getPublicEquipment,
@@ -17,12 +19,15 @@ import {
   rejectEquipment,
   saveDraftEquipment,
   submitOwnerEquipment,
+  updateEquipmentReview,
+  type CreateEquipmentReviewInput,
   type AddressSuggestionsInput,
   type CreateEquipmentInput,
   type GeocodeEquipmentInput,
   type PlaceIdInput,
   type RejectEquipmentInput,
   type SaveDraftEquipmentInput,
+  type UpdateEquipmentReviewInput,
   type UpdateEquipmentInput,
   updateOwnerEquipment,
 } from "@/lib/equipment";
@@ -67,6 +72,15 @@ export function usePublicEquipmentQuery(id: string, enabled = true) {
     queryFn: () => getPublicEquipmentById(id),
     enabled: enabled && id.trim().length > 0,
     staleTime: 60 * 1000,
+  });
+}
+
+export function useEquipmentReviewsQuery(id: string, enabled = true) {
+  return useQuery({
+    queryKey: [...equipmentQueryKeys.publicListing(id), "reviews"],
+    queryFn: () => getEquipmentReviews(id),
+    enabled: enabled && id.trim().length > 0,
+    staleTime: 30 * 1000,
   });
 }
 
@@ -157,6 +171,30 @@ export function useRejectEquipmentMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.pendingListings });
       queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.ownerListings });
+    },
+  });
+}
+
+export function useCreateEquipmentReviewMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, input }: { id: string; input: CreateEquipmentReviewInput }) =>
+      createEquipmentReview(id, input),
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.publicListing(variables.id) });
+    },
+  });
+}
+
+export function useUpdateEquipmentReviewMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, input }: { id: string; input: UpdateEquipmentReviewInput }) =>
+      updateEquipmentReview(id, input),
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.publicListing(variables.id) });
     },
   });
 }

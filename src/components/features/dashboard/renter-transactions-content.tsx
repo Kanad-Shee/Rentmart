@@ -30,7 +30,7 @@ function getPaymentStateLabel(booking: BookingSummary) {
   }
 
   if (booking.status === "PENDING_RENTER_PAYMENT") {
-    return "Razorpay checkout needed";
+    return "Cashfree checkout needed";
   }
 
   if (booking.status === "DISPUTED") {
@@ -186,7 +186,7 @@ export function RenterTransactionsContent() {
         <SummaryCard
           label='Needs Action'
           value={String(totals.actionNeeded)}
-          helper='Requests still waiting on an owner response or your Razorpay payment step.'
+          helper='Requests still waiting on an owner response or your Cashfree payment step.'
         />
       </div>
 

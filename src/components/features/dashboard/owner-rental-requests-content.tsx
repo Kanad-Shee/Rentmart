@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { formatDistanceToNowStrict } from "date-fns";
 import { motion, useReducedMotion } from "motion/react";
@@ -10,6 +10,8 @@ import {
   Loader2,
   MapPin,
   ShieldCheck,
+  Upload,
+  X,
 } from "lucide-react";
 import {
   useApproveBookingMutation,
@@ -19,9 +21,25 @@ import {
   useRejectBookingMutation,
   useStartBookingMutation,
 } from "@/hooks/use-bookings";
-import { getBookingProgress, type BookingSummary } from "@/lib/booking";
+import {
+  canOwnerCompleteBooking,
+  canOwnerDisputeBooking,
+  getBookingProgress,
+  hasBookingWindowEnded,
+  type BookingDisputeImageSummary,
+  type BookingSummary,
+} from "@/lib/booking";
 import { ApiError } from "@/lib/http";
 import { getDashboardRevealProps } from "./dashboard-motion";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogDismissButton,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-IN", {
@@ -115,6 +133,46 @@ function EmptyState({ message }: { message: string }) {
   return (
     <div className='rounded-xl border border-dashed border-[#d8dfdb] bg-white px-6 py-12 text-center text-sm text-[#5c5f60]'>
       {message}
+    </div>
+  );
+}
+
+type LocalPhotoPreview = {
+  id: string;
+  url: string;
+  file: File;
+};
+
+function ExistingDisputePhoto({
+  photo,
+}: {
+  photo: BookingDisputeImageSummary;
+}) {
+  return (
+    <div className='relative h-24 overflow-hidden rounded-xl border border-[#d8dfdb] bg-[#eef2ed]'>
+      <Image src={photo.url} alt='Dispute evidence' fill className='object-cover' unoptimized />
+    </div>
+  );
+}
+
+function NewDisputePhoto({
+  preview,
+  onRemove,
+}: {
+  preview: LocalPhotoPreview;
+  onRemove: () => void;
+}) {
+  return (
+    <div className='relative h-24 overflow-hidden rounded-xl border border-[#d8dfdb] bg-[#eef2ed]'>
+      <Image src={preview.url} alt='New dispute upload' fill className='object-cover' unoptimized />
+      <button
+        type='button'
+        onClick={onRemove}
+        className='absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-primary shadow-sm'
+        aria-label='Remove dispute photo'
+      >
+        <X className='h-4 w-4' />
+      </button>
     </div>
   );
 }
@@ -257,9 +315,11 @@ export function OwnerRentalRequestsContent() {
   const [rejectReasons, setRejectReasons] = useState<Record<string, string>>(
     {},
   );
-  const [disputeReasons, setDisputeReasons] = useState<Record<string, string>>(
-    {},
-  );
+  const [disputeBooking, setDisputeBooking] = useState<BookingSummary | null>(null);
+  const [disputeReason, setDisputeReason] = useState("");
+  const [disputePhotos, setDisputePhotos] = useState<LocalPhotoPreview[]>([]);
+  const [disputeModalError, setDisputeModalError] = useState<string | null>(null);
+  const latestDisputePhotosRef = useRef<LocalPhotoPreview[]>([]);
 
   const bookings = useMemo(
     () => bookingsQuery.data ?? [],
@@ -287,13 +347,76 @@ export function OwnerRentalRequestsContent() {
     [bookings],
   );
 
+  useEffect(() => {
+    latestDisputePhotosRef.current = disputePhotos;
+  }, [disputePhotos]);
+
+  useEffect(() => {
+    return () => {
+      for (const photo of latestDisputePhotosRef.current) {
+        URL.revokeObjectURL(photo.url);
+      }
+    };
+  }, []);
+
+  function resetDisputeModal() {
+    setDisputeModalError(null);
+    setDisputeReason("");
+    setDisputeBooking(null);
+    setDisputePhotos((current) => {
+      current.forEach((photo) => URL.revokeObjectURL(photo.url));
+      return [];
+    });
+  }
+
+  function openDisputeModal(booking: BookingSummary) {
+    setFeedback(null);
+    setActionError(null);
+    setDisputeModalError(null);
+    setDisputeReason(booking.disputeReason ?? "");
+    setDisputeBooking(booking);
+    setDisputePhotos((current) => {
+      current.forEach((photo) => URL.revokeObjectURL(photo.url));
+      return [];
+    });
+  }
+
+  function handleDisputeFilesSelected(fileList: FileList | null) {
+    if (!fileList) {
+      return;
+    }
+
+    const remainingSlots = Math.max(0, 5 - disputePhotos.length);
+    const nextFiles = Array.from(fileList).slice(0, remainingSlots);
+    const nextPreviews = nextFiles.map((file) => ({
+      id: `${file.name}_${file.lastModified}_${Math.random().toString(36).slice(2)}`,
+      url: URL.createObjectURL(file),
+      file,
+    }));
+
+    setDisputeModalError(null);
+    setDisputePhotos((current) => [...current, ...nextPreviews]);
+  }
+
+  function removeDisputePhoto(id: string) {
+    setDisputePhotos((current) => {
+      const target = current.find((photo) => photo.id === id);
+
+      if (target) {
+        URL.revokeObjectURL(target.url);
+      }
+
+      return current.filter((photo) => photo.id !== id);
+    });
+  }
+
   async function handleApprove(bookingId: string) {
     setFeedback(null);
     setActionError(null);
     try {
       await approveMutation.mutateAsync(bookingId);
       setFeedback(
-        "Booking approved. The renter can now complete Razorpay checkout.",
+        "Booking approved. The renter can now complete Cashfree checkout.",
       );
     } catch (error) {
       setActionError(
@@ -360,21 +483,33 @@ export function OwnerRentalRequestsContent() {
     }
   }
 
-  async function handleDispute(bookingId: string) {
+  async function handleDispute() {
+    if (!disputeBooking) {
+      return;
+    }
+
     setFeedback(null);
     setActionError(null);
-    const reason = disputeReasons[bookingId]?.trim() ?? "";
+    setDisputeModalError(null);
+    const reason = disputeReason.trim();
 
     if (reason.length < 5) {
-      setActionError("Add a short dispute reason before reporting damage.");
+      setDisputeModalError("Add a short dispute reason before reporting damage.");
       return;
     }
 
     try {
-      await disputeMutation.mutateAsync({ bookingId, reason });
+      await disputeMutation.mutateAsync({
+        bookingId: disputeBooking.id,
+        input: {
+          reason,
+          photos: disputePhotos.map((photo) => photo.file),
+        },
+      });
+      resetDisputeModal();
       setFeedback("Damage dispute opened for this booking.");
     } catch (error) {
-      setActionError(
+      setDisputeModalError(
         error instanceof ApiError
           ? error.message
           : "Unable to dispute this booking.",
@@ -484,7 +619,7 @@ export function OwnerRentalRequestsContent() {
           <section className='space-y-6'>
             <SectionHeader
               title='Waiting For Renter Payment'
-              description='Approved requests remain reserved here while renters complete Razorpay checkout.'
+              description='Approved requests remain reserved here while renters complete Cashfree checkout.'
               count={grouped.awaitingPayment.length}
             />
             {grouped.awaitingPayment.length > 0 ? (
@@ -531,31 +666,66 @@ export function OwnerRentalRequestsContent() {
                     key={booking.id}
                     booking={booking}
                     index={index}
-                    helper={
-                      <div className='flex items-start gap-3 rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4'>
-                        <ShieldCheck className='mt-0.5 h-5 w-5 shrink-0 text-primary' />
-                        <div>
-                          <p className='text-sm font-semibold text-primary'>
-                            Payment marked complete
-                          </p>
-                          <p className='mt-1 text-xs leading-6 text-muted-foreground'>
-                            Start the booking when the equipment handoff begins.
-                            Admin payout is tracked after the rental is
-                            completed.
-                          </p>
+                    helper={(() => {
+                      const rentalWindowEnded = hasBookingWindowEnded(booking.endDate);
+
+                      return (
+                        <div className='flex items-start gap-3 rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4'>
+                          <ShieldCheck className='mt-0.5 h-5 w-5 shrink-0 text-primary' />
+                          <div>
+                            <p className='text-sm font-semibold text-primary'>
+                              {rentalWindowEnded ? "Rental window ended" : "Payment marked complete"}
+                            </p>
+                            <p className='mt-1 text-xs leading-6 text-muted-foreground'>
+                              {rentalWindowEnded
+                                ? "This rental period has ended. Mark it returned safely or open a dispute if something went wrong during handoff or return."
+                                : "Start the booking when the equipment handoff begins. Admin payout is tracked after the rental is completed."}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    }
-                    actions={
-                      <button
-                        type='button'
-                        onClick={() => handleStart(booking.id)}
-                        disabled={startMutation.isPending}
-                        className='rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70'
-                      >
-                        Start Rental
-                      </button>
-                    }
+                      );
+                    })()}
+                    actions={(() => {
+                      if (canOwnerCompleteBooking(booking.status, booking.endDate)) {
+                        return (
+                          <>
+                            <button
+                              type='button'
+                              onClick={() => handleComplete(booking.id)}
+                              disabled={
+                                completeMutation.isPending || disputeMutation.isPending
+                              }
+                              className='rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70'
+                            >
+                              Mark Returned Safely
+                            </button>
+                            {canOwnerDisputeBooking(booking.status, booking.endDate) ? (
+                              <button
+                                type='button'
+                                onClick={() => openDisputeModal(booking)}
+                                disabled={
+                                  completeMutation.isPending || disputeMutation.isPending
+                                }
+                                className='rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70'
+                              >
+                                Open Dispute
+                              </button>
+                            ) : null}
+                          </>
+                        );
+                      }
+
+                      return (
+                        <button
+                          type='button'
+                          onClick={() => handleStart(booking.id)}
+                          disabled={startMutation.isPending}
+                          className='rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70'
+                        >
+                          Start Rental
+                        </button>
+                      );
+                    })()}
                   />
                 ))}
               </div>
@@ -578,17 +748,9 @@ export function OwnerRentalRequestsContent() {
                     booking={booking}
                     index={index}
                     helper={
-                      <textarea
-                        value={disputeReasons[booking.id] ?? ""}
-                        onChange={(event) =>
-                          setDisputeReasons((current) => ({
-                            ...current,
-                            [booking.id]: event.target.value,
-                          }))
-                        }
-                        placeholder='Add dispute or damage notes here before reporting'
-                        className='min-h-24 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary'
-                      />
+                      <div className='rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4 text-sm leading-7 text-muted-foreground'>
+                        Close the rental after safe return, or open a dispute with notes and optional evidence images if there was damage or a return issue.
+                      </div>
                     }
                     actions={
                       <>
@@ -605,14 +767,14 @@ export function OwnerRentalRequestsContent() {
                         </button>
                         <button
                           type='button'
-                          onClick={() => handleDispute(booking.id)}
+                          onClick={() => openDisputeModal(booking)}
                           disabled={
                             completeMutation.isPending ||
                             disputeMutation.isPending
                           }
                           className='rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70'
                         >
-                          Report Damage
+                          Open Dispute
                         </button>
                       </>
                     }
@@ -705,6 +867,120 @@ export function OwnerRentalRequestsContent() {
           </section>
         </>
       ) : null}
+
+      <Dialog
+        open={Boolean(disputeBooking)}
+        onOpenChange={(open) => {
+          if (!open) {
+            resetDisputeModal();
+          }
+        }}
+      >
+        <DialogContent className='p-0'>
+          <div className='relative p-6 sm:p-8'>
+            <DialogDismissButton />
+            <DialogHeader className='pr-10'>
+              <DialogTitle>Open Dispute</DialogTitle>
+              <DialogDescription>
+                {disputeBooking
+                  ? `Share what went wrong for ${disputeBooking.equipment.title}. You can add a reason and up to 5 optional evidence images.`
+                  : "Share what went wrong and attach optional evidence images."}
+              </DialogDescription>
+            </DialogHeader>
+
+            {disputeModalError ? (
+              <div className='mt-5 rounded-xl border border-[#f3d3d3] bg-[#fff7f7] px-4 py-3 text-sm font-medium text-[#b42318]'>
+                {disputeModalError}
+              </div>
+            ) : null}
+
+            <div className='mt-6 space-y-6'>
+              <div>
+                <label className='text-sm font-semibold uppercase tracking-[0.16em] text-[#64748b]'>
+                  Dispute reason
+                </label>
+                <textarea
+                  value={disputeReason}
+                  onChange={(event) => setDisputeReason(event.target.value)}
+                  maxLength={400}
+                  rows={6}
+                  className='mt-3 min-h-32 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm leading-7 text-primary outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary'
+                  placeholder='Describe the damage, return issue, or anything that needs admin review.'
+                />
+                <p className='mt-2 text-right text-xs text-[#94a3b8]'>
+                  {disputeReason.trim().length}/400
+                </p>
+              </div>
+
+              <div>
+                <div className='flex items-center justify-between gap-3'>
+                  <label className='text-sm font-semibold uppercase tracking-[0.16em] text-[#64748b]'>
+                    Evidence photos
+                  </label>
+                  <span className='text-xs text-[#94a3b8]'>
+                    Optional, up to 5 images
+                  </span>
+                </div>
+
+                {disputeBooking?.disputeImages.length ? (
+                  <div className='mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3'>
+                    {disputeBooking.disputeImages.map((photo) => (
+                      <ExistingDisputePhoto key={photo.id} photo={photo} />
+                    ))}
+                  </div>
+                ) : null}
+
+                <div className='mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3'>
+                  {disputePhotos.map((photo) => (
+                    <NewDisputePhoto
+                      key={photo.id}
+                      preview={photo}
+                      onRemove={() => removeDisputePhoto(photo.id)}
+                    />
+                  ))}
+                  {disputePhotos.length < 5 ? (
+                    <label className='flex min-h-24 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-[#b8c9bf] bg-[#fbfcfa] px-4 py-5 text-center text-sm text-[#5c5f60] transition-colors hover:border-[#1b4332] hover:bg-[#f7faf7]'>
+                      <Upload className='h-5 w-5 text-primary' />
+                      <span className='mt-3 font-medium text-primary'>Upload photos</span>
+                      <span className='mt-1 text-xs text-[#94a3b8]'>
+                        JPG, PNG or WEBP
+                      </span>
+                      <input
+                        type='file'
+                        accept='image/*'
+                        multiple
+                        onChange={(event) => handleDisputeFilesSelected(event.target.files)}
+                        className='hidden'
+                      />
+                    </label>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+
+            <DialogFooter>
+              <button
+                type='button'
+                onClick={() => resetDisputeModal()}
+                className='rounded-[4px] border border-[#d8dfdb] px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6]'
+              >
+                Cancel
+              </button>
+              <button
+                type='button'
+                onClick={() => handleDispute()}
+                disabled={disputeMutation.isPending}
+                className='inline-flex items-center gap-2 rounded-[4px] bg-[#1b4332] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70'
+              >
+                {disputeMutation.isPending ? (
+                  <Loader2 className='h-4 w-4 animate-spin' />
+                ) : null}
+                Submit Dispute
+              </button>
+            </DialogFooter>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

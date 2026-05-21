@@ -10,6 +10,7 @@ import { ProductFooter } from "@/components/features/product/product-footer";
 import { ProductGallery } from "@/components/features/product/product-gallery";
 import { ProductHeader } from "@/components/features/product/product-header";
 import { ProductOwnerSummary } from "@/components/features/product/product-owner-summary";
+import { ProductReviewsSection } from "@/components/features/product/product-reviews-section";
 import { ProductRentalCard } from "@/components/features/product/product-rental-card";
 import { ProductSpecGrid } from "@/components/features/product/product-spec-grid";
 
@@ -68,6 +69,30 @@ function buildDescription(
     `${listingTitle} is listed in the ${categoryTitle} category and is available for verified industrial rental through Rentmart. The owner has published this machine with delivery coverage configured around ${address}.`,
     `This listing currently supports a delivery radius of ${deliveryRadius} km. Use the rental card to review the daily rate and proceed once your project timing and location are confirmed.`,
   ];
+}
+
+function getDescriptionParagraphs(input: {
+  ownerDescription: string | null;
+  listingTitle: string;
+  categoryTitle: string;
+  address: string;
+  deliveryRadius: number;
+}) {
+  const ownerDescription = input.ownerDescription?.trim();
+
+  if (ownerDescription) {
+    return ownerDescription
+      .split(/\n\s*\n/g)
+      .map((paragraph) => paragraph.replace(/\s*\n\s*/g, " ").trim())
+      .filter((paragraph) => paragraph.length > 0);
+  }
+
+  return buildDescription(
+    input.listingTitle,
+    input.categoryTitle,
+    input.address,
+    input.deliveryRadius,
+  );
 }
 
 function buildSpecs(
@@ -171,12 +196,13 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
     src: image.url,
     alt: `${product.title} image ${index + 1}`,
   }));
-  const description = buildDescription(
-    product.title,
-    product.category.title,
-    product.normalizedAddress,
-    product.deliveryRadius,
-  );
+  const description = getDescriptionParagraphs({
+    ownerDescription: product.description,
+    listingTitle: product.title,
+    categoryTitle: product.category.title,
+    address: product.normalizedAddress,
+    deliveryRadius: product.deliveryRadius,
+  });
   const specs = buildSpecs(
     product.category.title,
     product.price,
@@ -282,6 +308,10 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
                 }}
               />
             </motion.section>
+
+            <motion.div {...getRevealProps(shouldReduceMotion, 7)}>
+              <ProductReviewsSection product={product} />
+            </motion.div>
           </article>
 
           <div className='lg:col-span-4'>

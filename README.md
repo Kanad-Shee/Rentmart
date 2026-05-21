@@ -76,7 +76,7 @@ Frontend application for the Rentmart heavy-equipment marketplace. This app deli
 | User Management | Client-side searchable/filterable user administration                    |
 | Categories      | Category management with live listing awareness                          |
 | Support Queries | Admin queue for owner/renter contact submissions                         |
-| Transactions    | Ledger tab plus raw Razorpay event tab for reconciliation                |
+| Transactions    | Ledger tab plus raw Cashfree event tab for reconciliation                |
 | Chart View      | Payment, booking, support, settlement, verification, and user-mix charts |
 | Owner views     | Listings, rental requests, settings, transactions                        |
 | Renter views    | Bookings, saved items, notifications, transactions                       |

@@ -39,6 +39,7 @@ import { DashboardAddListingMapPreview } from "@/components/features/dashboard/d
 
 type AddListingFormState = {
   title: string;
+  description: string;
   categoryId: string;
   price: string;
   deliveryRadius: number;
@@ -49,6 +50,7 @@ type AddListingFormState = {
 
 const initialFormState: AddListingFormState = {
   title: "",
+  description: "",
   categoryId: "",
   price: "",
   deliveryRadius: 45,
@@ -189,6 +191,7 @@ export function DashboardAddListingContent() {
 
     setFormState({
       title: editingListing.title,
+      description: editingListing.description ?? "",
       categoryId: editingListing.category.id,
       price: String(editingListing.price),
       deliveryRadius: editingListing.deliveryRadius,
@@ -209,6 +212,7 @@ export function DashboardAddListingContent() {
   function applyListingToForm(listing: EquipmentListing) {
     setFormState({
       title: listing.title,
+      description: listing.description ?? "",
       categoryId: listing.category.id,
       price: String(listing.price),
       deliveryRadius: listing.deliveryRadius,
@@ -336,6 +340,7 @@ export function DashboardAddListingContent() {
   function buildListingPayload() {
     return {
       title: formState.title.trim(),
+      description: formState.description,
       categoryId: formState.categoryId,
       price: Number(formState.price),
       deliveryRadius: formState.deliveryRadius,
@@ -425,6 +430,7 @@ export function DashboardAddListingContent() {
 
       await saveDraftMutation.mutateAsync({
         title: payload.title,
+        description: payload.description,
         categoryId: payload.categoryId,
         price: payload.price,
         deliveryRadius: payload.deliveryRadius,
@@ -470,6 +476,7 @@ export function DashboardAddListingContent() {
 
       await createEquipmentMutation.mutateAsync({
         title: payload.title,
+        description: payload.description,
         categoryId: payload.categoryId,
         price: payload.price,
         deliveryRadius: payload.deliveryRadius,
@@ -712,6 +719,33 @@ export function DashboardAddListingContent() {
                 placeholder='CAT 320 GC Hydraulic Excavator - 2022'
                 className='w-full rounded-md border border-border bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary'
               />
+            </div>
+            <div className='md:col-span-2'>
+              <div className='mb-2 flex items-center justify-between gap-3'>
+                <label className='block text-sm font-medium text-foreground'>
+                  Description
+                </label>
+                <span className='text-xs text-muted-foreground'>
+                  Optional, up to 2000 characters
+                </span>
+              </div>
+              <textarea
+                value={formState.description}
+                onChange={(event) =>
+                  setFormState((current) => ({
+                    ...current,
+                    description: event.target.value,
+                  }))
+                }
+                maxLength={2000}
+                rows={6}
+                placeholder='Share the machine condition, ideal use cases, included attachments, and anything renters should know before booking.'
+                className='w-full rounded-md border border-border bg-background px-4 py-3 text-sm leading-7 outline-none transition-colors placeholder:text-muted-foreground focus:border-primary'
+              />
+              <p className='mt-2 text-xs leading-5 text-muted-foreground'>
+                Leave this blank if you want Rentmart to keep showing the
+                standard listing description on the product details page.
+              </p>
             </div>
             <div>
               <label className='mb-2 block text-sm font-medium text-foreground'>

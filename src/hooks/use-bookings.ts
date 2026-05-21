@@ -8,6 +8,7 @@ import {
   completeOwnerBooking,
   createBookingPaymentOrder,
   createBooking,
+  type DisputeBookingInput,
   disputeBooking,
   getMyBookings,
   getOwnerBookings,
@@ -140,8 +141,8 @@ export function useDisputeBookingMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ bookingId, reason }: { bookingId: string; reason: string }) =>
-      disputeBooking(bookingId, reason),
+    mutationFn: ({ bookingId, input }: { bookingId: string; input: DisputeBookingInput }) =>
+      disputeBooking(bookingId, input),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
     },

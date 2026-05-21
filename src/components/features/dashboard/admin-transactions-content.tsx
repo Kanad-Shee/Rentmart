@@ -174,8 +174,8 @@ function getSearchableBookingText(booking: BookingSummary) {
     booking.equipment.title,
     booking.owner.fullName,
     booking.renter.fullName,
-    booking.razorpayOrderId,
-    booking.razorpayPaymentId,
+    booking.cashfreeOrderId,
+    booking.cashfreePaymentId,
   ]
     .filter(Boolean)
     .join(" ")
@@ -486,7 +486,7 @@ export function AdminTransactionsContent() {
             Transactions
           </h1>
           <p className='mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]'>
-            Review booking-level money flow first, then inspect raw Razorpay
+            Review booking-level money flow first, then inspect raw Cashfree
             webhook events for reconciliation, debugging, and payout follow-up.
           </p>
         </div>
@@ -899,20 +899,16 @@ export function AdminTransactionsContent() {
                           {isExpanded ? (
                             <div className='mt-8 grid gap-4 rounded-xl border border-[#d8dfdb] bg-[#fbfcfa] p-5 md:grid-cols-2 xl:grid-cols-3'>
                               <DetailRow
-                                label='Razorpay Order ID'
-                                value={booking.razorpayOrderId}
+                                label='Cashfree Order ID'
+                                value={booking.cashfreeOrderId}
                               />
                               <DetailRow
-                                label='Razorpay Payment ID'
-                                value={booking.razorpayPaymentId}
+                                label='Cashfree Payment ID'
+                                value={booking.cashfreePaymentId}
                               />
                               <DetailRow
-                                label='Razorpay Transfer ID'
-                                value={booking.razorpayTransferId}
-                              />
-                              <DetailRow
-                                label='Razorpay Refund ID'
-                                value={booking.razorpayRefundId}
+                                label='Payment Session ID'
+                                value={booking.cashfreePaymentSessionId}
                               />
                               <DetailRow
                                 label='Payment Authorization ID'
@@ -1009,7 +1005,7 @@ export function AdminTransactionsContent() {
                 Raw Event Log
               </p>
               <h2 className='mt-2 text-2xl font-semibold tracking-[-0.03em] text-primary'>
-                Razorpay webhook trail
+                Cashfree webhook trail
               </h2>
             </div>
             <p className='text-sm text-[#5c5f60]'>
@@ -1177,14 +1173,6 @@ export function AdminTransactionsContent() {
                         <DetailRow
                           label='Payment ID'
                           value={event.linkedPaymentId}
-                        />
-                        <DetailRow
-                          label='Transfer ID'
-                          value={event.linkedTransferId}
-                        />
-                        <DetailRow
-                          label='Refund ID'
-                          value={event.linkedRefundId}
                         />
                       </div>
 

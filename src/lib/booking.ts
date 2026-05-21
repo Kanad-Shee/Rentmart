@@ -40,6 +40,12 @@ export type DepositRefundStatus =
   | "SKIPPED"
   | "BLOCKED";
 
+export type BookingDisputeImageSummary = {
+  id: string;
+  url: string;
+  position: number;
+};
+
 export type BookingPricing = {
   rentalDays: number;
   rentalFee: number;
@@ -74,10 +80,9 @@ export type BookingSummary = {
   paymentProvider: string | null;
   paymentIntentId: string | null;
   paymentAuthorizationId: string | null;
-  razorpayOrderId: string | null;
-  razorpayPaymentId: string | null;
-  razorpayTransferId: string | null;
-  razorpayRefundId: string | null;
+  cashfreeOrderId: string | null;
+  cashfreePaymentId: string | null;
+  cashfreePaymentSessionId: string | null;
   payoutLinkedAccountId: string | null;
   paymentAmountInPaise: number | null;
   paymentCurrency: string | null;
@@ -104,6 +109,7 @@ export type BookingSummary = {
   status: BookingStatus;
   ownerDecisionReason: string | null;
   disputeReason: string | null;
+  disputeImages: BookingDisputeImageSummary[];
   createdAt: string;
   updatedAt: string;
   equipment: {
@@ -131,9 +137,10 @@ export type BookingSummary = {
 export type BookingPaymentOrder = {
   bookingId: string;
   orderId: string;
+  paymentSessionId: string;
   amount: number;
   currency: string;
-  keyId: string;
+  environment: "sandbox" | "production";
   renterName: string;
   renterEmail: string;
   renterPhone: string | null;
@@ -141,9 +148,12 @@ export type BookingPaymentOrder = {
 };
 
 export type VerifyBookingPaymentInput = {
-  razorpayOrderId: string;
-  razorpayPaymentId: string;
-  razorpaySignature: string;
+  cashfreeOrderId: string;
+};
+
+export type DisputeBookingInput = {
+  reason: string;
+  photos: File[];
 };
 
 export type ManualSettlementInput = {
@@ -179,6 +189,12 @@ function toLocalDateKey(date: Date) {
 
 function getLocalMidnight(date: Date) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+export function hasBookingWindowEnded(endDate: string, now = new Date()) {
+  const end = getLocalMidnight(new Date(`${endDate}T00:00:00`));
+  const today = getLocalMidnight(now);
+  return today > end;
 }
 
 export function calculateRentalDays(from: Date, to: Date) {
@@ -218,7 +234,7 @@ export function getBookingProgress(
     };
   }
 
-  if (today > end) {
+  if (hasBookingWindowEnded(endDate, today)) {
     return {
       percent: 100,
       dayNumber: totalDays,
@@ -236,6 +252,14 @@ export function getBookingProgress(
     totalDays,
     label: `Day ${elapsedDays} of ${totalDays}`,
   };
+}
+
+export function canOwnerCompleteBooking(status: BookingStatus, endDate: string) {
+  return status === "IN_PROGRESS" || (status === "CONFIRMED" && hasBookingWindowEnded(endDate));
+}
+
+export function canOwnerDisputeBooking(status: BookingStatus, endDate: string) {
+  return status === "IN_PROGRESS" || (status === "CONFIRMED" && hasBookingWindowEnded(endDate));
 }
 
 export function calculateBookingPricing(pricePerDay: number, rentalDays: number): BookingPricing {
@@ -374,10 +398,21 @@ export async function completeOwnerBooking(bookingId: string) {
   return response.data;
 }
 
-export async function disputeBooking(bookingId: string, reason: string) {
+function createDisputeBookingFormData(input: DisputeBookingInput) {
+  const formData = new FormData();
+  formData.append("reason", input.reason);
+
+  for (const photo of input.photos) {
+    formData.append("photos", photo);
+  }
+
+  return formData;
+}
+
+export async function disputeBooking(bookingId: string, input: DisputeBookingInput) {
   const response = await apiRequest<BookingSummary>(`/bookings/${bookingId}/dispute`, {
     method: "PATCH",
-    body: { reason },
+    body: createDisputeBookingFormData(input),
   });
 
   return response.data;

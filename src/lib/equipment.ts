@@ -21,6 +21,39 @@ export type EquipmentImageSummary = {
   position: number;
 };
 
+export type EquipmentReviewImageSummary = {
+  id: string;
+  url: string;
+  position: number;
+};
+
+export type EquipmentReviewSummary = {
+  id: string;
+  rating: number;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  renter: {
+    id: string;
+    fullName: string;
+  };
+  images: EquipmentReviewImageSummary[];
+};
+
+export type EquipmentReviewViewerState = {
+  isLoggedIn: boolean;
+  canReview: boolean;
+  code:
+    | "NOT_AUTHENTICATED"
+    | "ROLE_NOT_ALLOWED"
+    | "BOOKING_NOT_COMPLETED"
+    | "CAN_CREATE"
+    | "CAN_UPDATE";
+  message: string;
+  review: EquipmentReviewSummary | null;
+};
+
 export type EquipmentOwnerSummary = {
   id: string;
   fullName: string;
@@ -36,6 +69,7 @@ export type EquipmentListing = {
   ownerId: string;
   owner: EquipmentOwnerSummary;
   title: string;
+  description: string | null;
   category: EquipmentCategory;
   price: number;
   deliveryRadius: number;
@@ -50,6 +84,21 @@ export type EquipmentListing = {
   updatedAt: string;
   images: EquipmentImageSummary[];
   isWishlisted: boolean;
+};
+
+export type EquipmentDetails = EquipmentListing & {
+  averageRating: number | null;
+  reviewCount: number;
+  reviews: EquipmentReviewSummary[];
+  viewerReviewState: EquipmentReviewViewerState;
+};
+
+export type EquipmentReviewPayload = {
+  equipmentId: string;
+  averageRating: number | null;
+  reviewCount: number;
+  reviews: EquipmentReviewSummary[];
+  viewerReviewState: EquipmentReviewViewerState;
 };
 
 export type GeocodedEquipmentLocation = {
@@ -67,6 +116,7 @@ export type AddressSuggestion = {
 
 export type CreateEquipmentInput = {
   title: string;
+  description: string;
   categoryId: string;
   price: number;
   deliveryRadius: number;
@@ -78,6 +128,7 @@ export type SaveDraftEquipmentInput = CreateEquipmentInput;
 
 export type UpdateEquipmentInput = {
   title: string;
+  description: string;
   categoryId: string;
   price: number;
   deliveryRadius: number;
@@ -102,6 +153,17 @@ export type RejectEquipmentInput = {
   reason: string;
 };
 
+export type CreateEquipmentReviewInput = {
+  rating: number;
+  title: string;
+  description: string;
+  photos: File[];
+};
+
+export type UpdateEquipmentReviewInput = CreateEquipmentReviewInput & {
+  retainedPhotoIds: string[];
+};
+
 export const equipmentQueryKeys = {
   ownerListings: ["equipment", "owner-listings"] as const,
   pendingListings: ["equipment", "pending-listings"] as const,
@@ -114,6 +176,7 @@ export const equipmentQueryKeys = {
 function createEquipmentFormData(input: CreateEquipmentInput) {
   const formData = new FormData();
   formData.append("title", input.title);
+  formData.append("description", input.description);
   formData.append("categoryId", input.categoryId);
   formData.append("price", String(input.price));
   formData.append("deliveryRadius", String(input.deliveryRadius));
@@ -131,6 +194,29 @@ function createUpdateEquipmentFormData(input: UpdateEquipmentInput) {
 
   for (const imageId of input.retainedImageIds) {
     formData.append("retainedImageIds", imageId);
+  }
+
+  return formData;
+}
+
+function createEquipmentReviewFormData(input: CreateEquipmentReviewInput) {
+  const formData = new FormData();
+  formData.append("rating", String(input.rating));
+  formData.append("title", input.title);
+  formData.append("description", input.description);
+
+  for (const photo of input.photos) {
+    formData.append("photos", photo);
+  }
+
+  return formData;
+}
+
+function createUpdateEquipmentReviewFormData(input: UpdateEquipmentReviewInput) {
+  const formData = createEquipmentReviewFormData(input);
+
+  for (const photoId of input.retainedPhotoIds) {
+    formData.append("retainedPhotoIds", photoId);
   }
 
   return formData;
@@ -167,7 +253,12 @@ export async function getPublicEquipment(input?: { categoryId?: string }) {
 }
 
 export async function getPublicEquipmentById(id: string) {
-  const response = await apiRequest<EquipmentListing>(`/equipment/${id}`);
+  const response = await apiRequest<EquipmentDetails>(`/equipment/${id}`);
+  return response.data;
+}
+
+export async function getEquipmentReviews(id: string) {
+  const response = await apiRequest<EquipmentReviewPayload>(`/equipment/${id}/reviews`);
   return response.data;
 }
 
@@ -258,6 +349,24 @@ export async function submitOwnerEquipment(id: string, input: UpdateEquipmentInp
 export async function deleteOwnerEquipment(id: string) {
   const response = await apiRequest<{ id: string }>(`/equipment/${id}`, {
     method: "DELETE",
+  });
+
+  return response.data;
+}
+
+export async function createEquipmentReview(id: string, input: CreateEquipmentReviewInput) {
+  const response = await apiRequest<EquipmentReviewPayload>(`/equipment/${id}/reviews`, {
+    method: "POST",
+    body: createEquipmentReviewFormData(input),
+  });
+
+  return response.data;
+}
+
+export async function updateEquipmentReview(id: string, input: UpdateEquipmentReviewInput) {
+  const response = await apiRequest<EquipmentReviewPayload>(`/equipment/${id}/reviews/me`, {
+    method: "PATCH",
+    body: createUpdateEquipmentReviewFormData(input),
   });
 
   return response.data;
