@@ -454,7 +454,7 @@ export function HomepageMarketplaceSections() {
                 animate: { opacity: 1, y: 0 },
               }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
-              className='max-w-xl text-4xl font-extrabold leading-[0.98] tracking-[-0.04em] text-center lg:text-start text-primary sm:text-5xl lg:text-6xl'
+              className='max-w-xl text-4xl font-display leading-[0.98] tracking-[-0.04em] text-center lg:text-start text-primary sm:text-5xl lg:text-6xl font-bold'
             >
               Rent the Power You Need.
               <span className='mt-3 block text-[#86af99]'>
