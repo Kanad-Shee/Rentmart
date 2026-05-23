@@ -784,7 +784,7 @@ export function AdminVerifications() {
 
                 <div className="sticky bottom-0 border-t border-border bg-background/95 px-6 py-4 backdrop-blur sm:px-8">
                   <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-                    <label className="inline-flex items-center gap-3 text-sm text-muted-foreground">
+                    {/* <label className="inline-flex items-center gap-3 text-sm text-muted-foreground">
                       <input
                         type="checkbox"
                         checked={notifyOwner}
@@ -794,7 +794,7 @@ export function AdminVerifications() {
                         className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
                       />
                       Notify owner via email
-                    </label>
+                    </label> */}
 
                     <div className="flex flex-col gap-3 sm:flex-row">
                       {isRejectMode ? (

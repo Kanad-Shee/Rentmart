@@ -25,6 +25,7 @@ import {
 import { ApiError } from '@/lib/http';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LockKeyhole, MapPinHouse, UserRound } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -57,6 +58,7 @@ export function DashboardSettingsContent({
   const currentUserQuery = useCurrentUserQuery();
   const updateProfileMutation = useUpdateProfileMutation();
   const updatePasswordMutation = useUpdatePasswordMutation();
+  const router = useRouter();
   const [profileError, setProfileError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
@@ -88,7 +90,12 @@ export function DashboardSettingsContent({
     setProfileError(null);
 
     try {
-      await updateProfileMutation.mutateAsync(values);
+      const result = await updateProfileMutation.mutateAsync(values);
+      profileForm.reset({
+        address: result.user.address
+      });
+      await currentUserQuery.refetch();
+      router.refresh();
     } catch (error) {
       setProfileError(
         error instanceof ApiError
@@ -200,7 +207,7 @@ export function DashboardSettingsContent({
               aria-invalid={!!profileForm.formState.errors.address}
               {...profileForm.register('address')}
             />
-            <FieldDescription>
+            <FieldDescription className="text-muted-foreground">
               Keep this current so booking and profile flows reflect the right
               location.
             </FieldDescription>
@@ -213,13 +220,13 @@ export function DashboardSettingsContent({
             <FieldError errors={[{ message: profileError }]} />
           ) : null}
 
-          <Button
+          {/* <Button
             type="submit"
             disabled={updateProfileMutation.isPending}>
             {updateProfileMutation.isPending
               ? 'Saving Address...'
               : 'Save Address'}
-          </Button>
+          </Button> */}
         </form>
       </section>
 

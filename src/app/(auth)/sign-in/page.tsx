@@ -223,7 +223,6 @@ export default function SignInPage() {
                   alt="Modern harvester machine"
                   fill
                   priority
-                  loading="lazy"
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />

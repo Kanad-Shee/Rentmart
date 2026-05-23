@@ -127,8 +127,11 @@ export function useUpdateProfileMutation() {
 
   return useMutation({
     mutationFn: (input: UpdateProfileInput) => updateProfile(input),
-    onSuccess: ({ user }) => {
+    onSuccess: async ({ user }) => {
       queryClient.setQueryData(authQueryKeys.currentUser, user);
+      await queryClient.invalidateQueries({
+        queryKey: authQueryKeys.currentUser
+      });
       toast.success('Address updated successfully.');
     }
   });
