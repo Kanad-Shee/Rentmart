@@ -2,9 +2,11 @@
 
 import {
   createSupportQuery,
+  getAdminSupportQueriesPage,
   getAdminSupportQueries,
   resolveSupportQuery,
   supportQueryKeys,
+  type AdminSupportQueriesQueryInput,
   type CreateSupportQueryInput
 } from '@/lib/support-query';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -20,6 +22,18 @@ export function useAdminSupportQueriesQuery(enabled = true) {
   return useQuery({
     queryKey: supportQueryKeys.adminAll,
     queryFn: getAdminSupportQueries,
+    enabled,
+    staleTime: 30 * 1000
+  });
+}
+
+export function useAdminSupportQueriesPageQuery(
+  input: AdminSupportQueriesQueryInput,
+  enabled = true
+) {
+  return useQuery({
+    queryKey: supportQueryKeys.adminPage(input),
+    queryFn: () => getAdminSupportQueriesPage(input),
     enabled,
     staleTime: 30 * 1000
   });

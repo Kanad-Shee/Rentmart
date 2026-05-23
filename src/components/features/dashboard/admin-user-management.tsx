@@ -1,6 +1,7 @@
 'use client';
 
-import { useAdminUsersQuery } from '@/hooks/use-auth';
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
+import { useAdminUsersPageQuery } from '@/hooks/use-auth';
 import type {
   AdminUserManagementItem,
   AdminUserVerificationFilter,
@@ -87,36 +88,20 @@ function SummaryCard({
 }
 
 export function AdminUserManagement() {
+  const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState<'ALL' | UserRole>('ALL');
   const [verificationFilter, setVerificationFilter] =
     useState<AdminUserVerificationFilter>('ALL');
   const deferredSearchTerm = useDeferredValue(searchTerm);
-  const usersQuery = useAdminUsersQuery({});
-  const allUsers = useMemo(() => usersQuery.data ?? [], [usersQuery.data]);
-  const users = useMemo(() => {
-    const normalizedSearch = deferredSearchTerm.trim().toLowerCase();
-
-    return allUsers.filter((user) => {
-      const matchesSearch =
-        normalizedSearch.length === 0 ||
-        [user.fullName, user.email, user.phone ?? '', user.address, user.role]
-          .join(' ')
-          .toLowerCase()
-          .includes(normalizedSearch);
-
-      const matchesRole = roleFilter === 'ALL' || user.role === roleFilter;
-      const verificationLabel = getVerificationLabel(user);
-      const matchesVerification =
-        verificationFilter === 'ALL' ||
-        (verificationFilter === 'VERIFIED' &&
-          verificationLabel === 'Fully verified') ||
-        (verificationFilter === 'ACTION_REQUIRED' &&
-          verificationLabel !== 'Fully verified');
-
-      return matchesSearch && matchesRole && matchesVerification;
-    });
-  }, [allUsers, deferredSearchTerm, roleFilter, verificationFilter]);
+  const usersQuery = useAdminUsersPageQuery({
+    page,
+    pageSize: 10,
+    search: deferredSearchTerm,
+    role: roleFilter,
+    verification: verificationFilter
+  });
+  const users = useMemo(() => usersQuery.data?.items ?? [], [usersQuery.data]);
 
   const summaries = useMemo(() => {
     const owners = users.filter((user) => user.role === 'OWNER').length;
@@ -183,7 +168,10 @@ export function AdminUserManagement() {
           <Search className="h-4 w-4 shrink-0" />
           <input
             value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
+            onChange={(event) => {
+              setSearchTerm(event.target.value);
+              setPage(1);
+            }}
             placeholder="Search name, email, phone, or address"
             className="w-full bg-transparent outline-none placeholder:text-[#94a3b8]"
           />
@@ -191,9 +179,10 @@ export function AdminUserManagement() {
 
         <select
           value={roleFilter}
-          onChange={(event) =>
-            setRoleFilter(event.target.value as 'ALL' | UserRole)
-          }
+          onChange={(event) => {
+            setRoleFilter(event.target.value as 'ALL' | UserRole);
+            setPage(1);
+          }}
           className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
           <option value="ALL">All roles</option>
           <option value="ADMIN">Admins</option>
@@ -203,11 +192,12 @@ export function AdminUserManagement() {
 
         <select
           value={verificationFilter}
-          onChange={(event) =>
+          onChange={(event) => {
             setVerificationFilter(
               event.target.value as AdminUserVerificationFilter
-            )
-          }
+            );
+            setPage(1);
+          }}
           className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
           <option value="ALL">All verification states</option>
           <option value="VERIFIED">Fully verified</option>
@@ -309,6 +299,15 @@ export function AdminUserManagement() {
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="p-6 pt-0">
+              <DashboardPaginationControls
+                page={usersQuery.data.page}
+                totalPages={usersQuery.data.totalPages}
+                totalItems={usersQuery.data.totalItems}
+                pageSize={usersQuery.data.pageSize}
+                onPageChange={setPage}
+              />
             </div>
           </div>
         ) : (

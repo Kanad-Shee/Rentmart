@@ -1,10 +1,11 @@
 'use client';
 
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import { getDashboardRevealProps } from './dashboard-motion';
 import {
   useMarkAllNotificationsAsReadMutation,
   useMarkNotificationAsReadMutation,
-  useMyNotificationsQuery
+  useMyNotificationsPageQuery
 } from '@/hooks/use-notification';
 import { ApiError } from '@/lib/http';
 import type { NotificationItem } from '@/lib/notification';
@@ -21,6 +22,7 @@ import {
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 type NotificationSectionKey = 'today' | 'yesterday' | 'earlier';
 
@@ -291,7 +293,11 @@ export function NotificationsContent({
   profileRole
 }: NotificationsContentProps) {
   const shouldReduceMotion = useReducedMotion() ?? false;
-  const notificationsQuery = useMyNotificationsQuery();
+  const [page, setPage] = useState(1);
+  const notificationsQuery = useMyNotificationsPageQuery({
+    page,
+    pageSize: 10
+  });
   const markAllMutation = useMarkAllNotificationsAsReadMutation();
 
   if (notificationsQuery.isPending) {
@@ -358,7 +364,7 @@ export function NotificationsContent({
     );
   }
 
-  const notifications = notificationsQuery.data;
+  const notifications = notificationsQuery.data.items;
   const unreadCount = notifications.filter((item) => !item.isRead).length;
   const thisWeekCount = getThisWeekCount(notifications);
   const approvedCount = notifications.filter(
@@ -557,6 +563,14 @@ export function NotificationsContent({
           </div>
         </aside>
       </div>
+      <DashboardPaginationControls
+        page={notificationsQuery.data.page}
+        totalPages={notificationsQuery.data.totalPages}
+        totalItems={notificationsQuery.data.totalItems}
+        pageSize={notificationsQuery.data.pageSize}
+        onPageChange={setPage}
+        className="mt-8"
+      />
     </div>
   );
 }

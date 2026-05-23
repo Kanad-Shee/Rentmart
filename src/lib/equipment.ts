@@ -1,4 +1,9 @@
 import { apiRequest } from './http';
+import {
+  buildPaginationSearchParams,
+  type PaginatedResponse,
+  type PaginationInput
+} from './pagination';
 
 export type EquipmentStatus =
   | 'DRAFT'
@@ -164,9 +169,33 @@ export type UpdateEquipmentReviewInput = CreateEquipmentReviewInput & {
   retainedPhotoIds: string[];
 };
 
+export type OwnerEquipmentQueryInput = PaginationInput & {
+  tab?: 'live' | 'pending' | 'draft';
+};
+
+export type PendingEquipmentQueryInput = PaginationInput & {
+  search?: string;
+};
+
 export const equipmentQueryKeys = {
   ownerListings: ['equipment', 'owner-listings'] as const,
   pendingListings: ['equipment', 'pending-listings'] as const,
+  ownerListingsPage: (input: OwnerEquipmentQueryInput) =>
+    [
+      'equipment',
+      'owner-listings',
+      input.page ?? 1,
+      input.pageSize ?? 10,
+      input.tab ?? 'live'
+    ] as const,
+  pendingListingsPage: (input: PendingEquipmentQueryInput) =>
+    [
+      'equipment',
+      'pending-listings',
+      input.page ?? 1,
+      input.pageSize ?? 10,
+      input.search?.trim() ?? ''
+    ] as const,
   featuredListings: ['equipment', 'featured-listings'] as const,
   publicListings: (categoryId?: string) =>
     ['equipment', 'public-listings', categoryId ?? 'all'] as const,
@@ -224,14 +253,44 @@ function createUpdateEquipmentReviewFormData(
   return formData;
 }
 
+export async function getMyEquipmentPage(input: OwnerEquipmentQueryInput = {}) {
+  const searchParams = buildPaginationSearchParams(input);
+
+  if (input.tab) {
+    searchParams.set('tab', input.tab);
+  }
+
+  const suffix = searchParams.toString();
+  const response = await apiRequest<PaginatedResponse<EquipmentListing>>(
+    `/equipment/mine${suffix ? `?${suffix}` : ''}`
+  );
+  return response.data;
+}
+
 export async function getMyEquipment() {
-  const response = await apiRequest<EquipmentListing[]>('/equipment/mine');
+  const response = await getMyEquipmentPage({ page: 1, pageSize: 100 });
+  return response.items;
+}
+
+export async function getPendingEquipmentPage(
+  input: PendingEquipmentQueryInput = {}
+) {
+  const searchParams = buildPaginationSearchParams(input);
+
+  if (input.search?.trim()) {
+    searchParams.set('search', input.search.trim());
+  }
+
+  const suffix = searchParams.toString();
+  const response = await apiRequest<PaginatedResponse<EquipmentListing>>(
+    `/equipment/pending${suffix ? `?${suffix}` : ''}`
+  );
   return response.data;
 }
 
 export async function getPendingEquipment() {
-  const response = await apiRequest<EquipmentListing[]>('/equipment/pending');
-  return response.data;
+  const response = await getPendingEquipmentPage({ page: 1, pageSize: 100 });
+  return response.items;
 }
 
 export async function getFeaturedEquipment() {

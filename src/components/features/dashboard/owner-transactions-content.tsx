@@ -1,12 +1,16 @@
 'use client';
 
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import { getDashboardRevealProps } from './dashboard-motion';
-import { useOwnerBookingsQuery } from '@/hooks/use-bookings';
+import {
+  useOwnerBookingsPageQuery,
+  useOwnerBookingsQuery
+} from '@/hooks/use-bookings';
 import type { BookingSummary } from '@/lib/booking';
 import { Loader2, Landmark, ShieldAlert } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat('en-IN', {
@@ -78,21 +82,27 @@ function SummaryCard({
 
 export function OwnerTransactionsContent() {
   const shouldReduceMotion = useReducedMotion() ?? false;
-  const bookingsQuery = useOwnerBookingsQuery();
+  const [page, setPage] = useState(1);
+  const bookingsQuery = useOwnerBookingsPageQuery({ page, pageSize: 10 });
+  const bookingTotalsQuery = useOwnerBookingsQuery();
   const bookings = useMemo(
-    () => bookingsQuery.data ?? [],
+    () => bookingsQuery.data?.items ?? [],
     [bookingsQuery.data]
+  );
+  const allBookings = useMemo(
+    () => bookingTotalsQuery.data ?? [],
+    [bookingTotalsQuery.data]
   );
 
   const totals = useMemo(() => {
-    const paidBookings = bookings.filter(
+    const paidBookings = allBookings.filter(
       (booking) => booking.isPaymentCompleted
     );
     const totalRentalRevenue = paidBookings.reduce(
       (sum, booking) => sum + booking.rentalFee,
       0
     );
-    const pendingPayoutValue = bookings
+    const pendingPayoutValue = allBookings
       .filter(
         (booking) =>
           booking.isPaymentCompleted &&
@@ -100,7 +110,7 @@ export function OwnerTransactionsContent() {
           booking.status !== 'CANCELLED'
       )
       .reduce((sum, booking) => sum + booking.rentalFee, 0);
-    const blockedBookings = bookings.filter(
+    const blockedBookings = allBookings.filter(
       (booking) =>
         booking.ownerPayoutStatus === 'BLOCKED' ||
         booking.depositRefundStatus === 'BLOCKED' ||
@@ -112,7 +122,7 @@ export function OwnerTransactionsContent() {
       pendingPayoutValue,
       blockedBookings
     };
-  }, [bookings]);
+  }, [allBookings]);
 
   return (
     <section className="space-y-10">
@@ -136,7 +146,7 @@ export function OwnerTransactionsContent() {
               Booking Revenue
             </p>
             <p className="mt-1 text-lg font-semibold text-primary">
-              {bookings.length} records
+              {bookingsQuery.data?.totalItems ?? bookings.length} records
             </p>
           </div>
         </div>
@@ -174,6 +184,7 @@ export function OwnerTransactionsContent() {
 
       {!bookingsQuery.isPending && !bookingsQuery.isError ? (
         bookings.length > 0 ? (
+          <>
           <div className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
             <div className="overflow-x-auto">
               <table className="min-w-full border-collapse">
@@ -251,6 +262,15 @@ export function OwnerTransactionsContent() {
               </table>
             </div>
           </div>
+          <DashboardPaginationControls
+            page={bookingsQuery.data.page}
+            totalPages={bookingsQuery.data.totalPages}
+            totalItems={bookingsQuery.data.totalItems}
+            pageSize={bookingsQuery.data.pageSize}
+            onPageChange={setPage}
+            className="m-6 mt-0 border-0 bg-[#f8faf7] shadow-none"
+          />
+          </>
         ) : (
           <div className="rounded-xl border border-dashed border-[#d8dfdb] bg-white px-6 py-12 text-center text-sm text-[#5c5f60]">
             Booking payout and settlement activity will appear here once renters

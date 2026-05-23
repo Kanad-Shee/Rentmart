@@ -4,6 +4,7 @@ import {
   type AdminUsersQueryInput,
   authQueryKeys,
   getAdminUsers,
+  getAdminUsersPage,
   getDashboardMetrics,
   getMe,
   logout,
@@ -134,6 +135,18 @@ export function useUpdateProfileMutation() {
       });
       toast.success('Address updated successfully.');
     }
+  });
+}
+
+export function useAdminUsersPageQuery(
+  input: AdminUsersQueryInput,
+  enabled = true
+) {
+  return useQuery({
+    queryKey: authQueryKeys.adminUsers(input),
+    queryFn: () => getAdminUsersPage(input),
+    enabled,
+    staleTime: 30 * 1000
   });
 }
 

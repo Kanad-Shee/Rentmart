@@ -1,4 +1,9 @@
 import { apiRequest } from './http';
+import {
+  buildPaginationSearchParams,
+  type PaginatedResponse,
+  type PaginationInput
+} from './pagination';
 
 export const BOOKING_PLATFORM_FEE_RATE = 0.1;
 export const BOOKING_DAMAGE_WAIVER_FEE = 999;
@@ -158,6 +163,32 @@ export type DisputeBookingInput = {
 
 export type ManualSettlementInput = {
   reference?: string;
+};
+
+export type OwnerBookingsQueryInput = PaginationInput & {
+  group?:
+    | 'ALL'
+    | 'PENDING'
+    | 'AWAITING_PAYMENT'
+    | 'CONFIRMED'
+    | 'IN_PROGRESS'
+    | 'HISTORY';
+};
+
+export type AdminBookingsQueryInput = PaginationInput & {
+  search?: string;
+  status?: 'ALL' | BookingStatus;
+  financialStatus?: 'ALL' | FinancialStatus;
+  ownerPayoutStatus?: 'ALL' | OwnerPayoutStatus;
+  depositRefundStatus?: 'ALL' | DepositRefundStatus;
+  needsAction?: 'ALL' | 'ONLY_ACTION';
+};
+
+export type AdminPaymentEventsQueryInput = PaginationInput & {
+  search?: string;
+  eventType?: string;
+  status?: 'ALL' | 'processed' | 'unprocessed' | 'unmatched';
+  linkState?: 'ALL' | 'LINKED' | 'UNLINKED';
 };
 
 export type BookingProgress = {
@@ -324,8 +355,41 @@ export const bookingQueryKeys = {
   all: ['bookings'] as const,
   mine: ['bookings', 'mine'] as const,
   owner: ['bookings', 'owner'] as const,
-  admin: ['bookings', 'admin'] as const
+  admin: ['bookings', 'admin'] as const,
+  minePage: (input: PaginationInput) =>
+    ['bookings', 'mine', input.page ?? 1, input.pageSize ?? 10] as const,
+  ownerPage: (input: OwnerBookingsQueryInput) =>
+    [
+      'bookings',
+      'owner',
+      input.page ?? 1,
+      input.pageSize ?? 10,
+      input.group ?? 'ALL'
+    ] as const,
+  adminPage: (input: AdminBookingsQueryInput) =>
+    [
+      'bookings',
+      'admin',
+      input.page ?? 1,
+      input.pageSize ?? 10,
+      input.search?.trim() ?? '',
+      input.status ?? 'ALL',
+      input.financialStatus ?? 'ALL',
+      input.ownerPayoutStatus ?? 'ALL',
+      input.depositRefundStatus ?? 'ALL',
+      input.needsAction ?? 'ALL'
+    ] as const
 };
+
+function appendSearchParam(
+  searchParams: URLSearchParams,
+  key: string,
+  value?: string
+) {
+  if (value?.trim()) {
+    searchParams.set(key, value.trim());
+  }
+}
 
 export async function createBooking(input: CreateBookingInput) {
   const response = await apiRequest<BookingSummary>('/bookings', {
@@ -339,19 +403,73 @@ export async function createBooking(input: CreateBookingInput) {
   return response.data;
 }
 
+export async function getMyBookingsPage(input: PaginationInput = {}) {
+  const searchParams = buildPaginationSearchParams(input);
+  const suffix = searchParams.toString();
+  const response = await apiRequest<PaginatedResponse<BookingSummary>>(
+    `/bookings/mine${suffix ? `?${suffix}` : ''}`
+  );
+  return response.data;
+}
+
 export async function getMyBookings() {
-  const response = await apiRequest<BookingSummary[]>('/bookings/mine');
+  const response = await getMyBookingsPage({ page: 1, pageSize: 100 });
+  return response.items;
+}
+
+export async function getOwnerBookingsPage(input: OwnerBookingsQueryInput = {}) {
+  const searchParams = buildPaginationSearchParams(input);
+
+  if (input.group && input.group !== 'ALL') {
+    searchParams.set('group', input.group);
+  }
+
+  const suffix = searchParams.toString();
+  const response = await apiRequest<PaginatedResponse<BookingSummary>>(
+    `/bookings/owner${suffix ? `?${suffix}` : ''}`
+  );
   return response.data;
 }
 
 export async function getOwnerBookings() {
-  const response = await apiRequest<BookingSummary[]>('/bookings/owner');
+  const response = await getOwnerBookingsPage({ page: 1, pageSize: 100 });
+  return response.items;
+}
+
+export async function getAdminBookingsPage(input: AdminBookingsQueryInput = {}) {
+  const searchParams = buildPaginationSearchParams(input);
+  appendSearchParam(searchParams, 'search', input.search);
+
+  if (input.status && input.status !== 'ALL') {
+    searchParams.set('status', input.status);
+  }
+
+  if (input.financialStatus && input.financialStatus !== 'ALL') {
+    searchParams.set('financialStatus', input.financialStatus);
+  }
+
+  if (input.ownerPayoutStatus && input.ownerPayoutStatus !== 'ALL') {
+    searchParams.set('ownerPayoutStatus', input.ownerPayoutStatus);
+  }
+
+  if (input.depositRefundStatus && input.depositRefundStatus !== 'ALL') {
+    searchParams.set('depositRefundStatus', input.depositRefundStatus);
+  }
+
+  if (input.needsAction && input.needsAction !== 'ALL') {
+    searchParams.set('needsAction', input.needsAction);
+  }
+
+  const suffix = searchParams.toString();
+  const response = await apiRequest<PaginatedResponse<BookingSummary>>(
+    `/bookings/admin${suffix ? `?${suffix}` : ''}`
+  );
   return response.data;
 }
 
 export async function getAdminBookings() {
-  const response = await apiRequest<BookingSummary[]>('/bookings/admin');
-  return response.data;
+  const response = await getAdminBookingsPage({ page: 1, pageSize: 100 });
+  return response.items;
 }
 
 export async function createBookingPaymentOrder(bookingId: string) {

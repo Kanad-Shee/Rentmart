@@ -1,12 +1,16 @@
 'use client';
 
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import { getDashboardRevealProps } from './dashboard-motion';
-import { useMyBookingsQuery } from '@/hooks/use-bookings';
+import {
+  useMyBookingsPageQuery,
+  useMyBookingsQuery
+} from '@/hooks/use-bookings';
 import type { BookingSummary } from '@/lib/booking';
 import { Loader2, WalletCards } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat('en-IN', {
@@ -112,14 +116,20 @@ function SummaryCard({
 
 export function RenterTransactionsContent() {
   const shouldReduceMotion = useReducedMotion() ?? false;
-  const bookingsQuery = useMyBookingsQuery();
+  const [page, setPage] = useState(1);
+  const bookingsQuery = useMyBookingsPageQuery({ page, pageSize: 10 });
+  const bookingTotalsQuery = useMyBookingsQuery();
   const bookings = useMemo(
-    () => bookingsQuery.data ?? [],
+    () => bookingsQuery.data?.items ?? [],
     [bookingsQuery.data]
+  );
+  const allBookings = useMemo(
+    () => bookingTotalsQuery.data ?? [],
+    [bookingTotalsQuery.data]
   );
 
   const totals = useMemo(() => {
-    const paidBookings = bookings.filter(
+    const paidBookings = allBookings.filter(
       (booking) => booking.isPaymentCompleted
     );
     const totalSpent = paidBookings.reduce(
@@ -131,7 +141,7 @@ export function RenterTransactionsContent() {
       (sum, booking) => sum + booking.securityDeposit,
       0
     );
-    const actionNeeded = bookings.filter(
+    const actionNeeded = allBookings.filter(
       (booking) =>
         booking.status === 'PENDING_OWNER_APPROVAL' ||
         booking.status === 'PENDING_RENTER_PAYMENT'
@@ -142,7 +152,7 @@ export function RenterTransactionsContent() {
       totalHolds,
       actionNeeded
     };
-  }, [bookings]);
+  }, [allBookings]);
 
   return (
     <section className="space-y-10">
@@ -166,7 +176,7 @@ export function RenterTransactionsContent() {
               Booking Ledger
             </p>
             <p className="mt-1 text-lg font-semibold text-primary">
-              {bookings.length} entries
+              {bookingsQuery.data?.totalItems ?? bookings.length} entries
             </p>
           </div>
         </div>
@@ -204,6 +214,7 @@ export function RenterTransactionsContent() {
 
       {!bookingsQuery.isPending && !bookingsQuery.isError ? (
         bookings.length > 0 ? (
+          <>
           <div className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
             <div className="overflow-x-auto">
               <table className="min-w-full border-collapse">
@@ -285,6 +296,15 @@ export function RenterTransactionsContent() {
               </table>
             </div>
           </div>
+          <DashboardPaginationControls
+            page={bookingsQuery.data.page}
+            totalPages={bookingsQuery.data.totalPages}
+            totalItems={bookingsQuery.data.totalItems}
+            pageSize={bookingsQuery.data.pageSize}
+            onPageChange={setPage}
+            className="m-6 mt-0 border-0 bg-[#f8faf7] shadow-none"
+          />
+          </>
         ) : (
           <div className="rounded-xl border border-dashed border-[#d8dfdb] bg-white px-6 py-16 text-center">
             <h2 className="text-2xl font-semibold tracking-[-0.03em] text-primary">

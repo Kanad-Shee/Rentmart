@@ -1,4 +1,9 @@
 import { apiRequest } from './http';
+import {
+  buildPaginationSearchParams,
+  type PaginatedResponse,
+  type PaginationInput
+} from './pagination';
 import { z } from 'zod';
 
 export const supportQueryTopicSchema = z.enum([
@@ -33,6 +38,12 @@ export type SupportQueryItem = {
   updatedAt: string;
 };
 
+export type AdminSupportQueriesQueryInput = PaginationInput & {
+  search?: string;
+  role?: 'ALL' | SupportQueryItem['role'];
+  topic?: 'ALL' | SupportQueryItem['topic'];
+};
+
 export const supportQueryLabels: Record<SupportQueryTopic, string> = {
   GENERAL_INQUIRY: 'General Inquiry',
   LISTING_HELP: 'Listing Help',
@@ -42,7 +53,17 @@ export const supportQueryLabels: Record<SupportQueryTopic, string> = {
 };
 
 export const supportQueryKeys = {
-  adminAll: ['support-queries', 'admin-all'] as const
+  adminAll: ['support-queries', 'admin-all'] as const,
+  adminPage: (input: AdminSupportQueriesQueryInput) =>
+    [
+      'support-queries',
+      'admin-all',
+      input.page ?? 1,
+      input.pageSize ?? 10,
+      input.search?.trim() ?? '',
+      input.role ?? 'ALL',
+      input.topic ?? 'ALL'
+    ] as const
 };
 
 export async function createSupportQuery(input: CreateSupportQueryInput) {
@@ -54,12 +75,37 @@ export async function createSupportQuery(input: CreateSupportQueryInput) {
   return response.data;
 }
 
-export async function getAdminSupportQueries() {
-  const response = await apiRequest<SupportQueryItem[]>('/support-queries', {
-    method: 'GET'
-  });
+export async function getAdminSupportQueriesPage(
+  input: AdminSupportQueriesQueryInput = {}
+) {
+  const searchParams = buildPaginationSearchParams(input);
+
+  if (input.search?.trim()) {
+    searchParams.set('search', input.search.trim());
+  }
+
+  if (input.role && input.role !== 'ALL') {
+    searchParams.set('role', input.role);
+  }
+
+  if (input.topic && input.topic !== 'ALL') {
+    searchParams.set('topic', input.topic);
+  }
+
+  const suffix = searchParams.toString();
+  const response = await apiRequest<PaginatedResponse<SupportQueryItem>>(
+    `/support-queries${suffix ? `?${suffix}` : ''}`,
+    {
+      method: 'GET'
+    }
+  );
 
   return response.data;
+}
+
+export async function getAdminSupportQueries() {
+  const response = await getAdminSupportQueriesPage({ page: 1, pageSize: 100 });
+  return response.items;
 }
 
 export async function resolveSupportQuery(id: string) {

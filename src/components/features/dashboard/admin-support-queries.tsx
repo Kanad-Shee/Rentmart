@@ -1,8 +1,9 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import {
-  useAdminSupportQueriesQuery,
+  useAdminSupportQueriesPageQuery,
   useResolveSupportQueryMutation
 } from '@/hooks/use-support-query';
 import { supportQueryLabels, type SupportQueryItem } from '@/lib/support-query';
@@ -60,6 +61,7 @@ function SummaryCard({
 }
 
 export function AdminSupportQueries() {
+  const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState<
     'ALL' | SupportQueryItem['role']
@@ -68,40 +70,18 @@ export function AdminSupportQueries() {
     'ALL' | SupportQueryItem['topic']
   >('ALL');
   const deferredSearchTerm = useDeferredValue(searchTerm);
-  const supportQueriesQuery = useAdminSupportQueriesQuery();
+  const supportQueriesQuery = useAdminSupportQueriesPageQuery({
+    page,
+    pageSize: 10,
+    search: deferredSearchTerm,
+    role: roleFilter,
+    topic: topicFilter
+  });
   const resolveSupportQueryMutation = useResolveSupportQueryMutation();
   const queries = useMemo(
-    () => supportQueriesQuery.data ?? [],
+    () => supportQueriesQuery.data?.items ?? [],
     [supportQueriesQuery.data]
   );
-
-  const filteredQueries = useMemo(() => {
-    const normalizedSearch = deferredSearchTerm.trim().toLowerCase();
-
-    if (!normalizedSearch) {
-      return queries;
-    }
-
-    return queries.filter((query) => {
-      const matchesSearch =
-        normalizedSearch.length === 0 ||
-        [
-          query.fullName,
-          query.email,
-          query.message,
-          supportQueryLabels[query.topic],
-          query.role
-        ]
-          .join(' ')
-          .toLowerCase()
-          .includes(normalizedSearch);
-
-      const matchesRole = roleFilter === 'ALL' || query.role === roleFilter;
-      const matchesTopic = topicFilter === 'ALL' || query.topic === topicFilter;
-
-      return matchesSearch && matchesRole && matchesTopic;
-    });
-  }, [deferredSearchTerm, queries, roleFilter, topicFilter]);
 
   const summary = useMemo(() => {
     const ownerCount = queries.filter((query) => query.role === 'OWNER').length;
@@ -145,7 +125,7 @@ export function AdminSupportQueries() {
               Active Queue
             </p>
             <p className="mt-1 text-lg font-semibold text-primary">
-              {filteredQueries.length} queries
+              {supportQueriesQuery.data?.totalItems ?? queries.length} queries
             </p>
           </div>
         </div>
@@ -174,7 +154,10 @@ export function AdminSupportQueries() {
           <Search className="h-4 w-4 shrink-0" />
           <input
             value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
+            onChange={(event) => {
+              setSearchTerm(event.target.value);
+              setPage(1);
+            }}
             placeholder="Search name, email, topic, or message"
             className="w-full bg-transparent outline-none placeholder:text-[#94a3b8]"
           />
@@ -182,11 +165,12 @@ export function AdminSupportQueries() {
 
         <select
           value={roleFilter}
-          onChange={(event) =>
+          onChange={(event) => {
             setRoleFilter(
               event.target.value as 'ALL' | SupportQueryItem['role']
-            )
-          }
+            );
+            setPage(1);
+          }}
           className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
           <option value="ALL">All roles</option>
           <option value="OWNER">Owners</option>
@@ -195,11 +179,12 @@ export function AdminSupportQueries() {
 
         <select
           value={topicFilter}
-          onChange={(event) =>
+          onChange={(event) => {
             setTopicFilter(
               event.target.value as 'ALL' | SupportQueryItem['topic']
-            )
-          }
+            );
+            setPage(1);
+          }}
           className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
           <option value="ALL">All topics</option>
           {Object.entries(supportQueryLabels).map(([value, label]) => (
@@ -234,9 +219,9 @@ export function AdminSupportQueries() {
       ) : null}
 
       {!supportQueriesQuery.isPending && !supportQueriesQuery.isError ? (
-        filteredQueries.length > 0 ? (
+        queries.length > 0 ? (
           <div className="space-y-4">
-            {filteredQueries.map((query) => (
+            {queries.map((query) => (
               <article
                 key={query.id}
                 className="rounded-xl border border-[#d8dfdb] bg-white p-6 shadow-sm">
@@ -292,6 +277,15 @@ export function AdminSupportQueries() {
                 </div>
               </article>
             ))}
+            {supportQueriesQuery.data ? (
+              <DashboardPaginationControls
+                page={supportQueriesQuery.data.page}
+                totalPages={supportQueriesQuery.data.totalPages}
+                totalItems={supportQueriesQuery.data.totalItems}
+                pageSize={supportQueriesQuery.data.pageSize}
+                onPageChange={setPage}
+              />
+            ) : null}
           </div>
         ) : (
           <div className="rounded-xl border border-[#d8dfdb] bg-white p-10 text-center shadow-sm">

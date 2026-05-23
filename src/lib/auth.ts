@@ -1,5 +1,10 @@
 import { AUTH_COOKIE_NAME } from './auth-cookie';
 import { apiRequest } from './http';
+import {
+  buildPaginationSearchParams,
+  type PaginatedResponse,
+  type PaginationInput
+} from './pagination';
 import { z } from 'zod';
 
 export { AUTH_COOKIE_NAME };
@@ -177,6 +182,8 @@ export type AdminUserVerificationFilter =
   | 'ACTION_REQUIRED';
 
 export type AdminUsersQueryInput = {
+  page?: number;
+  pageSize?: number;
   search?: string;
   role?: 'ALL' | UserRole;
   verification?: AdminUserVerificationFilter;
@@ -238,6 +245,8 @@ export const authQueryKeys = {
     [
       'auth',
       'admin-users',
+      input.page ?? 1,
+      input.pageSize ?? 10,
       input.search?.trim() ?? '',
       input.role ?? 'ALL',
       input.verification ?? 'ALL'
@@ -294,8 +303,8 @@ export async function getMe() {
   return response.data.user;
 }
 
-export async function getAdminUsers(input: AdminUsersQueryInput = {}) {
-  const searchParams = new URLSearchParams();
+export async function getAdminUsersPage(input: AdminUsersQueryInput = {}) {
+  const searchParams = buildPaginationSearchParams(input satisfies PaginationInput);
 
   if (input.search?.trim()) {
     searchParams.set('search', input.search.trim());
@@ -310,11 +319,23 @@ export async function getAdminUsers(input: AdminUsersQueryInput = {}) {
   }
 
   const suffix = searchParams.toString();
-  const response = await apiRequest<AdminUserManagementItem[]>(
+  const response = await apiRequest<PaginatedResponse<AdminUserManagementItem>>(
     `/auth/users${suffix ? `?${suffix}` : ''}`
   );
 
   return response.data;
+}
+
+export async function getAdminUsers(input: AdminUsersQueryInput = {}) {
+  const response = await getAdminUsersPage({
+    page: input.page ?? 1,
+    pageSize: input.pageSize ?? 100,
+    search: input.search,
+    role: input.role,
+    verification: input.verification
+  });
+
+  return response.items;
 }
 
 export async function getDashboardMetrics() {

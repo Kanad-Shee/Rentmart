@@ -1,11 +1,16 @@
 'use client';
 
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import {
+  useAdminBookingsPageQuery,
   useAdminBookingsQuery,
   useMarkDepositRefundedMutation,
   useMarkOwnerPayoutPaidMutation
 } from '@/hooks/use-bookings';
-import { useAdminPaymentEventsQuery } from '@/hooks/use-payments';
+import {
+  useAdminPaymentEventsPageQuery,
+  useAdminPaymentEventsQuery
+} from '@/hooks/use-payments';
 import type {
   BookingSummary,
   BookingStatus,
@@ -168,35 +173,6 @@ function getLastTransactionTimestamp(booking: BookingSummary) {
   );
 }
 
-function getSearchableBookingText(booking: BookingSummary) {
-  return [
-    booking.id,
-    booking.equipment.title,
-    booking.owner.fullName,
-    booking.renter.fullName,
-    booking.cashfreeOrderId,
-    booking.cashfreePaymentId
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase();
-}
-
-function getSearchableEventText(event: AdminPaymentEvent) {
-  return [
-    event.eventId,
-    event.eventType,
-    event.entityId,
-    event.linkedBooking?.id,
-    event.linkedBooking?.equipmentTitle,
-    event.linkedOrderId,
-    event.linkedPaymentId
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase();
-}
-
 function SummaryCard({
   label,
   value,
@@ -275,8 +251,8 @@ const depositRefundOptions: Array<'ALL' | DepositRefundStatus> = [
 type TransactionTab = 'ledger' | 'raw';
 
 export function AdminTransactionsContent() {
-  const bookingsQuery = useAdminBookingsQuery();
-  const paymentEventsQuery = useAdminPaymentEventsQuery();
+  const [ledgerPage, setLedgerPage] = useState(1);
+  const [rawPage, setRawPage] = useState(1);
   const markOwnerPaidMutation = useMarkOwnerPayoutPaidMutation();
   const markDepositRefundedMutation = useMarkDepositRefundedMutation();
 
@@ -315,102 +291,57 @@ export function AdminTransactionsContent() {
 
   const deferredBookingSearch = useDeferredValue(bookingSearchTerm);
   const deferredEventSearch = useDeferredValue(eventSearchTerm);
+  const bookingTotalsQuery = useAdminBookingsQuery();
+  const paymentEventTotalsQuery = useAdminPaymentEventsQuery();
+  const bookingsQuery = useAdminBookingsPageQuery({
+    page: ledgerPage,
+    pageSize: 10,
+    search: deferredBookingSearch,
+    status: bookingStatusFilter,
+    financialStatus: financialStatusFilter,
+    ownerPayoutStatus: ownerPayoutFilter,
+    depositRefundStatus: depositRefundFilter,
+    needsAction: needsActionFilter
+  });
+  const paymentEventsQuery = useAdminPaymentEventsPageQuery({
+    page: rawPage,
+    pageSize: 10,
+    search: deferredEventSearch,
+    eventType: eventTypeFilter === 'ALL' ? undefined : eventTypeFilter,
+    status: eventStatusFilter,
+    linkState: eventLinkFilter
+  });
 
   const bookings = useMemo(
-    () => bookingsQuery.data ?? [],
+    () => bookingsQuery.data?.items ?? [],
     [bookingsQuery.data]
   );
   const paymentEvents = useMemo(
-    () => paymentEventsQuery.data ?? [],
+    () => paymentEventsQuery.data?.items ?? [],
     [paymentEventsQuery.data]
+  );
+  const allBookings = useMemo(
+    () => bookingTotalsQuery.data ?? [],
+    [bookingTotalsQuery.data]
+  );
+  const allPaymentEvents = useMemo(
+    () => paymentEventTotalsQuery.data ?? [],
+    [paymentEventTotalsQuery.data]
   );
 
   const eventTypes = useMemo(
     () =>
-      Array.from(new Set(paymentEvents.map((event) => event.eventType))).sort(),
-    [paymentEvents]
+      Array.from(
+        new Set(allPaymentEvents.map((event) => event.eventType))
+      ).sort(),
+    [allPaymentEvents]
   );
-
-  const sortedBookings = useMemo(
-    () =>
-      [...bookings].sort((a, b) => {
-        const left = new Date(getLastTransactionTimestamp(a)).getTime();
-        const right = new Date(getLastTransactionTimestamp(b)).getTime();
-        return right - left;
-      }),
-    [bookings]
-  );
-
-  const filteredBookings = useMemo(() => {
-    const normalizedSearch = deferredBookingSearch.trim().toLowerCase();
-
-    return sortedBookings.filter((booking) => {
-      const matchesSearch =
-        normalizedSearch.length === 0 ||
-        getSearchableBookingText(booking).includes(normalizedSearch);
-      const matchesStatus =
-        bookingStatusFilter === 'ALL' || booking.status === bookingStatusFilter;
-      const matchesFinancial =
-        financialStatusFilter === 'ALL' ||
-        booking.financialStatus === financialStatusFilter;
-      const matchesOwnerPayout =
-        ownerPayoutFilter === 'ALL' ||
-        booking.ownerPayoutStatus === ownerPayoutFilter;
-      const matchesDepositRefund =
-        depositRefundFilter === 'ALL' ||
-        booking.depositRefundStatus === depositRefundFilter;
-      const matchesNeedsAction =
-        needsActionFilter === 'ALL' || bookingNeedsAction(booking);
-
-      return (
-        matchesSearch &&
-        matchesStatus &&
-        matchesFinancial &&
-        matchesOwnerPayout &&
-        matchesDepositRefund &&
-        matchesNeedsAction
-      );
-    });
-  }, [
-    bookingStatusFilter,
-    deferredBookingSearch,
-    depositRefundFilter,
-    financialStatusFilter,
-    needsActionFilter,
-    ownerPayoutFilter,
-    sortedBookings
-  ]);
-
-  const filteredEvents = useMemo(() => {
-    const normalizedSearch = deferredEventSearch.trim().toLowerCase();
-
-    return paymentEvents.filter((event) => {
-      const matchesSearch =
-        normalizedSearch.length === 0 ||
-        getSearchableEventText(event).includes(normalizedSearch);
-      const matchesType =
-        eventTypeFilter === 'ALL' || event.eventType === eventTypeFilter;
-      const matchesStatus =
-        eventStatusFilter === 'ALL' || event.status === eventStatusFilter;
-      const matchesLink =
-        eventLinkFilter === 'ALL' ||
-        (eventLinkFilter === 'LINKED'
-          ? Boolean(event.linkedBooking)
-          : !event.linkedBooking);
-
-      return matchesSearch && matchesType && matchesStatus && matchesLink;
-    });
-  }, [
-    deferredEventSearch,
-    eventLinkFilter,
-    eventStatusFilter,
-    eventTypeFilter,
-    paymentEvents
-  ]);
+  const filteredBookings = bookings;
+  const filteredEvents = paymentEvents;
 
   const totals = useMemo(() => {
-    const actionableBookings = bookings.filter(bookingNeedsAction);
-    const capturedValue = bookings
+    const actionableBookings = allBookings.filter(bookingNeedsAction);
+    const capturedValue = allBookings
       .filter((booking) => booking.isPaymentCompleted)
       .reduce((sum, booking) => sum + booking.totalAuthorized, 0);
 
@@ -422,20 +353,20 @@ export function AdminTransactionsContent() {
       pendingDepositRefund: actionableBookings.filter(
         (booking) => !isDepositResolved(booking.depositRefundStatus)
       ).length,
-      failedPayments: bookings.filter(
+      failedPayments: allBookings.filter(
         (booking) => booking.financialStatus === 'PAYMENT_FAILED'
       ).length,
-      disputedTransactions: bookings.filter(
+      disputedTransactions: allBookings.filter(
         (booking) =>
           booking.status === 'DISPUTED' ||
           booking.financialStatus === 'DISPUTED'
       ).length,
-      unmatchedWebhookEvents: paymentEvents.filter(
+      unmatchedWebhookEvents: allPaymentEvents.filter(
         (event) => event.status === 'unmatched'
       ).length,
       actionableBookings: actionableBookings.length
     };
-  }, [bookings, paymentEvents]);
+  }, [allBookings, allPaymentEvents]);
 
   async function handleMarkOwnerPaid(bookingId: string) {
     setFeedback(null);
@@ -596,7 +527,10 @@ export function AdminTransactionsContent() {
               <Search className="h-4 w-4 shrink-0" />
               <input
                 value={bookingSearchTerm}
-                onChange={(event) => setBookingSearchTerm(event.target.value)}
+                onChange={(event) => {
+                  setBookingSearchTerm(event.target.value);
+                  setLedgerPage(1);
+                }}
                 placeholder="Search booking, equipment, owner, renter, order or payment id"
                 className="w-full bg-transparent outline-none placeholder:text-[#94a3b8]"
               />
@@ -604,11 +538,12 @@ export function AdminTransactionsContent() {
 
             <select
               value={bookingStatusFilter}
-              onChange={(event) =>
+              onChange={(event) => {
                 setBookingStatusFilter(
                   event.target.value as 'ALL' | BookingStatus
-                )
-              }
+                );
+                setLedgerPage(1);
+              }}
               className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
               {bookingStatusOptions.map((option) => (
                 <option
@@ -623,11 +558,12 @@ export function AdminTransactionsContent() {
 
             <select
               value={financialStatusFilter}
-              onChange={(event) =>
+              onChange={(event) => {
                 setFinancialStatusFilter(
                   event.target.value as 'ALL' | FinancialStatus
-                )
-              }
+                );
+                setLedgerPage(1);
+              }}
               className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
               {financialStatusOptions.map((option) => (
                 <option
@@ -642,11 +578,12 @@ export function AdminTransactionsContent() {
 
             <select
               value={ownerPayoutFilter}
-              onChange={(event) =>
+              onChange={(event) => {
                 setOwnerPayoutFilter(
                   event.target.value as 'ALL' | OwnerPayoutStatus
-                )
-              }
+                );
+                setLedgerPage(1);
+              }}
               className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
               {ownerPayoutOptions.map((option) => (
                 <option
@@ -661,11 +598,12 @@ export function AdminTransactionsContent() {
 
             <select
               value={depositRefundFilter}
-              onChange={(event) =>
+              onChange={(event) => {
                 setDepositRefundFilter(
                   event.target.value as 'ALL' | DepositRefundStatus
-                )
-              }
+                );
+                setLedgerPage(1);
+              }}
               className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
               {depositRefundOptions.map((option) => (
                 <option
@@ -680,11 +618,12 @@ export function AdminTransactionsContent() {
 
             <select
               value={needsActionFilter}
-              onChange={(event) =>
+              onChange={(event) => {
                 setNeedsActionFilter(
                   event.target.value as 'ALL' | 'ONLY_ACTION'
-                )
-              }
+                );
+                setLedgerPage(1);
+              }}
               className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none md:col-span-2 xl:col-span-2">
               <option value="ALL">All ledger items</option>
               <option value="ONLY_ACTION">Needs action only</option>
@@ -977,6 +916,15 @@ export function AdminTransactionsContent() {
                     </article>
                   );
                 })}
+                {bookingsQuery.data ? (
+                  <DashboardPaginationControls
+                    page={bookingsQuery.data.page}
+                    totalPages={bookingsQuery.data.totalPages}
+                    totalItems={bookingsQuery.data.totalItems}
+                    pageSize={bookingsQuery.data.pageSize}
+                    onPageChange={setLedgerPage}
+                  />
+                ) : null}
               </div>
             ) : (
               <div className="rounded-xl border border-dashed border-[#d8dfdb] bg-white px-6 py-16 text-center">
@@ -1015,7 +963,10 @@ export function AdminTransactionsContent() {
               <Search className="h-4 w-4 shrink-0" />
               <input
                 value={eventSearchTerm}
-                onChange={(event) => setEventSearchTerm(event.target.value)}
+                onChange={(event) => {
+                  setEventSearchTerm(event.target.value);
+                  setRawPage(1);
+                }}
                 placeholder="Search event id, type, entity, booking, payment or order id"
                 className="w-full bg-transparent outline-none placeholder:text-[#94a3b8]"
               />
@@ -1023,7 +974,10 @@ export function AdminTransactionsContent() {
 
             <select
               value={eventTypeFilter}
-              onChange={(event) => setEventTypeFilter(event.target.value)}
+              onChange={(event) => {
+                setEventTypeFilter(event.target.value);
+                setRawPage(1);
+              }}
               className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
               <option value="ALL">All event types</option>
               {eventTypes.map((eventType) => (
@@ -1037,11 +991,12 @@ export function AdminTransactionsContent() {
 
             <select
               value={eventStatusFilter}
-              onChange={(event) =>
+              onChange={(event) => {
                 setEventStatusFilter(
                   event.target.value as 'ALL' | AdminPaymentEvent['status']
-                )
-              }
+                );
+                setRawPage(1);
+              }}
               className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none">
               <option value="ALL">All event statuses</option>
               <option value="processed">Processed</option>
@@ -1051,11 +1006,12 @@ export function AdminTransactionsContent() {
 
             <select
               value={eventLinkFilter}
-              onChange={(event) =>
+              onChange={(event) => {
                 setEventLinkFilter(
                   event.target.value as 'ALL' | 'LINKED' | 'UNLINKED'
-                )
-              }
+                );
+                setRawPage(1);
+              }}
               className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none md:col-span-2 xl:col-span-2">
               <option value="ALL">All link states</option>
               <option value="LINKED">Linked to booking</option>
@@ -1222,6 +1178,15 @@ export function AdminTransactionsContent() {
                     </article>
                   );
                 })}
+                {paymentEventsQuery.data ? (
+                  <DashboardPaginationControls
+                    page={paymentEventsQuery.data.page}
+                    totalPages={paymentEventsQuery.data.totalPages}
+                    totalItems={paymentEventsQuery.data.totalItems}
+                    pageSize={paymentEventsQuery.data.pageSize}
+                    onPageChange={setRawPage}
+                  />
+                ) : null}
               </div>
             ) : (
               <div className="rounded-xl border border-[#d8dfdb] bg-white p-10 text-center shadow-sm">

@@ -23,6 +23,10 @@ import {
   type AddressSuggestionsInput,
   type CreateEquipmentInput,
   type GeocodeEquipmentInput,
+  getMyEquipmentPage,
+  getPendingEquipmentPage,
+  type OwnerEquipmentQueryInput,
+  type PendingEquipmentQueryInput,
   type PlaceIdInput,
   type RejectEquipmentInput,
   type SaveDraftEquipmentInput,
@@ -40,10 +44,30 @@ export function useOwnerEquipmentQuery() {
   });
 }
 
+export function useOwnerEquipmentPageQuery(input: OwnerEquipmentQueryInput) {
+  return useQuery({
+    queryKey: equipmentQueryKeys.ownerListingsPage(input),
+    queryFn: () => getMyEquipmentPage(input),
+    staleTime: 30 * 1000
+  });
+}
+
 export function usePendingEquipmentQuery(enabled = true) {
   return useQuery({
     queryKey: equipmentQueryKeys.pendingListings,
     queryFn: getPendingEquipment,
+    enabled,
+    staleTime: 30 * 1000
+  });
+}
+
+export function usePendingEquipmentPageQuery(
+  input: PendingEquipmentQueryInput,
+  enabled = true
+) {
+  return useQuery({
+    queryKey: equipmentQueryKeys.pendingListingsPage(input),
+    queryFn: () => getPendingEquipmentPage(input),
     enabled,
     staleTime: 30 * 1000
   });

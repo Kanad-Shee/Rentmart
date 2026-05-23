@@ -2,7 +2,9 @@
 
 import {
   approveBooking,
+  type AdminBookingsQueryInput,
   getAdminBookings,
+  getAdminBookingsPage,
   bookingQueryKeys,
   completeOwnerBooking,
   createBookingPaymentOrder,
@@ -10,7 +12,10 @@ import {
   type DisputeBookingInput,
   disputeBooking,
   getMyBookings,
+  getMyBookingsPage,
+  type OwnerBookingsQueryInput,
   getOwnerBookings,
+  getOwnerBookingsPage,
   markDepositRefunded,
   markOwnerPayoutPaid,
   rejectBooking,
@@ -20,6 +25,7 @@ import {
   type ManualSettlementInput,
   type VerifyBookingPaymentInput
 } from '@/lib/booking';
+import type { PaginationInput } from '@/lib/pagination';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 function invalidateBookingQueries(
@@ -37,6 +43,18 @@ export function useMyBookingsQuery(enabled = true) {
   });
 }
 
+export function useMyBookingsPageQuery(
+  input: PaginationInput,
+  enabled = true
+) {
+  return useQuery({
+    queryKey: bookingQueryKeys.minePage(input),
+    queryFn: () => getMyBookingsPage(input),
+    staleTime: 30 * 1000,
+    enabled
+  });
+}
+
 export function useOwnerBookingsQuery(enabled = true) {
   return useQuery({
     queryKey: bookingQueryKeys.owner,
@@ -46,10 +64,34 @@ export function useOwnerBookingsQuery(enabled = true) {
   });
 }
 
+export function useOwnerBookingsPageQuery(
+  input: OwnerBookingsQueryInput,
+  enabled = true
+) {
+  return useQuery({
+    queryKey: bookingQueryKeys.ownerPage(input),
+    queryFn: () => getOwnerBookingsPage(input),
+    staleTime: 30 * 1000,
+    enabled
+  });
+}
+
 export function useAdminBookingsQuery(enabled = true) {
   return useQuery({
     queryKey: bookingQueryKeys.admin,
     queryFn: getAdminBookings,
+    staleTime: 30 * 1000,
+    enabled
+  });
+}
+
+export function useAdminBookingsPageQuery(
+  input: AdminBookingsQueryInput,
+  enabled = true
+) {
+  return useQuery({
+    queryKey: bookingQueryKeys.adminPage(input),
+    queryFn: () => getAdminBookingsPage(input),
     staleTime: 30 * 1000,
     enabled
   });

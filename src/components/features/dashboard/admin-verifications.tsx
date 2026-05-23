@@ -1,9 +1,10 @@
 'use client';
 
 import { DashboardAddListingMapPreview } from '@/components/features/dashboard/dashboard-add-listing-map-preview';
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import {
   useApproveEquipmentMutation,
-  usePendingEquipmentQuery,
+  usePendingEquipmentPageQuery,
   useRejectEquipmentMutation
 } from '@/hooks/use-equipment';
 import type { EquipmentListing } from '@/lib/equipment';
@@ -207,39 +208,25 @@ function EmptyVerificationsState() {
 }
 
 export function AdminVerifications() {
-  const pendingEquipmentQuery = usePendingEquipmentQuery();
-  const approveMutation = useApproveEquipmentMutation();
-  const rejectMutation = useRejectEquipmentMutation();
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [notifyOwner, setNotifyOwner] = useState(true);
   const [isRejectMode, setIsRejectMode] = useState(false);
   const [rejectionReason, setRejectionReason] = useState('');
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
   const deferredSearchTerm = useDeferredValue(searchTerm);
-
-  const filteredListings = useMemo(() => {
-    const listings = pendingEquipmentQuery.data ?? [];
-    const normalizedSearch = deferredSearchTerm.trim().toLowerCase();
-
-    if (!normalizedSearch) {
-      return listings;
-    }
-
-    return listings.filter((listing) => {
-      return [
-        listing.title,
-        listing.owner.fullName,
-        listing.owner.email,
-        listing.category.title,
-        listing.normalizedAddress
-      ]
-        .join(' ')
-        .toLowerCase()
-        .includes(normalizedSearch);
-    });
-  }, [deferredSearchTerm, pendingEquipmentQuery.data]);
+  const pendingEquipmentQuery = usePendingEquipmentPageQuery({
+    page,
+    pageSize: 10,
+    search: deferredSearchTerm
+  });
+  const approveMutation = useApproveEquipmentMutation();
+  const rejectMutation = useRejectEquipmentMutation();
+  const filteredListings = useMemo(
+    () => pendingEquipmentQuery.data?.items ?? [],
+    [pendingEquipmentQuery.data]
+  );
 
   const resolvedSelectedId =
     selectedId && filteredListings.some((listing) => listing.id === selectedId)
@@ -273,7 +260,7 @@ export function AdminVerifications() {
     );
   }
 
-  const listings = pendingEquipmentQuery.data;
+  const listings = pendingEquipmentQuery.data.items;
 
   if (listings.length === 0) {
     return <EmptyVerificationsState />;
@@ -291,6 +278,10 @@ export function AdminVerifications() {
       await approveMutation.mutateAsync(selectedListing.id);
       setActionNotice(`Approved ${selectedListing.title}.`);
       toast.success(`Approved ${selectedListing.title}.`);
+      setSelectedId(null);
+      if (filteredListings.length === 1 && page > 1) {
+        setPage(page - 1);
+      }
     } catch (error) {
       toast.error(
         error instanceof ApiError
@@ -331,6 +322,10 @@ export function AdminVerifications() {
       setIsRejectMode(false);
       setRejectionReason('');
       toast.success(`Rejected ${selectedListing.title}.`);
+      setSelectedId(null);
+      if (filteredListings.length === 1 && page > 1) {
+        setPage(page - 1);
+      }
     } catch (error) {
       toast.error(
         error instanceof ApiError
@@ -383,7 +378,10 @@ export function AdminVerifications() {
                 <input
                   type="text"
                   value={searchTerm}
-                  onChange={(event) => setSearchTerm(event.target.value)}
+                  onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                    setPage(1);
+                  }}
                   placeholder="Search verifications..."
                   className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                 />
@@ -456,6 +454,17 @@ export function AdminVerifications() {
                 No listings matched your search.
               </div>
             )}
+            {pendingEquipmentQuery.data ? (
+              <div className="border-t border-border p-4">
+                <DashboardPaginationControls
+                  page={pendingEquipmentQuery.data.page}
+                  totalPages={pendingEquipmentQuery.data.totalPages}
+                  totalItems={pendingEquipmentQuery.data.totalItems}
+                  pageSize={pendingEquipmentQuery.data.pageSize}
+                  onPageChange={setPage}
+                />
+              </div>
+            ) : null}
           </div>
 
           <div className="min-w-0 bg-background">

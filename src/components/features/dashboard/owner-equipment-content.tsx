@@ -1,8 +1,10 @@
 'use client';
 
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import { getDashboardRevealProps } from './dashboard-motion';
 import {
   useDeleteOwnerEquipmentMutation,
+  useOwnerEquipmentPageQuery,
   useOwnerEquipmentQuery,
   useSubmitOwnerEquipmentMutation
 } from '@/hooks/use-equipment';
@@ -217,13 +219,19 @@ function EquipmentErrorState({ message }: { message: string }) {
 
 export function OwnerEquipmentContent() {
   const shouldReduceMotion = useReducedMotion() ?? false;
-  const equipmentQuery = useOwnerEquipmentQuery();
+  const [page, setPage] = useState(1);
+  const [activeTab, setActiveTab] = useState<EquipmentTab>('live');
+  const equipmentTotalsQuery = useOwnerEquipmentQuery();
+  const equipmentQuery = useOwnerEquipmentPageQuery({
+    page,
+    pageSize: 10,
+    tab: activeTab
+  });
   const submitMutation = useSubmitOwnerEquipmentMutation();
   const deleteMutation = useDeleteOwnerEquipmentMutation();
-  const [activeTab, setActiveTab] = useState<EquipmentTab>('live');
   const [actionError, setActionError] = useState<string | null>(null);
 
-  const listings = equipmentQuery.data ?? EMPTY_LISTINGS;
+  const listings = equipmentTotalsQuery.data ?? EMPTY_LISTINGS;
   const counts = useMemo(
     () => ({
       live: filterListings(listings, 'live').length,
@@ -232,10 +240,7 @@ export function OwnerEquipmentContent() {
     }),
     [listings]
   );
-  const filteredListings = useMemo(
-    () => filterListings(listings, activeTab),
-    [activeTab, listings]
-  );
+  const filteredListings = equipmentQuery.data?.items ?? EMPTY_LISTINGS;
 
   if (equipmentQuery.isPending) {
     return <EquipmentSkeleton />;
@@ -329,7 +334,10 @@ export function OwnerEquipmentContent() {
               <button
                 key={tab}
                 type="button"
-                onClick={() => setActiveTab(tab)}
+                onClick={() => {
+                  setActiveTab(tab);
+                  setPage(1);
+                }}
                 className={[
                   'inline-flex items-center gap-2 border-b-2 px-2 py-4 text-base transition-colors sm:gap-3 sm:px-3 sm:text-lg',
                   isActive
@@ -498,12 +506,26 @@ export function OwnerEquipmentContent() {
 
       <div className="flex flex-col gap-3 border-t border-[#c1c8c2] pt-8 text-[#5c5f60] sm:flex-row sm:items-center sm:justify-between">
         <span className="text-sm">
-          Showing {filteredListings.length} of {counts[activeTab]}{' '}
+          Showing {filteredListings.length} of{' '}
+          {equipmentQuery.data?.totalItems ?? counts[activeTab]}{' '}
           {getTabLabel(activeTab).toLowerCase()} listing
           {counts[activeTab] === 1 ? '' : 's'}
         </span>
-        <span className="text-sm font-medium">Page 1 of 1</span>
+        {equipmentQuery.data ? (
+          <span className="text-sm font-medium">
+            Page {equipmentQuery.data.page} of {equipmentQuery.data.totalPages}
+          </span>
+        ) : null}
       </div>
+      {equipmentQuery.data ? (
+        <DashboardPaginationControls
+          page={equipmentQuery.data.page}
+          totalPages={equipmentQuery.data.totalPages}
+          totalItems={equipmentQuery.data.totalItems}
+          pageSize={equipmentQuery.data.pageSize}
+          onPageChange={setPage}
+        />
+      ) : null}
     </section>
   );
 }

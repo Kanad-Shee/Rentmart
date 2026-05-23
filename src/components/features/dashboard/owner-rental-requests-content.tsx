@@ -1,5 +1,6 @@
 'use client';
 
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import { getDashboardRevealProps } from './dashboard-motion';
 import {
   Dialog,
@@ -14,6 +15,7 @@ import {
   useApproveBookingMutation,
   useCompleteOwnerBookingMutation,
   useDisputeBookingMutation,
+  useOwnerBookingsPageQuery,
   useOwnerBookingsQuery,
   useRejectBookingMutation,
   useStartBookingMutation
@@ -40,6 +42,13 @@ import {
 import { motion, useReducedMotion } from 'motion/react';
 import Image from 'next/image';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+
+type OwnerBookingGroup =
+  | 'PENDING'
+  | 'AWAITING_PAYMENT'
+  | 'CONFIRMED'
+  | 'IN_PROGRESS'
+  | 'HISTORY';
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat('en-IN', {
@@ -320,7 +329,14 @@ function BookingCard({
 
 export function OwnerRentalRequestsContent() {
   const shouldReduceMotion = useReducedMotion() ?? false;
-  const bookingsQuery = useOwnerBookingsQuery();
+  const [activeGroup, setActiveGroup] = useState<OwnerBookingGroup>('PENDING');
+  const [page, setPage] = useState(1);
+  const bookingTotalsQuery = useOwnerBookingsQuery();
+  const bookingsQuery = useOwnerBookingsPageQuery({
+    page,
+    pageSize: 10,
+    group: activeGroup
+  });
   const approveMutation = useApproveBookingMutation();
   const rejectMutation = useRejectBookingMutation();
   const startMutation = useStartBookingMutation();
@@ -342,8 +358,8 @@ export function OwnerRentalRequestsContent() {
   const latestDisputePhotosRef = useRef<LocalPhotoPreview[]>([]);
 
   const bookings = useMemo(
-    () => bookingsQuery.data ?? [],
-    [bookingsQuery.data]
+    () => bookingTotalsQuery.data ?? [],
+    [bookingTotalsQuery.data]
   );
   const grouped = useMemo(
     () => ({
@@ -366,6 +382,49 @@ export function OwnerRentalRequestsContent() {
     }),
     [bookings]
   );
+  const activeBookings = bookingsQuery.data?.items ?? [];
+  const counts = {
+    PENDING: grouped.pending.length,
+    AWAITING_PAYMENT: grouped.awaitingPayment.length,
+    CONFIRMED: grouped.confirmed.length,
+    IN_PROGRESS: grouped.inProgress.length,
+    HISTORY: grouped.history.length
+  } satisfies Record<OwnerBookingGroup, number>;
+  const groupMeta = {
+    PENDING: {
+      title: 'Pending Approvals',
+      description:
+        'These renter requests need an owner decision before the payment step can begin.',
+      empty: 'No booking requests are waiting for your approval right now.'
+    },
+    AWAITING_PAYMENT: {
+      title: 'Waiting For Renter Payment',
+      description:
+        'Approved requests remain reserved here while renters complete Cashfree checkout.',
+      empty: 'No approved requests are currently waiting on renter payment.'
+    },
+    CONFIRMED: {
+      title: 'Confirmed Rentals',
+      description:
+        'These bookings are confirmed after payment and ready for rental handoff. Owner payout will be settled manually by admin later.',
+      empty: 'No confirmed rentals are waiting for handoff.'
+    },
+    IN_PROGRESS: {
+      title: 'In Progress',
+      description:
+        'Live rentals can be safely completed or escalated into a dispute from here.',
+      empty: 'No rentals are currently in progress.'
+    },
+    HISTORY: {
+      title: 'History',
+      description:
+        'Completed, cancelled, and disputed booking records stay visible here for reference.',
+      empty: 'Booking history will appear here as requests are resolved.'
+    }
+  } satisfies Record<
+    OwnerBookingGroup,
+    { title: string; description: string; empty: string }
+  >;
 
   useEffect(() => {
     latestDisputePhotosRef.current = disputePhotos;
@@ -576,15 +635,57 @@ export function OwnerRentalRequestsContent() {
 
       {!bookingsQuery.isPending && !bookingsQuery.isError ? (
         <>
+          <div className="border-b border-[#d8dfdb]">
+            <div className="flex flex-wrap gap-2 sm:gap-4">
+              {(
+                [
+                  'PENDING',
+                  'AWAITING_PAYMENT',
+                  'CONFIRMED',
+                  'IN_PROGRESS',
+                  'HISTORY'
+                ] as OwnerBookingGroup[]
+              ).map((group) => (
+                <button
+                  key={group}
+                  type="button"
+                  onClick={() => {
+                    setActiveGroup(group);
+                    setPage(1);
+                    setFeedback(null);
+                    setActionError(null);
+                  }}
+                  className={[
+                    'inline-flex items-center gap-2 border-b-2 px-2 py-4 text-sm font-medium transition-colors sm:px-3 sm:text-base',
+                    activeGroup === group
+                      ? 'border-primary text-primary'
+                      : 'border-transparent text-[#5c5f60] hover:text-primary'
+                  ].join(' ')}>
+                  <span>{groupMeta[group].title}</span>
+                  <span
+                    className={[
+                      'inline-flex min-w-7 items-center justify-center rounded-full px-2 py-0.5 text-[11px] font-bold',
+                      activeGroup === group
+                        ? 'bg-[#1b4332] text-white'
+                        : 'bg-[#e8e8e5] text-[#414844]'
+                    ].join(' ')}>
+                    {counts[group]}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <section className="space-y-6">
             <SectionHeader
-              title="Pending Approvals"
-              description="These renter requests need an owner decision before the payment step can begin."
-              count={grouped.pending.length}
+              title={groupMeta[activeGroup].title}
+              description={groupMeta[activeGroup].description}
+              count={bookingsQuery.data?.totalItems ?? counts[activeGroup]}
             />
-            {grouped.pending.length > 0 ? (
-              <div className="space-y-8">
-                {grouped.pending.map((booking, index) => (
+            {activeGroup === 'PENDING' ? (
+              activeBookings.length > 0 ? (
+                <div className="space-y-8">
+                  {activeBookings.map((booking, index) => (
                   <BookingCard
                     key={booking.id}
                     booking={booking}
@@ -630,21 +731,16 @@ export function OwnerRentalRequestsContent() {
                     }
                   />
                 ))}
-              </div>
-            ) : (
-              <EmptyState message="No booking requests are waiting for your approval right now." />
-            )}
-          </section>
+                </div>
+              ) : (
+                <EmptyState message={groupMeta[activeGroup].empty} />
+              )
+            ) : null}
 
-          <section className="space-y-6">
-            <SectionHeader
-              title="Waiting For Renter Payment"
-              description="Approved requests remain reserved here while renters complete Cashfree checkout."
-              count={grouped.awaitingPayment.length}
-            />
-            {grouped.awaitingPayment.length > 0 ? (
-              <div className="space-y-8">
-                {grouped.awaitingPayment.map((booking, index) => (
+            {activeGroup === 'AWAITING_PAYMENT' ? (
+              activeBookings.length > 0 ? (
+                <div className="space-y-8">
+                  {activeBookings.map((booking, index) => (
                   <BookingCard
                     key={booking.id}
                     booking={booking}
@@ -667,21 +763,16 @@ export function OwnerRentalRequestsContent() {
                     }
                   />
                 ))}
-              </div>
-            ) : (
-              <EmptyState message="No approved requests are currently waiting on renter payment." />
-            )}
-          </section>
+                </div>
+              ) : (
+                <EmptyState message={groupMeta[activeGroup].empty} />
+              )
+            ) : null}
 
-          <section className="space-y-6">
-            <SectionHeader
-              title="Confirmed Rentals"
-              description="These bookings are confirmed after payment and ready for rental handoff. Owner payout will be settled manually by admin later."
-              count={grouped.confirmed.length}
-            />
-            {grouped.confirmed.length > 0 ? (
-              <div className="space-y-8">
-                {grouped.confirmed.map((booking, index) => (
+            {activeGroup === 'CONFIRMED' ? (
+              activeBookings.length > 0 ? (
+                <div className="space-y-8">
+                  {activeBookings.map((booking, index) => (
                   <BookingCard
                     key={booking.id}
                     booking={booking}
@@ -756,21 +847,16 @@ export function OwnerRentalRequestsContent() {
                     })()}
                   />
                 ))}
-              </div>
-            ) : (
-              <EmptyState message="No confirmed rentals are waiting for handoff." />
-            )}
-          </section>
+                </div>
+              ) : (
+                <EmptyState message={groupMeta[activeGroup].empty} />
+              )
+            ) : null}
 
-          <section className="space-y-6">
-            <SectionHeader
-              title="In Progress"
-              description="Live rentals can be safely completed or escalated into a dispute from here."
-              count={grouped.inProgress.length}
-            />
-            {grouped.inProgress.length > 0 ? (
-              <div className="space-y-8">
-                {grouped.inProgress.map((booking, index) => (
+            {activeGroup === 'IN_PROGRESS' ? (
+              activeBookings.length > 0 ? (
+                <div className="space-y-8">
+                  {activeBookings.map((booking, index) => (
                   <BookingCard
                     key={booking.id}
                     booking={booking}
@@ -808,20 +894,15 @@ export function OwnerRentalRequestsContent() {
                     }
                   />
                 ))}
-              </div>
-            ) : (
-              <EmptyState message="No rentals are currently in progress." />
-            )}
-          </section>
+                </div>
+              ) : (
+                <EmptyState message={groupMeta[activeGroup].empty} />
+              )
+            ) : null}
 
-          <section className="space-y-6">
-            <SectionHeader
-              title="History"
-              description="Completed, cancelled, and disputed booking records stay visible here for reference."
-              count={grouped.history.length}
-            />
-            {grouped.history.length > 0 ? (
-              <div className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
+            {activeGroup === 'HISTORY' ? (
+              activeBookings.length > 0 ? (
+                <div className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
                 <div className="overflow-x-auto">
                   <table className="min-w-full border-collapse">
                     <thead className="bg-[#f8faf7]">
@@ -838,7 +919,7 @@ export function OwnerRentalRequestsContent() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#edf1ee]">
-                      {grouped.history.map((booking, index) => (
+                      {activeBookings.map((booking, index) => (
                         <motion.tr
                           key={booking.id}
                           {...getDashboardRevealProps(
@@ -887,9 +968,19 @@ export function OwnerRentalRequestsContent() {
                   </table>
                 </div>
               </div>
-            ) : (
-              <EmptyState message="Booking history will appear here as requests are resolved." />
-            )}
+              ) : (
+                <EmptyState message={groupMeta[activeGroup].empty} />
+              )
+            ) : null}
+            {bookingsQuery.data ? (
+              <DashboardPaginationControls
+                page={bookingsQuery.data.page}
+                totalPages={bookingsQuery.data.totalPages}
+                totalItems={bookingsQuery.data.totalItems}
+                pageSize={bookingsQuery.data.pageSize}
+                onPageChange={setPage}
+              />
+            ) : null}
           </section>
         </>
       ) : null}

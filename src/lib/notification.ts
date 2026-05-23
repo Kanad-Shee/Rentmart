@@ -1,4 +1,9 @@
 import { apiRequest } from './http';
+import {
+  buildPaginationSearchParams,
+  type PaginatedResponse,
+  type PaginationInput
+} from './pagination';
 
 export type NotificationType =
   | 'EQUIPMENT_APPROVED'
@@ -33,12 +38,23 @@ export type NotificationItem = {
 };
 
 export const notificationQueryKeys = {
-  mine: ['notifications', 'mine'] as const
+  mine: ['notifications', 'mine'] as const,
+  minePage: (input: PaginationInput) =>
+    ['notifications', 'mine', input.page ?? 1, input.pageSize ?? 10] as const
 };
 
-export async function getMyNotifications() {
-  const response = await apiRequest<NotificationItem[]>('/notifications/me');
+export async function getMyNotificationsPage(input: PaginationInput = {}) {
+  const searchParams = buildPaginationSearchParams(input);
+  const suffix = searchParams.toString();
+  const response = await apiRequest<PaginatedResponse<NotificationItem>>(
+    `/notifications/me${suffix ? `?${suffix}` : ''}`
+  );
   return response.data;
+}
+
+export async function getMyNotifications() {
+  const response = await getMyNotificationsPage({ page: 1, pageSize: 100 });
+  return response.items;
 }
 
 export async function markNotificationAsRead(id: string) {
