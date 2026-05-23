@@ -208,7 +208,7 @@ export function ProductRentalCard({
     <aside className="space-y-4 lg:sticky lg:top-28">
       <div className="rounded-xl border border-border bg-background p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
         <div className="mb-6 flex items-baseline gap-2">
-          <span className="text-4xl font-semibold text-primary">
+          <span className="text-3xl font-semibold text-primary sm:text-4xl">
             {formatCurrency(pricePerDay)}
           </span>
           <span className="text-sm font-medium text-muted-foreground">

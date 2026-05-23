@@ -7,7 +7,7 @@ type ProductSpecGridProps = {
 
 export function ProductSpecGrid({ specs }: ProductSpecGridProps) {
   return (
-    <div className="grid grid-cols-2 gap-4 py-4 md:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 py-4 sm:gap-4 lg:grid-cols-4">
       {specs.map((spec) => (
         <div
           key={spec.label}
@@ -15,7 +15,7 @@ export function ProductSpecGrid({ specs }: ProductSpecGridProps) {
           <p className="mb-2 text-xs font-semibold uppercase text-muted-foreground">
             {spec.label}
           </p>
-          <p className="text-base font-bold text-primary">{spec.value}</p>
+          <p className="text-sm font-bold text-primary sm:text-base">{spec.value}</p>
         </div>
       ))}
     </div>

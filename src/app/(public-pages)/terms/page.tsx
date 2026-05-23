@@ -17,23 +17,16 @@ const sections = [
 ] as const;
 
 function Paragraph({ children }: { children: ReactNode }) {
-  return <p className="text-sm md:text-base text-[#5e6661]">{children}</p>;
-}
-
-function FooterLink({ children }: { children: string }) {
   return (
-    <Link
-      prefetch
-      href="/terms"
-      className="text-base text-[#6c7480] transition-colors hover:text-primary">
+    <p className="break-words text-sm leading-7 text-[#5e6661] sm:text-base">
       {children}
-    </Link>
+    </p>
   );
 }
 
 function getSectionCardClass(isActive: boolean) {
   return [
-    'scroll-mt-28 rounded-[1.75rem] border border-transparent px-6 py-8 transition-all duration-200 sm:px-8 sm:py-10',
+    'min-w-0 overflow-hidden scroll-mt-28 rounded-[1.75rem] border border-transparent px-6 py-8 transition-all duration-200 sm:px-8 sm:py-10',
     isActive
       ? 'border-primary/20 bg-[#e8f2e9] shadow-[0_8px_24px_rgba(27,67,50,0.08)]'
       : 'bg-transparent'
@@ -114,7 +107,7 @@ export default function TermsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#f9faf6] text-foreground">
+    <main className="min-h-screen overflow-x-hidden bg-[#f9faf6] text-foreground">
       <Navbar
         brand="RENTMART"
         links={[
@@ -139,7 +132,7 @@ export default function TermsPage() {
       />
 
       <section className="border-b border-[#e2e3e0] bg-white">
-        <div className="mx-auto max-w-[1440px] px-6 py-12 lg:px-16 lg:py-16">
+        <div className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-16 lg:py-16">
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-2 text-lg text-[#6b7075]">
@@ -161,18 +154,18 @@ export default function TermsPage() {
           </nav>
 
           <div className="mt-14 max-w-4xl">
-            <h1 className="text-3xl sm:text-4xl font-semibold tracking-[-0.05em] text-primary ">
+            <h1 className="text-2xl font-semibold tracking-[-0.05em] text-primary sm:text-3xl lg:text-4xl">
               Terms of Service
             </h1>
-            <p className="mt-6 text-lg font-medium text-[#6b7075]">
+            <p className="mt-5 text-base font-medium text-[#6b7075] sm:text-lg">
               Last updated: March 24, 2026
             </p>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-[1440px] gap-12 px-6 py-16 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-20 lg:px-16 lg:py-20">
-        <aside className="lg:sticky lg:top-28 lg:h-fit">
+      <div className="mx-auto grid max-w-[1440px] min-w-0 gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-20 lg:px-16 lg:py-20">
+        <aside className="min-w-0 lg:sticky lg:top-28 lg:h-fit">
           <div className="hidden border-l border-[#d9dcd5] pl-6 lg:block">
             <nav className="flex flex-col gap-2">
               {sections.map((section) => (
@@ -199,14 +192,15 @@ export default function TermsPage() {
           </div>
 
           <div className="lg:hidden">
-            <div className="flex gap-3 overflow-x-auto rounded-2xl border border-[#e2e3e0] bg-white p-3">
+            <div className="max-w-full overflow-x-auto rounded-2xl border border-[#e2e3e0] bg-white p-3 pb-4">
+              <div className="flex min-w-max gap-3">
               {sections.map((section) => (
                 <button
                   key={section.id}
                   type="button"
                   onClick={() => handleSectionClick(section.id)}
                   className={[
-                    'whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                    'shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors',
                     activeSection === section.id
                       ? 'bg-primary text-white'
                       : 'bg-[#f3f4f1] text-[#4f5964]'
@@ -214,6 +208,7 @@ export default function TermsPage() {
                   {section.title}
                 </button>
               ))}
+              </div>
             </div>
 
             <div className="mt-6 rounded-2xl bg-[#f3f4f1] px-5 py-5 text-sm leading-7 text-[#4f5752]">
@@ -224,7 +219,7 @@ export default function TermsPage() {
           </div>
         </aside>
 
-        <article className="space-y-16">
+        <article className="min-w-0 max-w-full space-y-16">
           <section
             id="definitions"
             className={getSectionCardClass(activeSection === 'definitions')}>
@@ -262,7 +257,7 @@ export default function TermsPage() {
                 safeguarding your account credentials and for all activities
                 that occur under your account.
               </Paragraph>
-              <div className="space-y-3 pl-2 font-semibold text-lg text-[#4a524d]">
+              <div className="space-y-3 pl-2 text-lg font-semibold text-[#4a524d]">
                 <p>
                   Maintain compliance with all local industrial safety
                   regulations.
@@ -326,7 +321,7 @@ export default function TermsPage() {
                 loss of machinery, personal injury, or catastrophic loss, and
                 all legal disputes are between owner and renter directly.
               </p>
-              <p className="max-w-4xl text-lg leading-8 text-[#5b6460]">
+              <p className="max-w-4xl text-base leading-7 text-[#5b6460] sm:text-lg sm:leading-8">
                 Users are strongly advised to maintain independent commercial
                 general liability insurance and equipment floater policies for
                 all high-capital assets.

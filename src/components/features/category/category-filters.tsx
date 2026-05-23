@@ -8,7 +8,7 @@ type CategoryFiltersProps = {
 
 export function CategoryFilters({ filters, onChange }: CategoryFiltersProps) {
   return (
-    <div className="grid gap-4 border-t border-border pt-6 md:grid-cols-[repeat(3,minmax(0,180px))_1fr]">
+    <div className="grid gap-4 border-t border-border pt-6 sm:grid-cols-3 xl:grid-cols-[repeat(3,minmax(0,180px))_1fr]">
       {filters.map((filter) => (
         <label
           key={filter.label}
@@ -31,7 +31,7 @@ export function CategoryFilters({ filters, onChange }: CategoryFiltersProps) {
         </label>
       ))}
 
-      <div className="flex items-end md:justify-end">
+      <div className="hidden items-end xl:flex xl:justify-end">
         <button
           type="button"
           className="inline-flex h-11 items-center gap-2 rounded-sm border border-[#dfe4eb] bg-white px-5 text-sm font-medium text-foreground transition-colors hover:bg-muted">

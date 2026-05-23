@@ -1,10 +1,8 @@
 'use client';
 
-import { useCurrentUserQuery } from '@/hooks/use-auth';
 import { useCategoriesQuery } from '@/hooks/use-category';
 import {
-  useFeaturedEquipmentQuery,
-  usePublicEquipmentListingsQuery
+  useFeaturedEquipmentQuery
 } from '@/hooks/use-equipment';
 import type { Category } from '@/lib/category';
 import type { EquipmentListing } from '@/lib/equipment';
@@ -12,16 +10,13 @@ import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
-  MapPin,
-  Search,
   ShieldCheck
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { type Route } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const HERO_FALLBACK_IMAGE = '/assets/landing/landing-tractor.webp';
 
@@ -70,7 +65,7 @@ function getListingSpecs(listing: EquipmentListing) {
 
 function HeroFeaturedSkeleton() {
   return (
-    <div className="absolute inset-x-5 bottom-5 rounded-xl border border-border bg-background/95 p-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur">
+    <div className="absolute inset-x-3 bottom-3 rounded-xl border border-border bg-background/95 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur sm:inset-x-5 sm:bottom-5 sm:p-5">
       <div className="flex items-center justify-between gap-4">
         <div className="h-3 w-28 rounded bg-muted" />
         <div className="h-6 w-20 rounded bg-muted" />
@@ -148,7 +143,7 @@ function EmptyState({
 }) {
   return (
     <div className="rounded-xl border border-dashed border-border bg-background px-8 py-16 text-center">
-      <h3 className="text-2xl font-semibold tracking-[-0.03em] text-foreground">
+      <h3 className="text-xl font-semibold tracking-[-0.03em] text-foreground sm:text-2xl">
         {title}
       </h3>
       <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
@@ -316,33 +311,26 @@ function FeaturedCard({ listing }: { listing: EquipmentListing }) {
 }
 
 export function HomepageMarketplaceSections() {
-  const router = useRouter();
   const shouldReduceMotion = useReducedMotion() ?? false;
-  const currentUserQuery = useCurrentUserQuery();
   const categoriesQuery = useCategoriesQuery();
   const featuredEquipmentQuery = useFeaturedEquipmentQuery();
-  const publicListingsQuery = usePublicEquipmentListingsQuery();
-  const featuredListings = featuredEquipmentQuery.data ?? [];
-  const publicListings = publicListingsQuery.data ?? [];
-  const [heroListings, setHeroListings] = useState<EquipmentListing[]>([]);
+  const featuredListings = useMemo(
+    () => featuredEquipmentQuery.data ?? [],
+    [featuredEquipmentQuery.data]
+  );
+  const heroListings = useMemo(
+    () =>
+      [...featuredListings]
+        .sort(
+          (left, right) =>
+            new Date(right.createdAt).getTime() -
+            new Date(left.createdAt).getTime()
+        )
+        .slice(0, 3),
+    [featuredListings]
+  );
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);
   const heroListing = heroListings[activeHeroIndex] ?? null;
-  const [equipmentSearch, setEquipmentSearch] = useState('');
-  const [locationSearch, setLocationSearch] = useState('');
-  const [searchError, setSearchError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const recentListings = [...featuredListings]
-      .sort(
-        (left, right) =>
-          new Date(right.createdAt).getTime() -
-          new Date(left.createdAt).getTime()
-      )
-      .slice(0, 3);
-
-    setHeroListings(recentListings);
-    setActiveHeroIndex(0);
-  }, [featuredListings]);
 
   useEffect(() => {
     if (shouldReduceMotion || heroListings.length <= 1) {
@@ -357,46 +345,6 @@ export function HomepageMarketplaceSections() {
 
     return () => window.clearInterval(intervalId);
   }, [heroListings, shouldReduceMotion]);
-
-  function handleSearch() {
-    const normalizedEquipment = equipmentSearch.trim().toLowerCase();
-    const normalizedLocation = locationSearch.trim().toLowerCase();
-
-    const listingMatch = publicListings.find((listing) => {
-      const matchesEquipment =
-        normalizedEquipment.length === 0 ||
-        `${listing.title} ${listing.category.title}`
-          .toLowerCase()
-          .includes(normalizedEquipment);
-      const matchesLocation =
-        normalizedLocation.length === 0 ||
-        listing.normalizedAddress.toLowerCase().includes(normalizedLocation);
-
-      return matchesEquipment && matchesLocation;
-    });
-
-    if (listingMatch) {
-      setSearchError(null);
-      router.push(`/details/${listingMatch.id}`);
-      return;
-    }
-
-    const categoryMatch = (categoriesQuery.data ?? []).find((category) =>
-      normalizedEquipment.length > 0
-        ? category.title.toLowerCase().includes(normalizedEquipment)
-        : false
-    );
-
-    if (categoryMatch) {
-      setSearchError(null);
-      router.push(`/category/${categoryMatch.id}`);
-      return;
-    }
-
-    setSearchError(
-      'No live listing matched that search yet. Try a category like tractors or a city from an active listing.'
-    );
-  }
 
   return (
     <>
@@ -434,7 +382,7 @@ export function HomepageMarketplaceSections() {
             }}
           />
         </motion.div>
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-2 lg:items-center justify-center lg:justify-start lg:px-8 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:items-center lg:justify-start lg:gap-12 lg:px-8 lg:py-24">
           <motion.div
             className="relative z-10"
             initial="initial"
@@ -453,7 +401,7 @@ export function HomepageMarketplaceSections() {
                 animate: { opacity: 1, y: 0 }
               }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
-              className="max-w-xl text-4xl font-display leading-[0.98] tracking-[-0.04em] text-center lg:text-start text-primary sm:text-5xl lg:text-6xl font-bold">
+              className="max-w-xl text-3xl font-bold font-display leading-[1.02] tracking-[-0.04em] text-center text-primary sm:text-4xl lg:text-start lg:text-5xl xl:text-6xl">
               Rent the Power You Need.
               <span className="mt-3 block text-[#86af99]">
                 Monetize the Fleet You Own.
@@ -466,7 +414,7 @@ export function HomepageMarketplaceSections() {
                 animate: { opacity: 1, y: 0 }
               }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
-              className="mt-6 max-w-xl text-center lg:text-start text-base font-medium text-muted-foreground sm:text-lg tracking-tight">
+              className="mt-5 max-w-xl text-center text-sm font-medium tracking-tight text-muted-foreground sm:text-base lg:mt-6 lg:text-start lg:text-lg">
               The world&apos;s premier industrial marketplace for heavy
               machinery. High-capacity equipment, verified owners, and
               comprehensive protection for every project.
@@ -478,7 +426,7 @@ export function HomepageMarketplaceSections() {
                 animate: { opacity: 1, y: 0 }
               }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
-              className="mt-8 flex flex-wrap items-center gap-4">
+              className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap lg:items-start">
               <div className="flex -space-x-2">
                 <motion.div
                   className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-[#e2e3e0] text-xs font-bold text-primary"
@@ -524,7 +472,7 @@ export function HomepageMarketplaceSections() {
               delay: shouldReduceMotion ? 0 : 0.2
             }}>
             <motion.div
-              className="relative mx-auto lg:mx-0 max-w-xl overflow-hidden rounded-2xl border border-border bg-card shadow-[0_24px_70px_rgba(0,0,0,0.12)]"
+              className="relative mx-auto max-w-xl overflow-hidden rounded-2xl border border-border bg-card shadow-[0_24px_70px_rgba(0,0,0,0.12)] lg:mx-0"
               whileHover={
                 shouldReduceMotion
                   ? undefined
@@ -600,7 +548,7 @@ export function HomepageMarketplaceSections() {
               {featuredEquipmentQuery.isPending ? (
                 <HeroFeaturedSkeleton />
               ) : heroListing ? (
-                <div className="absolute inset-x-5 bottom-5 rounded-xl border border-border bg-background/95 p-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur">
+                <div className="absolute inset-x-3 bottom-3 rounded-xl border border-border bg-background/95 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur sm:inset-x-5 sm:bottom-5 sm:p-5">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={heroListing.id}
@@ -625,7 +573,7 @@ export function HomepageMarketplaceSections() {
                           Available
                         </span>
                       </div>
-                      <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-foreground">
+                      <h2 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-foreground sm:text-2xl">
                         {heroListing.title}
                       </h2>
                       <p className="mt-1 text-sm text-muted-foreground">
@@ -669,11 +617,11 @@ export function HomepageMarketplaceSections() {
                   ) : null}
                 </div>
               ) : (
-                <div className="absolute inset-x-5 bottom-5 rounded-xl border border-border bg-background/95 p-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur">
+                <div className="absolute inset-x-3 bottom-3 rounded-xl border border-border bg-background/95 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur sm:inset-x-5 sm:bottom-5 sm:p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#86af99]">
                     Featured Unit
                   </p>
-                  <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-foreground">
+                  <h2 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-foreground sm:text-2xl">
                     New listings coming soon
                   </h2>
                   <p className="mt-1 text-sm text-muted-foreground">
@@ -688,14 +636,14 @@ export function HomepageMarketplaceSections() {
       </section>
 
       <section className="bg-[#f9faf6] py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="mb-10 flex items-end justify-between gap-6"
+            className="mb-10 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
             viewport={{ once: true, amount: 0.3 }}
             {...fadeUp(shouldReduceMotion)}>
             <div>
               <SectionEyebrow>Marketplace</SectionEyebrow>
-              <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-foreground">
+              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-foreground sm:text-3xl">
                 Browse by Category
               </h2>
             </div>
@@ -706,13 +654,13 @@ export function HomepageMarketplaceSections() {
           </motion.div>
 
           {categoriesQuery.isPending ? (
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
               {[0, 1, 2, 3].map((item) => (
                 <CategoryCardSkeleton key={item} />
               ))}
             </div>
           ) : categoriesQuery.data && categoriesQuery.data.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
               {categoriesQuery.data.map((category) => (
                 <CategoryCard
                   key={category.id}
@@ -732,14 +680,14 @@ export function HomepageMarketplaceSections() {
       <section
         id="featured"
         className="bg-muted/30 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="mb-10 flex items-end justify-between gap-6"
+            className="mb-10 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
             viewport={{ once: true, amount: 0.3 }}
             {...fadeUp(shouldReduceMotion)}>
             <div>
               <SectionEyebrow>High Demand</SectionEyebrow>
-              <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-foreground">
+              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-foreground sm:text-3xl">
                 Featured Machinery
               </h2>
             </div>
@@ -758,13 +706,13 @@ export function HomepageMarketplaceSections() {
           </motion.div>
 
           {featuredEquipmentQuery.isPending ? (
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {[0, 1, 2, 3].map((item) => (
                 <FeaturedCardSkeleton key={item} />
               ))}
             </div>
           ) : featuredListings.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {featuredListings.map((listing) => (
                 <FeaturedCard
                   key={listing.id}

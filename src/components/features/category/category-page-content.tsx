@@ -153,13 +153,14 @@ function CategorySkeleton() {
             ))}
           </div>
 
-          <div className="mt-6 grid gap-4 border-t border-border pt-6 md:grid-cols-[repeat(3,minmax(0,180px))_1fr]">
-            {[0, 1, 2, 3].map((item) => (
+          <div className="mt-6 grid gap-4 border-t border-border pt-6 sm:grid-cols-3 xl:grid-cols-[repeat(3,minmax(0,180px))_1fr]">
+            {[0, 1, 2].map((item) => (
               <div
                 key={item}
                 className="h-20 rounded bg-muted"
               />
             ))}
+            <div className="hidden h-20 rounded bg-muted xl:block" />
           </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">

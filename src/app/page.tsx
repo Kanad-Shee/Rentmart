@@ -72,7 +72,7 @@ export default function Home() {
       <HomepageMarketplaceSections />
 
       <section className="border-b border-border bg-primary">
-        <div className="mx-auto grid max-w-7xl gap-4 px-6 py-6 text-primary-foreground sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-4 px-4 py-6 text-primary-foreground sm:grid-cols-2 lg:grid-cols-4 sm:px-6 lg:px-8">
           {trustItems.map(({ icon: Icon, label }) => (
             <div
               key={label}
@@ -89,15 +89,15 @@ export default function Home() {
       <section
         id="how-it-works"
         className="border-y border-border bg-[#f3f4f1] py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <SectionEyebrow>Seamless Process</SectionEyebrow>
-            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-foreground">
+            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-foreground sm:text-3xl">
               How Rentmart Works
             </h2>
           </div>
 
-          <div className="mt-14 grid gap-10 md:grid-cols-3">
+          <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {steps.map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
@@ -118,7 +118,7 @@ export default function Home() {
       </section>
 
       <section className="py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-2xl bg-primary px-6 py-16 text-center shadow-[0_18px_50px_rgba(0,0,0,0.12)] sm:px-10 lg:px-16">
             <div className="pointer-events-none absolute inset-0 opacity-15">
               <div className="absolute inset-x-10 top-10 h-px bg-white/40" />
@@ -127,7 +127,7 @@ export default function Home() {
               <div className="absolute right-10 top-10 bottom-10 w-px bg-white/20" />
             </div>
 
-            <h2 className="relative text-3xl font-extrabold tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
+            <h2 className="relative text-2xl font-extrabold tracking-[-0.04em] text-white sm:text-3xl lg:text-4xl xl:text-5xl">
               Ready to Scale Your Fleet?
             </h2>
             <p className="relative mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#c1ecd4] sm:text-base">

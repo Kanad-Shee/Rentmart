@@ -16,7 +16,7 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
       <section
         aria-label={`${title} gallery`}
         className="overflow-hidden rounded-md">
-        <div className="flex h-[380px] items-center justify-center rounded-md border border-border bg-muted/30 text-sm text-muted-foreground md:h-[520px]">
+        <div className="flex h-70 items-center justify-center rounded-md border border-border bg-muted/30 text-sm text-muted-foreground sm:h-85 lg:h-130">
           Images will appear here soon.
         </div>
       </section>
@@ -29,15 +29,14 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
     <section
       aria-label={`${title} gallery`}
       className="overflow-hidden rounded-md">
-      <div className="grid gap-2 md:h-[520px] md:grid-cols-4 md:grid-rows-2">
-        <div className="relative h-[380px] overflow-hidden rounded-md md:col-span-2 md:row-span-2 md:h-full">
+      <div className="grid gap-2 sm:grid-cols-2 lg:h-[520px] lg:grid-cols-4 lg:grid-rows-2">
+        <div className="relative h-[280px] overflow-hidden rounded-md sm:h-[340px] sm:col-span-2 lg:row-span-2 lg:h-full">
           <Image
             src={heroImage.src}
             alt={heroImage.alt}
-            loading={'lazy'}
             fill
             priority
-            sizes="(max-width: 768px) 100vw, 45vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 45vw"
             className="object-cover transition-transform duration-500 hover:scale-105"
           />
         </div>
@@ -45,13 +44,13 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
         {thumbnailImages.slice(0, 4).map((image, index) => (
           <div
             key={image.src}
-            className="relative h-[180px] overflow-hidden rounded-md md:h-full">
+            className="relative h-[160px] overflow-hidden rounded-md sm:h-[200px] lg:h-full">
             <Image
               src={image.src}
               alt={image.alt}
               fill
               loading={'lazy'}
-              sizes="(max-width: 768px) 50vw, 22vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 22vw"
               className="object-cover transition-transform duration-500 hover:scale-105"
             />
             {index === 3 ? (

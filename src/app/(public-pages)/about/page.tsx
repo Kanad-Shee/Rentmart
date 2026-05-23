@@ -234,10 +234,10 @@ export default function AboutPage() {
               <SectionEyebrow>
                 Built For Modern Equipment Sharing
               </SectionEyebrow>
-              <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.05em] text-primary sm:text-5xl lg:text-6xl">
+              <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-[-0.05em] text-primary sm:text-4xl lg:text-5xl xl:text-6xl">
                 Moving idle machines into active, revenue-generating work.
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
+              <p className="mt-6 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base lg:text-lg lg:leading-8">
                 Rentmart helps equipment owners earn from underused assets and
                 helps contractors, builders, and industrial teams book verified
                 machinery faster with clearer trust, logistics, and payment
@@ -261,7 +261,7 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.div
-              className="relative min-h-[380px] overflow-hidden rounded-[32px] bg-[#f7f8f3] sm:min-h-[500px] lg:min-h-[620px]"
+              className="relative min-h-[300px] overflow-hidden rounded-[32px] bg-[#f7f8f3] sm:min-h-[420px] lg:min-h-[620px]"
               {...getRevealProps(shouldReduceMotion, 2)}>
               <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0)_48%,_rgba(249,250,246,0.28)_68%,_rgba(249,250,246,0.82)_86%,_rgba(249,250,246,1)_100%)]" />
               <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,_rgba(249,250,246,0.92)_0%,_rgba(249,250,246,0.08)_18%,_rgba(249,250,246,0.02)_50%,_rgba(249,250,246,0.12)_82%,_rgba(249,250,246,0.88)_100%),linear-gradient(90deg,_rgba(249,250,246,0.82)_0%,_rgba(249,250,246,0.06)_16%,_rgba(249,250,246,0)_50%,_rgba(249,250,246,0.06)_84%,_rgba(249,250,246,0.82)_100%)]" />
@@ -270,7 +270,6 @@ export default function AboutPage() {
                 src="/assets/rentmart-marketplace-assets/rentmart_about_page_design/rentmart_about_hero.webp"
                 alt="Rentmart hero illustration showing a trusted equipment marketplace handoff"
                 fill
-                loading={'lazy'}
                 priority
                 className="object-cover object-center scale-[1.06] [mask-image:radial-gradient(circle_at_center,black_52%,rgba(0,0,0,0.94)_68%,rgba(0,0,0,0.58)_84%,transparent_100%)]"
               />
@@ -333,7 +332,7 @@ export default function AboutPage() {
             className="text-center"
             {...getRevealProps(shouldReduceMotion, 0)}>
             <SectionEyebrow>Owner Journey</SectionEyebrow>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl lg:text-4xl">
               How It Works For Owners
             </h2>
             <div className="mx-auto mt-5 h-px w-24 bg-primary/45" />
@@ -359,7 +358,7 @@ export default function AboutPage() {
             className="text-center"
             {...getRevealProps(shouldReduceMotion, 0)}>
             <SectionEyebrow>Renter Journey</SectionEyebrow>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl lg:text-4xl">
               How It Works For Renters
             </h2>
             <div className="mx-auto mt-5 h-px w-24 bg-primary/45" />
@@ -385,7 +384,7 @@ export default function AboutPage() {
             className="text-center"
             {...getRevealProps(shouldReduceMotion, 0)}>
             <SectionEyebrow>Platform Standards</SectionEyebrow>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl lg:text-4xl">
               Trust & Safety
             </h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
@@ -394,7 +393,7 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {trustHighlights.map(
               ({ title, body, accent, icon: Icon, className }, index) => (
                 <motion.article
@@ -437,7 +436,7 @@ export default function AboutPage() {
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/8">
                 <Tractor className="h-7 w-7" />
               </div>
-              <h2 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-6 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl lg:text-4xl xl:text-5xl">
                 Ready to join the Rentmart community?
               </h2>
               <p className="mt-4 text-sm leading-7 text-[#cde4d7] sm:text-base">

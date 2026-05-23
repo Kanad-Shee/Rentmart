@@ -177,15 +177,15 @@ export function ContactPageContent() {
       </section>
 
       <section className="py-14">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[0.95fr_1.15fr] lg:gap-12 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.15fr] lg:gap-12 lg:px-8">
           <motion.div
             className="flex flex-col justify-between"
             {...getRevealProps(shouldReduceMotion, 1)}>
             <div>
-              <h1 className="text-4xl font-semibold tracking-[-0.05em] text-primary sm:text-5xl">
+              <h1 className="text-3xl font-semibold tracking-[-0.05em] text-primary sm:text-4xl lg:text-5xl">
                 We&apos;re here to help.
               </h1>
-              <p className="mt-5 max-w-md text-lg leading-8 text-muted-foreground">
+              <p className="mt-5 max-w-md text-sm leading-7 text-muted-foreground sm:text-base lg:text-lg lg:leading-8">
                 Have a question about a rental or need help listing your
                 machinery? Reach out to our team.
               </p>
@@ -204,7 +204,7 @@ export function ContactPageContent() {
                         <h2 className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
                           {label}
                         </h2>
-                        <p className="mt-1 text-xl font-semibold tracking-[-0.03em] text-foreground">
+                        <p className="mt-1 text-lg font-semibold tracking-[-0.03em] text-foreground sm:text-xl">
                           {value}
                         </p>
                         <p className="mt-1 text-sm text-muted-foreground">
@@ -224,7 +224,7 @@ export function ContactPageContent() {
             <div className="flex items-start gap-3">
               <Headphones className="mt-1 h-5 w-5 text-primary" />
               <div>
-                <h2 className="text-3xl font-semibold tracking-[-0.04em] text-primary">
+                <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
                   Send us a message
                 </h2>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">
@@ -239,7 +239,7 @@ export function ContactPageContent() {
                 <p className="text-sm leading-7 text-muted-foreground">
                   Sign in as an owner or renter to submit a support request.
                 </p>
-                <div className="mt-4 flex gap-3">
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                   <Link
                     prefetch
                     href="/sign-in"

@@ -117,7 +117,7 @@ function ProductDetailsSkeleton() {
         <div className="mb-8 h-4 w-60 rounded bg-muted" />
         <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
           <article className="space-y-8 lg:col-span-8">
-            <div className="h-130 rounded-md bg-muted" />
+        <div className="h-[340px] rounded-md bg-muted sm:h-[420px] lg:h-[520px]" />
             <div className="space-y-4">
               <div className="h-6 w-36 rounded bg-muted" />
               <div className="h-14 w-3/4 rounded bg-muted" />
@@ -128,7 +128,7 @@ function ProductDetailsSkeleton() {
               <div className="h-5 w-full rounded bg-muted" />
               <div className="h-5 w-5/6 rounded bg-muted" />
             </div>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               {[0, 1, 2, 3].map((item) => (
                 <div
                   key={item}
@@ -152,8 +152,8 @@ function ProductUnavailableState({ message }: { message: string }) {
     <div className="min-h-screen bg-background text-foreground">
       <ProductHeader />
       <main className="mx-auto max-w-4xl px-4 pb-20 pt-16 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-border bg-background p-10 text-center shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
-          <h1 className="text-4xl font-semibold text-primary">
+        <div className="rounded-2xl border border-border bg-background p-6 text-center shadow-[0_10px_30px_rgba(0,0,0,0.04)] sm:p-8 lg:p-10">
+          <h1 className="text-3xl font-semibold text-primary sm:text-4xl">
             Listing unavailable
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
@@ -264,7 +264,7 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
                 </span>
               </div>
 
-              <h1 className="max-w-4xl text-4xl font-semibold text-primary sm:text-5xl">
+              <h1 className="max-w-4xl text-3xl font-semibold text-primary sm:text-4xl lg:text-5xl">
                 {product.title}
               </h1>
             </motion.div>
@@ -285,10 +285,10 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
             <motion.section
               className="space-y-4"
               {...getRevealProps(shouldReduceMotion, 4)}>
-              <h2 className="text-3xl font-semibold text-primary">
+              <h2 className="text-2xl font-semibold text-primary sm:text-3xl">
                 Description
               </h2>
-              <div className="max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
+              <div className="max-w-4xl space-y-4 text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
                 {description.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -302,7 +302,7 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
             <motion.section
               className="space-y-4"
               {...getRevealProps(shouldReduceMotion, 6)}>
-              <h2 className="text-3xl font-semibold text-primary">
+              <h2 className="text-2xl font-semibold text-primary sm:text-3xl">
                 Delivery Area
               </h2>
               <ProductDeliveryMap

@@ -14,7 +14,7 @@ export function CategoryHero({
   return (
     <section className="border-b border-border bg-[#f8f8f1]">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
-        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-4xl">
             <nav
               aria-label="Breadcrumb"
@@ -37,15 +37,15 @@ export function CategoryHero({
               </span>
             </nav>
 
-            <h1 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-primary sm:text-5xl lg:text-[3.15rem]">
+            <h1 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl xl:text-[3.15rem]">
               {title}
             </h1>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-[#4f5964]">
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#4f5964] sm:text-base sm:leading-8">
               {description}
             </p>
           </div>
 
-          <div className="pt-2 text-right text-sm text-[#5d6f8f] md:pt-20">
+          <div className="pt-2 text-left text-sm text-[#5d6f8f] lg:pt-20 lg:text-right">
             {itemCount}
           </div>
         </div>
