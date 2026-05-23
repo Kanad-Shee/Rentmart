@@ -1,6 +1,5 @@
-"use client";
+'use client';
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   categoryQueryKeys,
   createCategory,
@@ -9,14 +8,15 @@ import {
   getCategories,
   updateCategory,
   type CreateCategoryInput,
-  type UpdateCategoryInput,
-} from "@/lib/category";
+  type UpdateCategoryInput
+} from '@/lib/category';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useCategoriesQuery() {
   return useQuery({
     queryKey: categoryQueryKeys.all,
     queryFn: getCategories,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000
   });
 }
 
@@ -25,7 +25,7 @@ export function useCategoryQuery(id: string, enabled = true) {
     queryKey: categoryQueryKeys.detail(id),
     queryFn: () => getCategoryById(id),
     enabled: enabled && id.trim().length > 0,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000
   });
 }
 
@@ -36,7 +36,7 @@ export function useCreateCategoryMutation() {
     mutationFn: (input: CreateCategoryInput) => createCategory(input),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: categoryQueryKeys.all });
-    },
+    }
   });
 }
 
@@ -47,7 +47,7 @@ export function useUpdateCategoryMutation() {
     mutationFn: (input: UpdateCategoryInput) => updateCategory(input),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: categoryQueryKeys.all });
-    },
+    }
   });
 }
 
@@ -58,6 +58,6 @@ export function useDeleteCategoryMutation() {
     mutationFn: (id: string) => deleteCategory(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: categoryQueryKeys.all });
-    },
+    }
   });
 }

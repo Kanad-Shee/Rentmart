@@ -1,11 +1,11 @@
-import type { ReactNode } from "react";
-import { DashboardShell } from "@/components/features/dashboard/dashboard-shell";
-import { requireUser } from "@/lib/user";
+import { DashboardShell } from '@/components/features/dashboard/dashboard-shell';
+import { requireUser } from '@/lib/user';
+import type { ReactNode } from 'react';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function DashboardLayout({
-  children,
+  children
 }: {
   children: ReactNode;
 }) {

@@ -1,56 +1,56 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { getBackendUrl } from "@/lib/http";
+import { getBackendUrl } from '@/lib/http';
+import { NextResponse, type NextRequest } from 'next/server';
 
 function getSetCookieHeaders(response: Response) {
   const nextHeaders = response.headers as Headers & {
     getSetCookie?: () => string[];
   };
 
-  if (typeof nextHeaders.getSetCookie === "function") {
+  if (typeof nextHeaders.getSetCookie === 'function') {
     return nextHeaders.getSetCookie();
   }
 
-  const header = response.headers.get("set-cookie");
+  const header = response.headers.get('set-cookie');
   return header ? [header] : [];
 }
 
 async function proxySupportQueryCollectionRequest(
   request: NextRequest,
-  method: "GET" | "POST",
+  method: 'GET' | 'POST'
 ) {
-  const contentType = request.headers.get("content-type") ?? "";
+  const contentType = request.headers.get('content-type') ?? '';
   const body =
-    method === "GET"
+    method === 'GET'
       ? undefined
-      : contentType.includes("multipart/form-data")
+      : contentType.includes('multipart/form-data')
         ? await request.formData()
         : await request.text();
 
   let backendResponse: Response;
 
   try {
-    backendResponse = await fetch(getBackendUrl("/support-queries"), {
+    backendResponse = await fetch(getBackendUrl('/support-queries'), {
       method,
       body,
-      cache: "no-store",
+      cache: 'no-store',
       headers: {
-        accept: request.headers.get("accept") ?? "application/json",
-        ...(contentType && !contentType.includes("multipart/form-data")
-          ? { "content-type": contentType }
+        accept: request.headers.get('accept') ?? 'application/json',
+        ...(contentType && !contentType.includes('multipart/form-data')
+          ? { 'content-type': contentType }
           : {}),
-        ...(request.headers.get("cookie")
-          ? { cookie: request.headers.get("cookie") as string }
-          : {}),
-      },
+        ...(request.headers.get('cookie')
+          ? { cookie: request.headers.get('cookie') as string }
+          : {})
+      }
     });
   } catch (error) {
-    console.error("Support query collection proxy request failed:", error);
+    console.error('Support query collection proxy request failed:', error);
     return NextResponse.json(
       {
         success: false,
-        message: "Unable to reach the backend server.",
+        message: 'Unable to reach the backend server.'
       },
-      { status: 502 },
+      { status: 502 }
     );
   }
 
@@ -58,22 +58,22 @@ async function proxySupportQueryCollectionRequest(
   const response = new NextResponse(payload, {
     status: backendResponse.status,
     headers: {
-      "content-type":
-        backendResponse.headers.get("content-type") ?? "application/json",
-    },
+      'content-type':
+        backendResponse.headers.get('content-type') ?? 'application/json'
+    }
   });
 
   for (const setCookie of getSetCookieHeaders(backendResponse)) {
-    response.headers.append("set-cookie", setCookie);
+    response.headers.append('set-cookie', setCookie);
   }
 
   return response;
 }
 
 export async function GET(request: NextRequest) {
-  return proxySupportQueryCollectionRequest(request, "GET");
+  return proxySupportQueryCollectionRequest(request, 'GET');
 }
 
 export async function POST(request: NextRequest) {
-  return proxySupportQueryCollectionRequest(request, "POST");
+  return proxySupportQueryCollectionRequest(request, 'POST');
 }

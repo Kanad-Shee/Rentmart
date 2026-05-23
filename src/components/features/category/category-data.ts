@@ -1,12 +1,12 @@
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from 'lucide-react';
 import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
   Heart,
   SlidersHorizontal,
-  Star,
-} from "lucide-react";
+  Star
+} from 'lucide-react';
 
 export type CategoryTab = {
   label: string;
@@ -40,5 +40,5 @@ export const categoryIcons = {
   ChevronRight,
   Heart,
   SlidersHorizontal,
-  Star,
+  Star
 };

@@ -1,344 +1,608 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-tertiary-fixed": "#331111",
-                        "secondary": "#5c5f60",
-                        "inverse-on-surface": "#f0f1ee",
-                        "error": "#ba1a1a",
-                        "primary-fixed": "#c1ecd4",
-                        "on-tertiary-container": "#d29895",
-                        "surface-container": "#eeeeeb",
-                        "primary-container": "#1b4332",
-                        "error-container": "#ffdad6",
-                        "surface-container-highest": "#e2e3e0",
-                        "on-secondary-fixed-variant": "#444749",
-                        "outline": "#717973",
-                        "surface-variant": "#e2e3e0",
-                        "surface-container-lowest": "#ffffff",
-                        "on-primary-container": "#86af99",
-                        "background": "#f9faf6",
-                        "primary": "#012d1d",
-                        "tertiary-fixed": "#ffdad8",
-                        "on-background": "#1a1c1a",
-                        "on-error": "#ffffff",
-                        "tertiary-fixed-dim": "#f5b7b4",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "inverse-surface": "#2f312f",
-                        "inverse-primary": "#a5d0b9",
-                        "surface": "#f9faf6",
-                        "surface-container-high": "#e8e8e5",
-                        "on-primary": "#ffffff",
-                        "on-secondary-container": "#606365",
-                        "on-surface": "#1a1c1a",
-                        "secondary-fixed": "#e1e2e4",
-                        "secondary-container": "#dee0e2",
-                        "outline-variant": "#c1c8c2",
-                        "on-secondary-fixed": "#191c1e",
-                        "tertiary": "#401b1b",
-                        "surface-container-low": "#f3f4f1",
-                        "on-secondary": "#ffffff",
-                        "tertiary-container": "#5a302f",
-                        "surface-tint": "#3f6653",
-                        "surface-bright": "#f9faf6",
-                        "primary-fixed-dim": "#a5d0b9",
-                        "on-tertiary": "#ffffff",
-                        "on-surface-variant": "#414844",
-                        "on-error-container": "#93000a",
-                        "on-primary-fixed": "#002114",
-                        "surface-dim": "#dadad7",
-                        "on-tertiary-fixed-variant": "#673a39",
-                        "on-primary-fixed-variant": "#274e3d"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "section-gap": "80px",
-                        "gutter": "32px",
-                        "container-max": "1440px",
-                        "stack-md": "16px",
-                        "stack-lg": "32px",
-                        "margin-page": "64px",
-                        "unit": "8px",
-                        "stack-sm": "8px"
-                    },
-                    "fontFamily": {
-                        "h1": ["Inter"],
-                        "body-base": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "h2": ["Inter"],
-                        "display-xl": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "caption": ["Inter"],
-                        "h3": ["Inter"]
-                    },
-                    "fontSize": {
-                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
-                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
-                    }
-                },
+<html
+  class="light"
+  lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0"
+      name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-tertiary-fixed': '#331111',
+              secondary: '#5c5f60',
+              'inverse-on-surface': '#f0f1ee',
+              error: '#ba1a1a',
+              'primary-fixed': '#c1ecd4',
+              'on-tertiary-container': '#d29895',
+              'surface-container': '#eeeeeb',
+              'primary-container': '#1b4332',
+              'error-container': '#ffdad6',
+              'surface-container-highest': '#e2e3e0',
+              'on-secondary-fixed-variant': '#444749',
+              outline: '#717973',
+              'surface-variant': '#e2e3e0',
+              'surface-container-lowest': '#ffffff',
+              'on-primary-container': '#86af99',
+              background: '#f9faf6',
+              primary: '#012d1d',
+              'tertiary-fixed': '#ffdad8',
+              'on-background': '#1a1c1a',
+              'on-error': '#ffffff',
+              'tertiary-fixed-dim': '#f5b7b4',
+              'secondary-fixed-dim': '#c5c6c8',
+              'inverse-surface': '#2f312f',
+              'inverse-primary': '#a5d0b9',
+              surface: '#f9faf6',
+              'surface-container-high': '#e8e8e5',
+              'on-primary': '#ffffff',
+              'on-secondary-container': '#606365',
+              'on-surface': '#1a1c1a',
+              'secondary-fixed': '#e1e2e4',
+              'secondary-container': '#dee0e2',
+              'outline-variant': '#c1c8c2',
+              'on-secondary-fixed': '#191c1e',
+              tertiary: '#401b1b',
+              'surface-container-low': '#f3f4f1',
+              'on-secondary': '#ffffff',
+              'tertiary-container': '#5a302f',
+              'surface-tint': '#3f6653',
+              'surface-bright': '#f9faf6',
+              'primary-fixed-dim': '#a5d0b9',
+              'on-tertiary': '#ffffff',
+              'on-surface-variant': '#414844',
+              'on-error-container': '#93000a',
+              'on-primary-fixed': '#002114',
+              'surface-dim': '#dadad7',
+              'on-tertiary-fixed-variant': '#673a39',
+              'on-primary-fixed-variant': '#274e3d'
             },
+            borderRadius: {
+              DEFAULT: '0.125rem',
+              lg: '0.25rem',
+              xl: '0.5rem',
+              full: '0.75rem'
+            },
+            spacing: {
+              'section-gap': '80px',
+              gutter: '32px',
+              'container-max': '1440px',
+              'stack-md': '16px',
+              'stack-lg': '32px',
+              'margin-page': '64px',
+              unit: '8px',
+              'stack-sm': '8px'
+            },
+            fontFamily: {
+              h1: ['Inter'],
+              'body-base': ['Inter'],
+              'body-lg': ['Inter'],
+              h2: ['Inter'],
+              'display-xl': ['Inter'],
+              'label-sm': ['Inter'],
+              caption: ['Inter'],
+              h3: ['Inter']
+            },
+            fontSize: {
+              h1: [
+                '40px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              'body-base': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+              'body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+              h2: [
+                '30px',
+                {
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              'display-xl': [
+                '64px',
+                {
+                  lineHeight: '1.1',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700'
+                }
+              ],
+              'label-sm': [
+                '14px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '0.05em',
+                  fontWeight: '500'
+                }
+              ],
+              caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
+              h3: ['24px', { lineHeight: '1.4', fontWeight: '600' }]
+            }
+          }
         }
+      };
     </script>
-<style>
-        body { font-family: 'Inter', sans-serif; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            display: inline-block;
-            line-height: 1;
-            text-transform: none;
-            letter-spacing: normal;
-            word-wrap: normal;
-            white-space: nowrap;
-            direction: ltr;
-        }
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+      }
     </style>
-</head>
-<body class="bg-background text-on-background min-h-screen">
-<!-- SideNavBar (Shared Component) -->
-<aside class="flex flex-col w-64 h-full bg-gray-50 dark:bg-gray-950 fixed left-0 top-0 z-50 pt-4 border-r border-gray-200 dark:border-gray-800">
-<div class="text-lg font-black text-emerald-900 dark:text-emerald-100 px-6 py-8">
-<div class="flex flex-col">
-<span class="font-h3 text-h3 leading-tight tracking-tighter">Inventory</span>
-<span class="text-caption font-caption text-secondary uppercase tracking-widest mt-1">Owner Portal</span>
-</div>
-</div>
-<nav class="flex-1 space-y-2">
-<a class="text-gray-600 dark:text-gray-400 mx-4 py-3 px-4 flex items-center gap-3 hover:text-emerald-900 dark:hover:text-emerald-100 hover:bg-gray-200/50 dark:hover:bg-gray-800/50 transition-all scale-100 active:scale-[0.98]" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-label-sm text-label-sm">Overview</span>
-</a>
-<a class="bg-emerald-900 text-white rounded-[4px] mx-4 py-3 px-4 flex items-center gap-3 scale-100 active:scale-[0.98] transition-transform duration-150" href="#">
-<span class="material-symbols-outlined" data-icon="construction" style="font-variation-settings: 'FILL' 1;">construction</span>
-<span class="font-label-sm text-label-sm">My Machinery</span>
-</a>
-<a class="text-gray-600 dark:text-gray-400 mx-4 py-3 px-4 flex items-center gap-3 hover:text-emerald-900 dark:hover:text-emerald-100 hover:bg-gray-200/50 dark:hover:bg-gray-800/50 transition-all scale-100 active:scale-[0.98]" href="#">
-<span class="material-symbols-outlined" data-icon="add_box">add_box</span>
-<span class="font-label-sm text-label-sm">Add Listing</span>
-</a>
-<a class="text-gray-600 dark:text-gray-400 mx-4 py-3 px-4 flex items-center gap-3 hover:text-emerald-900 dark:hover:text-emerald-100 hover:bg-gray-200/50 dark:hover:bg-gray-800/50 transition-all scale-100 active:scale-[0.98]" href="#">
-<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
-<span class="font-label-sm text-label-sm">Orders</span>
-</a>
-<a class="text-gray-600 dark:text-gray-400 mx-4 py-3 px-4 flex items-center gap-3 hover:text-emerald-900 dark:hover:text-emerald-100 hover:bg-gray-200/50 dark:hover:bg-gray-800/50 transition-all scale-100 active:scale-[0.98]" href="#">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-label-sm text-label-sm">Settings</span>
-</a>
-</nav>
-<div class="p-6 border-t border-gray-200 dark:border-gray-800">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
-<span class="material-symbols-outlined" data-icon="person">person</span>
-</div>
-<div>
-<p class="text-label-sm font-label-sm text-on-background">Admin Profile</p>
-<p class="text-caption font-caption text-secondary">Verified Owner</p>
-</div>
-</div>
-</div>
-</aside>
-<!-- Main Content Shell -->
-<main class="ml-64 min-h-screen">
-<!-- TopAppBar (Shared Component) -->
-<header class="sticky top-0 z-40 flex justify-between items-center px-16 h-16 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 font-['Inter'] antialiased tracking-tight">
-<div class="flex items-center gap-8">
-<span class="text-xl font-bold text-emerald-900 dark:text-emerald-100">Heavy Machinery</span>
-<div class="relative w-96">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" data-icon="search">search</span>
-<input class="w-full pl-10 pr-4 py-1.5 bg-surface-container-low border border-outline-variant rounded-lg focus:ring-1 focus:ring-primary focus:border-primary text-label-sm outline-none" placeholder="Search equipment ID or name..." type="text"/>
-</div>
-</div>
-<div class="flex items-center gap-6">
-<span class="material-symbols-outlined text-gray-500 cursor-pointer hover:bg-gray-50 p-2 rounded-full transition-colors" data-icon="notifications">notifications</span>
-<span class="material-symbols-outlined text-gray-500 cursor-pointer hover:bg-gray-50 p-2 rounded-full transition-colors" data-icon="help">help</span>
-<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
-<img alt="Admin Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLEFrObUJCi1F-k7-U-178Nw-P9E7il3C1oF-UwC29V7SOtGtTt5WhB77Mz42MPttROKyALftYXIjWec8STM_2jCV8GYjZb0QzMJHvIbMTDUc8RVB1YfuI2nWbC8eMthF5uwoOuU5X7NRQsI3bdZEhZ3b29yUACFc9305_gBRJvnAJAn6TyWdSvxUdjh5GpUiodyIFB3WT-AbQUiHiHHe-46SseH5G546CBj321YOqVIkTdiKCNjKlSApwGHs4QygGEC-0UKVAu0k"/>
-</div>
-</div>
-</header>
-<!-- Page Canvas -->
-<div class="max-w-[1440px] mx-auto px-margin-page py-stack-lg">
-<!-- Header Section -->
-<div class="flex justify-between items-end mb-10">
-<div class="space-y-2">
-<h1 class="font-h1 text-h1 text-primary">My Machinery</h1>
-<p class="font-body-base text-body-base text-secondary">Manage your active listings, pending approvals, and draft equipment.</p>
-</div>
-<button class="bg-primary-container text-white px-6 py-3 rounded-[4px] flex items-center gap-2 font-label-sm transition-all hover:opacity-90 active:scale-[0.98]">
-<span class="material-symbols-outlined" data-icon="add">add</span>
-                    + Add New Listing
-                </button>
-</div>
-<!-- Tabbed Navigation -->
-<div class="flex border-b border-outline-variant mb-stack-lg">
-<button class="px-8 py-4 font-label-sm text-primary border-b-2 border-primary flex items-center gap-2">
-                    Live
-                    <span class="bg-primary-container text-white text-[10px] px-1.5 py-0.5 rounded-full">4</span>
-</button>
-<button class="px-8 py-4 font-label-sm text-secondary hover:text-primary transition-colors flex items-center gap-2">
-                    Pending
-                </button>
-<button class="px-8 py-4 font-label-sm text-secondary hover:text-primary transition-colors flex items-center gap-2">
-                    Draft
-                </button>
-</div>
-<!-- List Content: Stack of Cards -->
-<div class="space-y-4">
-<!-- Machinery Card 1 -->
-<div class="bg-white border border-outline-variant hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] transition-all p-4 rounded-lg flex items-center justify-between gap-6 group">
-<div class="flex items-center gap-6 flex-1">
-<!-- Thumbnail -->
-<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
-<img alt="Mahindra Tractor 575" class="w-full h-full object-cover" data-alt="A high-resolution side profile of a modern Mahindra tractor parked on a sunlit Indian farm at sunset. The vibrant red paint of the machinery gleams under the warm, golden hour light, reflecting professional quality and reliability. The background shows soft, blurred greenery and a clear sky, maintaining a premium light-mode aesthetic for a sophisticated equipment marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeHEcUqlbjlWef6zu0crSIlSirX7uaqYsNSwFvlZ3hQlo8nvPVfJ_fT-YmQ3v_1FiG-g8ZRbFAECkga5-lWJO-4wZ0dvnb_Y4r2FA6LUGg7qwdL4qH0-8AiMSurJ1zFSgwraZHFpShIzBcq6qtZxO0qFSNmxhtY1jf5RVi70MYLOvnVHchgRKrrZE2IMJk2LaObx8WR82BMWPyEYjjdTXkNMvBzTWdwpgMZ_2CH7U1XZWpW0yEdvtQ6XWdp9VJX7KznF378VWwLTU"/>
-</div>
-<!-- Details -->
-<div class="flex-1 space-y-2">
-<div class="flex items-center gap-3">
-<h3 class="font-h3 text-h3 text-primary">Mahindra Tractor 575</h3>
-<span class="bg-surface-container-high text-secondary font-label-sm px-3 py-1 rounded-full text-[10px]">TRACTORS</span>
-</div>
-<div class="flex items-center gap-2 text-secondary">
-<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
-<span class="font-body-base text-body-base">Kalatala, WB</span>
-</div>
-</div>
-<!-- Price & Status -->
-<div class="text-right px-8 border-r border-outline-variant flex-shrink-0">
-<div class="flex items-center justify-end gap-2 mb-1">
-<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-<span class="text-emerald-700 font-label-sm text-sm">Active</span>
-</div>
-<p class="font-h3 text-h3 text-primary">₹2,500 <span class="font-body-base text-secondary text-sm">/ day</span></p>
-</div>
-</div>
-<!-- Actions -->
-<div class="flex flex-col items-end gap-3 min-w-[140px]">
-<button class="w-full border border-outline-variant text-primary font-label-sm py-2 px-4 rounded hover:bg-surface-container-low transition-colors">Edit</button>
-<button class="text-secondary hover:text-error transition-colors font-label-sm text-sm">Pause Listing</button>
-</div>
-</div>
-<!-- Machinery Card 2 -->
-<div class="bg-white border border-outline-variant hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] transition-all p-4 rounded-lg flex items-center justify-between gap-6 group">
-<div class="flex items-center gap-6 flex-1">
-<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
-<img alt="JCB 3DX Eco" class="w-full h-full object-cover" data-alt="A clean, industrial photograph of a massive yellow hydraulic excavator positioned on a construction site. The lighting is bright and even, highlighting the powerful mechanical joints and metallic textures. The scene captures the heavy machinery from a low angle to emphasize its sturdy build and professional-grade capability in a high-capital marketplace context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc5EQb3nwY8C5Q3Q8VhRSYpmQSWf01DtoW-TiqzfgNFjU4uuuXiyZ_Zb9mUN_eJbe4XUhbFXm0ynJBp9-5QADYFezeA_XzYP4jIKveZDFBaFppVGfpZyqvaCBY-_nMQeAveMUoIMHQObfSrgcz2YwfOfF86fbWqnlxUJf3lYwSE7rB6QLjCPEl_BAJqNtHEYj3LvZeUeIrKaBwB9VyueiUmKICh9DydAn8Q3lkf_9zfVBhr6abJnhsuTzsnltNZv5NMdJNOS7f7o8"/>
-</div>
-<div class="flex-1 space-y-2">
-<div class="flex items-center gap-3">
-<h3 class="font-h3 text-h3 text-primary">JCB 3DX Eco Backhoe</h3>
-<span class="bg-surface-container-high text-secondary font-label-sm px-3 py-1 rounded-full text-[10px]">EXCAVATORS</span>
-</div>
-<div class="flex items-center gap-2 text-secondary">
-<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
-<span class="font-body-base text-body-base">Durgapur, WB</span>
-</div>
-</div>
-<div class="text-right px-8 border-r border-outline-variant flex-shrink-0">
-<div class="flex items-center justify-end gap-2 mb-1">
-<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-<span class="text-emerald-700 font-label-sm text-sm">Active</span>
-</div>
-<p class="font-h3 text-h3 text-primary">₹4,800 <span class="font-body-base text-secondary text-sm">/ day</span></p>
-</div>
-</div>
-<div class="flex flex-col items-end gap-3 min-w-[140px]">
-<button class="w-full border border-outline-variant text-primary font-label-sm py-2 px-4 rounded hover:bg-surface-container-low transition-colors">Edit</button>
-<button class="text-secondary hover:text-error transition-colors font-label-sm text-sm">Pause Listing</button>
-</div>
-</div>
-<!-- Machinery Card 3 -->
-<div class="bg-white border border-outline-variant hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] transition-all p-4 rounded-lg flex items-center justify-between gap-6 group">
-<div class="flex items-center gap-6 flex-1">
-<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
-<img alt="Tata Prima Mixer" class="w-full h-full object-cover" data-alt="A professional product shot of a high-performance industrial cement mixer truck, featuring a clean white drum and a bright orange cab. The lighting is crisp and modern, emphasizing the clean lines and industrial strength of the equipment. Set against a minimalist architectural background, the image reflects expensive simplicity and high-end procurement standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1IjbgTxLonVxt9pIHBMFIpG2MltR9csfwKz8xi671LwNnHkwr4lTbDHYpDvQJyTCqDtm7myX-t39WXAkMRyTuYRHvKKvPpGp9DkijQjyvzblZad7tNHnuN2YI3Mvjk9pNo-leuoRiGqBvxbwTA6HidcpTbvv56CxLwEUjyL-be1v-9MfmrueA4g8o1q5BR9vYqT0-zUjkXVqFiwbKmA8aItF6OmrocT0euYnVPJEP5Gdey5VEIdO_Bu85FtSzrpHxHHSLYSpEu18"/>
-</div>
-<div class="flex-1 space-y-2">
-<div class="flex items-center gap-3">
-<h3 class="font-h3 text-h3 text-primary">Tata Prima 2825.K Mixer</h3>
-<span class="bg-surface-container-high text-secondary font-label-sm px-3 py-1 rounded-full text-[10px]">CONCRETE MIXERS</span>
-</div>
-<div class="flex items-center gap-2 text-secondary">
-<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
-<span class="font-body-base text-body-base">Haldia, WB</span>
-</div>
-</div>
-<div class="text-right px-8 border-r border-outline-variant flex-shrink-0">
-<div class="flex items-center justify-end gap-2 mb-1">
-<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-<span class="text-emerald-700 font-label-sm text-sm">Active</span>
-</div>
-<p class="font-h3 text-h3 text-primary">₹6,200 <span class="font-body-base text-secondary text-sm">/ day</span></p>
-</div>
-</div>
-<div class="flex flex-col items-end gap-3 min-w-[140px]">
-<button class="w-full border border-outline-variant text-primary font-label-sm py-2 px-4 rounded hover:bg-surface-container-low transition-colors">Edit</button>
-<button class="text-secondary hover:text-error transition-colors font-label-sm text-sm">Pause Listing</button>
-</div>
-</div>
-<!-- Machinery Card 4 -->
-<div class="bg-white border border-outline-variant hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)] transition-all p-4 rounded-lg flex items-center justify-between gap-6 group">
-<div class="flex items-center gap-6 flex-1">
-<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
-<img alt="Case Road Roller" class="w-full h-full object-cover" data-alt="A powerful heavy-duty road roller being used on a fresh asphalt road under bright, midday sunlight. The metal drum of the roller shows intricate details of wear and precision engineering. The overall mood is hyper-efficient and authoritative, framed by a high-contrast minimalist background that highlights the reliable nature of the machinery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoPc1d-dBnI37mtvd68_zfa421NXIk8URGE6swMhLpVSXvueJtJ8rTWrTolXpQgozNoYAg_lcB3ezasbW3qNY8yhTnpHMBSVvC1SdvrERRaaSUeLgIDXGsqY_rCxLJorxWjMAswvAf4EoGPvIRNhVy5tjEpTkt3IbIjKcAicg6W3eGo0aJT9ltkJaT1tEGFIm_GZBPSi_MokaNwechJQgAekT359ldKuppAJuZq2QGv0SqBlQhEqNRimEQdG3pSdvsoIseXpWtSUA"/>
-</div>
-<div class="flex-1 space-y-2">
-<div class="flex items-center gap-3">
-<h3 class="font-h3 text-h3 text-primary">CASE 1107EX Vibratory Roller</h3>
-<span class="bg-surface-container-high text-secondary font-label-sm px-3 py-1 rounded-full text-[10px]">ROAD ROLLERS</span>
-</div>
-<div class="flex items-center gap-2 text-secondary">
-<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
-<span class="font-body-base text-body-base">Rajarhat, WB</span>
-</div>
-</div>
-<div class="text-right px-8 border-r border-outline-variant flex-shrink-0">
-<div class="flex items-center justify-end gap-2 mb-1">
-<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-<span class="text-emerald-700 font-label-sm text-sm">Active</span>
-</div>
-<p class="font-h3 text-h3 text-primary">₹3,900 <span class="font-body-base text-secondary text-sm">/ day</span></p>
-</div>
-</div>
-<div class="flex flex-col items-end gap-3 min-w-[140px]">
-<button class="w-full border border-outline-variant text-primary font-label-sm py-2 px-4 rounded hover:bg-surface-container-low transition-colors">Edit</button>
-<button class="text-secondary hover:text-error transition-colors font-label-sm text-sm">Pause Listing</button>
-</div>
-</div>
-</div>
-<!-- Pagination/Footer -->
-<div class="mt-12 pt-8 border-t border-outline-variant flex items-center justify-between text-secondary">
-<span class="text-caption font-caption">Showing 4 of 4 active listings</span>
-<div class="flex items-center gap-4">
-<button class="p-2 border border-outline-variant rounded hover:bg-surface-container-low opacity-50 cursor-not-allowed">
-<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
-</button>
-<span class="font-label-sm">Page 1 of 1</span>
-<button class="p-2 border border-outline-variant rounded hover:bg-surface-container-low opacity-50 cursor-not-allowed">
-<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
-</button>
-</div>
-</div>
-</div>
-</main>
-</body></html>
+  </head>
+  <body class="bg-background text-on-background min-h-screen">
+    <!-- SideNavBar (Shared Component) -->
+    <aside
+      class="fixed top-0 left-0 z-50 flex h-full w-64 flex-col border-r border-gray-200 bg-gray-50 pt-4 dark:border-gray-800 dark:bg-gray-950">
+      <div
+        class="px-6 py-8 text-lg font-black text-emerald-900 dark:text-emerald-100">
+        <div class="flex flex-col">
+          <span class="font-h3 text-h3 leading-tight tracking-tighter"
+            >Inventory</span
+          >
+          <span
+            class="text-caption font-caption text-secondary mt-1 tracking-widest uppercase"
+            >Owner Portal</span
+          >
+        </div>
+      </div>
+      <nav class="flex-1 space-y-2">
+        <a
+          class="mx-4 flex scale-100 items-center gap-3 px-4 py-3 text-gray-600 transition-all hover:bg-gray-200/50 hover:text-emerald-900 active:scale-[0.98] dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-emerald-100"
+          href="#">
+          <span
+            class="material-symbols-outlined"
+            data-icon="dashboard"
+            >dashboard</span
+          >
+          <span class="font-label-sm text-label-sm">Overview</span>
+        </a>
+        <a
+          class="mx-4 flex scale-100 items-center gap-3 rounded-[4px] bg-emerald-900 px-4 py-3 text-white transition-transform duration-150 active:scale-[0.98]"
+          href="#">
+          <span
+            class="material-symbols-outlined"
+            data-icon="construction"
+            style="font-variation-settings: 'FILL' 1"
+            >construction</span
+          >
+          <span class="font-label-sm text-label-sm">My Machinery</span>
+        </a>
+        <a
+          class="mx-4 flex scale-100 items-center gap-3 px-4 py-3 text-gray-600 transition-all hover:bg-gray-200/50 hover:text-emerald-900 active:scale-[0.98] dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-emerald-100"
+          href="#">
+          <span
+            class="material-symbols-outlined"
+            data-icon="add_box"
+            >add_box</span
+          >
+          <span class="font-label-sm text-label-sm">Add Listing</span>
+        </a>
+        <a
+          class="mx-4 flex scale-100 items-center gap-3 px-4 py-3 text-gray-600 transition-all hover:bg-gray-200/50 hover:text-emerald-900 active:scale-[0.98] dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-emerald-100"
+          href="#">
+          <span
+            class="material-symbols-outlined"
+            data-icon="shopping_cart"
+            >shopping_cart</span
+          >
+          <span class="font-label-sm text-label-sm">Orders</span>
+        </a>
+        <a
+          class="mx-4 flex scale-100 items-center gap-3 px-4 py-3 text-gray-600 transition-all hover:bg-gray-200/50 hover:text-emerald-900 active:scale-[0.98] dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-emerald-100"
+          href="#">
+          <span
+            class="material-symbols-outlined"
+            data-icon="settings"
+            >settings</span
+          >
+          <span class="font-label-sm text-label-sm">Settings</span>
+        </a>
+      </nav>
+      <div class="border-t border-gray-200 p-6 dark:border-gray-800">
+        <div class="flex items-center gap-3">
+          <div
+            class="bg-primary-container text-on-primary-container flex h-10 w-10 items-center justify-center rounded-full">
+            <span
+              class="material-symbols-outlined"
+              data-icon="person"
+              >person</span
+            >
+          </div>
+          <div>
+            <p class="text-label-sm font-label-sm text-on-background">
+              Admin Profile
+            </p>
+            <p class="text-caption font-caption text-secondary">
+              Verified Owner
+            </p>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <!-- Main Content Shell -->
+    <main class="ml-64 min-h-screen">
+      <!-- TopAppBar (Shared Component) -->
+      <header
+        class="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-gray-200 bg-white px-16 font-['Inter'] tracking-tight antialiased dark:border-gray-800 dark:bg-gray-900">
+        <div class="flex items-center gap-8">
+          <span class="text-xl font-bold text-emerald-900 dark:text-emerald-100"
+            >Heavy Machinery</span
+          >
+          <div class="relative w-96">
+            <span
+              class="material-symbols-outlined absolute top-1/2 left-3 -translate-y-1/2 text-gray-400"
+              data-icon="search"
+              >search</span
+            >
+            <input
+              class="bg-surface-container-low border-outline-variant focus:ring-primary focus:border-primary text-label-sm w-full rounded-lg border py-1.5 pr-4 pl-10 outline-none focus:ring-1"
+              placeholder="Search equipment ID or name..."
+              type="text" />
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <span
+            class="material-symbols-outlined cursor-pointer rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-50"
+            data-icon="notifications"
+            >notifications</span
+          >
+          <span
+            class="material-symbols-outlined cursor-pointer rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-50"
+            data-icon="help"
+            >help</span
+          >
+          <div
+            class="border-outline-variant h-8 w-8 overflow-hidden rounded-full border">
+            <img
+              alt="Admin Profile"
+              class="h-full w-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLEFrObUJCi1F-k7-U-178Nw-P9E7il3C1oF-UwC29V7SOtGtTt5WhB77Mz42MPttROKyALftYXIjWec8STM_2jCV8GYjZb0QzMJHvIbMTDUc8RVB1YfuI2nWbC8eMthF5uwoOuU5X7NRQsI3bdZEhZ3b29yUACFc9305_gBRJvnAJAn6TyWdSvxUdjh5GpUiodyIFB3WT-AbQUiHiHHe-46SseH5G546CBj321YOqVIkTdiKCNjKlSApwGHs4QygGEC-0UKVAu0k" />
+          </div>
+        </div>
+      </header>
+      <!-- Page Canvas -->
+      <div class="px-margin-page py-stack-lg mx-auto max-w-[1440px]">
+        <!-- Header Section -->
+        <div class="mb-10 flex items-end justify-between">
+          <div class="space-y-2">
+            <h1 class="font-h1 text-h1 text-primary">My Machinery</h1>
+            <p class="font-body-base text-body-base text-secondary">
+              Manage your active listings, pending approvals, and draft
+              equipment.
+            </p>
+          </div>
+          <button
+            class="bg-primary-container font-label-sm flex items-center gap-2 rounded-[4px] px-6 py-3 text-white transition-all hover:opacity-90 active:scale-[0.98]">
+            <span
+              class="material-symbols-outlined"
+              data-icon="add"
+              >add</span
+            >
+            + Add New Listing
+          </button>
+        </div>
+        <!-- Tabbed Navigation -->
+        <div class="border-outline-variant mb-stack-lg flex border-b">
+          <button
+            class="font-label-sm text-primary border-primary flex items-center gap-2 border-b-2 px-8 py-4">
+            Live
+            <span
+              class="bg-primary-container rounded-full px-1.5 py-0.5 text-[10px] text-white"
+              >4</span
+            >
+          </button>
+          <button
+            class="font-label-sm text-secondary hover:text-primary flex items-center gap-2 px-8 py-4 transition-colors">
+            Pending
+          </button>
+          <button
+            class="font-label-sm text-secondary hover:text-primary flex items-center gap-2 px-8 py-4 transition-colors">
+            Draft
+          </button>
+        </div>
+        <!-- List Content: Stack of Cards -->
+        <div class="space-y-4">
+          <!-- Machinery Card 1 -->
+          <div
+            class="border-outline-variant group flex items-center justify-between gap-6 rounded-lg border bg-white p-4 transition-all hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
+            <div class="flex flex-1 items-center gap-6">
+              <!-- Thumbnail -->
+              <div
+                class="bg-surface-container-low h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg">
+                <img
+                  alt="Mahindra Tractor 575"
+                  class="h-full w-full object-cover"
+                  data-alt="A high-resolution side profile of a modern Mahindra tractor parked on a sunlit Indian farm at sunset. The vibrant red paint of the machinery gleams under the warm, golden hour light, reflecting professional quality and reliability. The background shows soft, blurred greenery and a clear sky, maintaining a premium light-mode aesthetic for a sophisticated equipment marketplace."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeHEcUqlbjlWef6zu0crSIlSirX7uaqYsNSwFvlZ3hQlo8nvPVfJ_fT-YmQ3v_1FiG-g8ZRbFAECkga5-lWJO-4wZ0dvnb_Y4r2FA6LUGg7qwdL4qH0-8AiMSurJ1zFSgwraZHFpShIzBcq6qtZxO0qFSNmxhtY1jf5RVi70MYLOvnVHchgRKrrZE2IMJk2LaObx8WR82BMWPyEYjjdTXkNMvBzTWdwpgMZ_2CH7U1XZWpW0yEdvtQ6XWdp9VJX7KznF378VWwLTU" />
+              </div>
+              <!-- Details -->
+              <div class="flex-1 space-y-2">
+                <div class="flex items-center gap-3">
+                  <h3 class="font-h3 text-h3 text-primary">
+                    Mahindra Tractor 575
+                  </h3>
+                  <span
+                    class="bg-surface-container-high text-secondary font-label-sm rounded-full px-3 py-1 text-[10px]"
+                    >TRACTORS</span
+                  >
+                </div>
+                <div class="text-secondary flex items-center gap-2">
+                  <span
+                    class="material-symbols-outlined text-[18px]"
+                    data-icon="location_on"
+                    >location_on</span
+                  >
+                  <span class="font-body-base text-body-base"
+                    >Kalatala, WB</span
+                  >
+                </div>
+              </div>
+              <!-- Price & Status -->
+              <div
+                class="border-outline-variant flex-shrink-0 border-r px-8 text-right">
+                <div class="mb-1 flex items-center justify-end gap-2">
+                  <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
+                  <span class="font-label-sm text-sm text-emerald-700"
+                    >Active</span
+                  >
+                </div>
+                <p class="font-h3 text-h3 text-primary">
+                  ₹2,500
+                  <span class="font-body-base text-secondary text-sm"
+                    >/ day</span
+                  >
+                </p>
+              </div>
+            </div>
+            <!-- Actions -->
+            <div class="flex min-w-[140px] flex-col items-end gap-3">
+              <button
+                class="border-outline-variant text-primary font-label-sm hover:bg-surface-container-low w-full rounded border px-4 py-2 transition-colors">
+                Edit
+              </button>
+              <button
+                class="text-secondary hover:text-error font-label-sm text-sm transition-colors">
+                Pause Listing
+              </button>
+            </div>
+          </div>
+          <!-- Machinery Card 2 -->
+          <div
+            class="border-outline-variant group flex items-center justify-between gap-6 rounded-lg border bg-white p-4 transition-all hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
+            <div class="flex flex-1 items-center gap-6">
+              <div
+                class="bg-surface-container-low h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg">
+                <img
+                  alt="JCB 3DX Eco"
+                  class="h-full w-full object-cover"
+                  data-alt="A clean, industrial photograph of a massive yellow hydraulic excavator positioned on a construction site. The lighting is bright and even, highlighting the powerful mechanical joints and metallic textures. The scene captures the heavy machinery from a low angle to emphasize its sturdy build and professional-grade capability in a high-capital marketplace context."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc5EQb3nwY8C5Q3Q8VhRSYpmQSWf01DtoW-TiqzfgNFjU4uuuXiyZ_Zb9mUN_eJbe4XUhbFXm0ynJBp9-5QADYFezeA_XzYP4jIKveZDFBaFppVGfpZyqvaCBY-_nMQeAveMUoIMHQObfSrgcz2YwfOfF86fbWqnlxUJf3lYwSE7rB6QLjCPEl_BAJqNtHEYj3LvZeUeIrKaBwB9VyueiUmKICh9DydAn8Q3lkf_9zfVBhr6abJnhsuTzsnltNZv5NMdJNOS7f7o8" />
+              </div>
+              <div class="flex-1 space-y-2">
+                <div class="flex items-center gap-3">
+                  <h3 class="font-h3 text-h3 text-primary">
+                    JCB 3DX Eco Backhoe
+                  </h3>
+                  <span
+                    class="bg-surface-container-high text-secondary font-label-sm rounded-full px-3 py-1 text-[10px]"
+                    >EXCAVATORS</span
+                  >
+                </div>
+                <div class="text-secondary flex items-center gap-2">
+                  <span
+                    class="material-symbols-outlined text-[18px]"
+                    data-icon="location_on"
+                    >location_on</span
+                  >
+                  <span class="font-body-base text-body-base"
+                    >Durgapur, WB</span
+                  >
+                </div>
+              </div>
+              <div
+                class="border-outline-variant flex-shrink-0 border-r px-8 text-right">
+                <div class="mb-1 flex items-center justify-end gap-2">
+                  <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
+                  <span class="font-label-sm text-sm text-emerald-700"
+                    >Active</span
+                  >
+                </div>
+                <p class="font-h3 text-h3 text-primary">
+                  ₹4,800
+                  <span class="font-body-base text-secondary text-sm"
+                    >/ day</span
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="flex min-w-[140px] flex-col items-end gap-3">
+              <button
+                class="border-outline-variant text-primary font-label-sm hover:bg-surface-container-low w-full rounded border px-4 py-2 transition-colors">
+                Edit
+              </button>
+              <button
+                class="text-secondary hover:text-error font-label-sm text-sm transition-colors">
+                Pause Listing
+              </button>
+            </div>
+          </div>
+          <!-- Machinery Card 3 -->
+          <div
+            class="border-outline-variant group flex items-center justify-between gap-6 rounded-lg border bg-white p-4 transition-all hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
+            <div class="flex flex-1 items-center gap-6">
+              <div
+                class="bg-surface-container-low h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg">
+                <img
+                  alt="Tata Prima Mixer"
+                  class="h-full w-full object-cover"
+                  data-alt="A professional product shot of a high-performance industrial cement mixer truck, featuring a clean white drum and a bright orange cab. The lighting is crisp and modern, emphasizing the clean lines and industrial strength of the equipment. Set against a minimalist architectural background, the image reflects expensive simplicity and high-end procurement standards."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1IjbgTxLonVxt9pIHBMFIpG2MltR9csfwKz8xi671LwNnHkwr4lTbDHYpDvQJyTCqDtm7myX-t39WXAkMRyTuYRHvKKvPpGp9DkijQjyvzblZad7tNHnuN2YI3Mvjk9pNo-leuoRiGqBvxbwTA6HidcpTbvv56CxLwEUjyL-be1v-9MfmrueA4g8o1q5BR9vYqT0-zUjkXVqFiwbKmA8aItF6OmrocT0euYnVPJEP5Gdey5VEIdO_Bu85FtSzrpHxHHSLYSpEu18" />
+              </div>
+              <div class="flex-1 space-y-2">
+                <div class="flex items-center gap-3">
+                  <h3 class="font-h3 text-h3 text-primary">
+                    Tata Prima 2825.K Mixer
+                  </h3>
+                  <span
+                    class="bg-surface-container-high text-secondary font-label-sm rounded-full px-3 py-1 text-[10px]"
+                    >CONCRETE MIXERS</span
+                  >
+                </div>
+                <div class="text-secondary flex items-center gap-2">
+                  <span
+                    class="material-symbols-outlined text-[18px]"
+                    data-icon="location_on"
+                    >location_on</span
+                  >
+                  <span class="font-body-base text-body-base">Haldia, WB</span>
+                </div>
+              </div>
+              <div
+                class="border-outline-variant flex-shrink-0 border-r px-8 text-right">
+                <div class="mb-1 flex items-center justify-end gap-2">
+                  <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
+                  <span class="font-label-sm text-sm text-emerald-700"
+                    >Active</span
+                  >
+                </div>
+                <p class="font-h3 text-h3 text-primary">
+                  ₹6,200
+                  <span class="font-body-base text-secondary text-sm"
+                    >/ day</span
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="flex min-w-[140px] flex-col items-end gap-3">
+              <button
+                class="border-outline-variant text-primary font-label-sm hover:bg-surface-container-low w-full rounded border px-4 py-2 transition-colors">
+                Edit
+              </button>
+              <button
+                class="text-secondary hover:text-error font-label-sm text-sm transition-colors">
+                Pause Listing
+              </button>
+            </div>
+          </div>
+          <!-- Machinery Card 4 -->
+          <div
+            class="border-outline-variant group flex items-center justify-between gap-6 rounded-lg border bg-white p-4 transition-all hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
+            <div class="flex flex-1 items-center gap-6">
+              <div
+                class="bg-surface-container-low h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg">
+                <img
+                  alt="Case Road Roller"
+                  class="h-full w-full object-cover"
+                  data-alt="A powerful heavy-duty road roller being used on a fresh asphalt road under bright, midday sunlight. The metal drum of the roller shows intricate details of wear and precision engineering. The overall mood is hyper-efficient and authoritative, framed by a high-contrast minimalist background that highlights the reliable nature of the machinery."
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoPc1d-dBnI37mtvd68_zfa421NXIk8URGE6swMhLpVSXvueJtJ8rTWrTolXpQgozNoYAg_lcB3ezasbW3qNY8yhTnpHMBSVvC1SdvrERRaaSUeLgIDXGsqY_rCxLJorxWjMAswvAf4EoGPvIRNhVy5tjEpTkt3IbIjKcAicg6W3eGo0aJT9ltkJaT1tEGFIm_GZBPSi_MokaNwechJQgAekT359ldKuppAJuZq2QGv0SqBlQhEqNRimEQdG3pSdvsoIseXpWtSUA" />
+              </div>
+              <div class="flex-1 space-y-2">
+                <div class="flex items-center gap-3">
+                  <h3 class="font-h3 text-h3 text-primary">
+                    CASE 1107EX Vibratory Roller
+                  </h3>
+                  <span
+                    class="bg-surface-container-high text-secondary font-label-sm rounded-full px-3 py-1 text-[10px]"
+                    >ROAD ROLLERS</span
+                  >
+                </div>
+                <div class="text-secondary flex items-center gap-2">
+                  <span
+                    class="material-symbols-outlined text-[18px]"
+                    data-icon="location_on"
+                    >location_on</span
+                  >
+                  <span class="font-body-base text-body-base"
+                    >Rajarhat, WB</span
+                  >
+                </div>
+              </div>
+              <div
+                class="border-outline-variant flex-shrink-0 border-r px-8 text-right">
+                <div class="mb-1 flex items-center justify-end gap-2">
+                  <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
+                  <span class="font-label-sm text-sm text-emerald-700"
+                    >Active</span
+                  >
+                </div>
+                <p class="font-h3 text-h3 text-primary">
+                  ₹3,900
+                  <span class="font-body-base text-secondary text-sm"
+                    >/ day</span
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="flex min-w-[140px] flex-col items-end gap-3">
+              <button
+                class="border-outline-variant text-primary font-label-sm hover:bg-surface-container-low w-full rounded border px-4 py-2 transition-colors">
+                Edit
+              </button>
+              <button
+                class="text-secondary hover:text-error font-label-sm text-sm transition-colors">
+                Pause Listing
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Pagination/Footer -->
+        <div
+          class="border-outline-variant text-secondary mt-12 flex items-center justify-between border-t pt-8">
+          <span class="text-caption font-caption"
+            >Showing 4 of 4 active listings</span
+          >
+          <div class="flex items-center gap-4">
+            <button
+              class="border-outline-variant hover:bg-surface-container-low cursor-not-allowed rounded border p-2 opacity-50">
+              <span
+                class="material-symbols-outlined"
+                data-icon="chevron_left"
+                >chevron_left</span
+              >
+            </button>
+            <span class="font-label-sm">Page 1 of 1</span>
+            <button
+              class="border-outline-variant hover:bg-surface-container-low cursor-not-allowed rounded border p-2 opacity-50">
+              <span
+                class="material-symbols-outlined"
+                data-icon="chevron_right"
+                >chevron_right</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

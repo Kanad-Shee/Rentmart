@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 type ProductGalleryImage = {
   src: string;
@@ -13,7 +13,9 @@ type ProductGalleryProps = {
 export function ProductGallery({ images, title }: ProductGalleryProps) {
   if (images.length === 0) {
     return (
-      <section aria-label={`${title} gallery`} className="overflow-hidden rounded-md">
+      <section
+        aria-label={`${title} gallery`}
+        className="overflow-hidden rounded-md">
         <div className="flex h-[380px] items-center justify-center rounded-md border border-border bg-muted/30 text-sm text-muted-foreground md:h-[520px]">
           Images will appear here soon.
         </div>
@@ -24,12 +26,15 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
   const [heroImage, ...thumbnailImages] = images;
 
   return (
-    <section aria-label={`${title} gallery`} className="overflow-hidden rounded-md">
+    <section
+      aria-label={`${title} gallery`}
+      className="overflow-hidden rounded-md">
       <div className="grid gap-2 md:h-[520px] md:grid-cols-4 md:grid-rows-2">
         <div className="relative h-[380px] overflow-hidden rounded-md md:col-span-2 md:row-span-2 md:h-full">
           <Image
             src={heroImage.src}
             alt={heroImage.alt}
+            loading={'lazy'}
             fill
             priority
             sizes="(max-width: 768px) 100vw, 45vw"
@@ -40,12 +45,12 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
         {thumbnailImages.slice(0, 4).map((image, index) => (
           <div
             key={image.src}
-            className="relative h-[180px] overflow-hidden rounded-md md:h-full"
-          >
+            className="relative h-[180px] overflow-hidden rounded-md md:h-full">
             <Image
               src={image.src}
               alt={image.alt}
               fill
+              loading={'lazy'}
               sizes="(max-width: 768px) 50vw, 22vw"
               className="object-cover transition-transform duration-500 hover:scale-105"
             />

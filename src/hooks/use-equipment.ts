@@ -1,6 +1,5 @@
-"use client";
+'use client';
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   approveEquipment,
   createEquipmentReview,
@@ -29,14 +28,15 @@ import {
   type SaveDraftEquipmentInput,
   type UpdateEquipmentReviewInput,
   type UpdateEquipmentInput,
-  updateOwnerEquipment,
-} from "@/lib/equipment";
+  updateOwnerEquipment
+} from '@/lib/equipment';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useOwnerEquipmentQuery() {
   return useQuery({
     queryKey: equipmentQueryKeys.ownerListings,
     queryFn: getMyEquipment,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000
   });
 }
 
@@ -45,7 +45,7 @@ export function usePendingEquipmentQuery(enabled = true) {
     queryKey: equipmentQueryKeys.pendingListings,
     queryFn: getPendingEquipment,
     enabled,
-    staleTime: 30 * 1000,
+    staleTime: 30 * 1000
   });
 }
 
@@ -53,16 +53,19 @@ export function useFeaturedEquipmentQuery() {
   return useQuery({
     queryKey: equipmentQueryKeys.featuredListings,
     queryFn: getFeaturedEquipment,
-    staleTime: 60 * 1000,
+    staleTime: 60 * 1000
   });
 }
 
-export function usePublicEquipmentListingsQuery(categoryId?: string, enabled = true) {
+export function usePublicEquipmentListingsQuery(
+  categoryId?: string,
+  enabled = true
+) {
   return useQuery({
     queryKey: equipmentQueryKeys.publicListings(categoryId),
     queryFn: () => getPublicEquipment({ categoryId }),
     enabled,
-    staleTime: 60 * 1000,
+    staleTime: 60 * 1000
   });
 }
 
@@ -71,22 +74,22 @@ export function usePublicEquipmentQuery(id: string, enabled = true) {
     queryKey: equipmentQueryKeys.publicListing(id),
     queryFn: () => getPublicEquipmentById(id),
     enabled: enabled && id.trim().length > 0,
-    staleTime: 60 * 1000,
+    staleTime: 60 * 1000
   });
 }
 
 export function useEquipmentReviewsQuery(id: string, enabled = true) {
   return useQuery({
-    queryKey: [...equipmentQueryKeys.publicListing(id), "reviews"],
+    queryKey: [...equipmentQueryKeys.publicListing(id), 'reviews'],
     queryFn: () => getEquipmentReviews(id),
     enabled: enabled && id.trim().length > 0,
-    staleTime: 30 * 1000,
+    staleTime: 30 * 1000
   });
 }
 
 export function useGeocodeEquipmentMutation() {
   return useMutation({
-    mutationFn: (input: GeocodeEquipmentInput) => geocodeEquipment(input),
+    mutationFn: (input: GeocodeEquipmentInput) => geocodeEquipment(input)
   });
 }
 
@@ -96,8 +99,10 @@ export function useCreateEquipmentMutation() {
   return useMutation({
     mutationFn: (input: CreateEquipmentInput) => createEquipment(input),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.ownerListings });
-    },
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.ownerListings
+      });
+    }
   });
 }
 
@@ -107,8 +112,10 @@ export function useSaveDraftEquipmentMutation() {
   return useMutation({
     mutationFn: (input: SaveDraftEquipmentInput) => saveDraftEquipment(input),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.ownerListings });
-    },
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.ownerListings
+      });
+    }
   });
 }
 
@@ -119,9 +126,13 @@ export function useUpdateOwnerEquipmentMutation() {
     mutationFn: ({ id, input }: { id: string; input: UpdateEquipmentInput }) =>
       updateOwnerEquipment(id, input),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.ownerListings });
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.pendingListings });
-    },
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.ownerListings
+      });
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.pendingListings
+      });
+    }
   });
 }
 
@@ -132,9 +143,13 @@ export function useSubmitOwnerEquipmentMutation() {
     mutationFn: ({ id, input }: { id: string; input: UpdateEquipmentInput }) =>
       submitOwnerEquipment(id, input),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.ownerListings });
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.pendingListings });
-    },
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.ownerListings
+      });
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.pendingListings
+      });
+    }
   });
 }
 
@@ -144,9 +159,13 @@ export function useDeleteOwnerEquipmentMutation() {
   return useMutation({
     mutationFn: (id: string) => deleteOwnerEquipment(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.ownerListings });
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.pendingListings });
-    },
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.ownerListings
+      });
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.pendingListings
+      });
+    }
   });
 }
 
@@ -156,9 +175,13 @@ export function useApproveEquipmentMutation() {
   return useMutation({
     mutationFn: (id: string) => approveEquipment(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.pendingListings });
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.ownerListings });
-    },
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.pendingListings
+      });
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.ownerListings
+      });
+    }
   });
 }
 
@@ -169,9 +192,13 @@ export function useRejectEquipmentMutation() {
     mutationFn: ({ id, input }: { id: string; input: RejectEquipmentInput }) =>
       rejectEquipment(id, input),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.pendingListings });
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.ownerListings });
-    },
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.pendingListings
+      });
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.ownerListings
+      });
+    }
   });
 }
 
@@ -179,11 +206,18 @@ export function useCreateEquipmentReviewMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, input }: { id: string; input: CreateEquipmentReviewInput }) =>
-      createEquipmentReview(id, input),
+    mutationFn: ({
+      id,
+      input
+    }: {
+      id: string;
+      input: CreateEquipmentReviewInput;
+    }) => createEquipmentReview(id, input),
     onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.publicListing(variables.id) });
-    },
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.publicListing(variables.id)
+      });
+    }
   });
 }
 
@@ -191,26 +225,34 @@ export function useUpdateEquipmentReviewMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, input }: { id: string; input: UpdateEquipmentReviewInput }) =>
-      updateEquipmentReview(id, input),
+    mutationFn: ({
+      id,
+      input
+    }: {
+      id: string;
+      input: UpdateEquipmentReviewInput;
+    }) => updateEquipmentReview(id, input),
     onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({ queryKey: equipmentQueryKeys.publicListing(variables.id) });
-    },
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.publicListing(variables.id)
+      });
+    }
   });
 }
 
 export function useAddressSuggestionsQuery(input: string, enabled = true) {
   return useQuery({
-    queryKey: ["equipment", "address-suggestions", input],
-    queryFn: () => getAddressSuggestions({ input } satisfies AddressSuggestionsInput),
+    queryKey: ['equipment', 'address-suggestions', input],
+    queryFn: () =>
+      getAddressSuggestions({ input } satisfies AddressSuggestionsInput),
     enabled: enabled && input.trim().length >= 2,
     staleTime: 30 * 1000,
-    retry: false,
+    retry: false
   });
 }
 
 export function useAddressLocationMutation() {
   return useMutation({
-    mutationFn: (input: PlaceIdInput) => getAddressLocationByPlaceId(input),
+    mutationFn: (input: PlaceIdInput) => getAddressLocationByPlaceId(input)
   });
 }

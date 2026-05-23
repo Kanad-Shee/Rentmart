@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type CategoryPaginationProps = {
   currentPage: number;
@@ -9,7 +9,7 @@ type CategoryPaginationProps = {
 export function CategoryPagination({
   currentPage,
   totalPages,
-  onPageChange,
+  onPageChange
 }: CategoryPaginationProps) {
   if (totalPages <= 1) {
     return null;
@@ -23,8 +23,7 @@ export function CategoryPagination({
         type="button"
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
-        className="inline-flex h-10 w-10 items-center justify-center border border-[#dfe4eb] bg-white text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
-      >
+        className="inline-flex h-10 w-10 items-center justify-center border border-[#dfe4eb] bg-white text-muted-foreground transition-colors hover:bg-muted hover:text-primary">
         <ChevronLeft className="h-4 w-4" />
       </button>
 
@@ -34,12 +33,11 @@ export function CategoryPagination({
           type="button"
           onClick={() => onPageChange(page)}
           className={[
-            "inline-flex h-10 min-w-10 items-center justify-center border px-3 text-sm transition-colors",
+            'inline-flex h-10 min-w-10 items-center justify-center border px-3 text-sm transition-colors',
             page === currentPage
-              ? "border-primary bg-primary text-primary-foreground"
-              : "border-[#dfe4eb] bg-white text-[#5d6f8f] hover:bg-muted",
-          ].join(" ")}
-        >
+              ? 'border-primary bg-primary text-primary-foreground'
+              : 'border-[#dfe4eb] bg-white text-[#5d6f8f] hover:bg-muted'
+          ].join(' ')}>
           {page}
         </button>
       ))}
@@ -48,8 +46,7 @@ export function CategoryPagination({
         type="button"
         onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
-        className="inline-flex h-10 w-10 items-center justify-center border border-[#dfe4eb] bg-white text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
-      >
+        className="inline-flex h-10 w-10 items-center justify-center border border-[#dfe4eb] bg-white text-muted-foreground transition-colors hover:bg-muted hover:text-primary">
         <ChevronRight className="h-4 w-4" />
       </button>
     </div>

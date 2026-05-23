@@ -1,231 +1,465 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        body { font-family: 'Inter', sans-serif; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        /* Custom scroll margin for anchor links */
-        section { scroll-margin-top: 100px; }
+<html
+  class="light"
+  lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0"
+      name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      /* Custom scroll margin for anchor links */
+      section {
+        scroll-margin-top: 100px;
+      }
     </style>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-primary-container": "#86af99",
-                        "on-secondary-container": "#606365",
-                        "on-secondary-fixed": "#191c1e",
-                        "surface-tint": "#3f6653",
-                        "on-primary-fixed-variant": "#274e3d",
-                        "tertiary-container": "#5a302f",
-                        "on-secondary-fixed-variant": "#444749",
-                        "on-error-container": "#93000a",
-                        "tertiary-fixed-dim": "#f5b7b4",
-                        "on-surface": "#1a1c1a",
-                        "on-secondary": "#ffffff",
-                        "primary-fixed": "#c1ecd4",
-                        "tertiary": "#401b1b",
-                        "surface-container-low": "#f3f4f1",
-                        "on-surface-variant": "#414844",
-                        "secondary": "#5c5f60",
-                        "error-container": "#ffdad6",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "primary-container": "#1b4332",
-                        "outline": "#717973",
-                        "on-tertiary-fixed": "#331111",
-                        "on-tertiary": "#ffffff",
-                        "surface-container": "#eeeeeb",
-                        "secondary-container": "#dee0e2",
-                        "surface-container-highest": "#e2e3e0",
-                        "error": "#ba1a1a",
-                        "primary": "#012d1d",
-                        "secondary-fixed": "#e1e2e4",
-                        "on-tertiary-fixed-variant": "#673a39",
-                        "surface-variant": "#e2e3e0",
-                        "tertiary-fixed": "#ffdad8",
-                        "on-primary-fixed": "#002114",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#f0f1ee",
-                        "background": "#f9faf6",
-                        "surface": "#f9faf6",
-                        "on-tertiary-container": "#d29895",
-                        "surface-bright": "#f9faf6",
-                        "on-background": "#1a1c1a",
-                        "outline-variant": "#c1c8c2",
-                        "on-primary": "#ffffff",
-                        "surface-container-high": "#e8e8e5",
-                        "primary-fixed-dim": "#a5d0b9",
-                        "surface-dim": "#dadad7",
-                        "on-error": "#ffffff",
-                        "inverse-primary": "#a5d0b9",
-                        "inverse-surface": "#2f312f"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "stack-sm": "8px",
-                        "section-gap": "80px",
-                        "container-max": "1440px",
-                        "gutter": "32px",
-                        "stack-lg": "32px",
-                        "margin-page": "64px",
-                        "unit": "8px",
-                        "stack-md": "16px"
-                    },
-                    "fontSize": {
-                        "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                        "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
-                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
-                    }
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-primary-container': '#86af99',
+              'on-secondary-container': '#606365',
+              'on-secondary-fixed': '#191c1e',
+              'surface-tint': '#3f6653',
+              'on-primary-fixed-variant': '#274e3d',
+              'tertiary-container': '#5a302f',
+              'on-secondary-fixed-variant': '#444749',
+              'on-error-container': '#93000a',
+              'tertiary-fixed-dim': '#f5b7b4',
+              'on-surface': '#1a1c1a',
+              'on-secondary': '#ffffff',
+              'primary-fixed': '#c1ecd4',
+              tertiary: '#401b1b',
+              'surface-container-low': '#f3f4f1',
+              'on-surface-variant': '#414844',
+              secondary: '#5c5f60',
+              'error-container': '#ffdad6',
+              'secondary-fixed-dim': '#c5c6c8',
+              'primary-container': '#1b4332',
+              outline: '#717973',
+              'on-tertiary-fixed': '#331111',
+              'on-tertiary': '#ffffff',
+              'surface-container': '#eeeeeb',
+              'secondary-container': '#dee0e2',
+              'surface-container-highest': '#e2e3e0',
+              error: '#ba1a1a',
+              primary: '#012d1d',
+              'secondary-fixed': '#e1e2e4',
+              'on-tertiary-fixed-variant': '#673a39',
+              'surface-variant': '#e2e3e0',
+              'tertiary-fixed': '#ffdad8',
+              'on-primary-fixed': '#002114',
+              'surface-container-lowest': '#ffffff',
+              'inverse-on-surface': '#f0f1ee',
+              background: '#f9faf6',
+              surface: '#f9faf6',
+              'on-tertiary-container': '#d29895',
+              'surface-bright': '#f9faf6',
+              'on-background': '#1a1c1a',
+              'outline-variant': '#c1c8c2',
+              'on-primary': '#ffffff',
+              'surface-container-high': '#e8e8e5',
+              'primary-fixed-dim': '#a5d0b9',
+              'surface-dim': '#dadad7',
+              'on-error': '#ffffff',
+              'inverse-primary': '#a5d0b9',
+              'inverse-surface': '#2f312f'
+            },
+            borderRadius: {
+              DEFAULT: '0.125rem',
+              lg: '0.25rem',
+              xl: '0.5rem',
+              full: '0.75rem'
+            },
+            spacing: {
+              'stack-sm': '8px',
+              'section-gap': '80px',
+              'container-max': '1440px',
+              gutter: '32px',
+              'stack-lg': '32px',
+              'margin-page': '64px',
+              unit: '8px',
+              'stack-md': '16px'
+            },
+            fontSize: {
+              'label-sm': [
+                '14px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '0.05em',
+                  fontWeight: '500'
                 }
+              ],
+              'display-xl': [
+                '64px',
+                {
+                  lineHeight: '1.1',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700'
+                }
+              ],
+              'body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+              h1: [
+                '40px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              'body-base': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+              h2: [
+                '30px',
+                {
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
+              h3: ['24px', { lineHeight: '1.4', fontWeight: '600' }]
             }
+          }
         }
+      };
     </script>
-</head>
-<body class="bg-surface text-on-surface antialiased font-body-base">
-<!-- TopNavBar -->
-<nav class="bg-white dark:bg-gray-950 font-inter antialiased tracking-tight docked full-width top-0 border-b border-gray-200 dark:border-gray-800 flat no shadows sticky z-50">
-<div class="flex justify-between items-center h-16 w-full max-w-[1440px] mx-auto px-16">
-<div class="text-xl font-black text-emerald-900 dark:text-emerald-50">EquipDirect</div>
-<div class="hidden md:flex items-center gap-stack-lg">
-<a class="text-gray-600 dark:text-gray-400 font-medium hover:text-emerald-900 dark:hover:text-emerald-300 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors duration-200" href="#">Marketplace</a>
-<a class="text-gray-600 dark:text-gray-400 font-medium hover:text-emerald-900 dark:hover:text-emerald-300 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors duration-200" href="#">Fleet</a>
-<a class="text-gray-600 dark:text-gray-400 font-medium hover:text-emerald-900 dark:hover:text-emerald-300 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors duration-200" href="#">Auctions</a>
-<a class="text-gray-600 dark:text-gray-400 font-medium hover:text-emerald-900 dark:hover:text-emerald-300 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors duration-200" href="#">Logistics</a>
-<a class="text-gray-600 dark:text-gray-400 font-medium hover:text-emerald-900 dark:hover:text-emerald-300 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors duration-200" href="#">Financing</a>
-</div>
-<div class="flex items-center gap-stack-md">
-<button class="text-gray-600 dark:text-gray-400 p-2 rounded hover:bg-gray-100 transition-colors">
-<span class="material-symbols-outlined">search</span>
-</button>
-<button class="bg-primary-container text-on-primary px-4 py-2 text-label-sm rounded-lg font-bold hover:opacity-90 transition-opacity">List Equipment</button>
-</div>
-</div>
-</nav>
-<!-- Content Header (Breadcrumbs) -->
-<header class="bg-white border-b border-outline-variant">
-<div class="max-w-[1440px] mx-auto px-margin-page py-stack-lg">
-<nav aria-label="Breadcrumb" class="flex mb-stack-md text-caption text-secondary">
-<ol class="flex items-center space-x-2">
-<li><a class="hover:text-primary transition-colors" href="#">Home</a></li>
-<li class="flex items-center space-x-2">
-<span class="material-symbols-outlined text-[14px]">chevron_right</span>
-<a class="hover:text-primary transition-colors" href="#">Legal</a>
-</li>
-<li class="flex items-center space-x-2 text-primary font-medium">
-<span class="material-symbols-outlined text-[14px]">chevron_right</span>
-<span>Terms of Service</span>
-</li>
-</ol>
-</nav>
-<h1 class="font-h1 text-h1 text-primary">Terms of Service</h1>
-<p class="mt-stack-sm text-secondary text-body-base">Last updated: May 24, 2024</p>
-</div>
-</header>
-<!-- Main Layout -->
-<main class="max-w-[1440px] mx-auto px-margin-page py-section-gap flex gap-gutter">
-<!-- Left Pane: Sticky Sidebar -->
-<aside class="w-[30%] hidden md:block">
-<div class="sticky top-[100px] border-l-2 border-surface-container-highest">
-<nav class="flex flex-col">
-<a class="pl-stack-md py-stack-sm text-body-base font-medium text-secondary hover:text-primary border-l-2 border-transparent -ml-[2px] transition-all hover:border-primary" href="#definitions">1. Definitions</a>
-<a class="pl-stack-md py-stack-sm text-body-base font-medium text-secondary hover:text-primary border-l-2 border-transparent -ml-[2px] transition-all hover:border-primary" href="#obligations">2. User Obligations</a>
-<a class="pl-stack-md py-stack-sm text-body-base font-medium text-secondary hover:text-primary border-l-2 border-transparent -ml-[2px] transition-all hover:border-primary" href="#process">3. Rental Process</a>
-<a class="pl-stack-md py-stack-sm text-body-base font-medium text-primary border-l-2 border-primary -ml-[2px] transition-all" href="#disclaimer">4. Liability Disclaimer</a>
-<a class="pl-stack-md py-stack-sm text-body-base font-medium text-secondary hover:text-primary border-l-2 border-transparent -ml-[2px] transition-all hover:border-primary" href="#payouts">5. Payouts</a>
-<a class="pl-stack-md py-stack-sm text-body-base font-medium text-secondary hover:text-primary border-l-2 border-transparent -ml-[2px] transition-all hover:border-primary" href="#dispute">6. Dispute Resolution</a>
-</nav>
-<div class="mt-stack-lg p-stack-md bg-surface-container-low rounded-lg">
-<p class="text-caption text-on-surface-variant leading-relaxed">
-                        Need legal assistance regarding these terms? Contact our compliance department at legal@rentmart.com
-                    </p>
-</div>
-</div>
-</aside>
-<!-- Right Pane: Long-form Legal Text -->
-<article class="w-full md:w-[70%] prose prose-emerald max-w-none">
-<section class="mb-stack-lg" id="definitions">
-<h2 class="font-h2 text-h2 text-primary mb-stack-md">1. Definitions</h2>
-<div class="space-y-stack-md text-on-surface-variant leading-relaxed">
-<p>In these Terms of Service, "EquipDirect," "we," "us," and "our" refer to the digital platform operating as EquipDirect Industrial Marketplace. "User" refers to any individual or entity utilizing the platform for listing, renting, or purchasing industrial machinery.</p>
-<p>"Platform" means the EquipDirect website, mobile applications, and associated services. "Asset" refers to any heavy machinery, industrial equipment, or high-value tool listed for transaction on the platform.</p>
-</div>
-</section>
-<section class="mb-stack-lg" id="obligations">
-<h2 class="font-h2 text-h2 text-primary mb-stack-md">2. User Obligations</h2>
-<div class="space-y-stack-md text-on-surface-variant leading-relaxed">
-<p>Users must provide accurate, current, and complete information during the registration process. You are responsible for safeguarding your account credentials and for all activities that occur under your account.</p>
-<ul class="list-disc pl-stack-lg space-y-2">
-<li>Maintain compliance with all local industrial safety regulations.</li>
-<li>Ensure all listed machinery meets certified inspection standards.</li>
-<li>Provide accurate hour-meter readings and maintenance logs for all assets.</li>
-</ul>
-</div>
-</section>
-<section class="mb-stack-lg" id="process">
-<h2 class="font-h2 text-h2 text-primary mb-stack-md">3. Rental Process</h2>
-<div class="space-y-stack-md text-on-surface-variant leading-relaxed">
-<p>The rental process begins when a Renter submits a formal request via the platform. Owners have 24 hours to accept or decline the request. Once accepted, the Renter’s payment method is authorized for the full transaction value plus a security deposit.</p>
-<p>Physical handover must be documented via the EquipDirect Mobile Inspection App. Both parties are required to take high-resolution photographs of the asset at the time of delivery and return.</p>
-</div>
-</section>
-<!-- Highlighted Section 4 -->
-<section class="mb-stack-lg p-stack-lg bg-primary-fixed-dim/20 rounded-xl border-l-4 border-primary" id="disclaimer">
-<h2 class="font-h2 text-h2 text-primary mb-stack-md">4. Liability Disclaimer</h2>
-<div class="text-on-surface font-medium leading-relaxed">
-<p class="mb-stack-md">Rentmart is not an insurance company, brokerage, or agent. We are a technology facilitator.</p>
-<p class="text-body-lg font-semibold italic">You agree that Rentmart shall not be liable for any damage to or loss of machinery, personal injury, or catastrophic loss, and all legal disputes are between owner and renter directly.</p>
-<p class="mt-stack-md text-caption text-secondary">Users are strongly advised to maintain independent commercial general liability insurance and equipment floater policies for all high-capital assets.</p>
-</div>
-</section>
-<section class="mb-stack-lg" id="payouts">
-<h2 class="font-h2 text-h2 text-primary mb-stack-md">5. Payouts</h2>
-<div class="space-y-stack-md text-on-surface-variant leading-relaxed">
-<p>Payouts to Owners are initiated 48 hours after the confirmed return of the machinery, provided no damage claims have been filed. EquipDirect retains a platform fee as specified in the Fee Schedule at the time of listing.</p>
-</div>
-</section>
-<section class="mb-section-gap" id="dispute">
-<h2 class="font-h2 text-h2 text-primary mb-stack-md">6. Dispute Resolution</h2>
-<div class="space-y-stack-md text-on-surface-variant leading-relaxed">
-<p>Any dispute arising out of or in connection with these Terms, including any question regarding its existence, validity, or termination, shall be referred to and finally resolved by arbitration in accordance with the rules of the International Chamber of Commerce (ICC).</p>
-<p>The seat of arbitration shall be Delaware, USA. The language of the arbitration shall be English.</p>
-</div>
-</section>
-</article>
-</main>
-<!-- Footer -->
-<footer class="bg-gray-50 dark:bg-gray-900 text-sm font-inter text-gray-500 dark:text-gray-400 full-width border-t border-gray-200 dark:border-gray-800 flat">
-<div class="w-full max-w-[1440px] mx-auto px-16 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
-<div class="flex flex-col gap-2">
-<div class="text-lg font-bold text-gray-900 dark:text-gray-100">EquipDirect</div>
-<p class="max-w-xs text-caption">© 2024 EquipDirect Industrial Marketplace. All rights reserved. High-capital asset procurement.</p>
-</div>
-<div class="flex flex-wrap justify-center gap-6">
-<a class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:underline transition-all" href="#">Terms of Service</a>
-<a class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:underline transition-all" href="#">Privacy Policy</a>
-<a class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:underline transition-all" href="#">Cookie Policy</a>
-<a class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:underline transition-all" href="#">Compliance</a>
-<a class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:underline transition-all" href="#">Safety Standards</a>
-<a class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:underline transition-all" href="#">Contact Support</a>
-</div>
-</div>
-</footer>
-</body></html>
+  </head>
+  <body class="bg-surface text-on-surface font-body-base antialiased">
+    <!-- TopNavBar -->
+    <nav
+      class="font-inter docked full-width flat no shadows sticky top-0 z-50 border-b border-gray-200 bg-white tracking-tight antialiased dark:border-gray-800 dark:bg-gray-950">
+      <div
+        class="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between px-16">
+        <div class="text-xl font-black text-emerald-900 dark:text-emerald-50">
+          EquipDirect
+        </div>
+        <div class="gap-stack-lg hidden items-center md:flex">
+          <a
+            class="font-medium text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-emerald-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-emerald-300"
+            href="#"
+            >Marketplace</a
+          >
+          <a
+            class="font-medium text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-emerald-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-emerald-300"
+            href="#"
+            >Fleet</a
+          >
+          <a
+            class="font-medium text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-emerald-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-emerald-300"
+            href="#"
+            >Auctions</a
+          >
+          <a
+            class="font-medium text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-emerald-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-emerald-300"
+            href="#"
+            >Logistics</a
+          >
+          <a
+            class="font-medium text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-emerald-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-emerald-300"
+            href="#"
+            >Financing</a
+          >
+        </div>
+        <div class="gap-stack-md flex items-center">
+          <button
+            class="rounded p-2 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-400">
+            <span class="material-symbols-outlined">search</span>
+          </button>
+          <button
+            class="bg-primary-container text-on-primary text-label-sm rounded-lg px-4 py-2 font-bold transition-opacity hover:opacity-90">
+            List Equipment
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- Content Header (Breadcrumbs) -->
+    <header class="border-outline-variant border-b bg-white">
+      <div class="px-margin-page py-stack-lg mx-auto max-w-[1440px]">
+        <nav
+          aria-label="Breadcrumb"
+          class="mb-stack-md text-caption text-secondary flex">
+          <ol class="flex items-center space-x-2">
+            <li>
+              <a
+                class="hover:text-primary transition-colors"
+                href="#"
+                >Home</a
+              >
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="material-symbols-outlined text-[14px]"
+                >chevron_right</span
+              >
+              <a
+                class="hover:text-primary transition-colors"
+                href="#"
+                >Legal</a
+              >
+            </li>
+            <li class="text-primary flex items-center space-x-2 font-medium">
+              <span class="material-symbols-outlined text-[14px]"
+                >chevron_right</span
+              >
+              <span>Terms of Service</span>
+            </li>
+          </ol>
+        </nav>
+        <h1 class="font-h1 text-h1 text-primary">Terms of Service</h1>
+        <p class="mt-stack-sm text-secondary text-body-base">
+          Last updated: May 24, 2024
+        </p>
+      </div>
+    </header>
+    <!-- Main Layout -->
+    <main
+      class="px-margin-page py-section-gap gap-gutter mx-auto flex max-w-[1440px]">
+      <!-- Left Pane: Sticky Sidebar -->
+      <aside class="hidden w-[30%] md:block">
+        <div
+          class="border-surface-container-highest sticky top-[100px] border-l-2">
+          <nav class="flex flex-col">
+            <a
+              class="pl-stack-md py-stack-sm text-body-base text-secondary hover:text-primary hover:border-primary -ml-[2px] border-l-2 border-transparent font-medium transition-all"
+              href="#definitions"
+              >1. Definitions</a
+            >
+            <a
+              class="pl-stack-md py-stack-sm text-body-base text-secondary hover:text-primary hover:border-primary -ml-[2px] border-l-2 border-transparent font-medium transition-all"
+              href="#obligations"
+              >2. User Obligations</a
+            >
+            <a
+              class="pl-stack-md py-stack-sm text-body-base text-secondary hover:text-primary hover:border-primary -ml-[2px] border-l-2 border-transparent font-medium transition-all"
+              href="#process"
+              >3. Rental Process</a
+            >
+            <a
+              class="pl-stack-md py-stack-sm text-body-base text-primary border-primary -ml-[2px] border-l-2 font-medium transition-all"
+              href="#disclaimer"
+              >4. Liability Disclaimer</a
+            >
+            <a
+              class="pl-stack-md py-stack-sm text-body-base text-secondary hover:text-primary hover:border-primary -ml-[2px] border-l-2 border-transparent font-medium transition-all"
+              href="#payouts"
+              >5. Payouts</a
+            >
+            <a
+              class="pl-stack-md py-stack-sm text-body-base text-secondary hover:text-primary hover:border-primary -ml-[2px] border-l-2 border-transparent font-medium transition-all"
+              href="#dispute"
+              >6. Dispute Resolution</a
+            >
+          </nav>
+          <div
+            class="mt-stack-lg p-stack-md bg-surface-container-low rounded-lg">
+            <p class="text-caption text-on-surface-variant leading-relaxed">
+              Need legal assistance regarding these terms? Contact our
+              compliance department at legal@rentmart.com
+            </p>
+          </div>
+        </div>
+      </aside>
+      <!-- Right Pane: Long-form Legal Text -->
+      <article class="prose prose-emerald w-full max-w-none md:w-[70%]">
+        <section
+          class="mb-stack-lg"
+          id="definitions">
+          <h2 class="font-h2 text-h2 text-primary mb-stack-md">
+            1. Definitions
+          </h2>
+          <div class="space-y-stack-md text-on-surface-variant leading-relaxed">
+            <p>
+              In these Terms of Service, "EquipDirect," "we," "us," and "our"
+              refer to the digital platform operating as EquipDirect Industrial
+              Marketplace. "User" refers to any individual or entity utilizing
+              the platform for listing, renting, or purchasing industrial
+              machinery.
+            </p>
+            <p>
+              "Platform" means the EquipDirect website, mobile applications, and
+              associated services. "Asset" refers to any heavy machinery,
+              industrial equipment, or high-value tool listed for transaction on
+              the platform.
+            </p>
+          </div>
+        </section>
+        <section
+          class="mb-stack-lg"
+          id="obligations">
+          <h2 class="font-h2 text-h2 text-primary mb-stack-md">
+            2. User Obligations
+          </h2>
+          <div class="space-y-stack-md text-on-surface-variant leading-relaxed">
+            <p>
+              Users must provide accurate, current, and complete information
+              during the registration process. You are responsible for
+              safeguarding your account credentials and for all activities that
+              occur under your account.
+            </p>
+            <ul class="pl-stack-lg list-disc space-y-2">
+              <li>
+                Maintain compliance with all local industrial safety
+                regulations.
+              </li>
+              <li>
+                Ensure all listed machinery meets certified inspection
+                standards.
+              </li>
+              <li>
+                Provide accurate hour-meter readings and maintenance logs for
+                all assets.
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section
+          class="mb-stack-lg"
+          id="process">
+          <h2 class="font-h2 text-h2 text-primary mb-stack-md">
+            3. Rental Process
+          </h2>
+          <div class="space-y-stack-md text-on-surface-variant leading-relaxed">
+            <p>
+              The rental process begins when a Renter submits a formal request
+              via the platform. Owners have 24 hours to accept or decline the
+              request. Once accepted, the Renter’s payment method is authorized
+              for the full transaction value plus a security deposit.
+            </p>
+            <p>
+              Physical handover must be documented via the EquipDirect Mobile
+              Inspection App. Both parties are required to take high-resolution
+              photographs of the asset at the time of delivery and return.
+            </p>
+          </div>
+        </section>
+        <!-- Highlighted Section 4 -->
+        <section
+          class="mb-stack-lg p-stack-lg bg-primary-fixed-dim/20 border-primary rounded-xl border-l-4"
+          id="disclaimer">
+          <h2 class="font-h2 text-h2 text-primary mb-stack-md">
+            4. Liability Disclaimer
+          </h2>
+          <div class="text-on-surface leading-relaxed font-medium">
+            <p class="mb-stack-md">
+              Rentmart is not an insurance company, brokerage, or agent. We are
+              a technology facilitator.
+            </p>
+            <p class="text-body-lg font-semibold italic">
+              You agree that Rentmart shall not be liable for any damage to or
+              loss of machinery, personal injury, or catastrophic loss, and all
+              legal disputes are between owner and renter directly.
+            </p>
+            <p class="mt-stack-md text-caption text-secondary">
+              Users are strongly advised to maintain independent commercial
+              general liability insurance and equipment floater policies for all
+              high-capital assets.
+            </p>
+          </div>
+        </section>
+        <section
+          class="mb-stack-lg"
+          id="payouts">
+          <h2 class="font-h2 text-h2 text-primary mb-stack-md">5. Payouts</h2>
+          <div class="space-y-stack-md text-on-surface-variant leading-relaxed">
+            <p>
+              Payouts to Owners are initiated 48 hours after the confirmed
+              return of the machinery, provided no damage claims have been
+              filed. EquipDirect retains a platform fee as specified in the Fee
+              Schedule at the time of listing.
+            </p>
+          </div>
+        </section>
+        <section
+          class="mb-section-gap"
+          id="dispute">
+          <h2 class="font-h2 text-h2 text-primary mb-stack-md">
+            6. Dispute Resolution
+          </h2>
+          <div class="space-y-stack-md text-on-surface-variant leading-relaxed">
+            <p>
+              Any dispute arising out of or in connection with these Terms,
+              including any question regarding its existence, validity, or
+              termination, shall be referred to and finally resolved by
+              arbitration in accordance with the rules of the International
+              Chamber of Commerce (ICC).
+            </p>
+            <p>
+              The seat of arbitration shall be Delaware, USA. The language of
+              the arbitration shall be English.
+            </p>
+          </div>
+        </section>
+      </article>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="font-inter full-width flat border-t border-gray-200 bg-gray-50 text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
+      <div
+        class="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-between gap-8 px-16 py-12 md:flex-row">
+        <div class="flex flex-col gap-2">
+          <div class="text-lg font-bold text-gray-900 dark:text-gray-100">
+            EquipDirect
+          </div>
+          <p class="text-caption max-w-xs">
+            © 2024 EquipDirect Industrial Marketplace. All rights reserved.
+            High-capital asset procurement.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6">
+          <a
+            class="text-gray-500 transition-all hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-gray-200"
+            href="#"
+            >Terms of Service</a
+          >
+          <a
+            class="text-gray-500 transition-all hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-gray-200"
+            href="#"
+            >Privacy Policy</a
+          >
+          <a
+            class="text-gray-500 transition-all hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-gray-200"
+            href="#"
+            >Cookie Policy</a
+          >
+          <a
+            class="text-gray-500 transition-all hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-gray-200"
+            href="#"
+            >Compliance</a
+          >
+          <a
+            class="text-gray-500 transition-all hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-gray-200"
+            href="#"
+            >Safety Standards</a
+          >
+          <a
+            class="text-gray-500 transition-all hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-gray-200"
+            href="#"
+            >Contact Support</a
+          >
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

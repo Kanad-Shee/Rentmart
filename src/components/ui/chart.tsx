@@ -1,11 +1,8 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import {
-  Legend as RechartsLegend,
-  Tooltip as RechartsTooltip,
-} from "recharts";
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
+import * as React from 'react';
+import { Legend as RechartsLegend, Tooltip as RechartsTooltip } from 'recharts';
 
 export type ChartConfig = Record<
   string,
@@ -30,7 +27,7 @@ function useChart() {
   const context = React.useContext(ChartContext);
 
   if (!context) {
-    throw new Error("Chart components must be used within a ChartContainer.");
+    throw new Error('Chart components must be used within a ChartContainer.');
   }
 
   return context;
@@ -38,15 +35,15 @@ function useChart() {
 
 function getConfigEntryColor(config: ChartConfig[string] | undefined) {
   if (!config) {
-    return "var(--chart-1)";
+    return 'var(--chart-1)';
   }
 
-  return config.color ?? config.theme?.light ?? "var(--chart-1)";
+  return config.color ?? config.theme?.light ?? 'var(--chart-1)';
 }
 
 export const ChartContainer = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> & {
+  React.ComponentProps<'div'> & {
     config: ChartConfig;
     children: React.ReactElement;
   }
@@ -55,10 +52,13 @@ export const ChartContainer = React.forwardRef<
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const [size, setSize] = React.useState({ width: 0, height: 0 });
   const colorVariables = React.useMemo(() => {
-    return Object.entries(config).reduce<Record<string, string>>((accumulator, [key, value]) => {
-      accumulator[`--color-${key}`] = getConfigEntryColor(value);
-      return accumulator;
-    }, {});
+    return Object.entries(config).reduce<Record<string, string>>(
+      (accumulator, [key, value]) => {
+        accumulator[`--color-${key}`] = getConfigEntryColor(value);
+        return accumulator;
+      },
+      {}
+    );
   }, [config]);
 
   React.useEffect(() => {
@@ -79,7 +79,7 @@ export const ChartContainer = React.forwardRef<
 
         return {
           width: nextWidth,
-          height: nextHeight,
+          height: nextHeight
         };
       });
     };
@@ -91,11 +91,11 @@ export const ChartContainer = React.forwardRef<
     });
 
     observer.observe(element);
-    window.addEventListener("resize", updateSize);
+    window.addEventListener('resize', updateSize);
 
     return () => {
       observer.disconnect();
-      window.removeEventListener("resize", updateSize);
+      window.removeEventListener('resize', updateSize);
     };
   }, []);
 
@@ -105,7 +105,7 @@ export const ChartContainer = React.forwardRef<
         ref={(node) => {
           containerRef.current = node;
 
-          if (typeof ref === "function") {
+          if (typeof ref === 'function') {
             ref(node);
             return;
           }
@@ -117,26 +117,28 @@ export const ChartContainer = React.forwardRef<
         data-chart={chartId}
         className={cn(
           "h-[260px] min-h-[240px] w-full min-w-0 text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-legend-item-text]:text-foreground [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector:focus-visible]:outline-none [&_.recharts-tooltip-cursor]:stroke-border [&_.recharts-tooltip-cursor]:opacity-50",
-          className,
+          className
         )}
         style={{
           ...colorVariables,
-          ...style,
+          ...style
         }}
-        {...props}
-      >
+        {...props}>
         {size.width > 0 && size.height > 0
-          ? React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
-              width: size.width,
-              height: size.height,
-            })
+          ? React.cloneElement(
+              children as React.ReactElement<Record<string, unknown>>,
+              {
+                width: size.width,
+                height: size.height
+              }
+            )
           : null}
       </div>
     </ChartContext.Provider>
   );
 });
 
-ChartContainer.displayName = "ChartContainer";
+ChartContainer.displayName = 'ChartContainer';
 
 export const ChartTooltip = RechartsTooltip;
 export const ChartLegend = RechartsLegend;
@@ -146,7 +148,7 @@ export function ChartTooltipContent({
   payload,
   label,
   hideLabel = false,
-  valueFormatter,
+  valueFormatter
 }: {
   active?: boolean;
   payload?: Array<{
@@ -175,13 +177,15 @@ export function ChartTooltipContent({
       ) : null}
       <div className="space-y-2">
         {payload.map((item) => {
-          const key = String(item.dataKey ?? item.name ?? "");
+          const key = String(item.dataKey ?? item.name ?? '');
           const entry = config[key];
           const tone = item.color ?? getConfigEntryColor(entry);
           const value = item.value ?? 0;
 
           return (
-            <div key={key} className="flex items-center justify-between gap-4 text-sm">
+            <div
+              key={key}
+              className="flex items-center justify-between gap-4 text-sm">
               <div className="flex items-center gap-2">
                 <span
                   className="h-2.5 w-2.5 rounded-full"
@@ -203,7 +207,7 @@ export function ChartTooltipContent({
 }
 
 export function ChartLegendContent({
-  payload,
+  payload
 }: {
   payload?: Array<{
     dataKey?: string | number;
@@ -220,14 +224,18 @@ export function ChartLegendContent({
   return (
     <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
       {payload.map((item) => {
-        const key = String(item.dataKey ?? item.value ?? "");
+        const key = String(item.dataKey ?? item.value ?? '');
         const entry = config[key];
 
         return (
-          <div key={key} className="flex items-center gap-2">
+          <div
+            key={key}
+            className="flex items-center gap-2">
             <span
               className="h-2.5 w-2.5 rounded-full"
-              style={{ backgroundColor: item.color ?? getConfigEntryColor(entry) }}
+              style={{
+                backgroundColor: item.color ?? getConfigEntryColor(entry)
+              }}
             />
             <span>{entry?.label ?? item.value ?? key}</span>
           </div>

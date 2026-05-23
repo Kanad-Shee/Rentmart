@@ -119,7 +119,7 @@ The visual style is a fusion of **Modern Minimalism** and **Corporate Precision*
 
 ## Colors
 
-The palette for this design system is strictly professional, leaning on a high-contrast light mode to maximize legibility. 
+The palette for this design system is strictly professional, leaning on a high-contrast light mode to maximize legibility.
 
 - **Primary:** The Deep Forest Green (#1B4332) is used sparingly for primary actions, navigation accents, and brand touchpoints. It signifies growth, stability, and agricultural/industrial heritage.
 - **Surface:** Pure White (#FFFFFF) is the primary canvas color. Subtle Cool Grey (#F4F5F7) is reserved for secondary surfaces like sidebar backgrounds, card containers, and page-level sectioning.
@@ -128,7 +128,7 @@ The palette for this design system is strictly professional, leaning on a high-c
 
 ## Typography
 
-The design system utilizes **Inter** for all interface elements to leverage its exceptional clarity on high-resolution screens. 
+The design system utilizes **Inter** for all interface elements to leverage its exceptional clarity on high-resolution screens.
 
 Typographic hierarchy is the primary driver of layout. Large display sizes are used for machine titles and high-level metrics, while technical specifications rely on a rigorous 16px body grid. For data-heavy tables and specifications, "label-sm" provides a clear, all-caps header to differentiate metadata from values. Line heights are intentionally generous to prevent information density from becoming overwhelming during long procurement sessions.
 
@@ -136,7 +136,8 @@ Typographic hierarchy is the primary driver of layout. Large display sizes are u
 
 The layout philosophy follows a **Fixed-Width Grid** model centered on the screen, designed to maintain a premium feel on ultra-wide and 4K displays. By capping the content width at 1440px, we ensure optimal line lengths for technical reading.
 
-The spacing rhythm is built on an 8px baseline. 
+The spacing rhythm is built on an 8px baseline.
+
 - **Page Margins:** 64px on desktops to provide a "frame" that highlights the content.
 - **Sectioning:** Large vertical gaps (80px+) are used to separate distinct stages of the rental funnel (e.g., Search from Featured Listings).
 - **Density:** Inside cards and data tables, spacing is tightened to "stack-sm" (8px) to maintain a cohesive relationship between related technical specs.
@@ -163,19 +164,25 @@ The design system utilizes **Soft** roundedness (Level 1). This choice ensures t
 ## Components
 
 ### Buttons
+
 Primary buttons utilize the Forest Green (#1B4332) with white text. Secondary buttons are ghost-style with a 1px stroke in #E2E8F0. All buttons use 4px rounded corners and 16px horizontal padding.
 
 ### Input Fields
+
 Inputs are minimalist: a 1px border (#E2E8F0) that darkens on focus. Labels are always positioned above the field in "label-sm" typography. No icons should be used inside inputs unless strictly functional (e.g., search magnifying glass).
 
 ### Machinery Cards
+
 The centerpiece of the marketplace. Cards feature a high-resolution machine image, a sharp H3 title, and a grid of 3-4 key specs (e.g., Weight, Power, Availability). The "Availability" status is a small chip with a 2px radius.
 
 ### Availability Chips
+
 Small, low-profile indicators. "Available" uses a light tint of the primary green with dark green text. "Rented" or "Maintenance" uses cool grey tones.
 
 ### Data Tables
+
 Used for fleet management and pricing tiers. Tables use horizontal lines only (no vertical borders) to maintain a clean, readable flow. Headers are sticky and use a light grey background (#F4F5F7).
 
 ### Filter Sidebar
+
 A critical component for machinery rental. Filters use a vertical accordion style with subtle separators. Interaction is immediate, with no "Apply" button required for a seamless browsing experience.

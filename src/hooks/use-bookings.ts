@@ -1,6 +1,5 @@
-"use client";
+'use client';
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   approveBooking,
   getAdminBookings,
@@ -19,10 +18,13 @@ import {
   verifyBookingPayment,
   type CreateBookingInput,
   type ManualSettlementInput,
-  type VerifyBookingPaymentInput,
-} from "@/lib/booking";
+  type VerifyBookingPaymentInput
+} from '@/lib/booking';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-function invalidateBookingQueries(queryClient: ReturnType<typeof useQueryClient>) {
+function invalidateBookingQueries(
+  queryClient: ReturnType<typeof useQueryClient>
+) {
   queryClient.invalidateQueries({ queryKey: bookingQueryKeys.all });
 }
 
@@ -31,7 +33,7 @@ export function useMyBookingsQuery(enabled = true) {
     queryKey: bookingQueryKeys.mine,
     queryFn: getMyBookings,
     staleTime: 30 * 1000,
-    enabled,
+    enabled
   });
 }
 
@@ -40,7 +42,7 @@ export function useOwnerBookingsQuery(enabled = true) {
     queryKey: bookingQueryKeys.owner,
     queryFn: getOwnerBookings,
     staleTime: 30 * 1000,
-    enabled,
+    enabled
   });
 }
 
@@ -49,7 +51,7 @@ export function useAdminBookingsQuery(enabled = true) {
     queryKey: bookingQueryKeys.admin,
     queryFn: getAdminBookings,
     staleTime: 30 * 1000,
-    enabled,
+    enabled
   });
 }
 
@@ -60,7 +62,7 @@ export function useCreateBookingMutation() {
     mutationFn: (input: CreateBookingInput) => createBooking(input),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }
 
@@ -71,7 +73,7 @@ export function useCompleteBookingPaymentMutation() {
     mutationFn: (bookingId: string) => createBookingPaymentOrder(bookingId),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }
 
@@ -81,14 +83,14 @@ export function useVerifyBookingPaymentMutation() {
   return useMutation({
     mutationFn: ({
       bookingId,
-      input,
+      input
     }: {
       bookingId: string;
       input: VerifyBookingPaymentInput;
     }) => verifyBookingPayment(bookingId, input),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }
 
@@ -99,7 +101,7 @@ export function useApproveBookingMutation() {
     mutationFn: (bookingId: string) => approveBooking(bookingId),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }
 
@@ -107,11 +109,16 @@ export function useRejectBookingMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ bookingId, reason }: { bookingId: string; reason: string }) =>
-      rejectBooking(bookingId, reason),
+    mutationFn: ({
+      bookingId,
+      reason
+    }: {
+      bookingId: string;
+      reason: string;
+    }) => rejectBooking(bookingId, reason),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }
 
@@ -122,7 +129,7 @@ export function useStartBookingMutation() {
     mutationFn: (bookingId: string) => startBooking(bookingId),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }
 
@@ -133,7 +140,7 @@ export function useCompleteOwnerBookingMutation() {
     mutationFn: (bookingId: string) => completeOwnerBooking(bookingId),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }
 
@@ -141,11 +148,16 @@ export function useDisputeBookingMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ bookingId, input }: { bookingId: string; input: DisputeBookingInput }) =>
-      disputeBooking(bookingId, input),
+    mutationFn: ({
+      bookingId,
+      input
+    }: {
+      bookingId: string;
+      input: DisputeBookingInput;
+    }) => disputeBooking(bookingId, input),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }
 
@@ -155,14 +167,14 @@ export function useMarkOwnerPayoutPaidMutation() {
   return useMutation({
     mutationFn: ({
       bookingId,
-      input,
+      input
     }: {
       bookingId: string;
       input: ManualSettlementInput;
     }) => markOwnerPayoutPaid(bookingId, input),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }
 
@@ -172,13 +184,13 @@ export function useMarkDepositRefundedMutation() {
   return useMutation({
     mutationFn: ({
       bookingId,
-      input,
+      input
     }: {
       bookingId: string;
       input: ManualSettlementInput;
     }) => markDepositRefunded(bookingId, input),
     onSuccess: () => {
       invalidateBookingQueries(queryClient);
-    },
+    }
   });
 }

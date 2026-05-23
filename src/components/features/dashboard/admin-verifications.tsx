@@ -1,7 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useDeferredValue, useMemo, useState } from "react";
+import { DashboardAddListingMapPreview } from '@/components/features/dashboard/dashboard-add-listing-map-preview';
+import {
+  useApproveEquipmentMutation,
+  usePendingEquipmentQuery,
+  useRejectEquipmentMutation
+} from '@/hooks/use-equipment';
+import type { EquipmentListing } from '@/lib/equipment';
+import { ApiError } from '@/lib/http';
 import {
   AlertTriangle,
   Check,
@@ -13,62 +19,56 @@ import {
   ShieldCheck,
   UserRound,
   X,
-  XCircle,
-} from "lucide-react";
-import { toast } from "sonner";
-import {
-  useApproveEquipmentMutation,
-  usePendingEquipmentQuery,
-  useRejectEquipmentMutation,
-} from "@/hooks/use-equipment";
-import type { EquipmentListing } from "@/lib/equipment";
-import { ApiError } from "@/lib/http";
-import { DashboardAddListingMapPreview } from "@/components/features/dashboard/dashboard-add-listing-map-preview";
+  XCircle
+} from 'lucide-react';
+import Image from 'next/image';
+import { useDeferredValue, useMemo, useState } from 'react';
+import { toast } from 'sonner';
 
 function formatRelativeDate(value: string) {
   const timestamp = new Date(value).getTime();
 
   if (Number.isNaN(timestamp)) {
-    return "Recently";
+    return 'Recently';
   }
 
   const diffMs = timestamp - Date.now();
   const minuteMs = 60 * 1000;
   const hourMs = 60 * minuteMs;
   const dayMs = 24 * hourMs;
-  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+  const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
   const absoluteDiff = Math.abs(diffMs);
 
   if (absoluteDiff < hourMs) {
-    return rtf.format(Math.round(diffMs / minuteMs), "minute");
+    return rtf.format(Math.round(diffMs / minuteMs), 'minute');
   }
 
   if (absoluteDiff < dayMs) {
-    return rtf.format(Math.round(diffMs / hourMs), "hour");
+    return rtf.format(Math.round(diffMs / hourMs), 'hour');
   }
 
-  return rtf.format(Math.round(diffMs / dayMs), "day");
+  return rtf.format(Math.round(diffMs / dayMs), 'day');
 }
 
 function formatLongDate(value: string) {
   const date = new Date(value);
 
   if (Number.isNaN(date.getTime())) {
-    return "Unknown date";
+    return 'Unknown date';
   }
 
-  return new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
   }).format(date);
 }
 
 function formatPrice(value: number) {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
   }).format(value);
 }
 
@@ -81,10 +81,10 @@ function getInitials(fullName: string) {
     .trim()
     .split(/\s+/)
     .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("");
+    .map((part) => part[0]?.toUpperCase() ?? '')
+    .join('');
 
-  return initials || "RM";
+  return initials || 'RM';
 }
 
 function getPrimaryImage(listing: EquipmentListing) {
@@ -102,7 +102,9 @@ function VerificationsSkeleton() {
           </div>
           <div className="space-y-0">
             {[0, 1, 2].map((item) => (
-              <div key={item} className="flex gap-4 border-b border-border p-4">
+              <div
+                key={item}
+                className="flex gap-4 border-b border-border p-4">
                 <div className="h-16 w-16 rounded-lg bg-muted" />
                 <div className="min-w-0 flex-1">
                   <div className="h-5 w-40 rounded bg-muted" />
@@ -132,7 +134,10 @@ function VerificationsSkeleton() {
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               {[0, 1, 2, 3].map((item) => (
-                <div key={item} className="h-52 rounded-xl border border-border bg-muted/20" />
+                <div
+                  key={item}
+                  className="h-52 rounded-xl border border-border bg-muted/20"
+                />
               ))}
             </div>
           </div>
@@ -193,7 +198,8 @@ function EmptyVerificationsState() {
           No pending listings right now
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
-          New equipment submissions will appear here automatically when owners send listings for verification.
+          New equipment submissions will appear here automatically when owners
+          send listings for verification.
         </p>
       </div>
     </section>
@@ -205,10 +211,10 @@ export function AdminVerifications() {
   const approveMutation = useApproveEquipmentMutation();
   const rejectMutation = useRejectEquipmentMutation();
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [notifyOwner, setNotifyOwner] = useState(true);
   const [isRejectMode, setIsRejectMode] = useState(false);
-  const [rejectionReason, setRejectionReason] = useState("");
+  const [rejectionReason, setRejectionReason] = useState('');
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
   const deferredSearchTerm = useDeferredValue(searchTerm);
@@ -227,9 +233,9 @@ export function AdminVerifications() {
         listing.owner.fullName,
         listing.owner.email,
         listing.category.title,
-        listing.normalizedAddress,
+        listing.normalizedAddress
       ]
-        .join(" ")
+        .join(' ')
         .toLowerCase()
         .includes(normalizedSearch);
     });
@@ -238,15 +244,16 @@ export function AdminVerifications() {
   const resolvedSelectedId =
     selectedId && filteredListings.some((listing) => listing.id === selectedId)
       ? selectedId
-      : filteredListings[0]?.id ?? null;
+      : (filteredListings[0]?.id ?? null);
 
   const selectedListing =
-    filteredListings.find((listing) => listing.id === resolvedSelectedId) ?? null;
+    filteredListings.find((listing) => listing.id === resolvedSelectedId) ??
+    null;
 
   function handleSelectListing(listingId: string) {
     setSelectedId(listingId);
     setIsRejectMode(false);
-    setRejectionReason("");
+    setRejectionReason('');
     setActionError(null);
   }
 
@@ -260,7 +267,7 @@ export function AdminVerifications() {
         message={
           pendingEquipmentQuery.error instanceof ApiError
             ? pendingEquipmentQuery.error.message
-            : "Try refreshing this page in a moment."
+            : 'Try refreshing this page in a moment.'
         }
       />
     );
@@ -286,10 +293,14 @@ export function AdminVerifications() {
       toast.success(`Approved ${selectedListing.title}.`);
     } catch (error) {
       toast.error(
-        error instanceof ApiError ? error.message : "Unable to approve the listing.",
+        error instanceof ApiError
+          ? error.message
+          : 'Unable to approve the listing.'
       );
       setActionError(
-        error instanceof ApiError ? error.message : "Unable to approve the listing.",
+        error instanceof ApiError
+          ? error.message
+          : 'Unable to approve the listing.'
       );
     }
   }
@@ -300,7 +311,9 @@ export function AdminVerifications() {
     }
 
     if (rejectionReason.trim().length < 10) {
-      setActionError("Add a short rejection reason so the owner knows what to fix.");
+      setActionError(
+        'Add a short rejection reason so the owner knows what to fix.'
+      );
       return;
     }
 
@@ -311,19 +324,23 @@ export function AdminVerifications() {
       await rejectMutation.mutateAsync({
         id: selectedListing.id,
         input: {
-          reason: rejectionReason.trim(),
-        },
+          reason: rejectionReason.trim()
+        }
       });
       setActionNotice(`Rejected ${selectedListing.title}.`);
       setIsRejectMode(false);
-      setRejectionReason("");
+      setRejectionReason('');
       toast.success(`Rejected ${selectedListing.title}.`);
     } catch (error) {
       toast.error(
-        error instanceof ApiError ? error.message : "Unable to reject the listing.",
+        error instanceof ApiError
+          ? error.message
+          : 'Unable to reject the listing.'
       );
       setActionError(
-        error instanceof ApiError ? error.message : "Unable to reject the listing.",
+        error instanceof ApiError
+          ? error.message
+          : 'Unable to reject the listing.'
       );
     }
   }
@@ -338,7 +355,8 @@ export function AdminVerifications() {
           Verifications
         </h1>
         <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-          Review new listings, inspect equipment media, and moderate submissions before they go live.
+          Review new listings, inspect equipment media, and moderate submissions
+          before they go live.
         </p>
       </div>
 
@@ -385,13 +403,13 @@ export function AdminVerifications() {
                       onClick={() => handleSelectListing(listing.id)}
                       className={`flex w-full items-start gap-4 border-b border-border px-5 py-5 text-left transition-colors ${
                         isSelected
-                          ? "bg-[#c1ecd4]/65 shadow-[inset_4px_0_0_0_#1b4332]"
-                          : "bg-background hover:bg-muted/40"
-                      }`}
-                    >
+                          ? 'bg-[#c1ecd4]/65 shadow-[inset_4px_0_0_0_#1b4332]'
+                          : 'bg-background hover:bg-muted/40'
+                      }`}>
                       <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
                         {imageUrl ? (
                           <Image
+                            loading={'lazy'}
                             src={imageUrl}
                             alt={listing.title}
                             fill
@@ -414,7 +432,9 @@ export function AdminVerifications() {
                           </span>
                         </div>
                         <div className="space-y-1 text-base text-[#44505d]">
-                          <p className="truncate">Owner: {listing.owner.fullName}</p>
+                          <p className="truncate">
+                            Owner: {listing.owner.fullName}
+                          </p>
                           {listing.owner.phone ? (
                             <p className="truncate text-sm text-[#5b6976]">
                               Verified phone: {listing.owner.phone}
@@ -459,8 +479,7 @@ export function AdminVerifications() {
                     <button
                       type="button"
                       className="rounded-lg border border-border p-3 text-muted-foreground transition-colors hover:bg-muted"
-                      aria-label="Listing actions"
-                    >
+                      aria-label="Listing actions">
                       <MoreVertical className="h-5 w-5" />
                     </button>
                   </div>
@@ -472,6 +491,7 @@ export function AdminVerifications() {
                       {selectedListing.images[0] ? (
                         <div className="relative h-[300px] sm:h-[420px]">
                           <Image
+                            loading={'lazy'}
                             src={selectedListing.images[0].url}
                             alt={selectedListing.title}
                             fill
@@ -491,6 +511,7 @@ export function AdminVerifications() {
                         {selectedListing.images[1] ? (
                           <div className="relative h-[180px] sm:h-[248px]">
                             <Image
+                              loading={'lazy'}
                               src={selectedListing.images[1].url}
                               alt={`${selectedListing.title} detail view`}
                               fill
@@ -506,18 +527,21 @@ export function AdminVerifications() {
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
-                        {[selectedListing.images[2], selectedListing.images[3]].map((image, index) => {
+                        {[
+                          selectedListing.images[2],
+                          selectedListing.images[3]
+                        ].map((image, index) => {
                           const hasRemainingImages =
                             index === 1 && selectedListing.images.length > 4;
 
                           return (
                             <div
                               key={image?.id ?? `image-slot-${index}`}
-                              className="relative overflow-hidden rounded-xl border border-border bg-muted"
-                            >
+                              className="relative overflow-hidden rounded-xl border border-border bg-muted">
                               {image ? (
                                 <div className="relative h-[120px] sm:h-[156px]">
                                   <Image
+                                    loading={'lazy'}
                                     src={image.url}
                                     alt={`${selectedListing.title} gallery ${index + 3}`}
                                     fill
@@ -660,9 +684,10 @@ export function AdminVerifications() {
                           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(165,208,185,0.6),_transparent_36%),linear-gradient(135deg,_rgba(27,67,50,0.65),_rgba(249,250,246,0.1))]" />
                           <DashboardAddListingMapPreview
                             location={{
-                              normalizedAddress: selectedListing.normalizedAddress,
+                              normalizedAddress:
+                                selectedListing.normalizedAddress,
                               latitude: selectedListing.latitude,
-                              longitude: selectedListing.longitude,
+                              longitude: selectedListing.longitude
                             }}
                             deliveryRadiusKm={selectedListing.deliveryRadius}
                           />
@@ -670,13 +695,17 @@ export function AdminVerifications() {
                       </div>
                       <div className="mt-4 space-y-3 text-sm">
                         <div className="flex items-start justify-between gap-4">
-                          <span className="text-muted-foreground">Pickup address</span>
+                          <span className="text-muted-foreground">
+                            Pickup address
+                          </span>
                           <span className="max-w-[60%] text-right font-medium text-foreground">
                             {selectedListing.normalizedAddress}
                           </span>
                         </div>
                         <div className="flex items-center justify-between gap-4">
-                          <span className="text-muted-foreground">Delivery radius</span>
+                          <span className="text-muted-foreground">
+                            Delivery radius
+                          </span>
                           <span className="font-bold text-primary">
                             {selectedListing.deliveryRadius} km
                           </span>
@@ -724,25 +753,27 @@ export function AdminVerifications() {
                             Reject Listing
                           </h3>
                           <p className="mt-1 text-sm leading-6 text-[#7a120c]">
-                            Share a clear reason so the owner can fix the submission and resubmit it.
+                            Share a clear reason so the owner can fix the
+                            submission and resubmit it.
                           </p>
                         </div>
                         <button
                           type="button"
                           onClick={() => {
                             setIsRejectMode(false);
-                            setRejectionReason("");
+                            setRejectionReason('');
                             setActionError(null);
                           }}
                           className="rounded-md border border-[#ffd9d4] p-2 text-[#7a120c] transition-colors hover:bg-[#fff4f2]"
-                          aria-label="Close rejection form"
-                        >
+                          aria-label="Close rejection form">
                           <X className="h-4 w-4" />
                         </button>
                       </div>
                       <textarea
                         value={rejectionReason}
-                        onChange={(event) => setRejectionReason(event.target.value)}
+                        onChange={(event) =>
+                          setRejectionReason(event.target.value)
+                        }
                         rows={4}
                         placeholder="Example: The uploaded images do not clearly show the equipment model and the pickup address needs correction."
                         className="mt-4 w-full rounded-xl border border-[#f1c9c4] bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-[#b08b87] focus:border-[#c96d63]"
@@ -757,7 +788,9 @@ export function AdminVerifications() {
                       <input
                         type="checkbox"
                         checked={notifyOwner}
-                        onChange={(event) => setNotifyOwner(event.target.checked)}
+                        onChange={(event) =>
+                          setNotifyOwner(event.target.checked)
+                        }
                         className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
                       />
                       Notify owner via email
@@ -768,9 +801,11 @@ export function AdminVerifications() {
                         <button
                           type="button"
                           onClick={handleReject}
-                          disabled={rejectMutation.isPending || approveMutation.isPending}
-                          className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#ba1a1a] px-6 py-3 text-sm font-bold uppercase tracking-[0.16em] text-[#ba1a1a] transition-colors hover:bg-[#fff4f2] disabled:cursor-not-allowed disabled:opacity-60"
-                        >
+                          disabled={
+                            rejectMutation.isPending ||
+                            approveMutation.isPending
+                          }
+                          className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#ba1a1a] px-6 py-3 text-sm font-bold uppercase tracking-[0.16em] text-[#ba1a1a] transition-colors hover:bg-[#fff4f2] disabled:cursor-not-allowed disabled:opacity-60">
                           {rejectMutation.isPending ? (
                             <>
                               <LoaderCircle className="h-4 w-4 animate-spin" />
@@ -791,9 +826,11 @@ export function AdminVerifications() {
                             setActionError(null);
                             setActionNotice(null);
                           }}
-                          disabled={approveMutation.isPending || rejectMutation.isPending}
-                          className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#ba1a1a] px-6 py-3 text-sm font-bold uppercase tracking-[0.16em] text-[#ba1a1a] transition-colors hover:bg-[#fff4f2] disabled:cursor-not-allowed disabled:opacity-60"
-                        >
+                          disabled={
+                            approveMutation.isPending ||
+                            rejectMutation.isPending
+                          }
+                          className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#ba1a1a] px-6 py-3 text-sm font-bold uppercase tracking-[0.16em] text-[#ba1a1a] transition-colors hover:bg-[#fff4f2] disabled:cursor-not-allowed disabled:opacity-60">
                           <XCircle className="h-4 w-4" />
                           Reject Listing
                         </button>
@@ -802,9 +839,10 @@ export function AdminVerifications() {
                       <button
                         type="button"
                         onClick={handleApprove}
-                        disabled={approveMutation.isPending || rejectMutation.isPending}
-                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold uppercase tracking-[0.16em] text-primary-foreground transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-60"
-                      >
+                        disabled={
+                          approveMutation.isPending || rejectMutation.isPending
+                        }
+                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold uppercase tracking-[0.16em] text-primary-foreground transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-60">
                         {approveMutation.isPending ? (
                           <>
                             <LoaderCircle className="h-4 w-4 animate-spin" />

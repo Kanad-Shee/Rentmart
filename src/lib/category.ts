@@ -1,4 +1,4 @@
-import { apiRequest } from "./http";
+import { apiRequest } from './http';
 
 export type Category = {
   id: string;
@@ -24,8 +24,8 @@ export type UpdateCategoryInput = {
 };
 
 export const categoryQueryKeys = {
-  all: ["categories"] as const,
-  detail: (id: string) => ["categories", id] as const,
+  all: ['categories'] as const,
+  detail: (id: string) => ['categories', id] as const
 };
 
 function createCategoryFormData(input: {
@@ -34,18 +34,18 @@ function createCategoryFormData(input: {
   image?: File | null;
 }) {
   const formData = new FormData();
-  formData.append("title", input.title);
-  formData.append("description", input.description);
+  formData.append('title', input.title);
+  formData.append('description', input.description);
 
   if (input.image) {
-    formData.append("image", input.image);
+    formData.append('image', input.image);
   }
 
   return formData;
 }
 
 export async function getCategories() {
-  const response = await apiRequest<Category[]>("/categories");
+  const response = await apiRequest<Category[]>('/categories');
   return response.data;
 }
 
@@ -55,9 +55,9 @@ export async function getCategoryById(id: string) {
 }
 
 export async function createCategory(input: CreateCategoryInput) {
-  const response = await apiRequest<Category>("/categories", {
-    method: "POST",
-    body: createCategoryFormData(input),
+  const response = await apiRequest<Category>('/categories', {
+    method: 'POST',
+    body: createCategoryFormData(input)
   });
 
   return response.data;
@@ -65,8 +65,8 @@ export async function createCategory(input: CreateCategoryInput) {
 
 export async function updateCategory(input: UpdateCategoryInput) {
   const response = await apiRequest<Category>(`/categories/${input.id}`, {
-    method: "PATCH",
-    body: createCategoryFormData(input),
+    method: 'PATCH',
+    body: createCategoryFormData(input)
   });
 
   return response.data;
@@ -74,7 +74,7 @@ export async function updateCategory(input: UpdateCategoryInput) {
 
 export async function deleteCategory(id: string) {
   const response = await apiRequest<{ id: string }>(`/categories/${id}`, {
-    method: "DELETE",
+    method: 'DELETE'
   });
 
   return response.data;

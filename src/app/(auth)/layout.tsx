@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
-import { requireGuest } from "@/lib/user";
+import { requireGuest } from '@/lib/user';
+import type { ReactNode } from 'react';
 
 export default async function AuthLayout({
-  children,
+  children
 }: {
   children: ReactNode;
 }) {

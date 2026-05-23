@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { ApiError } from "@/lib/http";
-import { useLogoutMutation } from "@/hooks/use-auth";
+import { useLogoutMutation } from '@/hooks/use-auth';
+import { ApiError } from '@/lib/http';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function LogoutPage() {
   const router = useRouter();
@@ -13,17 +13,17 @@ export default function LogoutPage() {
   useEffect(() => {
     logoutMutation.mutate(undefined, {
       onSuccess: () => {
-        router.replace("/sign-in");
+        router.replace('/sign-in');
       },
       onError: (error) => {
         if (error instanceof ApiError && error.status === 401) {
-          router.replace("/sign-in");
+          router.replace('/sign-in');
           return;
         }
 
         toast.error("We couldn't sign you out cleanly.");
-        router.replace("/dashboard");
-      },
+        router.replace('/dashboard');
+      }
     });
   }, [logoutMutation, router]);
 

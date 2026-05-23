@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 type CategoryHeroProps = {
   title: string;
@@ -6,23 +6,34 @@ type CategoryHeroProps = {
   itemCount: string;
 };
 
-export function CategoryHero({ title, description, itemCount }: CategoryHeroProps) {
+export function CategoryHero({
+  title,
+  description,
+  itemCount
+}: CategoryHeroProps) {
   return (
     <section className="border-b border-border bg-[#f8f8f1]">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="max-w-4xl">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Link href="/" className="transition-colors hover:text-primary">
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Link
+                prefetch
+                href="/"
+                className="transition-colors hover:text-primary">
                 Home
               </Link>
               <span aria-hidden="true">›</span>
-              <a href="#" className="transition-colors hover:text-primary">
+              <a
+                href="#"
+                className="transition-colors hover:text-primary">
                 Categories
               </a>
               <span aria-hidden="true">›</span>
               <span className="font-medium text-primary">
-                {title.split(" &")[0]}
+                {title.split(' &')[0]}
               </span>
             </nav>
 

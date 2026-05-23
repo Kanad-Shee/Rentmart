@@ -1,9 +1,9 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
-import { AUTH_COOKIE_NAME } from "@/lib/auth-cookie";
+import { AUTH_COOKIE_NAME } from '@/lib/auth-cookie';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
 function isProtectedPath(pathname: string) {
-  return pathname === "/dashboard" || pathname.startsWith("/dashboard/");
+  return pathname === '/dashboard' || pathname.startsWith('/dashboard/');
 }
 
 export function proxy(request: NextRequest) {
@@ -19,12 +19,12 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const signInUrl = new URL("/sign-in", request.url);
-  signInUrl.searchParams.set("redirectTo", pathname);
+  const signInUrl = new URL('/sign-in', request.url);
+  signInUrl.searchParams.set('redirectTo', pathname);
 
   return NextResponse.redirect(signInUrl);
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ['/dashboard/:path*']
 };

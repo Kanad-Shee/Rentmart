@@ -1,29 +1,34 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2 } from "lucide-react";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
 import {
-  verifyPhoneSchema,
-  type User,
-  type VerifyPhoneInput,
-} from "@/lib/auth";
-import { ApiError } from "@/lib/http";
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 import {
   useCurrentUserQuery,
   useStartPhoneVerificationMutation,
-  useVerifyPhoneMutation,
-} from "@/hooks/use-auth";
-import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+  useVerifyPhoneMutation
+} from '@/hooks/use-auth';
+import {
+  verifyPhoneSchema,
+  type User,
+  type VerifyPhoneInput
+} from '@/lib/auth';
+import { ApiError } from '@/lib/http';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CheckCircle2 } from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 export function PhoneVerificationCard({
   user,
-  title = "Phone Verification",
-  description = "Add your mobile number, request a verification code, and confirm it here before using protected renter or owner actions.",
+  title = 'Phone Verification',
+  description = 'Add your mobile number, request a verification code, and confirm it here before using protected renter or owner actions.'
 }: {
   user: User;
   title?: string;
@@ -41,21 +46,21 @@ export function PhoneVerificationCard({
   const verificationForm = useForm<VerifyPhoneInput>({
     resolver: zodResolver(verifyPhoneSchema),
     defaultValues: {
-      phone: user.phone ?? "",
-      code: "",
-    },
+      phone: user.phone ?? '',
+      code: ''
+    }
   });
-  const phoneField = verificationForm.register("phone", {
+  const phoneField = verificationForm.register('phone', {
     onChange: (event) => {
       if (sentPhone && event.target.value.trim() !== sentPhone) {
         setHasSentCode(false);
-        verificationForm.setValue("code", "");
+        verificationForm.setValue('code', '');
       }
-    },
+    }
   });
 
   const handleSendCode = async () => {
-    const isPhoneValid = await verificationForm.trigger("phone");
+    const isPhoneValid = await verificationForm.trigger('phone');
 
     if (!isPhoneValid) {
       return;
@@ -65,26 +70,26 @@ export function PhoneVerificationCard({
     setNotice(null);
 
     try {
-      const phone = verificationForm.getValues("phone").trim();
+      const phone = verificationForm.getValues('phone').trim();
       const result = await startMutation.mutateAsync({ phone });
-      verificationForm.setValue("phone", result.phone);
-      verificationForm.setValue("code", "");
+      verificationForm.setValue('phone', result.phone);
+      verificationForm.setValue('code', '');
       setSentPhone(result.phone);
       setHasSentCode(true);
       setNotice(`Verification code sent to ${result.phone}.`);
-      toast.success("Verification code sent.", {
-        description: `We sent an SMS code to ${result.phone}.`,
+      toast.success('Verification code sent.', {
+        description: `We sent an SMS code to ${result.phone}.`
       });
     } catch (error) {
       toast.error(
         error instanceof ApiError
           ? error.message
-          : "Unable to send the verification code.",
+          : 'Unable to send the verification code.'
       );
       setFormError(
         error instanceof ApiError
           ? error.message
-          : "Unable to send the verification code.",
+          : 'Unable to send the verification code.'
       );
     }
   };
@@ -97,19 +102,19 @@ export function PhoneVerificationCard({
       await verifyMutation.mutateAsync(values);
       setHasSentCode(false);
       setSentPhone(values.phone.trim());
-      verificationForm.setValue("code", "");
-      setNotice("Phone number verified successfully.");
-      toast.success("Phone number verified.");
+      verificationForm.setValue('code', '');
+      setNotice('Phone number verified successfully.');
+      toast.success('Phone number verified.');
     } catch (error) {
       toast.error(
         error instanceof ApiError
           ? error.message
-          : "Unable to verify the phone number.",
+          : 'Unable to verify the phone number.'
       );
       setFormError(
         error instanceof ApiError
           ? error.message
-          : "Unable to verify the phone number.",
+          : 'Unable to verify the phone number.'
       );
     }
   };
@@ -127,20 +132,18 @@ export function PhoneVerificationCard({
         </div>
         <span
           className={[
-            "w-fit rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]",
+            'w-fit rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]',
             currentUser.phoneVerified
-              ? "bg-[#c1ecd4] text-[#002114]"
-              : "bg-muted text-muted-foreground",
-          ].join(" ")}
-        >
-          {currentUser.phoneVerified ? "Verified" : "Not Verified"}
+              ? 'bg-[#c1ecd4] text-[#002114]'
+              : 'bg-muted text-muted-foreground'
+          ].join(' ')}>
+          {currentUser.phoneVerified ? 'Verified' : 'Not Verified'}
         </span>
       </div>
 
       <form
         onSubmit={verificationForm.handleSubmit(handleVerify)}
-        className="mt-6 space-y-5 rounded-lg border border-border bg-muted/10 p-5"
-      >
+        className="mt-6 space-y-5 rounded-lg border border-border bg-muted/10 p-5">
         <FieldGroup className="space-y-4">
           <Field data-invalid={!!verificationForm.formState.errors.phone}>
             <FieldLabel htmlFor="owner-phone">Mobile Number</FieldLabel>
@@ -152,7 +155,8 @@ export function PhoneVerificationCard({
               {...phoneField}
             />
             <p className="text-xs text-muted-foreground">
-              Enter your normal mobile number like `9876543210` or `+919876543210`.
+              Enter your normal mobile number like `9876543210` or
+              `+919876543210`.
             </p>
             {verificationForm.formState.errors.phone ? (
               <FieldError errors={[verificationForm.formState.errors.phone]} />
@@ -161,13 +165,15 @@ export function PhoneVerificationCard({
 
           {hasSentCode ? (
             <Field data-invalid={!!verificationForm.formState.errors.code}>
-              <FieldLabel htmlFor="owner-phone-code">Verification Code</FieldLabel>
+              <FieldLabel htmlFor="owner-phone-code">
+                Verification Code
+              </FieldLabel>
               <Input
                 id="owner-phone-code"
                 type="text"
                 placeholder="123456"
                 aria-invalid={!!verificationForm.formState.errors.code}
-                {...verificationForm.register("code")}
+                {...verificationForm.register('code')}
               />
               <p className="text-xs text-muted-foreground">
                 Enter the SMS code sent to your mobile number.
@@ -190,25 +196,29 @@ export function PhoneVerificationCard({
           <Button
             type="button"
             onClick={handleSendCode}
-            disabled={startMutation.isPending}
-          >
+            disabled={startMutation.isPending}>
             {startMutation.isPending
-              ? "Sending Code..."
+              ? 'Sending Code...'
               : hasSentCode
-                ? "Resend Code"
-                : "Send Verification Code"}
+                ? 'Resend Code'
+                : 'Send Verification Code'}
           </Button>
 
           {hasSentCode ? (
-            <Button type="submit" disabled={verifyMutation.isPending}>
-              {verifyMutation.isPending ? "Verifying..." : "Verify Phone Number"}
+            <Button
+              type="submit"
+              disabled={verifyMutation.isPending}>
+              {verifyMutation.isPending
+                ? 'Verifying...'
+                : 'Verify Phone Number'}
             </Button>
           ) : null}
         </div>
 
         {sentPhone && hasSentCode ? (
           <p className="text-sm text-muted-foreground">
-            Code sent to <span className="font-semibold text-foreground">{sentPhone}</span>.
+            Code sent to{' '}
+            <span className="font-semibold text-foreground">{sentPhone}</span>.
           </p>
         ) : null}
       </form>

@@ -1,380 +1,631 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html
+  class="light"
+  lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0"
+      name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <script id="tailwind-config">
       tailwind.config = {
-        darkMode: "class",
+        darkMode: 'class',
         theme: {
           extend: {
-            "colors": {
-                    "primary-fixed": "#c1ecd4",
-                    "on-surface": "#1a1c1a",
-                    "on-background": "#1a1c1a",
-                    "background": "#f9faf6",
-                    "primary-fixed-dim": "#a5d0b9",
-                    "outline-variant": "#c1c8c2",
-                    "on-surface-variant": "#414844",
-                    "surface-container": "#eeeeeb",
-                    "on-tertiary": "#ffffff",
-                    "on-error": "#ffffff",
-                    "secondary-fixed": "#e1e2e4",
-                    "on-tertiary-fixed": "#331111",
-                    "on-primary-fixed-variant": "#274e3d",
-                    "secondary": "#5c5f60",
-                    "on-secondary": "#ffffff",
-                    "on-secondary-fixed-variant": "#444749",
-                    "tertiary-container": "#5a302f",
-                    "surface-container-low": "#f3f4f1",
-                    "surface-tint": "#3f6653",
-                    "inverse-surface": "#2f312f",
-                    "on-tertiary-fixed-variant": "#673a39",
-                    "surface": "#f9faf6",
-                    "primary-container": "#1b4332",
-                    "on-secondary-fixed": "#191c1e",
-                    "surface-dim": "#dadad7",
-                    "secondary-container": "#dee0e2",
-                    "error": "#ba1a1a",
-                    "outline": "#717973",
-                    "on-error-container": "#93000a",
-                    "tertiary": "#401b1b",
-                    "tertiary-fixed": "#ffdad8",
-                    "inverse-on-surface": "#f0f1ee",
-                    "surface-container-high": "#e8e8e5",
-                    "on-primary": "#ffffff",
-                    "error-container": "#ffdad6",
-                    "surface-container-highest": "#e2e3e0",
-                    "on-primary-container": "#86af99",
-                    "tertiary-fixed-dim": "#f5b7b4",
-                    "on-secondary-container": "#606365",
-                    "surface-variant": "#e2e3e0",
-                    "secondary-fixed-dim": "#c5c6c8",
-                    "surface-container-lowest": "#ffffff",
-                    "inverse-primary": "#a5d0b9",
-                    "surface-bright": "#f9faf6",
-                    "primary": "#012d1d",
-                    "on-primary-fixed": "#002114",
-                    "on-tertiary-container": "#d29895"
+            colors: {
+              'primary-fixed': '#c1ecd4',
+              'on-surface': '#1a1c1a',
+              'on-background': '#1a1c1a',
+              background: '#f9faf6',
+              'primary-fixed-dim': '#a5d0b9',
+              'outline-variant': '#c1c8c2',
+              'on-surface-variant': '#414844',
+              'surface-container': '#eeeeeb',
+              'on-tertiary': '#ffffff',
+              'on-error': '#ffffff',
+              'secondary-fixed': '#e1e2e4',
+              'on-tertiary-fixed': '#331111',
+              'on-primary-fixed-variant': '#274e3d',
+              secondary: '#5c5f60',
+              'on-secondary': '#ffffff',
+              'on-secondary-fixed-variant': '#444749',
+              'tertiary-container': '#5a302f',
+              'surface-container-low': '#f3f4f1',
+              'surface-tint': '#3f6653',
+              'inverse-surface': '#2f312f',
+              'on-tertiary-fixed-variant': '#673a39',
+              surface: '#f9faf6',
+              'primary-container': '#1b4332',
+              'on-secondary-fixed': '#191c1e',
+              'surface-dim': '#dadad7',
+              'secondary-container': '#dee0e2',
+              error: '#ba1a1a',
+              outline: '#717973',
+              'on-error-container': '#93000a',
+              tertiary: '#401b1b',
+              'tertiary-fixed': '#ffdad8',
+              'inverse-on-surface': '#f0f1ee',
+              'surface-container-high': '#e8e8e5',
+              'on-primary': '#ffffff',
+              'error-container': '#ffdad6',
+              'surface-container-highest': '#e2e3e0',
+              'on-primary-container': '#86af99',
+              'tertiary-fixed-dim': '#f5b7b4',
+              'on-secondary-container': '#606365',
+              'surface-variant': '#e2e3e0',
+              'secondary-fixed-dim': '#c5c6c8',
+              'surface-container-lowest': '#ffffff',
+              'inverse-primary': '#a5d0b9',
+              'surface-bright': '#f9faf6',
+              primary: '#012d1d',
+              'on-primary-fixed': '#002114',
+              'on-tertiary-container': '#d29895'
             },
-            "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
+            borderRadius: {
+              DEFAULT: '0.125rem',
+              lg: '0.25rem',
+              xl: '0.5rem',
+              full: '0.75rem'
             },
-            "spacing": {
-                    "stack-sm": "8px",
-                    "margin-page": "64px",
-                    "gutter": "32px",
-                    "unit": "8px",
-                    "stack-md": "16px",
-                    "stack-lg": "32px",
-                    "section-gap": "80px",
-                    "container-max": "1440px"
+            spacing: {
+              'stack-sm': '8px',
+              'margin-page': '64px',
+              gutter: '32px',
+              unit: '8px',
+              'stack-md': '16px',
+              'stack-lg': '32px',
+              'section-gap': '80px',
+              'container-max': '1440px'
             },
-            "fontFamily": {
-                    "h1": ["Inter"],
-                    "caption": ["Inter"],
-                    "label-sm": ["Inter"],
-                    "h3": ["Inter"],
-                    "h2": ["Inter"],
-                    "display-xl": ["Inter"],
-                    "body-base": ["Inter"],
-                    "body-lg": ["Inter"]
+            fontFamily: {
+              h1: ['Inter'],
+              caption: ['Inter'],
+              'label-sm': ['Inter'],
+              h3: ['Inter'],
+              h2: ['Inter'],
+              'display-xl': ['Inter'],
+              'body-base': ['Inter'],
+              'body-lg': ['Inter']
             },
-            "fontSize": {
-                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
-                    "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                    "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            fontSize: {
+              h1: [
+                '40px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
+              'label-sm': [
+                '14px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '0.05em',
+                  fontWeight: '500'
+                }
+              ],
+              h3: ['24px', { lineHeight: '1.4', fontWeight: '600' }],
+              h2: [
+                '30px',
+                {
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              'display-xl': [
+                '64px',
+                {
+                  lineHeight: '1.1',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700'
+                }
+              ],
+              'body-base': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+              'body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }]
             }
-          },
-        },
-      }
+          }
+        }
+      };
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-        body {
-            background-color: #f9fafb;
-        }
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+        vertical-align: middle;
+      }
+      body {
+        background-color: #f9fafb;
+      }
     </style>
-</head>
-<body class="antialiased">
-<!-- SideNavBar -->
-<aside class="fixed left-0 top-0 h-screen w-64 border-r border-slate-200 bg-slate-50 flex flex-col h-full py-8 px-4 gap-y-2 z-50">
-<div class="px-4 mb-10">
-<h1 class="text-2xl font-black tracking-tighter text-emerald-900">Rentmart</h1>
-<p class="font-sans text-sm antialiased text-slate-500 uppercase tracking-widest text-[10px] mt-1">Heavy Machinery Rental</p>
-</div>
-<nav class="flex-1 space-y-1">
-<a class="bg-white text-emerald-900 font-semibold border-l-4 border-emerald-900 rounded-r-sm flex items-center px-4 py-3 transition-all" href="#">
-<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
-<span class="font-sans text-sm">Dashboard Overview</span>
-</a>
-<a class="text-slate-600 hover:text-emerald-900 hover:bg-slate-100 flex items-center px-4 py-3 transition-all" href="#">
-<span class="material-symbols-outlined mr-3" data-icon="calendar_today">calendar_today</span>
-<span class="font-sans text-sm">My Bookings</span>
-</a>
-<a class="text-slate-600 hover:text-emerald-900 hover:bg-slate-100 flex items-center px-4 py-3 transition-all" href="#">
-<span class="material-symbols-outlined mr-3" data-icon="favorite">favorite</span>
-<span class="font-sans text-sm">Saved Machinery</span>
-</a>
-<a class="text-slate-600 hover:text-emerald-900 hover:bg-slate-100 flex items-center px-4 py-3 transition-all" href="#">
-<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
-<span class="font-sans text-sm">Settings</span>
-</a>
-</nav>
-<div class="mt-auto border-t border-slate-200 pt-4">
-<a class="text-slate-600 hover:text-emerald-900 hover:bg-slate-100 flex items-center px-4 py-3 transition-all" href="#">
-<span class="material-symbols-outlined mr-3" data-icon="logout">logout</span>
-<span class="font-sans text-sm">Logout</span>
-</a>
-</div>
-</aside>
-<!-- TopAppBar -->
-<header class="fixed top-0 right-0 left-64 bg-white border-b border-slate-200 shadow-sm z-40">
-<div class="flex items-center justify-between px-8 py-3 max-w-[1440px] mx-auto">
-<div class="flex items-center gap-4 flex-1">
-<div class="relative w-full max-w-md focus-within:ring-1 focus-within:ring-emerald-900 transition-all rounded">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-<input class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded text-sm focus:outline-none" placeholder="Search equipment, rentals, or owners..." type="text"/>
-</div>
-</div>
-<div class="flex items-center gap-6">
-<button class="relative text-slate-500 hover:text-emerald-900 transition-colors">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-<span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-</button>
-<div class="flex items-center gap-3 border-l border-slate-200 pl-6">
-<div class="text-right">
-<p class="text-xs font-bold text-emerald-900">John Miller</p>
-<p class="text-[10px] text-slate-400">Premium Renter</p>
-</div>
-<img alt="User profile" class="w-8 h-8 rounded-full object-cover border border-slate-200" data-alt="professional male business owner headshot with clean background and friendly expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf1Kz8QrF_nLmMbe4VKIBVcz2M30zRiFUl3j7-jWliD1ULevU6aq6W-B8e0CkCzsS2NwpJEExxUy3xrL8gdr9Kix0eXTTeA577hydgYYNjlprR-diY6jAAZmWe1ShBcC29ffDuhcvCpukHejAusrbCWBL8CVbvm-ldsFlwcOdcoR3Iw2K3VVMSMWasz-2k5l1j72v7ES8VmBhsRqM4hMmC4rSVRoAay8iSu1wlHL5usSgbzGFKkLDrsSJ3-PleS0yukIyOriqS3D4"/>
-</div>
-</div>
-</div>
-</header>
-<!-- Main Canvas -->
-<main class="ml-64 pt-20 min-h-screen">
-<div class="max-w-[1440px] mx-auto px-16 py-12">
-<!-- Top Section: Active Rentals -->
-<section class="mb-section-gap">
-<h2 class="font-h2 text-h2 text-on-surface mb-stack-lg">Active Rentals</h2>
-<div class="bg-white border border-slate-200 rounded-lg overflow-hidden flex flex-col md:flex-row shadow-sm">
-<div class="md:w-1/3 h-64 md:h-auto overflow-hidden">
-<img alt="John Deere 8R 410" class="w-full h-full object-cover" data-alt="side view of a powerful green John Deere tractor parked on a farm at dusk with dramatic sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1_jK5QdJj4jVjLqVjKM0hqeGV_po0cfL_kfxZb4n4naKBNX2L9GGchFrB2xxUcOzp0hi6-xbG842TIPCPJcMlfNpIO23kgqaxZRYhsDRSh2C9jfjidzr2zQC2q6kQeb2-Vz-2ikx_Gl5btXVdJdRAg2WCZoLbyJYTJ6QbNW3pPGCksy1Ym3OHpvCq8k98wXyzwGtvjia_WIL8AHKTwTaUI6x9azMf9nUIpR52oKEE7cSk7NyRB2QdsWhVyJOJDSdcjzIi_V3IYK4"/>
-</div>
-<div class="flex-1 p-8 flex flex-col justify-between">
-<div>
-<div class="flex justify-between items-start mb-4">
-<div>
-<h3 class="font-h3 text-h3 text-emerald-900">John Deere 8R 410 Tractor</h3>
-<p class="text-slate-500 text-sm mt-1">Provider: Heartland Equipment Co.</p>
-</div>
-<span class="bg-[#c1ecd4] text-[#1b4332] px-3 py-1 rounded-sm text-xs font-bold uppercase tracking-wider">In Use</span>
-</div>
-<div class="grid grid-cols-2 gap-8 my-6">
-<div>
-<p class="text-label-sm font-label-sm text-slate-400 mb-1 uppercase">Rental Period</p>
-<p class="text-body-base font-body-base text-on-surface">Oct 12 — Oct 25, 2023</p>
-</div>
-<div>
-<p class="text-label-sm font-label-sm text-slate-400 mb-1 uppercase">Location</p>
-<p class="text-body-base font-body-base text-on-surface">Omaha, Nebraska Site A</p>
-</div>
-</div>
-<div class="mb-6">
-<div class="flex justify-between items-end mb-2">
-<p class="text-sm font-medium text-emerald-900">2 Days Remaining</p>
-<p class="text-xs text-slate-400">85% Complete</p>
-</div>
-<div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-<div class="bg-primary-container h-full w-[85%] rounded-full"></div>
-</div>
-</div>
-</div>
-<div class="flex gap-4">
-<button class="bg-primary-container text-white px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity">
-                                Contact Owner
-                            </button>
-<button class="border border-slate-200 text-slate-700 px-6 py-3 rounded-lg font-semibold text-sm hover:bg-slate-50 transition-colors">
-                                View Details
-                            </button>
-</div>
-</div>
-</div>
-</section>
-<!-- Middle Section: Saved Machinery -->
-<section class="mb-section-gap">
-<div class="flex justify-between items-end mb-stack-lg">
-<h2 class="font-h2 text-h2 text-on-surface">Saved Machinery</h2>
-<a class="text-emerald-900 font-semibold text-sm hover:underline" href="#">View All Favorites</a>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-<!-- Card 1 -->
-<div class="bg-white border border-slate-200 rounded-lg overflow-hidden group hover:shadow-lg transition-shadow">
-<div class="relative h-48">
-<img class="w-full h-full object-cover" data-alt="red heavy duty Case IH tractor in a field under clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJQHtI4l8wEEKbU6mFiLOQ3vZmxhzys1Qiyfx2bur95tTUNm3xw8VHQnPIPdKtoThJfNXFcU9Zg_k0mMLx6jAljin9c5QKxprHwJJ1zUdZNCusxBPwCP1bnVtAWIWhi52Ou9GZeaj-VWJSf2Sdc4Kg8v4lJ5v7p5PhfLaXD50p0h51S5EbwFCT2OwUPGKtL_wv7-QxF_q35U16lfIEY0YpO8Y1CE5Wnp1drdJNO7-XD4TIE0bw60STz-5mf83XNiUi3bJeAEeJmXU"/>
-<button class="absolute top-3 right-3 bg-white/90 p-2 rounded-full shadow-sm hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">favorite</span>
-</button>
-</div>
-<div class="p-6">
-<h3 class="font-h3 text-lg text-on-surface mb-2">Case IH Magnum 340</h3>
-<div class="flex justify-between items-center">
-<p class="text-emerald-900 font-bold text-xl">$400 <span class="text-slate-400 text-sm font-normal">/ day</span></p>
-<div class="flex gap-2">
-<span class="bg-slate-50 text-slate-500 text-[10px] px-2 py-1 border border-slate-100 rounded">GPS Ready</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="bg-white border border-slate-200 rounded-lg overflow-hidden group hover:shadow-lg transition-shadow">
-<div class="relative h-48">
-<img class="w-full h-full object-cover" data-alt="compact yellow Kubota loader working on a construction site with industrial details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2jJjJeWVaJamdw8pMFB8P3WPIXmi9A7jeT5rCLCaf9VAo081bjgRuPpCludQUd0S0YMp5ApUBxKcXQYPTIllOjEDl0t85hYXJZjmpwgn0lL5Tkc94Nn8dTJDv1T-6l84eU8STnBwi8qOGur4rQk2adF68_mnNNKmDiSVsrHw9F-b1TXJ1dbannB-gsBa3plTQdlIo_ugp_wI0R6yZPG1K27JJH8Vt6WxPsm_Ehd1u8eczqpmRYm6YppfXPcau4udYCBVu-BQ5uzw"/>
-<button class="absolute top-3 right-3 bg-white/90 p-2 rounded-full shadow-sm hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">favorite</span>
-</button>
-</div>
-<div class="p-6">
-<h3 class="font-h3 text-lg text-on-surface mb-2">Kubota SVL97-2</h3>
-<div class="flex justify-between items-center">
-<p class="text-emerald-900 font-bold text-xl">$280 <span class="text-slate-400 text-sm font-normal">/ day</span></p>
-<div class="flex gap-2">
-<span class="bg-slate-50 text-slate-500 text-[10px] px-2 py-1 border border-slate-100 rounded">Compact</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="bg-white border border-slate-200 rounded-lg overflow-hidden group hover:shadow-lg transition-shadow">
-<div class="relative h-48">
-<img class="w-full h-full object-cover" data-alt="huge New Holland combine harvester in a golden wheat field during harvest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6kKDLmlUwP8NIQoRUr-pdZS8vVqDNBjjY4pMyV-cLaOT3zVR_kluupQRNqfhfzwPJxp9IRejj0baAODeLnlZP4Ql7SrPWxeaKzsZ8be-bzzVnH7a432trc6NJvD0re5PFLEiSzAfBouaxEsd47HAqXntB9EiYRHPf2o4V2GsNZzUoDuqSyC2Yf7MF42qWMqXoqUGIYC6DmN8xx0PR3i3Xygwfv9lXPxjUaQliN9E4LcIt9r7PFQLPBSgMhOejtIVcRQsyOR8SRQo"/>
-<button class="absolute top-3 right-3 bg-white/90 p-2 rounded-full shadow-sm hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">favorite</span>
-</button>
-</div>
-<div class="p-6">
-<h3 class="font-h3 text-lg text-on-surface mb-2">New Holland CR9.90</h3>
-<div class="flex justify-between items-center">
-<p class="text-emerald-900 font-bold text-xl">$1,200 <span class="text-slate-400 text-sm font-normal">/ day</span></p>
-<div class="flex gap-2">
-<span class="bg-slate-50 text-slate-500 text-[10px] px-2 py-1 border border-slate-100 rounded">Harvester</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Bottom Section: Rental History -->
-<section>
-<h2 class="font-h2 text-h2 text-on-surface mb-stack-lg">Rental History</h2>
-<div class="bg-white border border-slate-200 rounded-lg overflow-hidden">
-<table class="w-full text-left border-collapse">
-<thead class="bg-slate-50">
-<tr>
-<th class="px-6 py-4 text-label-sm font-label-sm text-slate-500 uppercase">Item</th>
-<th class="px-6 py-4 text-label-sm font-label-sm text-slate-500 uppercase">Date</th>
-<th class="px-6 py-4 text-label-sm font-label-sm text-slate-500 uppercase">Owner</th>
-<th class="px-6 py-4 text-label-sm font-label-sm text-slate-500 uppercase">Total</th>
-<th class="px-6 py-4 text-label-sm font-label-sm text-slate-500 uppercase">Status</th>
-<th class="px-6 py-4"></th>
-</tr>
-</thead>
-<tbody class="divide-y divide-slate-100">
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded bg-slate-100 overflow-hidden">
-<img alt="small tractor thumbnail" data-alt="thumbnail of a red tractor on white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPixxWUw1iwL4GxEjjPUXgqhAAI62WW0HZJHzbMsv0xrbjIcWoSfFxTXqTaG-CIfE9iHHNF-N46xJHTuOD7EVIEMsw5WpEIw3D9mIDHXCkmqrXtUbM8EdAvDSUoDycGdumb1qtWssn_r02hvID3GryrZ6mXc4w0Q5K0vE1E-1cBuVNsudoF5j8HSAtp6teQTdyaLIqcMalDeaMTdvBOHFADKagELeyYdpOEGWgtDEFY5pzDCn8SO1mkqq01f2luff90Gdt6H_Ctog"/>
-</div>
-<p class="font-medium text-on-surface">Case IH Magnum 340</p>
-</div>
-</td>
-<td class="px-6 py-4 text-sm text-slate-600">Sep 05 - Sep 12, 2023</td>
-<td class="px-6 py-4 text-sm text-slate-600">Midwest Heavy Rentals</td>
-<td class="px-6 py-4 font-semibold text-on-surface">$2,800.00</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                                        Completed
-                                    </span>
-</td>
-<td class="px-6 py-4 text-right">
-<button class="text-slate-400 hover:text-emerald-900">
-<span class="material-symbols-outlined">more_vert</span>
-</button>
-</td>
-</tr>
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded bg-slate-100 overflow-hidden">
-<img alt="excavator thumbnail" data-alt="thumbnail of an orange excavator against a industrial yard background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjDhlw57rQ6g9XkjLAQHcZs5rT7YRGOoUCejSnu_9V5oLEE08yCHV64pfM1Zif5CThI-__QuZMUKCxdsPalbNfKouQ0SsEk5YPYXiGPF22PIUB6c6udCgubeXuxNZ4IFBVMiSs_ntxNhs3cFqLo1R8xUdQxYwePxxWjmYsaxlsds4WQAntmc5N29m84wNgIlxOKDOAgXRYTg_eriwYPD3pUEhepJKx0dVh3cgsKqfv7WtLG4kyRAVAhy8Ao6LHqlSjnRgr9sYFm_Q"/>
-</div>
-<p class="font-medium text-on-surface">CAT 320 Excavator</p>
-</div>
-</td>
-<td class="px-6 py-4 text-sm text-slate-600">Aug 20 - Aug 25, 2023</td>
-<td class="px-6 py-4 text-sm text-slate-600">Quarry Solutions Ltd.</td>
-<td class="px-6 py-4 font-semibold text-on-surface">$3,250.00</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                                        Completed
-                                    </span>
-</td>
-<td class="px-6 py-4 text-right">
-<button class="text-slate-400 hover:text-emerald-900">
-<span class="material-symbols-outlined">more_vert</span>
-</button>
-</td>
-</tr>
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded bg-slate-100 overflow-hidden">
-<img alt="bobcat thumbnail" data-alt="thumbnail of a small yellow bobcat loader" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTq5q_f3G5MncdFjgfKG2Bow5h7B-rGYdyk33gnm4P2e5IG7lBfL1HHY6mG60KSNz2aox9hmJyTM_GUisnWUdFjdg79eDXU-AjG9bqvQcNApxMUPHIrXGcf_JhYkw3IKptGvklJKbkMVCXVlMHzQy8QkF5i8i-KK_aakzejAG1E5HXgckw3dBpYqHeCv4A_2QvX_lBO1V_CNZHaYe8emO1dn8s2j8ySG8wTiq4YGb2isyWrIOrrIAJbVh0Hkk_as3I0Gf3yURCTog"/>
-</div>
-<p class="font-medium text-on-surface">Kubota SVL97-2</p>
-</div>
-</td>
-<td class="px-6 py-4 text-sm text-slate-600">Aug 10 - Aug 12, 2023</td>
-<td class="px-6 py-4 text-sm text-slate-600">BuildRight Equip</td>
-<td class="px-6 py-4 font-semibold text-on-surface">$560.00</td>
-<td class="px-6 py-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                                        Completed
-                                    </span>
-</td>
-<td class="px-6 py-4 text-right">
-<button class="text-slate-400 hover:text-emerald-900">
-<span class="material-symbols-outlined">more_vert</span>
-</button>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</div>
-</main>
-<!-- FAB for adding new rental -->
-<div class="fixed bottom-10 right-10">
-<button class="w-14 h-14 bg-primary-container text-white rounded-full flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-all">
-<span class="material-symbols-outlined text-2xl" data-icon="add">add</span>
-</button>
-</div>
-</body></html>
+  </head>
+  <body class="antialiased">
+    <!-- SideNavBar -->
+    <aside
+      class="fixed top-0 left-0 z-50 flex h-full h-screen w-64 flex-col gap-y-2 border-r border-slate-200 bg-slate-50 px-4 py-8">
+      <div class="mb-10 px-4">
+        <h1 class="text-2xl font-black tracking-tighter text-emerald-900">
+          Rentmart
+        </h1>
+        <p
+          class="mt-1 font-sans text-sm text-[10px] tracking-widest text-slate-500 uppercase antialiased">
+          Heavy Machinery Rental
+        </p>
+      </div>
+      <nav class="flex-1 space-y-1">
+        <a
+          class="flex items-center rounded-r-sm border-l-4 border-emerald-900 bg-white px-4 py-3 font-semibold text-emerald-900 transition-all"
+          href="#">
+          <span
+            class="material-symbols-outlined mr-3"
+            data-icon="dashboard"
+            >dashboard</span
+          >
+          <span class="font-sans text-sm">Dashboard Overview</span>
+        </a>
+        <a
+          class="flex items-center px-4 py-3 text-slate-600 transition-all hover:bg-slate-100 hover:text-emerald-900"
+          href="#">
+          <span
+            class="material-symbols-outlined mr-3"
+            data-icon="calendar_today"
+            >calendar_today</span
+          >
+          <span class="font-sans text-sm">My Bookings</span>
+        </a>
+        <a
+          class="flex items-center px-4 py-3 text-slate-600 transition-all hover:bg-slate-100 hover:text-emerald-900"
+          href="#">
+          <span
+            class="material-symbols-outlined mr-3"
+            data-icon="favorite"
+            >favorite</span
+          >
+          <span class="font-sans text-sm">Saved Machinery</span>
+        </a>
+        <a
+          class="flex items-center px-4 py-3 text-slate-600 transition-all hover:bg-slate-100 hover:text-emerald-900"
+          href="#">
+          <span
+            class="material-symbols-outlined mr-3"
+            data-icon="settings"
+            >settings</span
+          >
+          <span class="font-sans text-sm">Settings</span>
+        </a>
+      </nav>
+      <div class="mt-auto border-t border-slate-200 pt-4">
+        <a
+          class="flex items-center px-4 py-3 text-slate-600 transition-all hover:bg-slate-100 hover:text-emerald-900"
+          href="#">
+          <span
+            class="material-symbols-outlined mr-3"
+            data-icon="logout"
+            >logout</span
+          >
+          <span class="font-sans text-sm">Logout</span>
+        </a>
+      </div>
+    </aside>
+    <!-- TopAppBar -->
+    <header
+      class="fixed top-0 right-0 left-64 z-40 border-b border-slate-200 bg-white shadow-sm">
+      <div
+        class="mx-auto flex max-w-[1440px] items-center justify-between px-8 py-3">
+        <div class="flex flex-1 items-center gap-4">
+          <div
+            class="relative w-full max-w-md rounded transition-all focus-within:ring-1 focus-within:ring-emerald-900">
+            <span
+              class="material-symbols-outlined absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
+              >search</span
+            >
+            <input
+              class="w-full rounded border border-slate-200 py-2 pr-4 pl-10 text-sm focus:outline-none"
+              placeholder="Search equipment, rentals, or owners..."
+              type="text" />
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <button
+            class="relative text-slate-500 transition-colors hover:text-emerald-900">
+            <span
+              class="material-symbols-outlined"
+              data-icon="notifications"
+              >notifications</span
+            >
+            <span
+              class="absolute top-0 right-0 h-2 w-2 rounded-full border-2 border-white bg-red-500"></span>
+          </button>
+          <div class="flex items-center gap-3 border-l border-slate-200 pl-6">
+            <div class="text-right">
+              <p class="text-xs font-bold text-emerald-900">John Miller</p>
+              <p class="text-[10px] text-slate-400">Premium Renter</p>
+            </div>
+            <img
+              alt="User profile"
+              class="h-8 w-8 rounded-full border border-slate-200 object-cover"
+              data-alt="professional male business owner headshot with clean background and friendly expression"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf1Kz8QrF_nLmMbe4VKIBVcz2M30zRiFUl3j7-jWliD1ULevU6aq6W-B8e0CkCzsS2NwpJEExxUy3xrL8gdr9Kix0eXTTeA577hydgYYNjlprR-diY6jAAZmWe1ShBcC29ffDuhcvCpukHejAusrbCWBL8CVbvm-ldsFlwcOdcoR3Iw2K3VVMSMWasz-2k5l1j72v7ES8VmBhsRqM4hMmC4rSVRoAay8iSu1wlHL5usSgbzGFKkLDrsSJ3-PleS0yukIyOriqS3D4" />
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main Canvas -->
+    <main class="ml-64 min-h-screen pt-20">
+      <div class="mx-auto max-w-[1440px] px-16 py-12">
+        <!-- Top Section: Active Rentals -->
+        <section class="mb-section-gap">
+          <h2 class="font-h2 text-h2 text-on-surface mb-stack-lg">
+            Active Rentals
+          </h2>
+          <div
+            class="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm md:flex-row">
+            <div class="h-64 overflow-hidden md:h-auto md:w-1/3">
+              <img
+                alt="John Deere 8R 410"
+                class="h-full w-full object-cover"
+                data-alt="side view of a powerful green John Deere tractor parked on a farm at dusk with dramatic sky"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1_jK5QdJj4jVjLqVjKM0hqeGV_po0cfL_kfxZb4n4naKBNX2L9GGchFrB2xxUcOzp0hi6-xbG842TIPCPJcMlfNpIO23kgqaxZRYhsDRSh2C9jfjidzr2zQC2q6kQeb2-Vz-2ikx_Gl5btXVdJdRAg2WCZoLbyJYTJ6QbNW3pPGCksy1Ym3OHpvCq8k98wXyzwGtvjia_WIL8AHKTwTaUI6x9azMf9nUIpR52oKEE7cSk7NyRB2QdsWhVyJOJDSdcjzIi_V3IYK4" />
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-8">
+              <div>
+                <div class="mb-4 flex items-start justify-between">
+                  <div>
+                    <h3 class="font-h3 text-h3 text-emerald-900">
+                      John Deere 8R 410 Tractor
+                    </h3>
+                    <p class="mt-1 text-sm text-slate-500">
+                      Provider: Heartland Equipment Co.
+                    </p>
+                  </div>
+                  <span
+                    class="rounded-sm bg-[#c1ecd4] px-3 py-1 text-xs font-bold tracking-wider text-[#1b4332] uppercase"
+                    >In Use</span
+                  >
+                </div>
+                <div class="my-6 grid grid-cols-2 gap-8">
+                  <div>
+                    <p
+                      class="text-label-sm font-label-sm mb-1 text-slate-400 uppercase">
+                      Rental Period
+                    </p>
+                    <p class="text-body-base font-body-base text-on-surface">
+                      Oct 12 — Oct 25, 2023
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      class="text-label-sm font-label-sm mb-1 text-slate-400 uppercase">
+                      Location
+                    </p>
+                    <p class="text-body-base font-body-base text-on-surface">
+                      Omaha, Nebraska Site A
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-6">
+                  <div class="mb-2 flex items-end justify-between">
+                    <p class="text-sm font-medium text-emerald-900">
+                      2 Days Remaining
+                    </p>
+                    <p class="text-xs text-slate-400">85% Complete</p>
+                  </div>
+                  <div
+                    class="h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                    <div
+                      class="bg-primary-container h-full w-[85%] rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <button
+                  class="bg-primary-container rounded-lg px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+                  Contact Owner
+                </button>
+                <button
+                  class="rounded-lg border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50">
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Middle Section: Saved Machinery -->
+        <section class="mb-section-gap">
+          <div class="mb-stack-lg flex items-end justify-between">
+            <h2 class="font-h2 text-h2 text-on-surface">Saved Machinery</h2>
+            <a
+              class="text-sm font-semibold text-emerald-900 hover:underline"
+              href="#"
+              >View All Favorites</a
+            >
+          </div>
+          <div
+            class="gap-gutter grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Card 1 -->
+            <div
+              class="group overflow-hidden rounded-lg border border-slate-200 bg-white transition-shadow hover:shadow-lg">
+              <div class="relative h-48">
+                <img
+                  class="h-full w-full object-cover"
+                  data-alt="red heavy duty Case IH tractor in a field under clear blue sky"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJQHtI4l8wEEKbU6mFiLOQ3vZmxhzys1Qiyfx2bur95tTUNm3xw8VHQnPIPdKtoThJfNXFcU9Zg_k0mMLx6jAljin9c5QKxprHwJJ1zUdZNCusxBPwCP1bnVtAWIWhi52Ou9GZeaj-VWJSf2Sdc4Kg8v4lJ5v7p5PhfLaXD50p0h51S5EbwFCT2OwUPGKtL_wv7-QxF_q35U16lfIEY0YpO8Y1CE5Wnp1drdJNO7-XD4TIE0bw60STz-5mf83XNiUi3bJeAEeJmXU" />
+                <button
+                  class="absolute top-3 right-3 rounded-full bg-white/90 p-2 shadow-sm transition-colors hover:text-red-500">
+                  <span
+                    class="material-symbols-outlined text-lg"
+                    style="font-variation-settings: 'FILL' 1"
+                    >favorite</span
+                  >
+                </button>
+              </div>
+              <div class="p-6">
+                <h3 class="font-h3 text-on-surface mb-2 text-lg">
+                  Case IH Magnum 340
+                </h3>
+                <div class="flex items-center justify-between">
+                  <p class="text-xl font-bold text-emerald-900">
+                    $400
+                    <span class="text-sm font-normal text-slate-400"
+                      >/ day</span
+                    >
+                  </p>
+                  <div class="flex gap-2">
+                    <span
+                      class="rounded border border-slate-100 bg-slate-50 px-2 py-1 text-[10px] text-slate-500"
+                      >GPS Ready</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div
+              class="group overflow-hidden rounded-lg border border-slate-200 bg-white transition-shadow hover:shadow-lg">
+              <div class="relative h-48">
+                <img
+                  class="h-full w-full object-cover"
+                  data-alt="compact yellow Kubota loader working on a construction site with industrial details"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2jJjJeWVaJamdw8pMFB8P3WPIXmi9A7jeT5rCLCaf9VAo081bjgRuPpCludQUd0S0YMp5ApUBxKcXQYPTIllOjEDl0t85hYXJZjmpwgn0lL5Tkc94Nn8dTJDv1T-6l84eU8STnBwi8qOGur4rQk2adF68_mnNNKmDiSVsrHw9F-b1TXJ1dbannB-gsBa3plTQdlIo_ugp_wI0R6yZPG1K27JJH8Vt6WxPsm_Ehd1u8eczqpmRYm6YppfXPcau4udYCBVu-BQ5uzw" />
+                <button
+                  class="absolute top-3 right-3 rounded-full bg-white/90 p-2 shadow-sm transition-colors hover:text-red-500">
+                  <span
+                    class="material-symbols-outlined text-lg"
+                    style="font-variation-settings: 'FILL' 1"
+                    >favorite</span
+                  >
+                </button>
+              </div>
+              <div class="p-6">
+                <h3 class="font-h3 text-on-surface mb-2 text-lg">
+                  Kubota SVL97-2
+                </h3>
+                <div class="flex items-center justify-between">
+                  <p class="text-xl font-bold text-emerald-900">
+                    $280
+                    <span class="text-sm font-normal text-slate-400"
+                      >/ day</span
+                    >
+                  </p>
+                  <div class="flex gap-2">
+                    <span
+                      class="rounded border border-slate-100 bg-slate-50 px-2 py-1 text-[10px] text-slate-500"
+                      >Compact</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div
+              class="group overflow-hidden rounded-lg border border-slate-200 bg-white transition-shadow hover:shadow-lg">
+              <div class="relative h-48">
+                <img
+                  class="h-full w-full object-cover"
+                  data-alt="huge New Holland combine harvester in a golden wheat field during harvest"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6kKDLmlUwP8NIQoRUr-pdZS8vVqDNBjjY4pMyV-cLaOT3zVR_kluupQRNqfhfzwPJxp9IRejj0baAODeLnlZP4Ql7SrPWxeaKzsZ8be-bzzVnH7a432trc6NJvD0re5PFLEiSzAfBouaxEsd47HAqXntB9EiYRHPf2o4V2GsNZzUoDuqSyC2Yf7MF42qWMqXoqUGIYC6DmN8xx0PR3i3Xygwfv9lXPxjUaQliN9E4LcIt9r7PFQLPBSgMhOejtIVcRQsyOR8SRQo" />
+                <button
+                  class="absolute top-3 right-3 rounded-full bg-white/90 p-2 shadow-sm transition-colors hover:text-red-500">
+                  <span
+                    class="material-symbols-outlined text-lg"
+                    style="font-variation-settings: 'FILL' 1"
+                    >favorite</span
+                  >
+                </button>
+              </div>
+              <div class="p-6">
+                <h3 class="font-h3 text-on-surface mb-2 text-lg">
+                  New Holland CR9.90
+                </h3>
+                <div class="flex items-center justify-between">
+                  <p class="text-xl font-bold text-emerald-900">
+                    $1,200
+                    <span class="text-sm font-normal text-slate-400"
+                      >/ day</span
+                    >
+                  </p>
+                  <div class="flex gap-2">
+                    <span
+                      class="rounded border border-slate-100 bg-slate-50 px-2 py-1 text-[10px] text-slate-500"
+                      >Harvester</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Bottom Section: Rental History -->
+        <section>
+          <h2 class="font-h2 text-h2 text-on-surface mb-stack-lg">
+            Rental History
+          </h2>
+          <div
+            class="overflow-hidden rounded-lg border border-slate-200 bg-white">
+            <table class="w-full border-collapse text-left">
+              <thead class="bg-slate-50">
+                <tr>
+                  <th
+                    class="text-label-sm font-label-sm px-6 py-4 text-slate-500 uppercase">
+                    Item
+                  </th>
+                  <th
+                    class="text-label-sm font-label-sm px-6 py-4 text-slate-500 uppercase">
+                    Date
+                  </th>
+                  <th
+                    class="text-label-sm font-label-sm px-6 py-4 text-slate-500 uppercase">
+                    Owner
+                  </th>
+                  <th
+                    class="text-label-sm font-label-sm px-6 py-4 text-slate-500 uppercase">
+                    Total
+                  </th>
+                  <th
+                    class="text-label-sm font-label-sm px-6 py-4 text-slate-500 uppercase">
+                    Status
+                  </th>
+                  <th class="px-6 py-4"></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr class="transition-colors hover:bg-slate-50">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="h-10 w-10 overflow-hidden rounded bg-slate-100">
+                        <img
+                          alt="small tractor thumbnail"
+                          data-alt="thumbnail of a red tractor on white background"
+                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPixxWUw1iwL4GxEjjPUXgqhAAI62WW0HZJHzbMsv0xrbjIcWoSfFxTXqTaG-CIfE9iHHNF-N46xJHTuOD7EVIEMsw5WpEIw3D9mIDHXCkmqrXtUbM8EdAvDSUoDycGdumb1qtWssn_r02hvID3GryrZ6mXc4w0Q5K0vE1E-1cBuVNsudoF5j8HSAtp6teQTdyaLIqcMalDeaMTdvBOHFADKagELeyYdpOEGWgtDEFY5pzDCn8SO1mkqq01f2luff90Gdt6H_Ctog" />
+                      </div>
+                      <p class="text-on-surface font-medium">
+                        Case IH Magnum 340
+                      </p>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-slate-600">
+                    Sep 05 - Sep 12, 2023
+                  </td>
+                  <td class="px-6 py-4 text-sm text-slate-600">
+                    Midwest Heavy Rentals
+                  </td>
+                  <td class="text-on-surface px-6 py-4 font-semibold">
+                    $2,800.00
+                  </td>
+                  <td class="px-6 py-4">
+                    <span
+                      class="inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-800">
+                      Completed
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 text-right">
+                    <button class="text-slate-400 hover:text-emerald-900">
+                      <span class="material-symbols-outlined">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="transition-colors hover:bg-slate-50">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="h-10 w-10 overflow-hidden rounded bg-slate-100">
+                        <img
+                          alt="excavator thumbnail"
+                          data-alt="thumbnail of an orange excavator against a industrial yard background"
+                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjDhlw57rQ6g9XkjLAQHcZs5rT7YRGOoUCejSnu_9V5oLEE08yCHV64pfM1Zif5CThI-__QuZMUKCxdsPalbNfKouQ0SsEk5YPYXiGPF22PIUB6c6udCgubeXuxNZ4IFBVMiSs_ntxNhs3cFqLo1R8xUdQxYwePxxWjmYsaxlsds4WQAntmc5N29m84wNgIlxOKDOAgXRYTg_eriwYPD3pUEhepJKx0dVh3cgsKqfv7WtLG4kyRAVAhy8Ao6LHqlSjnRgr9sYFm_Q" />
+                      </div>
+                      <p class="text-on-surface font-medium">
+                        CAT 320 Excavator
+                      </p>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-slate-600">
+                    Aug 20 - Aug 25, 2023
+                  </td>
+                  <td class="px-6 py-4 text-sm text-slate-600">
+                    Quarry Solutions Ltd.
+                  </td>
+                  <td class="text-on-surface px-6 py-4 font-semibold">
+                    $3,250.00
+                  </td>
+                  <td class="px-6 py-4">
+                    <span
+                      class="inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-800">
+                      Completed
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 text-right">
+                    <button class="text-slate-400 hover:text-emerald-900">
+                      <span class="material-symbols-outlined">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="transition-colors hover:bg-slate-50">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="h-10 w-10 overflow-hidden rounded bg-slate-100">
+                        <img
+                          alt="bobcat thumbnail"
+                          data-alt="thumbnail of a small yellow bobcat loader"
+                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTq5q_f3G5MncdFjgfKG2Bow5h7B-rGYdyk33gnm4P2e5IG7lBfL1HHY6mG60KSNz2aox9hmJyTM_GUisnWUdFjdg79eDXU-AjG9bqvQcNApxMUPHIrXGcf_JhYkw3IKptGvklJKbkMVCXVlMHzQy8QkF5i8i-KK_aakzejAG1E5HXgckw3dBpYqHeCv4A_2QvX_lBO1V_CNZHaYe8emO1dn8s2j8ySG8wTiq4YGb2isyWrIOrrIAJbVh0Hkk_as3I0Gf3yURCTog" />
+                      </div>
+                      <p class="text-on-surface font-medium">Kubota SVL97-2</p>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-slate-600">
+                    Aug 10 - Aug 12, 2023
+                  </td>
+                  <td class="px-6 py-4 text-sm text-slate-600">
+                    BuildRight Equip
+                  </td>
+                  <td class="text-on-surface px-6 py-4 font-semibold">
+                    $560.00
+                  </td>
+                  <td class="px-6 py-4">
+                    <span
+                      class="inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-800">
+                      Completed
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 text-right">
+                    <button class="text-slate-400 hover:text-emerald-900">
+                      <span class="material-symbols-outlined">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- FAB for adding new rental -->
+    <div class="fixed right-10 bottom-10">
+      <button
+        class="bg-primary-container flex h-14 w-14 items-center justify-center rounded-full text-white shadow-xl transition-all hover:scale-105 active:scale-95">
+        <span
+          class="material-symbols-outlined text-2xl"
+          data-icon="add"
+          >add</span
+        >
+      </button>
+    </div>
+  </body>
+</html>

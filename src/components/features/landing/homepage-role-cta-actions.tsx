@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useCurrentUserQuery } from "@/hooks/use-auth";
+import { useCurrentUserQuery } from '@/hooks/use-auth';
+import Link from 'next/link';
 
 export function HomepageRoleCtaActions() {
   const currentUserQuery = useCurrentUserQuery();
@@ -11,23 +11,23 @@ export function HomepageRoleCtaActions() {
     return null;
   }
 
-  if (user.role === "RENTER") {
+  if (user.role === 'RENTER') {
     return (
       <Link
+        prefetch
         href="/dashboard/bookings"
-        className="inline-flex items-center justify-center rounded-md bg-background px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f3f4f1]"
-      >
+        className="inline-flex items-center justify-center rounded-md bg-background px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f3f4f1]">
         View Your Bookings
       </Link>
     );
   }
 
-  if (user.role === "OWNER") {
+  if (user.role === 'OWNER') {
     return (
       <Link
+        prefetch
         href="/dashboard/equipment"
-        className="inline-flex items-center justify-center rounded-md bg-background px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f3f4f1]"
-      >
+        className="inline-flex items-center justify-center rounded-md bg-background px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f3f4f1]">
         View Your Listings
       </Link>
     );
@@ -35,9 +35,9 @@ export function HomepageRoleCtaActions() {
 
   return (
     <Link
+      prefetch
       href="/dashboard/overview"
-      className="inline-flex items-center justify-center rounded-md bg-background px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f3f4f1]"
-    >
+      className="inline-flex items-center justify-center rounded-md bg-background px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f3f4f1]">
       Open Dashboard
     </Link>
   );

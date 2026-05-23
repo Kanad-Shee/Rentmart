@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
-import { requireUser } from "@/lib/user";
+import { requireUser } from '@/lib/user';
+import type { ReactNode } from 'react';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function ProtectedLayout({
-  children,
+  children
 }: {
   children: ReactNode;
 }) {

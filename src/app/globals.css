@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -51,8 +51,8 @@
 }
 
 :root {
-  --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
-  --font-geist-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-sans: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --font-geist-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
   --background: #f9faf6;
   --foreground: #1a1c1a;
   --card: #ffffff;

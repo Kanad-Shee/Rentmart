@@ -1,4 +1,4 @@
-import { PublicProductDetailsContent } from "@/components/features/product/public-product-details-content";
+import { PublicProductDetailsContent } from '@/components/features/product/public-product-details-content';
 
 type ProductDetailsPageProps = {
   params: Promise<{
@@ -7,7 +7,7 @@ type ProductDetailsPageProps = {
 };
 
 export default async function ProductDetailsPage({
-  params,
+  params
 }: ProductDetailsPageProps) {
   const { id } = await params;
 

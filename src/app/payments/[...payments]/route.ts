@@ -1,26 +1,26 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { getBackendUrl } from "@/lib/http";
+import { getBackendUrl } from '@/lib/http';
+import { NextResponse, type NextRequest } from 'next/server';
 
 function getSetCookieHeaders(response: Response) {
   const nextHeaders = response.headers as Headers & {
     getSetCookie?: () => string[];
   };
 
-  if (typeof nextHeaders.getSetCookie === "function") {
+  if (typeof nextHeaders.getSetCookie === 'function') {
     return nextHeaders.getSetCookie();
   }
 
-  const header = response.headers.get("set-cookie");
+  const header = response.headers.get('set-cookie');
   return header ? [header] : [];
 }
 
 async function proxyPaymentRequest(
   request: NextRequest,
   paymentPath: string[],
-  method: "GET",
+  method: 'GET'
 ) {
   const backendPath = paymentPath.length
-    ? `/payments/${paymentPath.join("/")}${request.nextUrl.search}`
+    ? `/payments/${paymentPath.join('/')}${request.nextUrl.search}`
     : `/payments${request.nextUrl.search}`;
 
   let backendResponse: Response;
@@ -28,22 +28,22 @@ async function proxyPaymentRequest(
   try {
     backendResponse = await fetch(getBackendUrl(backendPath), {
       method,
-      cache: "no-store",
+      cache: 'no-store',
       headers: {
-        accept: request.headers.get("accept") ?? "application/json",
-        ...(request.headers.get("cookie")
-          ? { cookie: request.headers.get("cookie") as string }
-          : {}),
-      },
+        accept: request.headers.get('accept') ?? 'application/json',
+        ...(request.headers.get('cookie')
+          ? { cookie: request.headers.get('cookie') as string }
+          : {})
+      }
     });
   } catch (error) {
-    console.error("Payment proxy request failed:", error);
+    console.error('Payment proxy request failed:', error);
     return NextResponse.json(
       {
         success: false,
-        message: "Unable to reach the backend server.",
+        message: 'Unable to reach the backend server.'
       },
-      { status: 502 },
+      { status: 502 }
     );
   }
 
@@ -51,13 +51,13 @@ async function proxyPaymentRequest(
   const response = new NextResponse(payload, {
     status: backendResponse.status,
     headers: {
-      "content-type":
-        backendResponse.headers.get("content-type") ?? "application/json",
-    },
+      'content-type':
+        backendResponse.headers.get('content-type') ?? 'application/json'
+    }
   });
 
   for (const setCookie of getSetCookieHeaders(backendResponse)) {
-    response.headers.append("set-cookie", setCookie);
+    response.headers.append('set-cookie', setCookie);
   }
 
   return response;
@@ -65,8 +65,8 @@ async function proxyPaymentRequest(
 
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ payments: string[] }> },
+  context: { params: Promise<{ payments: string[] }> }
 ) {
   const { payments } = await context.params;
-  return proxyPaymentRequest(request, payments, "GET");
+  return proxyPaymentRequest(request, payments, 'GET');
 }

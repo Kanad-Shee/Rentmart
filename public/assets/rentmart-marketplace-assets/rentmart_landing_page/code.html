@@ -1,487 +1,880 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Rentmart | Industrial Heavy Machinery Marketplace</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-primary-fixed": "#002114",
-                        "surface-container-low": "#f3f4f1",
-                        "surface-container-high": "#e8e8e5",
-                        "on-primary": "#ffffff",
-                        "surface-container-highest": "#e2e3e0",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "error": "#ba1a1a",
-                        "secondary": "#5c5f60",
-                        "on-primary-fixed-variant": "#274e3d",
-                        "on-secondary-container": "#606365",
-                        "primary-fixed-dim": "#a5d0b9",
-                        "tertiary-fixed": "#ffdad8",
-                        "error-container": "#ffdad6",
-                        "outline": "#717973",
-                        "inverse-on-surface": "#f0f1ee",
-                        "surface-container": "#eeeeeb",
-                        "on-tertiary": "#ffffff",
-                        "outline-variant": "#c1c8c2",
-                        "on-primary-container": "#86af99",
-                        "surface-variant": "#e2e3e0",
-                        "on-background": "#1a1c1a",
-                        "on-surface": "#1a1c1a",
-                        "surface-container-lowest": "#ffffff",
-                        "on-error": "#ffffff",
-                        "tertiary-fixed-dim": "#f5b7b4",
-                        "on-tertiary-fixed": "#331111",
-                        "on-secondary": "#ffffff",
-                        "on-surface-variant": "#414844",
-                        "primary-container": "#1b4332",
-                        "inverse-surface": "#2f312f",
-                        "on-secondary-fixed": "#191c1e",
-                        "on-tertiary-container": "#d29895",
-                        "primary-fixed": "#c1ecd4",
-                        "inverse-primary": "#a5d0b9",
-                        "surface": "#f9faf6",
-                        "primary": "#012d1d",
-                        "secondary-fixed": "#e1e2e4",
-                        "background": "#f9faf6",
-                        "surface-dim": "#dadad7",
-                        "on-tertiary-fixed-variant": "#673a39",
-                        "secondary-container": "#dee0e2",
-                        "surface-tint": "#3f6653",
-                        "on-error-container": "#93000a",
-                        "surface-bright": "#f9faf6",
-                        "tertiary-container": "#5a302f",
-                        "tertiary": "#401b1b",
-                        "on-secondary-fixed-variant": "#444749"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "margin-page": "64px",
-                        "unit": "8px",
-                        "stack-sm": "8px",
-                        "gutter": "32px",
-                        "stack-md": "16px",
-                        "section-gap": "80px",
-                        "container-max": "1440px",
-                        "stack-lg": "32px"
-                    },
-                    "fontFamily": {
-                        "caption": ["Inter"],
-                        "h2": ["Inter"],
-                        "h1": ["Inter"],
-                        "h3": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "display-xl": ["Inter"],
-                        "body-base": ["Inter"],
-                        "body-lg": ["Inter"]
-                    },
-                    "fontSize": {
-                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
-                        "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                        "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                        "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
-                    }
-                },
+<html
+  class="light"
+  lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0"
+      name="viewport" />
+    <title>Rentmart | Industrial Heavy Machinery Marketplace</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-primary-fixed': '#002114',
+              'surface-container-low': '#f3f4f1',
+              'surface-container-high': '#e8e8e5',
+              'on-primary': '#ffffff',
+              'surface-container-highest': '#e2e3e0',
+              'secondary-fixed-dim': '#c5c6c8',
+              error: '#ba1a1a',
+              secondary: '#5c5f60',
+              'on-primary-fixed-variant': '#274e3d',
+              'on-secondary-container': '#606365',
+              'primary-fixed-dim': '#a5d0b9',
+              'tertiary-fixed': '#ffdad8',
+              'error-container': '#ffdad6',
+              outline: '#717973',
+              'inverse-on-surface': '#f0f1ee',
+              'surface-container': '#eeeeeb',
+              'on-tertiary': '#ffffff',
+              'outline-variant': '#c1c8c2',
+              'on-primary-container': '#86af99',
+              'surface-variant': '#e2e3e0',
+              'on-background': '#1a1c1a',
+              'on-surface': '#1a1c1a',
+              'surface-container-lowest': '#ffffff',
+              'on-error': '#ffffff',
+              'tertiary-fixed-dim': '#f5b7b4',
+              'on-tertiary-fixed': '#331111',
+              'on-secondary': '#ffffff',
+              'on-surface-variant': '#414844',
+              'primary-container': '#1b4332',
+              'inverse-surface': '#2f312f',
+              'on-secondary-fixed': '#191c1e',
+              'on-tertiary-container': '#d29895',
+              'primary-fixed': '#c1ecd4',
+              'inverse-primary': '#a5d0b9',
+              surface: '#f9faf6',
+              primary: '#012d1d',
+              'secondary-fixed': '#e1e2e4',
+              background: '#f9faf6',
+              'surface-dim': '#dadad7',
+              'on-tertiary-fixed-variant': '#673a39',
+              'secondary-container': '#dee0e2',
+              'surface-tint': '#3f6653',
+              'on-error-container': '#93000a',
+              'surface-bright': '#f9faf6',
+              'tertiary-container': '#5a302f',
+              tertiary: '#401b1b',
+              'on-secondary-fixed-variant': '#444749'
             },
+            borderRadius: {
+              DEFAULT: '0.125rem',
+              lg: '0.25rem',
+              xl: '0.5rem',
+              full: '0.75rem'
+            },
+            spacing: {
+              'margin-page': '64px',
+              unit: '8px',
+              'stack-sm': '8px',
+              gutter: '32px',
+              'stack-md': '16px',
+              'section-gap': '80px',
+              'container-max': '1440px',
+              'stack-lg': '32px'
+            },
+            fontFamily: {
+              caption: ['Inter'],
+              h2: ['Inter'],
+              h1: ['Inter'],
+              h3: ['Inter'],
+              'label-sm': ['Inter'],
+              'display-xl': ['Inter'],
+              'body-base': ['Inter'],
+              'body-lg': ['Inter']
+            },
+            fontSize: {
+              caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
+              h2: [
+                '30px',
+                {
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              h1: [
+                '40px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              h3: ['24px', { lineHeight: '1.4', fontWeight: '600' }],
+              'label-sm': [
+                '14px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '0.05em',
+                  fontWeight: '500'
+                }
+              ],
+              'display-xl': [
+                '64px',
+                {
+                  lineHeight: '1.1',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700'
+                }
+              ],
+              'body-base': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+              'body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }]
+            }
+          }
         }
+      };
     </script>
-<style>
-        body { background-color: #f9faf6; font-family: 'Inter', sans-serif; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .active-nav { border-bottom: 2px solid #012d1d; }
+    <style>
+      body {
+        background-color: #f9faf6;
+        font-family: 'Inter', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .active-nav {
+        border-bottom: 2px solid #012d1d;
+      }
     </style>
-</head>
-<body class="text-on-background">
-<!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md shadow-sm h-20">
-<div class="flex items-center justify-between px-16 w-full h-full max-w-[1440px] mx-auto">
-<div class="flex items-center gap-12">
-<span class="text-xl font-black tracking-tighter text-emerald-900 uppercase">Rentmart</span>
-<div class="hidden md:flex items-center gap-8">
-<a class="text-emerald-900 font-bold border-b-2 border-emerald-900 pb-1 font-sans tracking-tight text-sm font-medium" href="#">Marketplace</a>
-<a class="text-slate-600 hover:text-emerald-900 transition-colors duration-200 font-sans tracking-tight text-sm font-medium" href="#">Fleet Management</a>
-<a class="text-slate-600 hover:text-emerald-900 transition-colors duration-200 font-sans tracking-tight text-sm font-medium" href="#">How it Works</a>
-<a class="text-slate-600 hover:text-emerald-900 transition-colors duration-200 font-sans tracking-tight text-sm font-medium" href="#">Support</a>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<button class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors duration-200 rounded">Login</button>
-<button class="bg-primary-container text-on-primary px-6 py-2.5 rounded-lg font-medium text-sm hover:opacity-90 active:scale-95 duration-100 transition-all">List Equipment</button>
-</div>
-</div>
-</nav>
-<main class="pt-20">
-<!-- Hero Section -->
-<section class="relative bg-white pt-24 pb-32">
-<div class="max-w-[1440px] mx-auto px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-<div>
-<h1 class="font-display-xl text-display-xl text-primary mb-6">
-                        Rent the Power You Need. <br/>
-<span class="text-on-primary-container">Monetize the Fleet You Own.</span>
-</h1>
-<p class="font-body-lg text-body-lg text-secondary mb-10 max-w-xl">
-                        The world's premier industrial marketplace for heavy machinery. High-capacity equipment, verified owners, and comprehensive protection for every project.
-                    </p>
-<!-- Search Bar -->
-<div class="flex items-center p-2 bg-white border border-outline-variant rounded-xl shadow-sm mb-10 max-w-2xl">
-<div class="flex-1 flex items-center px-4 gap-3 border-r border-slate-100">
-<span class="material-symbols-outlined text-slate-400">search</span>
-<input class="w-full border-none focus:ring-0 text-sm font-medium bg-transparent" placeholder="Excavators, Tractors..." type="text"/>
-</div>
-<div class="flex-1 flex items-center px-4 gap-3">
-<span class="material-symbols-outlined text-slate-400">location_on</span>
-<input class="w-full border-none focus:ring-0 text-sm font-medium bg-transparent" placeholder="Global availability" type="text"/>
-</div>
-<button class="bg-primary-container text-on-primary px-8 py-3 rounded-lg font-medium text-sm">Search Fleet</button>
-</div>
-<div class="flex items-center gap-6">
-<div class="flex -space-x-3">
-<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="professional portrait of a construction fleet manager in a hard hat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCETSxEo26JJli-OzyY1fBh-9Lxm5AGHO-Cvj1UGeec-MEU3awA9o0BZpIqwGvjhAGYQ5R5zaJmuzW4cX7yi2rRDvx8ICe64cmpEA2TjCY5Eb8V0fKaGmxLYlf7m39sVNuTnQxlQV3_nx80uvvMCHF65wSP5n1pAddZk-VTFYlEBnpETjI7O_dMfkpu1lfhZi2nY53eZBpmMYahmBYc9mPItgmS_UXapnNZMOiAhgmBgEpw6stGkDAyKDfMSYf2zC8HddDO3XPeOKg"/>
-</div>
-<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="portrait of a focused engineer in reflective gear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKW8x8VpSbn5l7O7tde-VaKKzxsUMfE_rtIlZ2EmCK-vh0vVLiPa-Or3EEmj-daqyoaXayX0-53s_PmFGjzbw3GFIGpyVSn9-qNbvBcWJeSBo0zP4MjTzKOsS7Ee6ItA57ywp_IDLjZj3XlZSQiQq-2UlT8xp0WJJh1PumZUWjd8xlXF5gbL91ZM-83sl8BL8mA86jtUHGGhdByj7YTyG047i9v-gJD6BhyenQnPU7k3wUdEtnzDb_H5cp_g8GQTt9yN_bt7tlkEk"/>
-</div>
-<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="headshot of a smiling logistics specialist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2_jazWdEBobtdxxSq5yd2bCukJw-Y-nGZgKhEvgWnpQ4_QzJyuXJZ17qrgXlQKLemnPAuurPGZH4aGeUUQ6Ua1entTYRbUEVxURnzwKhzRr6otM-mi8UHs21Bqw9A6TPt8-QkxwsRhsaIGttxugp9kPPwNyig4kVXzPF8cTmEL_moQGMsDRmiVb3Dx142DfGN6a5j5PBAKlXoKPyuaXwNR8uVRA0S7WCBnp8Aqxi8wGm5N0aDNoN_IsKCoHNThYWDDB_WlF0u7as"/>
-</div>
-</div>
-<p class="text-caption font-caption text-secondary">
-<span class="font-bold text-primary">2,400+</span> companies renting machinery this month
-                        </p>
-</div>
-</div>
-<div class="relative rounded-2xl overflow-hidden shadow-2xl h-[580px]">
-<img class="w-full h-full object-cover" data-alt="high-resolution shot of a modern yellow excavator at a clean industrial site with cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFxSxcv7owLJvp5uFzgZdyCTiICcOTmzH2dpt_G2kcktStCM-tkxr_Q5wmXnZ5KpsjvnwlQHE5539CzuNea59SoLvcBkZrqfUEuE9-llhBiVUcIDAAmx7DyFh3tJJgscctzrjRpGIw_Qg3q-7GKZOOpZ3jet87ZzjSmyXKbxnc6nd7cGCcPT7DhMvTcelJScAE-oA4VFLIDQAmSK50nCqMfsnjFhELBfOHHQ56RwpJCoOK02aC32WBKv9GdVOGB-m7uCuiKsJpZac"/>
-<div class="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-md p-6 rounded-xl border border-white/50 shadow-lg">
-<div class="flex items-center justify-between mb-4">
-<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Featured Unit</span>
-<span class="bg-primary-fixed text-on-primary-fixed px-2 py-1 rounded text-[10px] font-bold">AVAILABLE</span>
-</div>
-<h4 class="font-h3 text-h3 text-primary mb-1">Caterpillar 320 GC</h4>
-<p class="text-caption font-caption text-secondary mb-4">Industrial Excavator • 2024 Model</p>
-<div class="flex items-center justify-between border-t border-slate-100 pt-4">
-<span class="text-lg font-bold text-primary">$450 <span class="text-sm font-normal text-secondary">/ day</span></span>
-<button class="text-primary font-bold text-sm flex items-center gap-1">View Details <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Trust Banner -->
-<section class="bg-primary-container py-6">
-<div class="max-w-[1440px] mx-auto px-16 flex flex-wrap justify-between items-center gap-8">
-<div class="flex items-center gap-4 text-on-primary">
-<span class="material-symbols-outlined text-on-primary-container">verified_user</span>
-<span class="font-label-sm text-label-sm uppercase tracking-wider">Comprehensive Rental Insurance</span>
-</div>
-<div class="flex items-center gap-4 text-on-primary border-l border-on-primary-fixed-variant pl-8">
-<span class="material-symbols-outlined text-on-primary-container">payments</span>
-<span class="font-label-sm text-label-sm uppercase tracking-wider">Secure Escrow Payments</span>
-</div>
-<div class="flex items-center gap-4 text-on-primary border-l border-on-primary-fixed-variant pl-8">
-<span class="material-symbols-outlined text-on-primary-container">support_agent</span>
-<span class="font-label-sm text-label-sm uppercase tracking-wider">24/7 Field Support</span>
-</div>
-<div class="flex items-center gap-4 text-on-primary border-l border-on-primary-fixed-variant pl-8">
-<span class="material-symbols-outlined text-on-primary-container">precision_manufacturing</span>
-<span class="font-label-sm text-label-sm uppercase tracking-wider">Certified Maintenance</span>
-</div>
-</div>
-</section>
-<!-- Category Grid -->
-<section class="py-section-gap">
-<div class="max-w-[1440px] mx-auto px-16">
-<div class="flex justify-between items-end mb-12">
-<div>
-<span class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-widest mb-2 block">Marketplace</span>
-<h2 class="font-h2 text-h2 text-primary">Browse by Category</h2>
-</div>
-<button class="text-primary font-bold border-b border-primary pb-1 flex items-center gap-2">Explore All Categories <span class="material-symbols-outlined text-sm">arrow_outward</span></button>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-<!-- Category 1 -->
-<div class="group cursor-pointer">
-<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant mb-4 bg-white">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="clean overhead shot of a powerful green tractor in a warehouse" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKtLfjo_bFf4KSWAb8zFcY9S6jNjKh-HiJSsdSkIuAENnLd8cx9ksbK_fjtqQQwIRNhVcQgxaPPtbeS0BwUA5QzyOUYL8GpSTTOuSPVuh9P6crzfqxa6y7INFojzoXJfnywruYM9qpBWrBZJcveDDHITCGydSG8C9F3fI5dVKu0iQlhJBCpcJOXgybSYiJ1FwpNj0z7X9mT9eVfD8i7cDtN1p3EQCrx2qFvRvh8BlR9Cixxx2cq0QpJj178NgIhcElwXqf7_H_sMA"/>
-</div>
-<h4 class="font-h3 text-h3 text-primary text-lg mb-1">Tractors</h4>
-<p class="text-caption font-caption text-secondary">142 Units Available</p>
-</div>
-<!-- Category 2 -->
-<div class="group cursor-pointer">
-<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant mb-4 bg-white">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="large industrial harvester working in a golden field under bright daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIsTIJB033MGEV2ImtlvuQXhxKmJyPCplYtO3O6q1iCNEdazF5fLPjJRiq308iuwt-teQzzvLNIBtxDfNVI73TIZWnl1GdkceNm3cgT8klZrLXcZG7ioV-ckNDFXLGBL66mPkLIS3PGyOz75cfL-sMVf8HZnNuM27XllMH2lZQIgHYo9dSfaqUF7VsMqmaNY_zgOHfj5_xLFGBIpBZQvZ43hM3y0CpX3Zfocth0zDxLF_iZFx9iitbtsA3ZWfBVC4sYFTat8qcbTA"/>
-</div>
-<h4 class="font-h3 text-h3 text-primary text-lg mb-1">Harvesting</h4>
-<p class="text-caption font-caption text-secondary">86 Units Available</p>
-</div>
-<!-- Category 3 -->
-<div class="group cursor-pointer">
-<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant mb-4 bg-white">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="close up of heavy duty power drills and industrial tools on a clean workbench" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmkSDautM1hu733KqAcVPxGp1HXPsdfyAb_sAb_jXd1DlMm6v1iUkHrTyuNCpz7yitxapEqeUe7c2D8BU1hhZuqV_4XV4dLJmHZDbz1K8IVaMooJlejN1vvZSAXhO-yDJlegluDtzl0PLHaEh9XSWEiOzg-fExGZ6k64gExSdh_SaWMDzw7wJQmKZsKTxuhtB-E4fmXKeDlPdUaxBmHLSE6GTNTcxrINQjFxRj9J989q2i8wu7bnl1ZFLjoaKoMsaZJijfV3RiXl4"/>
-</div>
-<h4 class="font-h3 text-h3 text-primary text-lg mb-1">Power Tools</h4>
-<p class="text-caption font-caption text-secondary">1,204 Units Available</p>
-</div>
-<!-- Category 4 -->
-<div class="group cursor-pointer">
-<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant mb-4 bg-white">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="modern irrigation system spraying water in a vast agricultural field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRZNIh1vAAZalvveCMuVBGMz5lVbXGIBXsM_7m8ltFSmG96xV_NBkl1YlUcFb2OGiAw86hbSUO4q9QnmPOKo576Qcbxd8xILPhEbXhu3X_R2c3SheWK1imkybLdmqbFJwVqersiLvoB8mCT0dlsVXZ4VMlXapkSRYljcVGcaUl1VzDGjvibrHBq74t5CAF2SlVS_h35JDgidktP9aMATw-REUNW-Cq1mXluZw9XyOXSHGjmJNsgRxJFfexgJKOxpCRiyMlcEEFjJU"/>
-</div>
-<h4 class="font-h3 text-h3 text-primary text-lg mb-1">Irrigation</h4>
-<p class="text-caption font-caption text-secondary">54 Units Available</p>
-</div>
-</div>
-</div>
-</section>
-<!-- How it Works -->
-<section class="py-section-gap bg-surface-container-low">
-<div class="max-w-[1440px] mx-auto px-16">
-<div class="text-center mb-16">
-<span class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-widest mb-2 block">Seamless Process</span>
-<h2 class="font-h2 text-h2 text-primary">How Rentmart Works</h2>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-16">
-<div class="flex flex-col items-center text-center">
-<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center border border-outline-variant shadow-sm mb-6">
-<span class="material-symbols-outlined text-primary text-3xl">search_check</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-4">1. List or Find</h3>
-<p class="font-body-base text-body-base text-secondary">Upload your machinery fleet or search through thousands of verified industrial equipment listings near you.</p>
-</div>
-<div class="flex flex-col items-center text-center">
-<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center border border-outline-variant shadow-sm mb-6">
-<span class="material-symbols-outlined text-primary text-3xl">lock_open</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-4">2. Secure Booking</h3>
-<p class="font-body-base text-body-base text-secondary">Book with confidence using our secure escrow system and instant rental insurance coverage.</p>
-</div>
-<div class="flex flex-col items-center text-center">
-<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center border border-outline-variant shadow-sm mb-6">
-<span class="material-symbols-outlined text-primary text-3xl">engineering</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-4">3. Get to Work</h3>
-<p class="font-body-base text-body-base text-secondary">Pick up your machine or have it delivered directly to your job site. Performance guaranteed.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Featured Listings -->
-<section class="py-section-gap">
-<div class="max-w-[1440px] mx-auto px-16">
-<div class="flex justify-between items-end mb-12">
-<div>
-<span class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-widest mb-2 block">High Demand</span>
-<h2 class="font-h2 text-h2 text-primary">Featured Machinery</h2>
-</div>
-<div class="flex gap-2">
-<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-white transition-colors">
-<span class="material-symbols-outlined">chevron_left</span>
-</button>
-<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-white transition-colors">
-<span class="material-symbols-outlined">chevron_right</span>
-</button>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-<!-- Machinery Card 1 -->
-<div class="bg-white border border-outline-variant rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-<div class="h-48 relative">
-<img class="w-full h-full object-cover" data-alt="professional image of a yellow industrial backhoe loader on a construction site" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh38wYjC0vfDh54UW7jmeQ2NrLbvDEFZ9dXS-r7CHG3IduAnjVLFnAGS3JFuRuffz4JyGdiXPOwfyHzsGzjUlFD_it2aI5OIh_gOuP-htCDqQ7HyGdUMS_7_J4RIYZB5ojzktXDfYsirnSEppQRaukzTFfTIlb7XfGdKxUGfLwF8KrpayMcxOaXM2CjDk3-6Jb0x2CtQfeo1tQsvf5MYik_LKybxs3FjfnUe_Eu8SVIA9_XcyfMjyDN4o9JUP5-T0d0TWzGRCsPaA"/>
-<span class="absolute top-4 left-4 bg-white/90 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-primary flex items-center gap-1 border border-slate-200 shadow-sm">
-<span class="material-symbols-outlined text-xs text-on-primary-container" style="font-variation-settings: 'FILL' 1;">verified</span> VERIFIED
-                            </span>
-</div>
-<div class="p-5">
-<h4 class="font-h3 text-lg mb-1">JCB 3CX Eco</h4>
-<p class="text-caption font-caption text-secondary mb-4">Construction • London, UK</p>
-<div class="grid grid-cols-2 gap-2 mb-4">
-<div class="bg-surface-container-low p-2 rounded">
-<p class="text-[10px] uppercase text-secondary">Engine</p>
-<p class="text-xs font-bold">55kW</p>
-</div>
-<div class="bg-surface-container-low p-2 rounded">
-<p class="text-[10px] uppercase text-secondary">Weight</p>
-<p class="text-xs font-bold">8.1t</p>
-</div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-lg font-bold text-primary">$320 <span class="text-xs font-normal text-secondary">/ day</span></span>
-<button class="text-primary-container font-bold text-sm">Rent Now</button>
-</div>
-</div>
-</div>
-<!-- Machinery Card 2 -->
-<div class="bg-white border border-outline-variant rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-<div class="h-48 relative">
-<img class="w-full h-full object-cover" data-alt="high angle view of a red harvester tractor in a wheat field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAQPsgIurg0xzwXS62oVBtgRuQUGMT9noa1YTEXxfsUFrmcXo7J-Aw7jebmtbK9YkDXJQWCxkTRbzExQkfypbKN-sMc66i84AGRkOI1RVfYg331mv6yymMcKFYfNUi0kvUHDDeL3vIsTY7na23kWXYnhdslHIU2125CRUWcN4Vqt8-0h-toCicZXb_bIeySsDYLM5ifQrMV-dSAzsEKRvHZsCqKHoy72LjkurQD-Lj7Ja7TU8MuRkz638qPxpzAyGmBwlntLXLUNk"/>
-<span class="absolute top-4 left-4 bg-white/90 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-primary flex items-center gap-1 border border-slate-200 shadow-sm">
-<span class="material-symbols-outlined text-xs text-on-primary-container" style="font-variation-settings: 'FILL' 1;">verified</span> VERIFIED
-                            </span>
-</div>
-<div class="p-5">
-<h4 class="font-h3 text-lg mb-1">John Deere S780</h4>
-<p class="text-caption font-caption text-secondary mb-4">Agriculture • Iowa, US</p>
-<div class="grid grid-cols-2 gap-2 mb-4">
-<div class="bg-surface-container-low p-2 rounded">
-<p class="text-[10px] uppercase text-secondary">Capacity</p>
-<p class="text-xs font-bold">14,100L</p>
-</div>
-<div class="bg-surface-container-low p-2 rounded">
-<p class="text-[10px] uppercase text-secondary">Power</p>
-<p class="text-xs font-bold">473hp</p>
-</div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-lg font-bold text-primary">$1,250 <span class="text-xs font-normal text-secondary">/ day</span></span>
-<button class="text-primary-container font-bold text-sm">Rent Now</button>
-</div>
-</div>
-</div>
-<!-- Machinery Card 3 -->
-<div class="bg-white border border-outline-variant rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-<div class="h-48 relative">
-<img class="w-full h-full object-cover" data-alt="professional image of a high-tech irrigation control system on a farm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDncVVPi8J6dgkpeQHV5mJfRsbdM1ddoA9l_Qhg4lDKKPgPRfe_IxcjjU3ocEQJcZyJVwiSsfrBRBJ9kILxAH9MLHVj4VN7xHlBXr373NLrKag_ZusbAeBN5QFPSnrqFLTq3TPex_IRUfDen1_yQmF3HC1VPy_napX2ZH8XGRozzzbOf5NL8A1dEOU61Y4n9etHm4fjwehoBrxNcpmYUMwohQScQ-fpZTjMBo-xjlLqiFFLvLB03w2noK8bqoE1Tgb1yu6mffc6YAk"/>
-<span class="absolute top-4 left-4 bg-white/90 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-primary flex items-center gap-1 border border-slate-200 shadow-sm">
-<span class="material-symbols-outlined text-xs text-on-primary-container" style="font-variation-settings: 'FILL' 1;">verified</span> VERIFIED
-                            </span>
-</div>
-<div class="p-5">
-<h4 class="font-h3 text-lg mb-1">Valley Pivot 8000</h4>
-<p class="text-caption font-caption text-secondary mb-4">Irrigation • Texas, US</p>
-<div class="grid grid-cols-2 gap-2 mb-4">
-<div class="bg-surface-container-low p-2 rounded">
-<p class="text-[10px] uppercase text-secondary">Span</p>
-<p class="text-xs font-bold">400m</p>
-</div>
-<div class="bg-surface-container-low p-2 rounded">
-<p class="text-[10px] uppercase text-secondary">Control</p>
-<p class="text-xs font-bold">Smart App</p>
-</div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-lg font-bold text-primary">$180 <span class="text-xs font-normal text-secondary">/ day</span></span>
-<button class="text-primary-container font-bold text-sm">Rent Now</button>
-</div>
-</div>
-</div>
-<!-- Machinery Card 4 -->
-<div class="bg-white border border-outline-variant rounded-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-<div class="h-48 relative">
-<img class="w-full h-full object-cover" data-alt="modern diesel generator unit in a soundproof enclosure" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaQ1aBXTAdPXAtH4_yJogZAFXFXW7Ypf_O8Bnwa9md2ea5Yppg52PZRNf75ZPvRYkeK2TABHfvmBZRh8XSy3HPwWjgsG5NNUyXz5BUKfVgon3C1n7uGb-RtSEooTHf1vnBaSIJVlnq1upuRpYOlCCn_r6wmrv5BRg9_iRvULQmOPZ4epus_BpzCeyTEhfqYWwiBxLiRm0xYoxx-Sc4-nAF-sLaaYbfGYcyP2e8T1HgCtfLe0mk0pelLUB_KEv0xa7bVK_XxG8NfhI"/>
-<span class="absolute top-4 left-4 bg-white/90 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-primary flex items-center gap-1 border border-slate-200 shadow-sm">
-<span class="material-symbols-outlined text-xs text-on-primary-container" style="font-variation-settings: 'FILL' 1;">verified</span> VERIFIED
-                            </span>
-</div>
-<div class="p-5">
-<h4 class="font-h3 text-lg mb-1">Cummins C150D5</h4>
-<p class="text-caption font-caption text-secondary mb-4">Power • Dubai, UAE</p>
-<div class="grid grid-cols-2 gap-2 mb-4">
-<div class="bg-surface-container-low p-2 rounded">
-<p class="text-[10px] uppercase text-secondary">Power</p>
-<p class="text-xs font-bold">150kVA</p>
-</div>
-<div class="bg-surface-container-low p-2 rounded">
-<p class="text-[10px] uppercase text-secondary">Fuel</p>
-<p class="text-xs font-bold">Diesel</p>
-</div>
-</div>
-<div class="flex items-center justify-between">
-<span class="text-lg font-bold text-primary">$95 <span class="text-xs font-normal text-secondary">/ day</span></span>
-<button class="text-primary-container font-bold text-sm">Rent Now</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- CTA Section -->
-<section class="mb-section-gap">
-<div class="max-w-[1440px] mx-auto px-16">
-<div class="bg-primary rounded-2xl p-16 flex flex-col items-center text-center relative overflow-hidden">
-<!-- Background texture/accent -->
-<div class="absolute inset-0 opacity-10 pointer-events-none">
-<svg height="100%" preserveaspectratio="none" viewbox="0 0 1440 600" width="100%">
-<path d="M0 0L1440 600M1440 0L0 600" stroke="white" stroke-dasharray="50 50" stroke-width="20"></path>
-</svg>
-</div>
-<div class="relative z-10">
-<h2 class="font-display-xl text-display-xl text-white mb-6">Ready to Scale Your Fleet?</h2>
-<p class="font-body-lg text-body-lg text-on-primary-container mb-10 max-w-2xl mx-auto">Join over 10,000 industrial businesses optimizing their capital expenditure through Rentmart's marketplace.</p>
-<div class="flex items-center justify-center gap-6">
-<button class="bg-on-primary text-primary px-10 py-4 rounded-lg font-bold text-sm shadow-lg hover:bg-slate-50 transition-all">List Your Equipment</button>
-<button class="border border-on-primary-container text-white px-10 py-4 rounded-lg font-bold text-sm hover:bg-white/5 transition-all">Talk to Sales</button>
-</div>
-</div>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="w-full border-t border-slate-100 pt-16 pb-8 bg-white">
-<div class="max-w-[1440px] mx-auto px-16 flex flex-col md:flex-row justify-between items-start gap-8">
-<div class="max-w-xs">
-<span class="text-lg font-bold text-emerald-900 uppercase">Rentmart</span>
-<p class="mt-4 text-xs font-medium tracking-wide text-slate-500 leading-relaxed">
-                    The leading global marketplace for heavy industrial and agricultural machinery rental. Powering modern infrastructure through efficient asset sharing.
-                </p>
-<div class="flex gap-4 mt-6">
-<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-primary">language</span>
-<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-primary">hub</span>
-<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-primary">verified</span>
-</div>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-3 gap-12">
-<div>
-<h5 class="text-emerald-900 font-semibold text-xs uppercase tracking-widest mb-6">Explore</h5>
-<ul class="space-y-4">
-<li><a class="text-xs font-medium tracking-wide text-slate-500 hover:underline transition-all" href="#">Browse Machinery</a></li>
-<li><a class="text-xs font-medium tracking-wide text-slate-500 hover:underline transition-all" href="#">Rental Insurance</a></li>
-<li><a class="text-xs font-medium tracking-wide text-slate-500 hover:underline transition-all" href="#">Safety Standards</a></li>
-</ul>
-</div>
-<div>
-<h5 class="text-emerald-900 font-semibold text-xs uppercase tracking-widest mb-6">Support</h5>
-<ul class="space-y-4">
-<li><a class="text-xs font-medium tracking-wide text-slate-500 hover:underline transition-all" href="#">Contact Support</a></li>
-<li><a class="text-xs font-medium tracking-wide text-slate-500 hover:underline transition-all" href="#">Terms of Service</a></li>
-<li><a class="text-xs font-medium tracking-wide text-slate-500 hover:underline transition-all" href="#">Privacy Policy</a></li>
-</ul>
-</div>
-<div class="hidden md:block">
-<h5 class="text-emerald-900 font-semibold text-xs uppercase tracking-widest mb-6">Subscribe</h5>
-<p class="text-xs text-slate-500 mb-4">Get the latest fleet updates.</p>
-<div class="flex border border-slate-200 rounded p-1">
-<input class="border-none focus:ring-0 text-xs w-full bg-transparent" placeholder="Email" type="email"/>
-<button class="bg-primary text-white p-2 rounded">
-<span class="material-symbols-outlined text-sm">send</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<div class="max-w-[1440px] mx-auto px-16 mt-16 pt-8 border-t border-slate-50">
-<p class="text-xs font-medium tracking-wide text-slate-500 text-center">
-                © 2024 Rentmart Industrial Marketplace. Heavy Machinery Rental Solutions. All rights reserved.
+  </head>
+  <body class="text-on-background">
+    <!-- TopNavBar -->
+    <nav
+      class="fixed top-0 z-50 h-20 w-full border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-md">
+      <div
+        class="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between px-16">
+        <div class="flex items-center gap-12">
+          <span
+            class="text-xl font-black tracking-tighter text-emerald-900 uppercase"
+            >Rentmart</span
+          >
+          <div class="hidden items-center gap-8 md:flex">
+            <a
+              class="border-b-2 border-emerald-900 pb-1 font-sans text-sm font-bold font-medium tracking-tight text-emerald-900"
+              href="#"
+              >Marketplace</a
+            >
+            <a
+              class="font-sans text-sm font-medium tracking-tight text-slate-600 transition-colors duration-200 hover:text-emerald-900"
+              href="#"
+              >Fleet Management</a
+            >
+            <a
+              class="font-sans text-sm font-medium tracking-tight text-slate-600 transition-colors duration-200 hover:text-emerald-900"
+              href="#"
+              >How it Works</a
+            >
+            <a
+              class="font-sans text-sm font-medium tracking-tight text-slate-600 transition-colors duration-200 hover:text-emerald-900"
+              href="#"
+              >Support</a
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="rounded px-4 py-2 text-sm font-medium text-slate-600 transition-colors duration-200 hover:bg-slate-50">
+            Login
+          </button>
+          <button
+            class="bg-primary-container text-on-primary rounded-lg px-6 py-2.5 text-sm font-medium transition-all duration-100 hover:opacity-90 active:scale-95">
+            List Equipment
+          </button>
+        </div>
+      </div>
+    </nav>
+    <main class="pt-20">
+      <!-- Hero Section -->
+      <section class="relative bg-white pt-24 pb-32">
+        <div
+          class="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-16 px-16 lg:grid-cols-2">
+          <div>
+            <h1 class="font-display-xl text-display-xl text-primary mb-6">
+              Rent the Power You Need. <br />
+              <span class="text-on-primary-container"
+                >Monetize the Fleet You Own.</span
+              >
+            </h1>
+            <p class="font-body-lg text-body-lg text-secondary mb-10 max-w-xl">
+              The world's premier industrial marketplace for heavy machinery.
+              High-capacity equipment, verified owners, and comprehensive
+              protection for every project.
             </p>
-</div>
-</footer>
-</body></html>
+            <!-- Search Bar -->
+            <div
+              class="border-outline-variant mb-10 flex max-w-2xl items-center rounded-xl border bg-white p-2 shadow-sm">
+              <div
+                class="flex flex-1 items-center gap-3 border-r border-slate-100 px-4">
+                <span class="material-symbols-outlined text-slate-400"
+                  >search</span
+                >
+                <input
+                  class="w-full border-none bg-transparent text-sm font-medium focus:ring-0"
+                  placeholder="Excavators, Tractors..."
+                  type="text" />
+              </div>
+              <div class="flex flex-1 items-center gap-3 px-4">
+                <span class="material-symbols-outlined text-slate-400"
+                  >location_on</span
+                >
+                <input
+                  class="w-full border-none bg-transparent text-sm font-medium focus:ring-0"
+                  placeholder="Global availability"
+                  type="text" />
+              </div>
+              <button
+                class="bg-primary-container text-on-primary rounded-lg px-8 py-3 text-sm font-medium">
+                Search Fleet
+              </button>
+            </div>
+            <div class="flex items-center gap-6">
+              <div class="flex -space-x-3">
+                <div
+                  class="h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-slate-200">
+                  <img
+                    class="h-full w-full object-cover"
+                    data-alt="professional portrait of a construction fleet manager in a hard hat"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCETSxEo26JJli-OzyY1fBh-9Lxm5AGHO-Cvj1UGeec-MEU3awA9o0BZpIqwGvjhAGYQ5R5zaJmuzW4cX7yi2rRDvx8ICe64cmpEA2TjCY5Eb8V0fKaGmxLYlf7m39sVNuTnQxlQV3_nx80uvvMCHF65wSP5n1pAddZk-VTFYlEBnpETjI7O_dMfkpu1lfhZi2nY53eZBpmMYahmBYc9mPItgmS_UXapnNZMOiAhgmBgEpw6stGkDAyKDfMSYf2zC8HddDO3XPeOKg" />
+                </div>
+                <div
+                  class="h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-slate-200">
+                  <img
+                    class="h-full w-full object-cover"
+                    data-alt="portrait of a focused engineer in reflective gear"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKW8x8VpSbn5l7O7tde-VaKKzxsUMfE_rtIlZ2EmCK-vh0vVLiPa-Or3EEmj-daqyoaXayX0-53s_PmFGjzbw3GFIGpyVSn9-qNbvBcWJeSBo0zP4MjTzKOsS7Ee6ItA57ywp_IDLjZj3XlZSQiQq-2UlT8xp0WJJh1PumZUWjd8xlXF5gbL91ZM-83sl8BL8mA86jtUHGGhdByj7YTyG047i9v-gJD6BhyenQnPU7k3wUdEtnzDb_H5cp_g8GQTt9yN_bt7tlkEk" />
+                </div>
+                <div
+                  class="h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-slate-200">
+                  <img
+                    class="h-full w-full object-cover"
+                    data-alt="headshot of a smiling logistics specialist"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2_jazWdEBobtdxxSq5yd2bCukJw-Y-nGZgKhEvgWnpQ4_QzJyuXJZ17qrgXlQKLemnPAuurPGZH4aGeUUQ6Ua1entTYRbUEVxURnzwKhzRr6otM-mi8UHs21Bqw9A6TPt8-QkxwsRhsaIGttxugp9kPPwNyig4kVXzPF8cTmEL_moQGMsDRmiVb3Dx142DfGN6a5j5PBAKlXoKPyuaXwNR8uVRA0S7WCBnp8Aqxi8wGm5N0aDNoN_IsKCoHNThYWDDB_WlF0u7as" />
+                </div>
+              </div>
+              <p class="text-caption font-caption text-secondary">
+                <span class="text-primary font-bold">2,400+</span> companies
+                renting machinery this month
+              </p>
+            </div>
+          </div>
+          <div
+            class="relative h-[580px] overflow-hidden rounded-2xl shadow-2xl">
+            <img
+              class="h-full w-full object-cover"
+              data-alt="high-resolution shot of a modern yellow excavator at a clean industrial site with cinematic lighting"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFxSxcv7owLJvp5uFzgZdyCTiICcOTmzH2dpt_G2kcktStCM-tkxr_Q5wmXnZ5KpsjvnwlQHE5539CzuNea59SoLvcBkZrqfUEuE9-llhBiVUcIDAAmx7DyFh3tJJgscctzrjRpGIw_Qg3q-7GKZOOpZ3jet87ZzjSmyXKbxnc6nd7cGCcPT7DhMvTcelJScAE-oA4VFLIDQAmSK50nCqMfsnjFhELBfOHHQ56RwpJCoOK02aC32WBKv9GdVOGB-m7uCuiKsJpZac" />
+            <div
+              class="absolute right-8 bottom-8 left-8 rounded-xl border border-white/50 bg-white/90 p-6 shadow-lg backdrop-blur-md">
+              <div class="mb-4 flex items-center justify-between">
+                <span
+                  class="font-label-sm text-label-sm text-primary tracking-widest uppercase"
+                  >Featured Unit</span
+                >
+                <span
+                  class="bg-primary-fixed text-on-primary-fixed rounded px-2 py-1 text-[10px] font-bold"
+                  >AVAILABLE</span
+                >
+              </div>
+              <h4 class="font-h3 text-h3 text-primary mb-1">
+                Caterpillar 320 GC
+              </h4>
+              <p class="text-caption font-caption text-secondary mb-4">
+                Industrial Excavator • 2024 Model
+              </p>
+              <div
+                class="flex items-center justify-between border-t border-slate-100 pt-4">
+                <span class="text-primary text-lg font-bold"
+                  >$450
+                  <span class="text-secondary text-sm font-normal"
+                    >/ day</span
+                  ></span
+                >
+                <button
+                  class="text-primary flex items-center gap-1 text-sm font-bold">
+                  View Details
+                  <span class="material-symbols-outlined text-sm"
+                    >arrow_forward</span
+                  >
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Trust Banner -->
+      <section class="bg-primary-container py-6">
+        <div
+          class="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-8 px-16">
+          <div class="text-on-primary flex items-center gap-4">
+            <span class="material-symbols-outlined text-on-primary-container"
+              >verified_user</span
+            >
+            <span class="font-label-sm text-label-sm tracking-wider uppercase"
+              >Comprehensive Rental Insurance</span
+            >
+          </div>
+          <div
+            class="text-on-primary border-on-primary-fixed-variant flex items-center gap-4 border-l pl-8">
+            <span class="material-symbols-outlined text-on-primary-container"
+              >payments</span
+            >
+            <span class="font-label-sm text-label-sm tracking-wider uppercase"
+              >Secure Escrow Payments</span
+            >
+          </div>
+          <div
+            class="text-on-primary border-on-primary-fixed-variant flex items-center gap-4 border-l pl-8">
+            <span class="material-symbols-outlined text-on-primary-container"
+              >support_agent</span
+            >
+            <span class="font-label-sm text-label-sm tracking-wider uppercase"
+              >24/7 Field Support</span
+            >
+          </div>
+          <div
+            class="text-on-primary border-on-primary-fixed-variant flex items-center gap-4 border-l pl-8">
+            <span class="material-symbols-outlined text-on-primary-container"
+              >precision_manufacturing</span
+            >
+            <span class="font-label-sm text-label-sm tracking-wider uppercase"
+              >Certified Maintenance</span
+            >
+          </div>
+        </div>
+      </section>
+      <!-- Category Grid -->
+      <section class="py-section-gap">
+        <div class="mx-auto max-w-[1440px] px-16">
+          <div class="mb-12 flex items-end justify-between">
+            <div>
+              <span
+                class="font-label-sm text-label-sm text-on-primary-container mb-2 block tracking-widest uppercase"
+                >Marketplace</span
+              >
+              <h2 class="font-h2 text-h2 text-primary">Browse by Category</h2>
+            </div>
+            <button
+              class="text-primary border-primary flex items-center gap-2 border-b pb-1 font-bold">
+              Explore All Categories
+              <span class="material-symbols-outlined text-sm"
+                >arrow_outward</span
+              >
+            </button>
+          </div>
+          <div
+            class="gap-gutter grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <!-- Category 1 -->
+            <div class="group cursor-pointer">
+              <div
+                class="border-outline-variant mb-4 aspect-square overflow-hidden rounded-lg border bg-white">
+                <img
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  data-alt="clean overhead shot of a powerful green tractor in a warehouse"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKtLfjo_bFf4KSWAb8zFcY9S6jNjKh-HiJSsdSkIuAENnLd8cx9ksbK_fjtqQQwIRNhVcQgxaPPtbeS0BwUA5QzyOUYL8GpSTTOuSPVuh9P6crzfqxa6y7INFojzoXJfnywruYM9qpBWrBZJcveDDHITCGydSG8C9F3fI5dVKu0iQlhJBCpcJOXgybSYiJ1FwpNj0z7X9mT9eVfD8i7cDtN1p3EQCrx2qFvRvh8BlR9Cixxx2cq0QpJj178NgIhcElwXqf7_H_sMA" />
+              </div>
+              <h4 class="font-h3 text-h3 text-primary mb-1 text-lg">
+                Tractors
+              </h4>
+              <p class="text-caption font-caption text-secondary">
+                142 Units Available
+              </p>
+            </div>
+            <!-- Category 2 -->
+            <div class="group cursor-pointer">
+              <div
+                class="border-outline-variant mb-4 aspect-square overflow-hidden rounded-lg border bg-white">
+                <img
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  data-alt="large industrial harvester working in a golden field under bright daylight"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIsTIJB033MGEV2ImtlvuQXhxKmJyPCplYtO3O6q1iCNEdazF5fLPjJRiq308iuwt-teQzzvLNIBtxDfNVI73TIZWnl1GdkceNm3cgT8klZrLXcZG7ioV-ckNDFXLGBL66mPkLIS3PGyOz75cfL-sMVf8HZnNuM27XllMH2lZQIgHYo9dSfaqUF7VsMqmaNY_zgOHfj5_xLFGBIpBZQvZ43hM3y0CpX3Zfocth0zDxLF_iZFx9iitbtsA3ZWfBVC4sYFTat8qcbTA" />
+              </div>
+              <h4 class="font-h3 text-h3 text-primary mb-1 text-lg">
+                Harvesting
+              </h4>
+              <p class="text-caption font-caption text-secondary">
+                86 Units Available
+              </p>
+            </div>
+            <!-- Category 3 -->
+            <div class="group cursor-pointer">
+              <div
+                class="border-outline-variant mb-4 aspect-square overflow-hidden rounded-lg border bg-white">
+                <img
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  data-alt="close up of heavy duty power drills and industrial tools on a clean workbench"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmkSDautM1hu733KqAcVPxGp1HXPsdfyAb_sAb_jXd1DlMm6v1iUkHrTyuNCpz7yitxapEqeUe7c2D8BU1hhZuqV_4XV4dLJmHZDbz1K8IVaMooJlejN1vvZSAXhO-yDJlegluDtzl0PLHaEh9XSWEiOzg-fExGZ6k64gExSdh_SaWMDzw7wJQmKZsKTxuhtB-E4fmXKeDlPdUaxBmHLSE6GTNTcxrINQjFxRj9J989q2i8wu7bnl1ZFLjoaKoMsaZJijfV3RiXl4" />
+              </div>
+              <h4 class="font-h3 text-h3 text-primary mb-1 text-lg">
+                Power Tools
+              </h4>
+              <p class="text-caption font-caption text-secondary">
+                1,204 Units Available
+              </p>
+            </div>
+            <!-- Category 4 -->
+            <div class="group cursor-pointer">
+              <div
+                class="border-outline-variant mb-4 aspect-square overflow-hidden rounded-lg border bg-white">
+                <img
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  data-alt="modern irrigation system spraying water in a vast agricultural field"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRZNIh1vAAZalvveCMuVBGMz5lVbXGIBXsM_7m8ltFSmG96xV_NBkl1YlUcFb2OGiAw86hbSUO4q9QnmPOKo576Qcbxd8xILPhEbXhu3X_R2c3SheWK1imkybLdmqbFJwVqersiLvoB8mCT0dlsVXZ4VMlXapkSRYljcVGcaUl1VzDGjvibrHBq74t5CAF2SlVS_h35JDgidktP9aMATw-REUNW-Cq1mXluZw9XyOXSHGjmJNsgRxJFfexgJKOxpCRiyMlcEEFjJU" />
+              </div>
+              <h4 class="font-h3 text-h3 text-primary mb-1 text-lg">
+                Irrigation
+              </h4>
+              <p class="text-caption font-caption text-secondary">
+                54 Units Available
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- How it Works -->
+      <section class="py-section-gap bg-surface-container-low">
+        <div class="mx-auto max-w-[1440px] px-16">
+          <div class="mb-16 text-center">
+            <span
+              class="font-label-sm text-label-sm text-on-primary-container mb-2 block tracking-widest uppercase"
+              >Seamless Process</span
+            >
+            <h2 class="font-h2 text-h2 text-primary">How Rentmart Works</h2>
+          </div>
+          <div class="grid grid-cols-1 gap-16 md:grid-cols-3">
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="border-outline-variant mb-6 flex h-16 w-16 items-center justify-center rounded-full border bg-white shadow-sm">
+                <span class="material-symbols-outlined text-primary text-3xl"
+                  >search_check</span
+                >
+              </div>
+              <h3 class="font-h3 text-h3 text-primary mb-4">1. List or Find</h3>
+              <p class="font-body-base text-body-base text-secondary">
+                Upload your machinery fleet or search through thousands of
+                verified industrial equipment listings near you.
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="border-outline-variant mb-6 flex h-16 w-16 items-center justify-center rounded-full border bg-white shadow-sm">
+                <span class="material-symbols-outlined text-primary text-3xl"
+                  >lock_open</span
+                >
+              </div>
+              <h3 class="font-h3 text-h3 text-primary mb-4">
+                2. Secure Booking
+              </h3>
+              <p class="font-body-base text-body-base text-secondary">
+                Book with confidence using our secure escrow system and instant
+                rental insurance coverage.
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="border-outline-variant mb-6 flex h-16 w-16 items-center justify-center rounded-full border bg-white shadow-sm">
+                <span class="material-symbols-outlined text-primary text-3xl"
+                  >engineering</span
+                >
+              </div>
+              <h3 class="font-h3 text-h3 text-primary mb-4">3. Get to Work</h3>
+              <p class="font-body-base text-body-base text-secondary">
+                Pick up your machine or have it delivered directly to your job
+                site. Performance guaranteed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Featured Listings -->
+      <section class="py-section-gap">
+        <div class="mx-auto max-w-[1440px] px-16">
+          <div class="mb-12 flex items-end justify-between">
+            <div>
+              <span
+                class="font-label-sm text-label-sm text-on-primary-container mb-2 block tracking-widest uppercase"
+                >High Demand</span
+              >
+              <h2 class="font-h2 text-h2 text-primary">Featured Machinery</h2>
+            </div>
+            <div class="flex gap-2">
+              <button
+                class="border-outline-variant flex h-10 w-10 items-center justify-center rounded-full border transition-colors hover:bg-white">
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button
+                class="border-outline-variant flex h-10 w-10 items-center justify-center rounded-full border transition-colors hover:bg-white">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="gap-gutter grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <!-- Machinery Card 1 -->
+            <div
+              class="border-outline-variant group overflow-hidden rounded-lg border bg-white transition-all duration-300 hover:shadow-xl">
+              <div class="relative h-48">
+                <img
+                  class="h-full w-full object-cover"
+                  data-alt="professional image of a yellow industrial backhoe loader on a construction site"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh38wYjC0vfDh54UW7jmeQ2NrLbvDEFZ9dXS-r7CHG3IduAnjVLFnAGS3JFuRuffz4JyGdiXPOwfyHzsGzjUlFD_it2aI5OIh_gOuP-htCDqQ7HyGdUMS_7_J4RIYZB5ojzktXDfYsirnSEppQRaukzTFfTIlb7XfGdKxUGfLwF8KrpayMcxOaXM2CjDk3-6Jb0x2CtQfeo1tQsvf5MYik_LKybxs3FjfnUe_Eu8SVIA9_XcyfMjyDN4o9JUP5-T0d0TWzGRCsPaA" />
+                <span
+                  class="text-primary absolute top-4 left-4 flex items-center gap-1 rounded border border-slate-200 bg-white/90 px-2 py-1 text-[10px] font-bold shadow-sm backdrop-blur">
+                  <span
+                    class="material-symbols-outlined text-on-primary-container text-xs"
+                    style="font-variation-settings: 'FILL' 1"
+                    >verified</span
+                  >
+                  VERIFIED
+                </span>
+              </div>
+              <div class="p-5">
+                <h4 class="font-h3 mb-1 text-lg">JCB 3CX Eco</h4>
+                <p class="text-caption font-caption text-secondary mb-4">
+                  Construction • London, UK
+                </p>
+                <div class="mb-4 grid grid-cols-2 gap-2">
+                  <div class="bg-surface-container-low rounded p-2">
+                    <p class="text-secondary text-[10px] uppercase">Engine</p>
+                    <p class="text-xs font-bold">55kW</p>
+                  </div>
+                  <div class="bg-surface-container-low rounded p-2">
+                    <p class="text-secondary text-[10px] uppercase">Weight</p>
+                    <p class="text-xs font-bold">8.1t</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-primary text-lg font-bold"
+                    >$320
+                    <span class="text-secondary text-xs font-normal"
+                      >/ day</span
+                    ></span
+                  >
+                  <button class="text-primary-container text-sm font-bold">
+                    Rent Now
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Machinery Card 2 -->
+            <div
+              class="border-outline-variant group overflow-hidden rounded-lg border bg-white transition-all duration-300 hover:shadow-xl">
+              <div class="relative h-48">
+                <img
+                  class="h-full w-full object-cover"
+                  data-alt="high angle view of a red harvester tractor in a wheat field"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAQPsgIurg0xzwXS62oVBtgRuQUGMT9noa1YTEXxfsUFrmcXo7J-Aw7jebmtbK9YkDXJQWCxkTRbzExQkfypbKN-sMc66i84AGRkOI1RVfYg331mv6yymMcKFYfNUi0kvUHDDeL3vIsTY7na23kWXYnhdslHIU2125CRUWcN4Vqt8-0h-toCicZXb_bIeySsDYLM5ifQrMV-dSAzsEKRvHZsCqKHoy72LjkurQD-Lj7Ja7TU8MuRkz638qPxpzAyGmBwlntLXLUNk" />
+                <span
+                  class="text-primary absolute top-4 left-4 flex items-center gap-1 rounded border border-slate-200 bg-white/90 px-2 py-1 text-[10px] font-bold shadow-sm backdrop-blur">
+                  <span
+                    class="material-symbols-outlined text-on-primary-container text-xs"
+                    style="font-variation-settings: 'FILL' 1"
+                    >verified</span
+                  >
+                  VERIFIED
+                </span>
+              </div>
+              <div class="p-5">
+                <h4 class="font-h3 mb-1 text-lg">John Deere S780</h4>
+                <p class="text-caption font-caption text-secondary mb-4">
+                  Agriculture • Iowa, US
+                </p>
+                <div class="mb-4 grid grid-cols-2 gap-2">
+                  <div class="bg-surface-container-low rounded p-2">
+                    <p class="text-secondary text-[10px] uppercase">Capacity</p>
+                    <p class="text-xs font-bold">14,100L</p>
+                  </div>
+                  <div class="bg-surface-container-low rounded p-2">
+                    <p class="text-secondary text-[10px] uppercase">Power</p>
+                    <p class="text-xs font-bold">473hp</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-primary text-lg font-bold"
+                    >$1,250
+                    <span class="text-secondary text-xs font-normal"
+                      >/ day</span
+                    ></span
+                  >
+                  <button class="text-primary-container text-sm font-bold">
+                    Rent Now
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Machinery Card 3 -->
+            <div
+              class="border-outline-variant group overflow-hidden rounded-lg border bg-white transition-all duration-300 hover:shadow-xl">
+              <div class="relative h-48">
+                <img
+                  class="h-full w-full object-cover"
+                  data-alt="professional image of a high-tech irrigation control system on a farm"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDncVVPi8J6dgkpeQHV5mJfRsbdM1ddoA9l_Qhg4lDKKPgPRfe_IxcjjU3ocEQJcZyJVwiSsfrBRBJ9kILxAH9MLHVj4VN7xHlBXr373NLrKag_ZusbAeBN5QFPSnrqFLTq3TPex_IRUfDen1_yQmF3HC1VPy_napX2ZH8XGRozzzbOf5NL8A1dEOU61Y4n9etHm4fjwehoBrxNcpmYUMwohQScQ-fpZTjMBo-xjlLqiFFLvLB03w2noK8bqoE1Tgb1yu6mffc6YAk" />
+                <span
+                  class="text-primary absolute top-4 left-4 flex items-center gap-1 rounded border border-slate-200 bg-white/90 px-2 py-1 text-[10px] font-bold shadow-sm backdrop-blur">
+                  <span
+                    class="material-symbols-outlined text-on-primary-container text-xs"
+                    style="font-variation-settings: 'FILL' 1"
+                    >verified</span
+                  >
+                  VERIFIED
+                </span>
+              </div>
+              <div class="p-5">
+                <h4 class="font-h3 mb-1 text-lg">Valley Pivot 8000</h4>
+                <p class="text-caption font-caption text-secondary mb-4">
+                  Irrigation • Texas, US
+                </p>
+                <div class="mb-4 grid grid-cols-2 gap-2">
+                  <div class="bg-surface-container-low rounded p-2">
+                    <p class="text-secondary text-[10px] uppercase">Span</p>
+                    <p class="text-xs font-bold">400m</p>
+                  </div>
+                  <div class="bg-surface-container-low rounded p-2">
+                    <p class="text-secondary text-[10px] uppercase">Control</p>
+                    <p class="text-xs font-bold">Smart App</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-primary text-lg font-bold"
+                    >$180
+                    <span class="text-secondary text-xs font-normal"
+                      >/ day</span
+                    ></span
+                  >
+                  <button class="text-primary-container text-sm font-bold">
+                    Rent Now
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Machinery Card 4 -->
+            <div
+              class="border-outline-variant group overflow-hidden rounded-lg border bg-white transition-all duration-300 hover:shadow-xl">
+              <div class="relative h-48">
+                <img
+                  class="h-full w-full object-cover"
+                  data-alt="modern diesel generator unit in a soundproof enclosure"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaQ1aBXTAdPXAtH4_yJogZAFXFXW7Ypf_O8Bnwa9md2ea5Yppg52PZRNf75ZPvRYkeK2TABHfvmBZRh8XSy3HPwWjgsG5NNUyXz5BUKfVgon3C1n7uGb-RtSEooTHf1vnBaSIJVlnq1upuRpYOlCCn_r6wmrv5BRg9_iRvULQmOPZ4epus_BpzCeyTEhfqYWwiBxLiRm0xYoxx-Sc4-nAF-sLaaYbfGYcyP2e8T1HgCtfLe0mk0pelLUB_KEv0xa7bVK_XxG8NfhI" />
+                <span
+                  class="text-primary absolute top-4 left-4 flex items-center gap-1 rounded border border-slate-200 bg-white/90 px-2 py-1 text-[10px] font-bold shadow-sm backdrop-blur">
+                  <span
+                    class="material-symbols-outlined text-on-primary-container text-xs"
+                    style="font-variation-settings: 'FILL' 1"
+                    >verified</span
+                  >
+                  VERIFIED
+                </span>
+              </div>
+              <div class="p-5">
+                <h4 class="font-h3 mb-1 text-lg">Cummins C150D5</h4>
+                <p class="text-caption font-caption text-secondary mb-4">
+                  Power • Dubai, UAE
+                </p>
+                <div class="mb-4 grid grid-cols-2 gap-2">
+                  <div class="bg-surface-container-low rounded p-2">
+                    <p class="text-secondary text-[10px] uppercase">Power</p>
+                    <p class="text-xs font-bold">150kVA</p>
+                  </div>
+                  <div class="bg-surface-container-low rounded p-2">
+                    <p class="text-secondary text-[10px] uppercase">Fuel</p>
+                    <p class="text-xs font-bold">Diesel</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-primary text-lg font-bold"
+                    >$95
+                    <span class="text-secondary text-xs font-normal"
+                      >/ day</span
+                    ></span
+                  >
+                  <button class="text-primary-container text-sm font-bold">
+                    Rent Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- CTA Section -->
+      <section class="mb-section-gap">
+        <div class="mx-auto max-w-[1440px] px-16">
+          <div
+            class="bg-primary relative flex flex-col items-center overflow-hidden rounded-2xl p-16 text-center">
+            <!-- Background texture/accent -->
+            <div class="pointer-events-none absolute inset-0 opacity-10">
+              <svg
+                height="100%"
+                preserveaspectratio="none"
+                viewbox="0 0 1440 600"
+                width="100%">
+                <path
+                  d="M0 0L1440 600M1440 0L0 600"
+                  stroke="white"
+                  stroke-dasharray="50 50"
+                  stroke-width="20"></path>
+              </svg>
+            </div>
+            <div class="relative z-10">
+              <h2 class="font-display-xl text-display-xl mb-6 text-white">
+                Ready to Scale Your Fleet?
+              </h2>
+              <p
+                class="font-body-lg text-body-lg text-on-primary-container mx-auto mb-10 max-w-2xl">
+                Join over 10,000 industrial businesses optimizing their capital
+                expenditure through Rentmart's marketplace.
+              </p>
+              <div class="flex items-center justify-center gap-6">
+                <button
+                  class="bg-on-primary text-primary rounded-lg px-10 py-4 text-sm font-bold shadow-lg transition-all hover:bg-slate-50">
+                  List Your Equipment
+                </button>
+                <button
+                  class="border-on-primary-container rounded-lg border px-10 py-4 text-sm font-bold text-white transition-all hover:bg-white/5">
+                  Talk to Sales
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer class="w-full border-t border-slate-100 bg-white pt-16 pb-8">
+      <div
+        class="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-8 px-16 md:flex-row">
+        <div class="max-w-xs">
+          <span class="text-lg font-bold text-emerald-900 uppercase"
+            >Rentmart</span
+          >
+          <p
+            class="mt-4 text-xs leading-relaxed font-medium tracking-wide text-slate-500">
+            The leading global marketplace for heavy industrial and agricultural
+            machinery rental. Powering modern infrastructure through efficient
+            asset sharing.
+          </p>
+          <div class="mt-6 flex gap-4">
+            <span
+              class="material-symbols-outlined hover:text-primary cursor-pointer text-slate-400"
+              >language</span
+            >
+            <span
+              class="material-symbols-outlined hover:text-primary cursor-pointer text-slate-400"
+              >hub</span
+            >
+            <span
+              class="material-symbols-outlined hover:text-primary cursor-pointer text-slate-400"
+              >verified</span
+            >
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-12 md:grid-cols-3">
+          <div>
+            <h5
+              class="mb-6 text-xs font-semibold tracking-widest text-emerald-900 uppercase">
+              Explore
+            </h5>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  class="text-xs font-medium tracking-wide text-slate-500 transition-all hover:underline"
+                  href="#"
+                  >Browse Machinery</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-xs font-medium tracking-wide text-slate-500 transition-all hover:underline"
+                  href="#"
+                  >Rental Insurance</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-xs font-medium tracking-wide text-slate-500 transition-all hover:underline"
+                  href="#"
+                  >Safety Standards</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h5
+              class="mb-6 text-xs font-semibold tracking-widest text-emerald-900 uppercase">
+              Support
+            </h5>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  class="text-xs font-medium tracking-wide text-slate-500 transition-all hover:underline"
+                  href="#"
+                  >Contact Support</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-xs font-medium tracking-wide text-slate-500 transition-all hover:underline"
+                  href="#"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-xs font-medium tracking-wide text-slate-500 transition-all hover:underline"
+                  href="#"
+                  >Privacy Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="hidden md:block">
+            <h5
+              class="mb-6 text-xs font-semibold tracking-widest text-emerald-900 uppercase">
+              Subscribe
+            </h5>
+            <p class="mb-4 text-xs text-slate-500">
+              Get the latest fleet updates.
+            </p>
+            <div class="flex rounded border border-slate-200 p-1">
+              <input
+                class="w-full border-none bg-transparent text-xs focus:ring-0"
+                placeholder="Email"
+                type="email" />
+              <button class="bg-primary rounded p-2 text-white">
+                <span class="material-symbols-outlined text-sm">send</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mx-auto mt-16 max-w-[1440px] border-t border-slate-50 px-16 pt-8">
+        <p class="text-center text-xs font-medium tracking-wide text-slate-500">
+          © 2024 Rentmart Industrial Marketplace. Heavy Machinery Rental
+          Solutions. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

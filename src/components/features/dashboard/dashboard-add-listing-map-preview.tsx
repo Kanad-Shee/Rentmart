@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import type { GeocodedEquipmentLocation } from "@/lib/equipment";
+import type { GeocodedEquipmentLocation } from '@/lib/equipment';
+import { useEffect, useRef, useState } from 'react';
 
 type DashboardAddListingMapPreviewProps = {
   location: GeocodedEquipmentLocation;
@@ -11,31 +11,27 @@ type DashboardAddListingMapPreviewProps = {
 type GoogleMapsNamespace = {
   Map: new (
     element: HTMLElement,
-    options: GoogleMapOptions,
+    options: GoogleMapOptions
   ) => GoogleMapInstance;
-  Marker: new (
-    options: {
-      map: GoogleMapInstance;
-      position: LatLngLiteral;
-      title?: string;
-    },
-  ) => GoogleMarkerInstance;
-  Circle: new (
-    options: {
-      map: GoogleMapInstance;
-      center: LatLngLiteral;
-      radius: number;
-      fillColor?: string;
-      fillOpacity?: number;
-      strokeColor?: string;
-      strokeOpacity?: number;
-      strokeWeight?: number;
-    },
-  ) => GoogleCircleInstance;
+  Marker: new (options: {
+    map: GoogleMapInstance;
+    position: LatLngLiteral;
+    title?: string;
+  }) => GoogleMarkerInstance;
+  Circle: new (options: {
+    map: GoogleMapInstance;
+    center: LatLngLiteral;
+    radius: number;
+    fillColor?: string;
+    fillOpacity?: number;
+    strokeColor?: string;
+    strokeOpacity?: number;
+    strokeWeight?: number;
+  }) => GoogleCircleInstance;
   LatLngBounds: new () => GoogleLatLngBoundsInstance;
-  importLibrary?: <T extends "maps" | "marker">(
-    library: T,
-  ) => Promise<T extends "maps" ? MapsLibrary : MarkerLibrary>;
+  importLibrary?: <T extends 'maps' | 'marker'>(
+    library: T
+  ) => Promise<T extends 'maps' ? MapsLibrary : MarkerLibrary>;
 };
 
 type LatLngLiteral = {
@@ -88,7 +84,7 @@ type GoogleLatLngBoundsInstance = {
 };
 
 type MapsLibrary = {
-  Map: GoogleMapsNamespace["Map"];
+  Map: GoogleMapsNamespace['Map'];
 };
 
 type MarkerLibrary = {
@@ -108,22 +104,25 @@ declare global {
   }
 }
 
-const GOOGLE_MAPS_SCRIPT_ID = "rentmart-google-maps-script";
-const GOOGLE_MAPS_MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID?.trim() || "DEMO_MAP_ID";
+const GOOGLE_MAPS_SCRIPT_ID = 'rentmart-google-maps-script';
+const GOOGLE_MAPS_MAP_ID =
+  process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID?.trim() || 'DEMO_MAP_ID';
 const GOOGLE_MAPS_STYLE: MapStyle[] = [
   {
-    featureType: "poi",
-    stylers: [{ visibility: "off" }],
+    featureType: 'poi',
+    stylers: [{ visibility: 'off' }]
   },
   {
-    featureType: "transit",
-    stylers: [{ visibility: "off" }],
-  },
+    featureType: 'transit',
+    stylers: [{ visibility: 'off' }]
+  }
 ];
 
 function loadGoogleMapsScript(apiKey: string) {
-  if (typeof window === "undefined") {
-    return Promise.reject(new Error("Google Maps can only load in the browser."));
+  if (typeof window === 'undefined') {
+    return Promise.reject(
+      new Error('Google Maps can only load in the browser.')
+    );
   }
 
   if (window.google?.maps) {
@@ -134,93 +133,105 @@ function loadGoogleMapsScript(apiKey: string) {
     return window.__rentMartGoogleMapsPromise;
   }
 
-  window.__rentMartGoogleMapsPromise = new Promise<GoogleMapsNamespace>((resolve, reject) => {
-    const googleWindow = (window.google ||= { maps: {} as GoogleMapsNamespace });
-    const mapsNamespace = (googleWindow.maps ||= {} as GoogleMapsNamespace);
-
-    if (mapsNamespace.importLibrary) {
-      resolve(mapsNamespace);
-      return;
-    }
-
-    const existingScript = document.getElementById(GOOGLE_MAPS_SCRIPT_ID) as HTMLScriptElement | null;
-    if (existingScript) {
-      existingScript.addEventListener("load", () => {
-        if (window.google?.maps?.importLibrary) {
-          resolve(window.google.maps);
-          return;
-        }
-
-        reject(new Error("Google Maps loaded without the importLibrary API."));
+  window.__rentMartGoogleMapsPromise = new Promise<GoogleMapsNamespace>(
+    (resolve, reject) => {
+      const googleWindow = (window.google ||= {
+        maps: {} as GoogleMapsNamespace
       });
-      existingScript.addEventListener("error", () => {
-        reject(new Error("Unable to load Google Maps."));
-      });
-      return;
-    }
+      const mapsNamespace = (googleWindow.maps ||= {} as GoogleMapsNamespace);
 
-    const requestedLibraries = new Set<string>();
-    const queryParams = new URLSearchParams();
-    let loaderPromise: Promise<void> | null = null;
-
-    const injectScript = () => {
-      if (!loaderPromise) {
-        loaderPromise = new Promise<void>((loaderResolve, loaderReject) => {
-          const script = document.createElement("script");
-          script.id = GOOGLE_MAPS_SCRIPT_ID;
-          queryParams.set("libraries", [...requestedLibraries].join(","));
-          queryParams.set("key", apiKey);
-          queryParams.set("v", "weekly");
-          queryParams.set("loading", "async");
-          queryParams.set("callback", "google.maps.__ib__");
-          script.src = `https://maps.googleapis.com/maps/api/js?${queryParams.toString()}`;
-          script.async = true;
-          script.onerror = () => {
-            loaderReject(new Error("Unable to load Google Maps."));
-          };
-
-          (mapsNamespace as GoogleMapsNamespace & { __ib__?: () => void }).__ib__ = () => {
-            loaderResolve();
-          };
-
-          document.head.appendChild(script);
-        });
+      if (mapsNamespace.importLibrary) {
+        resolve(mapsNamespace);
+        return;
       }
 
-      return loaderPromise;
-    };
+      const existingScript = document.getElementById(
+        GOOGLE_MAPS_SCRIPT_ID
+      ) as HTMLScriptElement | null;
+      if (existingScript) {
+        existingScript.addEventListener('load', () => {
+          if (window.google?.maps?.importLibrary) {
+            resolve(window.google.maps);
+            return;
+          }
 
-    mapsNamespace.importLibrary = ((
-      library: "maps" | "marker",
-    ) => {
-      requestedLibraries.add(library);
+          reject(
+            new Error('Google Maps loaded without the importLibrary API.')
+          );
+        });
+        existingScript.addEventListener('error', () => {
+          reject(new Error('Unable to load Google Maps.'));
+        });
+        return;
+      }
 
-      return injectScript().then(() => {
-        const loadedMaps = window.google?.maps as GoogleMapsNamespace | undefined;
-        if (!loadedMaps?.importLibrary) {
-          throw new Error("Google Maps library loading did not finish correctly.");
+      const requestedLibraries = new Set<string>();
+      const queryParams = new URLSearchParams();
+      let loaderPromise: Promise<void> | null = null;
+
+      const injectScript = () => {
+        if (!loaderPromise) {
+          loaderPromise = new Promise<void>((loaderResolve, loaderReject) => {
+            const script = document.createElement('script');
+            script.id = GOOGLE_MAPS_SCRIPT_ID;
+            queryParams.set('libraries', [...requestedLibraries].join(','));
+            queryParams.set('key', apiKey);
+            queryParams.set('v', 'weekly');
+            queryParams.set('loading', 'async');
+            queryParams.set('callback', 'google.maps.__ib__');
+            script.src = `https://maps.googleapis.com/maps/api/js?${queryParams.toString()}`;
+            script.async = true;
+            script.onerror = () => {
+              loaderReject(new Error('Unable to load Google Maps.'));
+            };
+
+            (
+              mapsNamespace as GoogleMapsNamespace & { __ib__?: () => void }
+            ).__ib__ = () => {
+              loaderResolve();
+            };
+
+            document.head.appendChild(script);
+          });
         }
 
-        return loadedMaps.importLibrary(library);
-      });
-    }) as GoogleMapsNamespace["importLibrary"];
+        return loaderPromise;
+      };
 
-    resolve(mapsNamespace);
-  });
+      mapsNamespace.importLibrary = ((library: 'maps' | 'marker') => {
+        requestedLibraries.add(library);
+
+        return injectScript().then(() => {
+          const loadedMaps = window.google?.maps as
+            | GoogleMapsNamespace
+            | undefined;
+          if (!loadedMaps?.importLibrary) {
+            throw new Error(
+              'Google Maps library loading did not finish correctly.'
+            );
+          }
+
+          return loadedMaps.importLibrary(library);
+        });
+      }) as GoogleMapsNamespace['importLibrary'];
+
+      resolve(mapsNamespace);
+    }
+  );
 
   return window.__rentMartGoogleMapsPromise;
 }
 
 export function DashboardAddListingMapPreview({
   location,
-  deliveryRadiusKm,
+  deliveryRadiusKm
 }: DashboardAddListingMapPreviewProps) {
   const mapElementRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<GoogleMapInstance | null>(null);
   const markerRef = useRef<GoogleAdvancedMarkerInstance | null>(null);
   const circleRef = useRef<GoogleCircleInstance | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY?.trim() ?? "";
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY?.trim() ?? '';
 
   useEffect(() => {
     let isCancelled = false;
@@ -231,18 +242,20 @@ export function DashboardAddListingMapPreview({
       }
 
       if (!apiKey) {
-        setMapError("Set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY to show the location preview.");
+        setMapError(
+          'Set NEXT_PUBLIC_GOOGLE_MAPS_API_KEY to show the location preview.'
+        );
         return;
       }
 
       try {
         const maps = await loadGoogleMapsScript(apiKey);
         if (!maps.importLibrary) {
-          throw new Error("Google Maps importLibrary API is unavailable.");
+          throw new Error('Google Maps importLibrary API is unavailable.');
         }
 
-        const { Map } = await maps.importLibrary("maps");
-        const { AdvancedMarkerElement } = await maps.importLibrary("marker");
+        const { Map } = await maps.importLibrary('maps');
+        const { AdvancedMarkerElement } = await maps.importLibrary('marker');
 
         if (isCancelled || !mapElementRef.current) {
           return;
@@ -250,7 +263,7 @@ export function DashboardAddListingMapPreview({
 
         const center = {
           lat: location.latitude,
-          lng: location.longitude,
+          lng: location.longitude
         };
 
         if (!mapRef.current) {
@@ -263,24 +276,24 @@ export function DashboardAddListingMapPreview({
             streetViewControl: false,
             fullscreenControl: false,
             mapId: GOOGLE_MAPS_MAP_ID,
-            styles: GOOGLE_MAPS_STYLE,
+            styles: GOOGLE_MAPS_STYLE
           });
 
           markerRef.current = new AdvancedMarkerElement({
             map: mapRef.current,
             position: center,
-            title: location.normalizedAddress,
+            title: location.normalizedAddress
           });
 
           circleRef.current = new maps.Circle({
             map: mapRef.current,
             center,
             radius: deliveryRadiusKm * 1000,
-            fillColor: "#5cab7d",
+            fillColor: '#5cab7d',
             fillOpacity: 0.22,
-            strokeColor: "#1b4332",
+            strokeColor: '#1b4332',
             strokeOpacity: 0.8,
-            strokeWeight: 2,
+            strokeWeight: 2
           });
         }
 
@@ -306,7 +319,9 @@ export function DashboardAddListingMapPreview({
       } catch (error) {
         if (!isCancelled) {
           setMapError(
-            error instanceof Error ? error.message : "Unable to load the map preview.",
+            error instanceof Error
+              ? error.message
+              : 'Unable to load the map preview.'
           );
         }
       }
@@ -317,7 +332,13 @@ export function DashboardAddListingMapPreview({
     return () => {
       isCancelled = true;
     };
-  }, [apiKey, deliveryRadiusKm, location.latitude, location.longitude, location.normalizedAddress]);
+  }, [
+    apiKey,
+    deliveryRadiusKm,
+    location.latitude,
+    location.longitude,
+    location.normalizedAddress
+  ]);
 
   if (mapError) {
     return (
@@ -329,5 +350,11 @@ export function DashboardAddListingMapPreview({
     );
   }
 
-  return <div ref={mapElementRef} className="absolute inset-0" aria-label="Selected listing location map" />;
+  return (
+    <div
+      ref={mapElementRef}
+      className="absolute inset-0"
+      aria-label="Selected listing location map"
+    />
+  );
 }

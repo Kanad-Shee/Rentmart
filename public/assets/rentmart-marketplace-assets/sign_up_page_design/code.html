@@ -1,265 +1,448 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html
+  class="light"
+  lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0"
+      name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <script id="tailwind-config">
       tailwind.config = {
-        darkMode: "class",
+        darkMode: 'class',
         theme: {
           extend: {
-            "colors": {
-                    "secondary-fixed-dim": "#c5c6c8",
-                    "error": "#ba1a1a",
-                    "surface-container-high": "#e8e8e5",
-                    "on-secondary-container": "#606365",
-                    "surface-container-low": "#f3f4f1",
-                    "surface-container": "#eeeeeb",
-                    "secondary-container": "#dee0e2",
-                    "on-secondary-fixed-variant": "#444749",
-                    "error-container": "#ffdad6",
-                    "on-surface-variant": "#414844",
-                    "on-tertiary-fixed-variant": "#673a39",
-                    "on-secondary-fixed": "#191c1e",
-                    "tertiary-fixed": "#ffdad8",
-                    "surface": "#f9faf6",
-                    "outline-variant": "#c1c8c2",
-                    "outline": "#717973",
-                    "on-tertiary-fixed": "#331111",
-                    "primary": "#012d1d",
-                    "surface-container-lowest": "#ffffff",
-                    "surface-variant": "#e2e3e0",
-                    "secondary": "#5c5f60",
-                    "tertiary-fixed-dim": "#f5b7b4",
-                    "inverse-on-surface": "#f0f1ee",
-                    "primary-fixed-dim": "#a5d0b9",
-                    "on-tertiary": "#ffffff",
-                    "on-error-container": "#93000a",
-                    "tertiary-container": "#5a302f",
-                    "on-primary": "#ffffff",
-                    "on-tertiary-container": "#d29895",
-                    "primary-fixed": "#c1ecd4",
-                    "tertiary": "#401b1b",
-                    "surface-tint": "#3f6653",
-                    "on-primary-fixed-variant": "#274e3d",
-                    "on-background": "#1a1c1a",
-                    "inverse-primary": "#a5d0b9",
-                    "primary-container": "#1b4332",
-                    "on-secondary": "#ffffff",
-                    "surface-dim": "#dadad7",
-                    "on-primary-fixed": "#002114",
-                    "background": "#f9faf6",
-                    "inverse-surface": "#2f312f",
-                    "on-primary-container": "#86af99",
-                    "surface-bright": "#f9faf6",
-                    "secondary-fixed": "#e1e2e4",
-                    "on-error": "#ffffff",
-                    "surface-container-highest": "#e2e3e0",
-                    "on-surface": "#1a1c1a"
+            colors: {
+              'secondary-fixed-dim': '#c5c6c8',
+              error: '#ba1a1a',
+              'surface-container-high': '#e8e8e5',
+              'on-secondary-container': '#606365',
+              'surface-container-low': '#f3f4f1',
+              'surface-container': '#eeeeeb',
+              'secondary-container': '#dee0e2',
+              'on-secondary-fixed-variant': '#444749',
+              'error-container': '#ffdad6',
+              'on-surface-variant': '#414844',
+              'on-tertiary-fixed-variant': '#673a39',
+              'on-secondary-fixed': '#191c1e',
+              'tertiary-fixed': '#ffdad8',
+              surface: '#f9faf6',
+              'outline-variant': '#c1c8c2',
+              outline: '#717973',
+              'on-tertiary-fixed': '#331111',
+              primary: '#012d1d',
+              'surface-container-lowest': '#ffffff',
+              'surface-variant': '#e2e3e0',
+              secondary: '#5c5f60',
+              'tertiary-fixed-dim': '#f5b7b4',
+              'inverse-on-surface': '#f0f1ee',
+              'primary-fixed-dim': '#a5d0b9',
+              'on-tertiary': '#ffffff',
+              'on-error-container': '#93000a',
+              'tertiary-container': '#5a302f',
+              'on-primary': '#ffffff',
+              'on-tertiary-container': '#d29895',
+              'primary-fixed': '#c1ecd4',
+              tertiary: '#401b1b',
+              'surface-tint': '#3f6653',
+              'on-primary-fixed-variant': '#274e3d',
+              'on-background': '#1a1c1a',
+              'inverse-primary': '#a5d0b9',
+              'primary-container': '#1b4332',
+              'on-secondary': '#ffffff',
+              'surface-dim': '#dadad7',
+              'on-primary-fixed': '#002114',
+              background: '#f9faf6',
+              'inverse-surface': '#2f312f',
+              'on-primary-container': '#86af99',
+              'surface-bright': '#f9faf6',
+              'secondary-fixed': '#e1e2e4',
+              'on-error': '#ffffff',
+              'surface-container-highest': '#e2e3e0',
+              'on-surface': '#1a1c1a'
             },
-            "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
+            borderRadius: {
+              DEFAULT: '0.125rem',
+              lg: '0.25rem',
+              xl: '0.5rem',
+              full: '0.75rem'
             },
-            "spacing": {
-                    "stack-md": "16px",
-                    "stack-sm": "8px",
-                    "stack-lg": "32px",
-                    "gutter": "32px",
-                    "section-gap": "80px",
-                    "margin-page": "64px",
-                    "container-max": "1440px",
-                    "unit": "8px"
+            spacing: {
+              'stack-md': '16px',
+              'stack-sm': '8px',
+              'stack-lg': '32px',
+              gutter: '32px',
+              'section-gap': '80px',
+              'margin-page': '64px',
+              'container-max': '1440px',
+              unit: '8px'
             },
-            "fontFamily": {
-                    "h3": ["Inter"],
-                    "h2": ["Inter"],
-                    "caption": ["Inter"],
-                    "body-lg": ["Inter"],
-                    "body-base": ["Inter"],
-                    "label-sm": ["Inter"],
-                    "h1": ["Inter"],
-                    "display-xl": ["Inter"]
+            fontFamily: {
+              h3: ['Inter'],
+              h2: ['Inter'],
+              caption: ['Inter'],
+              'body-lg': ['Inter'],
+              'body-base': ['Inter'],
+              'label-sm': ['Inter'],
+              h1: ['Inter'],
+              'display-xl': ['Inter']
             },
-            "fontSize": {
-                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                    "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            fontSize: {
+              h3: ['24px', { lineHeight: '1.4', fontWeight: '600' }],
+              h2: [
+                '30px',
+                {
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
+              'body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+              'body-base': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+              'label-sm': [
+                '14px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '0.05em',
+                  fontWeight: '500'
+                }
+              ],
+              h1: [
+                '40px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              'display-xl': [
+                '64px',
+                {
+                  lineHeight: '1.1',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700'
+                }
+              ]
             }
-          },
-        },
-      }
+          }
+        }
+      };
     </script>
-<style>
-        .glass-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-        }
-        .soft-gradient {
-            background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 50%, #ffffff 100%);
-        }
-        .metallic-text {
-            background: linear-gradient(to bottom, #012d1d 0%, #1b4332 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    <style>
+      .glass-card {
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+      }
+      .soft-gradient {
+        background: linear-gradient(
+          135deg,
+          #f0fdfa 0%,
+          #ecfeff 50%,
+          #ffffff 100%
+        );
+      }
+      .metallic-text {
+        background: linear-gradient(to bottom, #012d1d 0%, #1b4332 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     </style>
-</head>
-<body class="bg-surface font-body-base text-on-background min-h-screen">
-<main class="flex min-h-screen">
-<!-- Left Side: Brand & Value Prop -->
-<section class="hidden lg:flex w-1/2 soft-gradient p-16 flex-col justify-between relative overflow-hidden">
-<div class="z-10">
-<!-- Brand Anchor -->
-<div class="flex items-center gap-2 mb-20">
-<span class="text-h2 font-bold tracking-tighter metallic-text">Rentmart</span>
-</div>
-<!-- Content -->
-<div class="max-w-lg">
-<h1 class="font-h1 text-h1 text-primary mb-stack-md">Join the Future of Rural Machinery</h1>
-<p class="font-body-lg text-body-lg text-secondary mb-12">Experience the most reliable machinery ecosystem. Precision in procurement for owners and renters alike.</p>
-<!-- Trust Elements -->
-<div class="space-y-stack-lg">
-<div class="flex items-center gap-4 group">
-<div class="glass-card w-12 h-12 flex items-center justify-center rounded-lg">
-<span class="material-symbols-outlined text-primary-container" data-icon="shield" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shield</span>
-</div>
-<div>
-<h4 class="font-h3 text-label-sm text-primary uppercase tracking-widest">Secure Payments</h4>
-<p class="text-caption text-secondary">Escrow-protected transactions for every rental contract.</p>
-</div>
-</div>
-<div class="flex items-center gap-4 group">
-<div class="glass-card w-12 h-12 flex items-center justify-center rounded-lg">
-<span class="material-symbols-outlined text-primary-container" data-icon="verified_user" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified_user</span>
-</div>
-<div>
-<h4 class="font-h3 text-label-sm text-primary uppercase tracking-widest">Verified Users</h4>
-<p class="text-caption text-secondary">Strict identity verification for a high-trust marketplace.</p>
-</div>
-</div>
-<div class="flex items-center gap-4 group">
-<div class="glass-card w-12 h-12 flex items-center justify-center rounded-lg">
-<span class="material-symbols-outlined text-primary-container" data-icon="account_balance_wallet" data-weight="fill" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
-</div>
-<div>
-<h4 class="font-h3 text-label-sm text-primary uppercase tracking-widest">Platform Insurance</h4>
-<p class="text-caption text-secondary">Comprehensive damage coverage on all industrial equipment.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Decorative background element -->
-<div class="absolute -bottom-20 -left-20 w-80 h-80 bg-primary-fixed-dim opacity-20 rounded-full blur-3xl"></div>
-<div class="z-10">
-<footer class="text-caption text-secondary">
-                    © 2024 Rentmart Industrial. All rights reserved. Precision in Procurement.
-                </footer>
-</div>
-</section>
-<!-- Right Side: Registration Form -->
-<section class="w-full lg:w-1/2 bg-surface-container-lowest flex flex-col justify-center p-8 md:p-16 xl:p-24 overflow-y-auto">
-<div class="max-w-xl mx-auto w-full">
-<div class="lg:hidden mb-8">
-<span class="text-h2 font-bold tracking-tighter metallic-text">Rentmart</span>
-</div>
-<header class="mb-10">
-<h2 class="font-h2 text-h2 text-primary">Create your account</h2>
-<p class="text-secondary mt-2">Join our industrial network and start trading today.</p>
-</header>
-<form class="space-y-6">
-<!-- Role Selection -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-stack-lg">
-<label class="relative cursor-pointer">
-<input class="peer sr-only" name="role" type="radio" value="owner"/>
-<div class="p-4 rounded border border-outline-variant bg-surface-container-lowest peer-checked:border-primary-container peer-checked:bg-primary-fixed-dim/10 transition-all duration-200">
-<div class="flex flex-col gap-2">
-<span class="material-symbols-outlined text-secondary" data-icon="precision_manufacturing">precision_manufacturing</span>
-<span class="font-h3 text-body-base text-primary">I am an Owner</span>
-<span class="text-caption text-secondary">List machinery and manage your fleet.</span>
-</div>
-</div>
-</label>
-<label class="relative cursor-pointer">
-<input checked="" class="peer sr-only" name="role" type="radio" value="renter"/>
-<div class="p-4 rounded border border-outline-variant bg-surface-container-lowest peer-checked:border-primary-container peer-checked:bg-primary-fixed-dim/10 transition-all duration-200 ring-2 ring-primary-container ring-opacity-10">
-<div class="flex flex-col gap-2">
-<span class="material-symbols-outlined text-primary-container" data-icon="agriculture">agriculture</span>
-<span class="font-h3 text-body-base text-primary">I am a Renter</span>
-<span class="text-caption text-secondary">Find and book industrial equipment.</span>
-</div>
-</div>
-</label>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-<!-- Full Name -->
-<div class="space-y-stack-sm">
-<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Full Name</label>
-<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded focus:ring-1 focus:ring-primary-container focus:border-primary-container outline-none transition-all placeholder:text-secondary-fixed-dim" placeholder="John Doe" type="text"/>
-</div>
-<!-- Email -->
-<div class="space-y-stack-sm">
-<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Email Address</label>
-<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded focus:ring-1 focus:ring-primary-container focus:border-primary-container outline-none transition-all placeholder:text-secondary-fixed-dim" placeholder="john@industrial.com" type="email"/>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-<!-- Phone -->
-<div class="space-y-stack-sm">
-<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Phone Number <span class="text-secondary-fixed-dim font-normal normal-case">(Optional)</span></label>
-<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded focus:ring-1 focus:ring-primary-container focus:border-primary-container outline-none transition-all placeholder:text-secondary-fixed-dim" placeholder="+1 (555) 000-0000" type="tel"/>
-</div>
-<!-- Address -->
-<div class="space-y-stack-sm">
-<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Business Address</label>
-<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded focus:ring-1 focus:ring-primary-container focus:border-primary-container outline-none transition-all placeholder:text-secondary-fixed-dim" placeholder="123 Industrial Way" type="text"/>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-<!-- Password -->
-<div class="space-y-stack-sm">
-<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Password</label>
-<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded focus:ring-1 focus:ring-primary-container focus:border-primary-container outline-none transition-all placeholder:text-secondary-fixed-dim" placeholder="••••••••" type="password"/>
-</div>
-<!-- Confirm Password -->
-<div class="space-y-stack-sm">
-<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Confirm Password</label>
-<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded focus:ring-1 focus:ring-primary-container focus:border-primary-container outline-none transition-all placeholder:text-secondary-fixed-dim" placeholder="••••••••" type="password"/>
-</div>
-</div>
-<div class="pt-4">
-<button class="w-full py-4 bg-primary-container text-on-primary font-semibold rounded hover:bg-primary transition-all duration-200 shadow-sm active:scale-[0.98]" type="submit">
-                            Create Account
-                        </button>
-</div>
-<p class="text-center text-body-base text-secondary mt-8">
-                        Already have an account? <a class="text-primary-container font-semibold hover:underline decoration-primary-container/30" href="#">Sign in.</a>
-</p>
-</form>
-<div class="mt-12 pt-8 border-t border-outline-variant">
-<p class="text-caption text-secondary text-center">
-                        By signing up, you agree to our <a class="underline" href="#">Terms of Service</a> and <a class="underline" href="#">Privacy Policy</a>.
-                    </p>
-</div>
-</div>
-</section>
-</main>
-<!-- Background Decoration Image -->
-<div class="fixed inset-0 pointer-events-none opacity-[0.03] z-[-1]">
-<img class="w-full h-full object-cover" data-alt="Technical blueprint pattern and industrial grid overlay on white background with clean lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA12llF5rjILU-7tGv6BuI_jE8I-EYxaDQ6h7mMUldBpLe6QLcn_75sBy-GHF-S6ozxQ1odsi1QOVtc7n0YwPJTDkxZXA8LdTYUp1hWJREJoJJcuYkCcmW6WnldF9Xrt7wk7DGsE70v28e6vMMCjeX72_53gYZs61grar4iQhR1nr4oxZHLq3YzjQ6dwDXRZfNqcdOGKYpjSbsrJ9d_5Q8fFSi4U7ePA516PEdcJzQE0VSQKRWdDEz9ucs_5LyvuywI-E0UKWPsPs4"/>
-</div>
-</body></html>
+  </head>
+  <body class="bg-surface font-body-base text-on-background min-h-screen">
+    <main class="flex min-h-screen">
+      <!-- Left Side: Brand & Value Prop -->
+      <section
+        class="soft-gradient relative hidden w-1/2 flex-col justify-between overflow-hidden p-16 lg:flex">
+        <div class="z-10">
+          <!-- Brand Anchor -->
+          <div class="mb-20 flex items-center gap-2">
+            <span class="text-h2 metallic-text font-bold tracking-tighter"
+              >Rentmart</span
+            >
+          </div>
+          <!-- Content -->
+          <div class="max-w-lg">
+            <h1 class="font-h1 text-h1 text-primary mb-stack-md">
+              Join the Future of Rural Machinery
+            </h1>
+            <p class="font-body-lg text-body-lg text-secondary mb-12">
+              Experience the most reliable machinery ecosystem. Precision in
+              procurement for owners and renters alike.
+            </p>
+            <!-- Trust Elements -->
+            <div class="space-y-stack-lg">
+              <div class="group flex items-center gap-4">
+                <div
+                  class="glass-card flex h-12 w-12 items-center justify-center rounded-lg">
+                  <span
+                    class="material-symbols-outlined text-primary-container"
+                    data-icon="shield"
+                    data-weight="fill"
+                    style="font-variation-settings: 'FILL' 1"
+                    >shield</span
+                  >
+                </div>
+                <div>
+                  <h4
+                    class="font-h3 text-label-sm text-primary tracking-widest uppercase">
+                    Secure Payments
+                  </h4>
+                  <p class="text-caption text-secondary">
+                    Escrow-protected transactions for every rental contract.
+                  </p>
+                </div>
+              </div>
+              <div class="group flex items-center gap-4">
+                <div
+                  class="glass-card flex h-12 w-12 items-center justify-center rounded-lg">
+                  <span
+                    class="material-symbols-outlined text-primary-container"
+                    data-icon="verified_user"
+                    data-weight="fill"
+                    style="font-variation-settings: 'FILL' 1"
+                    >verified_user</span
+                  >
+                </div>
+                <div>
+                  <h4
+                    class="font-h3 text-label-sm text-primary tracking-widest uppercase">
+                    Verified Users
+                  </h4>
+                  <p class="text-caption text-secondary">
+                    Strict identity verification for a high-trust marketplace.
+                  </p>
+                </div>
+              </div>
+              <div class="group flex items-center gap-4">
+                <div
+                  class="glass-card flex h-12 w-12 items-center justify-center rounded-lg">
+                  <span
+                    class="material-symbols-outlined text-primary-container"
+                    data-icon="account_balance_wallet"
+                    data-weight="fill"
+                    style="font-variation-settings: 'FILL' 1"
+                    >account_balance_wallet</span
+                  >
+                </div>
+                <div>
+                  <h4
+                    class="font-h3 text-label-sm text-primary tracking-widest uppercase">
+                    Platform Insurance
+                  </h4>
+                  <p class="text-caption text-secondary">
+                    Comprehensive damage coverage on all industrial equipment.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Decorative background element -->
+        <div
+          class="bg-primary-fixed-dim absolute -bottom-20 -left-20 h-80 w-80 rounded-full opacity-20 blur-3xl"></div>
+        <div class="z-10">
+          <footer class="text-caption text-secondary">
+            © 2024 Rentmart Industrial. All rights reserved. Precision in
+            Procurement.
+          </footer>
+        </div>
+      </section>
+      <!-- Right Side: Registration Form -->
+      <section
+        class="bg-surface-container-lowest flex w-full flex-col justify-center overflow-y-auto p-8 md:p-16 lg:w-1/2 xl:p-24">
+        <div class="mx-auto w-full max-w-xl">
+          <div class="mb-8 lg:hidden">
+            <span class="text-h2 metallic-text font-bold tracking-tighter"
+              >Rentmart</span
+            >
+          </div>
+          <header class="mb-10">
+            <h2 class="font-h2 text-h2 text-primary">Create your account</h2>
+            <p class="text-secondary mt-2">
+              Join our industrial network and start trading today.
+            </p>
+          </header>
+          <form class="space-y-6">
+            <!-- Role Selection -->
+            <div class="mb-stack-lg grid grid-cols-1 gap-4 md:grid-cols-2">
+              <label class="relative cursor-pointer">
+                <input
+                  class="peer sr-only"
+                  name="role"
+                  type="radio"
+                  value="owner" />
+                <div
+                  class="border-outline-variant bg-surface-container-lowest peer-checked:border-primary-container peer-checked:bg-primary-fixed-dim/10 rounded border p-4 transition-all duration-200">
+                  <div class="flex flex-col gap-2">
+                    <span
+                      class="material-symbols-outlined text-secondary"
+                      data-icon="precision_manufacturing"
+                      >precision_manufacturing</span
+                    >
+                    <span class="font-h3 text-body-base text-primary"
+                      >I am an Owner</span
+                    >
+                    <span class="text-caption text-secondary"
+                      >List machinery and manage your fleet.</span
+                    >
+                  </div>
+                </div>
+              </label>
+              <label class="relative cursor-pointer">
+                <input
+                  checked=""
+                  class="peer sr-only"
+                  name="role"
+                  type="radio"
+                  value="renter" />
+                <div
+                  class="border-outline-variant bg-surface-container-lowest peer-checked:border-primary-container peer-checked:bg-primary-fixed-dim/10 ring-primary-container ring-opacity-10 rounded border p-4 ring-2 transition-all duration-200">
+                  <div class="flex flex-col gap-2">
+                    <span
+                      class="material-symbols-outlined text-primary-container"
+                      data-icon="agriculture"
+                      >agriculture</span
+                    >
+                    <span class="font-h3 text-body-base text-primary"
+                      >I am a Renter</span
+                    >
+                    <span class="text-caption text-secondary"
+                      >Find and book industrial equipment.</span
+                    >
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div class="gap-gutter grid grid-cols-1 md:grid-cols-2">
+              <!-- Full Name -->
+              <div class="space-y-stack-sm">
+                <label
+                  class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase"
+                  >Full Name</label
+                >
+                <input
+                  class="border-outline-variant focus:ring-primary-container focus:border-primary-container placeholder:text-secondary-fixed-dim w-full rounded border bg-white px-4 py-3 transition-all outline-none focus:ring-1"
+                  placeholder="John Doe"
+                  type="text" />
+              </div>
+              <!-- Email -->
+              <div class="space-y-stack-sm">
+                <label
+                  class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase"
+                  >Email Address</label
+                >
+                <input
+                  class="border-outline-variant focus:ring-primary-container focus:border-primary-container placeholder:text-secondary-fixed-dim w-full rounded border bg-white px-4 py-3 transition-all outline-none focus:ring-1"
+                  placeholder="john@industrial.com"
+                  type="email" />
+              </div>
+            </div>
+            <div class="gap-gutter grid grid-cols-1 md:grid-cols-2">
+              <!-- Phone -->
+              <div class="space-y-stack-sm">
+                <label
+                  class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase"
+                  >Phone Number
+                  <span class="text-secondary-fixed-dim font-normal normal-case"
+                    >(Optional)</span
+                  ></label
+                >
+                <input
+                  class="border-outline-variant focus:ring-primary-container focus:border-primary-container placeholder:text-secondary-fixed-dim w-full rounded border bg-white px-4 py-3 transition-all outline-none focus:ring-1"
+                  placeholder="+1 (555) 000-0000"
+                  type="tel" />
+              </div>
+              <!-- Address -->
+              <div class="space-y-stack-sm">
+                <label
+                  class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase"
+                  >Business Address</label
+                >
+                <input
+                  class="border-outline-variant focus:ring-primary-container focus:border-primary-container placeholder:text-secondary-fixed-dim w-full rounded border bg-white px-4 py-3 transition-all outline-none focus:ring-1"
+                  placeholder="123 Industrial Way"
+                  type="text" />
+              </div>
+            </div>
+            <div class="gap-gutter grid grid-cols-1 md:grid-cols-2">
+              <!-- Password -->
+              <div class="space-y-stack-sm">
+                <label
+                  class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase"
+                  >Password</label
+                >
+                <input
+                  class="border-outline-variant focus:ring-primary-container focus:border-primary-container placeholder:text-secondary-fixed-dim w-full rounded border bg-white px-4 py-3 transition-all outline-none focus:ring-1"
+                  placeholder="••••••••"
+                  type="password" />
+              </div>
+              <!-- Confirm Password -->
+              <div class="space-y-stack-sm">
+                <label
+                  class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase"
+                  >Confirm Password</label
+                >
+                <input
+                  class="border-outline-variant focus:ring-primary-container focus:border-primary-container placeholder:text-secondary-fixed-dim w-full rounded border bg-white px-4 py-3 transition-all outline-none focus:ring-1"
+                  placeholder="••••••••"
+                  type="password" />
+              </div>
+            </div>
+            <div class="pt-4">
+              <button
+                class="bg-primary-container text-on-primary hover:bg-primary w-full rounded py-4 font-semibold shadow-sm transition-all duration-200 active:scale-[0.98]"
+                type="submit">
+                Create Account
+              </button>
+            </div>
+            <p class="text-body-base text-secondary mt-8 text-center">
+              Already have an account?
+              <a
+                class="text-primary-container decoration-primary-container/30 font-semibold hover:underline"
+                href="#"
+                >Sign in.</a
+              >
+            </p>
+          </form>
+          <div class="border-outline-variant mt-12 border-t pt-8">
+            <p class="text-caption text-secondary text-center">
+              By signing up, you agree to our
+              <a
+                class="underline"
+                href="#"
+                >Terms of Service</a
+              >
+              and
+              <a
+                class="underline"
+                href="#"
+                >Privacy Policy</a
+              >.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Background Decoration Image -->
+    <div class="pointer-events-none fixed inset-0 z-[-1] opacity-[0.03]">
+      <img
+        class="h-full w-full object-cover"
+        data-alt="Technical blueprint pattern and industrial grid overlay on white background with clean lines"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA12llF5rjILU-7tGv6BuI_jE8I-EYxaDQ6h7mMUldBpLe6QLcn_75sBy-GHF-S6ozxQ1odsi1QOVtc7n0YwPJTDkxZXA8LdTYUp1hWJREJoJJcuYkCcmW6WnldF9Xrt7wk7DGsE70v28e6vMMCjeX72_53gYZs61grar4iQhR1nr4oxZHLq3YzjQ6dwDXRZfNqcdOGKYpjSbsrJ9d_5Q8fFSi4U7ePA516PEdcJzQE0VSQKRWdDEz9ucs_5LyvuywI-E0UKWPsPs4" />
+    </div>
+  </body>
+</html>

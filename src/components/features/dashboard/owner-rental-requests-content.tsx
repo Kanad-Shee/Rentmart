@@ -1,36 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import Image from "next/image";
-import { formatDistanceToNowStrict } from "date-fns";
-import { motion, useReducedMotion } from "motion/react";
-import {
-  CalendarDays,
-  Clock3,
-  Loader2,
-  MapPin,
-  ShieldCheck,
-  Upload,
-  X,
-} from "lucide-react";
-import {
-  useApproveBookingMutation,
-  useCompleteOwnerBookingMutation,
-  useDisputeBookingMutation,
-  useOwnerBookingsQuery,
-  useRejectBookingMutation,
-  useStartBookingMutation,
-} from "@/hooks/use-bookings";
-import {
-  canOwnerCompleteBooking,
-  canOwnerDisputeBooking,
-  getBookingProgress,
-  hasBookingWindowEnded,
-  type BookingDisputeImageSummary,
-  type BookingSummary,
-} from "@/lib/booking";
-import { ApiError } from "@/lib/http";
-import { getDashboardRevealProps } from "./dashboard-motion";
+import { getDashboardRevealProps } from './dashboard-motion';
 import {
   Dialog,
   DialogContent,
@@ -38,53 +8,83 @@ import {
   DialogDismissButton,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+  DialogTitle
+} from '@/components/ui/dialog';
+import {
+  useApproveBookingMutation,
+  useCompleteOwnerBookingMutation,
+  useDisputeBookingMutation,
+  useOwnerBookingsQuery,
+  useRejectBookingMutation,
+  useStartBookingMutation
+} from '@/hooks/use-bookings';
+import {
+  canOwnerCompleteBooking,
+  canOwnerDisputeBooking,
+  getBookingProgress,
+  hasBookingWindowEnded,
+  type BookingDisputeImageSummary,
+  type BookingSummary
+} from '@/lib/booking';
+import { ApiError } from '@/lib/http';
+import { formatDistanceToNowStrict } from 'date-fns';
+import {
+  CalendarDays,
+  Clock3,
+  Loader2,
+  MapPin,
+  ShieldCheck,
+  Upload,
+  X
+} from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
+import Image from 'next/image';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 
 function formatCurrency(value: number) {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
   }).format(value);
 }
 
 function getImageSrc(booking: BookingSummary) {
-  return booking.equipment.imageUrl ?? "/assets/landing/landing-tractor.webp";
+  return booking.equipment.imageUrl ?? '/assets/landing/landing-tractor.webp';
 }
 
 function formatDateRange(startDate: string, endDate: string) {
   return `${startDate} - ${endDate}`;
 }
 
-function getStatusTone(status: BookingSummary["status"]) {
-  if (status === "PENDING_OWNER_APPROVAL") {
-    return "bg-[#e8f0ff] text-[#1d4ed8]";
+function getStatusTone(status: BookingSummary['status']) {
+  if (status === 'PENDING_OWNER_APPROVAL') {
+    return 'bg-[#e8f0ff] text-[#1d4ed8]';
   }
-  if (status === "PENDING_RENTER_PAYMENT") {
-    return "bg-[#fff4db] text-[#9a6700]";
+  if (status === 'PENDING_RENTER_PAYMENT') {
+    return 'bg-[#fff4db] text-[#9a6700]';
   }
-  if (status === "CONFIRMED") {
-    return "bg-[#d8f3dc] text-[#166534]";
+  if (status === 'CONFIRMED') {
+    return 'bg-[#d8f3dc] text-[#166534]';
   }
-  if (status === "IN_PROGRESS") {
-    return "bg-[#cdeed7] text-[#123b2b]";
+  if (status === 'IN_PROGRESS') {
+    return 'bg-[#cdeed7] text-[#123b2b]';
   }
-  if (status === "DISPUTED") {
-    return "bg-[#fee2e2] text-[#b91c1c]";
+  if (status === 'DISPUTED') {
+    return 'bg-[#fee2e2] text-[#b91c1c]';
   }
-  if (status === "COMPLETED") {
-    return "bg-[#d5f5e0] text-[#166534]";
+  if (status === 'COMPLETED') {
+    return 'bg-[#d5f5e0] text-[#166534]';
   }
-  return "bg-[#eceff3] text-[#475569]";
+  return 'bg-[#eceff3] text-[#475569]';
 }
 
-function getStatusLabel(status: BookingSummary["status"]) {
+function getStatusLabel(status: BookingSummary['status']) {
   return status
     .toLowerCase()
-    .split("_")
+    .split('_')
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
+    .join(' ');
 }
 
 function getDeadlineLabel(deadline: string | null) {
@@ -94,7 +94,7 @@ function getDeadlineLabel(deadline: string | null) {
 
   const date = new Date(deadline);
   if (date.getTime() <= Date.now()) {
-    return "Payment window expired";
+    return 'Payment window expired';
   }
 
   return `Renter has ${formatDistanceToNowStrict(date)} left`;
@@ -103,25 +103,25 @@ function getDeadlineLabel(deadline: string | null) {
 function SectionHeader({
   title,
   description,
-  count,
+  count
 }: {
   title: string;
   description: string;
   count: number;
 }) {
   return (
-    <div className='flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between'>
+    <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
       <div>
-        <h2 className='text-xl font-semibold tracking-[-0.04em] text-primary'>
+        <h2 className="text-xl font-semibold tracking-[-0.04em] text-primary">
           {title}
         </h2>
-        <p className='mt-3 max-w-3xl text-base text-[#5c5f60]'>{description}</p>
+        <p className="mt-3 max-w-3xl text-base text-[#5c5f60]">{description}</p>
       </div>
-      <div className='flex items-center gap-3 rounded-lg border border-[#d8dfdb] bg-white px-4 py-3 text-sm text-[#5c5f60] shadow-sm'>
-        <span className='font-semibold uppercase tracking-[0.24em] text-[#5c5f60]'>
+      <div className="flex items-center gap-3 rounded-lg border border-[#d8dfdb] bg-white px-4 py-3 text-sm text-[#5c5f60] shadow-sm">
+        <span className="font-semibold uppercase tracking-[0.24em] text-[#5c5f60]">
           Count
         </span>
-        <span className='rounded-full bg-[#1b4332] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white'>
+        <span className="rounded-full bg-[#1b4332] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white">
           {count}
         </span>
       </div>
@@ -131,7 +131,7 @@ function SectionHeader({
 
 function EmptyState({ message }: { message: string }) {
   return (
-    <div className='rounded-xl border border-dashed border-[#d8dfdb] bg-white px-6 py-12 text-center text-sm text-[#5c5f60]'>
+    <div className="rounded-xl border border-dashed border-[#d8dfdb] bg-white px-6 py-12 text-center text-sm text-[#5c5f60]">
       {message}
     </div>
   );
@@ -144,34 +144,47 @@ type LocalPhotoPreview = {
 };
 
 function ExistingDisputePhoto({
-  photo,
+  photo
 }: {
   photo: BookingDisputeImageSummary;
 }) {
   return (
-    <div className='relative h-24 overflow-hidden rounded-xl border border-[#d8dfdb] bg-[#eef2ed]'>
-      <Image src={photo.url} alt='Dispute evidence' fill className='object-cover' unoptimized />
+    <div className="relative h-24 overflow-hidden rounded-xl border border-[#d8dfdb] bg-[#eef2ed]">
+      <Image
+        loading={'lazy'}
+        src={photo.url}
+        alt="Dispute evidence"
+        fill
+        className="object-cover"
+        unoptimized
+      />
     </div>
   );
 }
 
 function NewDisputePhoto({
   preview,
-  onRemove,
+  onRemove
 }: {
   preview: LocalPhotoPreview;
   onRemove: () => void;
 }) {
   return (
-    <div className='relative h-24 overflow-hidden rounded-xl border border-[#d8dfdb] bg-[#eef2ed]'>
-      <Image src={preview.url} alt='New dispute upload' fill className='object-cover' unoptimized />
+    <div className="relative h-24 overflow-hidden rounded-xl border border-[#d8dfdb] bg-[#eef2ed]">
+      <Image
+        src={preview.url}
+        loading={'lazy'}
+        alt="New dispute upload"
+        fill
+        className="object-cover"
+        unoptimized
+      />
       <button
-        type='button'
+        type="button"
         onClick={onRemove}
-        className='absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-primary shadow-sm'
-        aria-label='Remove dispute photo'
-      >
-        <X className='h-4 w-4' />
+        className="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-primary shadow-sm"
+        aria-label="Remove dispute photo">
+        <X className="h-4 w-4" />
       </button>
     </div>
   );
@@ -181,7 +194,7 @@ function BookingCard({
   booking,
   helper,
   actions,
-  index = 0,
+  index = 0
 }: {
   booking: BookingSummary;
   helper?: ReactNode;
@@ -192,7 +205,7 @@ function BookingCard({
   const progress = getBookingProgress(
     booking.startDate,
     booking.endDate,
-    booking.status,
+    booking.status
   );
 
   return (
@@ -203,98 +216,97 @@ function BookingCard({
           ? undefined
           : { y: -4, transition: { duration: 0.2 } }
       }
-      className='overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm'
-    >
-      <div className='flex flex-col xl:flex-row'>
-        <div className='relative h-72 w-full overflow-hidden bg-[#eef2ed] xl:h-auto xl:w-[34%]'>
+      className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
+      <div className="flex flex-col xl:flex-row">
+        <div className="relative h-72 w-full overflow-hidden bg-[#eef2ed] xl:h-auto xl:w-[34%]">
           <Image
             src={getImageSrc(booking)}
+            loading={'lazy'}
             alt={booking.equipment.title}
             fill
-            className='object-cover'
+            className="object-cover"
             unoptimized
           />
         </div>
 
-        <div className='flex-1 p-6 md:p-8'>
-          <div className='flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between'>
+        <div className="flex-1 p-6 md:p-8">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <h3 className='text-xl font-semibold tracking-[-0.04em] text-primary'>
+              <h3 className="text-xl font-semibold tracking-[-0.04em] text-primary">
                 {booking.equipment.title}
               </h3>
-              <p className='mt-2 text-base font-medium text-[#64748b]'>
+              <p className="mt-2 text-base font-medium text-[#64748b]">
                 Renter: {booking.renter.fullName}
               </p>
             </div>
 
             <span
-              className={`inline-flex w-fit rounded-full shadow-sm px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] ${getStatusTone(booking.status)}`}
-            >
+              className={`inline-flex w-fit rounded-full shadow-sm px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] ${getStatusTone(booking.status)}`}>
               {getStatusLabel(booking.status)}
             </span>
           </div>
 
-          <div className='mt-8 grid gap-6 md:grid-cols-2'>
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
             <div>
-              <p className='text-sm font-semibold uppercase tracking-[0.22em] text-[#94a3b8]'>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#94a3b8]">
                 Rental Period
               </p>
-              <div className='mt-2 flex items-start gap-3 text-primary'>
-                <CalendarDays className='h-5 w-5 shrink-0 text-[#5c5f60]' />
-                <p className='font-semibold tracking-[-0.03em]'>
+              <div className="mt-2 flex items-start gap-3 text-primary">
+                <CalendarDays className="h-5 w-5 shrink-0 text-[#5c5f60]" />
+                <p className="font-semibold tracking-[-0.03em]">
                   {formatDateRange(booking.startDate, booking.endDate)}
                 </p>
               </div>
             </div>
 
             <div>
-              <p className='text-sm font-semibold uppercase tracking-[0.22em] text-[#94a3b8]'>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#94a3b8]">
                 Location
               </p>
-              <div className='mt-2 flex items-start gap-3 text-primary'>
-                <MapPin className='h-5 w-5 shrink-0 text-[#5c5f60]' />
-                <p className='font-semibold tracking-[-0.03em]'>
+              <div className="mt-2 flex items-start gap-3 text-primary">
+                <MapPin className="h-5 w-5 shrink-0 text-[#5c5f60]" />
+                <p className="font-semibold tracking-[-0.03em]">
                   {booking.equipment.normalizedAddress}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className='mt-4 grid gap-4 border-t border-[#edf1ee] pt-6 text-sm text-[#5c5f60] md:grid-cols-1'>
+          <div className="mt-4 grid gap-4 border-t border-[#edf1ee] pt-6 text-sm text-[#5c5f60] md:grid-cols-1">
             <div>
-              <p className='font-semibold uppercase tracking-[0.2em] text-[#94a3b8]'>
+              <p className="font-semibold uppercase tracking-[0.2em] text-[#94a3b8]">
                 Rental Fee
               </p>
-              <p className='mt-2 text-lg font-semibold text-primary'>
+              <p className="mt-2 text-lg font-semibold text-primary">
                 {formatCurrency(booking.rentalFee)}
               </p>
             </div>
           </div>
 
-          {booking.status === "CONFIRMED" ||
-          booking.status === "IN_PROGRESS" ? (
-            <div className='mt-8'>
-              <div className='mb-3 flex flex-wrap items-center justify-between gap-3'>
-                <div className='flex items-center gap-2 text-primary'>
-                  <Clock3 className='h-5 w-5 text-[#1b4332]' />
-                  <p className='text-lg font-medium'>{progress.label}</p>
+          {booking.status === 'CONFIRMED' ||
+          booking.status === 'IN_PROGRESS' ? (
+            <div className="mt-8">
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-primary">
+                  <Clock3 className="h-5 w-5 text-[#1b4332]" />
+                  <p className="text-lg font-medium">{progress.label}</p>
                 </div>
-                <p className='text-sm font-medium text-[#94a3b8]'>
+                <p className="text-sm font-medium text-[#94a3b8]">
                   {progress.percent}% complete
                 </p>
               </div>
-              <div className='h-2.5 w-full overflow-hidden rounded-full bg-[#edf1ee]'>
+              <div className="h-2.5 w-full overflow-hidden rounded-full bg-[#edf1ee]">
                 <div
-                  className='h-full rounded-full bg-[#1b4332]'
+                  className="h-full rounded-full bg-[#1b4332]"
                   style={{ width: `${progress.percent}%` }}
                 />
               </div>
             </div>
           ) : null}
 
-          {helper ? <div className='mt-6'>{helper}</div> : null}
+          {helper ? <div className="mt-6">{helper}</div> : null}
           {actions ? (
-            <div className='mt-8 flex flex-wrap gap-4'>{actions}</div>
+            <div className="mt-8 flex flex-wrap gap-4">{actions}</div>
           ) : null}
         </div>
       </div>
@@ -313,38 +325,42 @@ export function OwnerRentalRequestsContent() {
   const [feedback, setFeedback] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const [rejectReasons, setRejectReasons] = useState<Record<string, string>>(
-    {},
+    {}
   );
-  const [disputeBooking, setDisputeBooking] = useState<BookingSummary | null>(null);
-  const [disputeReason, setDisputeReason] = useState("");
+  const [disputeBooking, setDisputeBooking] = useState<BookingSummary | null>(
+    null
+  );
+  const [disputeReason, setDisputeReason] = useState('');
   const [disputePhotos, setDisputePhotos] = useState<LocalPhotoPreview[]>([]);
-  const [disputeModalError, setDisputeModalError] = useState<string | null>(null);
+  const [disputeModalError, setDisputeModalError] = useState<string | null>(
+    null
+  );
   const latestDisputePhotosRef = useRef<LocalPhotoPreview[]>([]);
 
   const bookings = useMemo(
     () => bookingsQuery.data ?? [],
-    [bookingsQuery.data],
+    [bookingsQuery.data]
   );
   const grouped = useMemo(
     () => ({
       pending: bookings.filter(
-        (booking) => booking.status === "PENDING_OWNER_APPROVAL",
+        (booking) => booking.status === 'PENDING_OWNER_APPROVAL'
       ),
       awaitingPayment: bookings.filter(
-        (booking) => booking.status === "PENDING_RENTER_PAYMENT",
+        (booking) => booking.status === 'PENDING_RENTER_PAYMENT'
       ),
-      confirmed: bookings.filter((booking) => booking.status === "CONFIRMED"),
+      confirmed: bookings.filter((booking) => booking.status === 'CONFIRMED'),
       inProgress: bookings.filter(
-        (booking) => booking.status === "IN_PROGRESS",
+        (booking) => booking.status === 'IN_PROGRESS'
       ),
       history: bookings.filter(
         (booking) =>
-          booking.status === "COMPLETED" ||
-          booking.status === "CANCELLED" ||
-          booking.status === "DISPUTED",
-      ),
+          booking.status === 'COMPLETED' ||
+          booking.status === 'CANCELLED' ||
+          booking.status === 'DISPUTED'
+      )
     }),
-    [bookings],
+    [bookings]
   );
 
   useEffect(() => {
@@ -361,7 +377,7 @@ export function OwnerRentalRequestsContent() {
 
   function resetDisputeModal() {
     setDisputeModalError(null);
-    setDisputeReason("");
+    setDisputeReason('');
     setDisputeBooking(null);
     setDisputePhotos((current) => {
       current.forEach((photo) => URL.revokeObjectURL(photo.url));
@@ -373,7 +389,7 @@ export function OwnerRentalRequestsContent() {
     setFeedback(null);
     setActionError(null);
     setDisputeModalError(null);
-    setDisputeReason(booking.disputeReason ?? "");
+    setDisputeReason(booking.disputeReason ?? '');
     setDisputeBooking(booking);
     setDisputePhotos((current) => {
       current.forEach((photo) => URL.revokeObjectURL(photo.url));
@@ -391,7 +407,7 @@ export function OwnerRentalRequestsContent() {
     const nextPreviews = nextFiles.map((file) => ({
       id: `${file.name}_${file.lastModified}_${Math.random().toString(36).slice(2)}`,
       url: URL.createObjectURL(file),
-      file,
+      file
     }));
 
     setDisputeModalError(null);
@@ -416,13 +432,13 @@ export function OwnerRentalRequestsContent() {
     try {
       await approveMutation.mutateAsync(bookingId);
       setFeedback(
-        "Booking approved. The renter can now complete Cashfree checkout.",
+        'Booking approved. The renter can now complete Cashfree checkout.'
       );
     } catch (error) {
       setActionError(
         error instanceof ApiError
           ? error.message
-          : "Unable to approve this booking.",
+          : 'Unable to approve this booking.'
       );
     }
   }
@@ -430,23 +446,23 @@ export function OwnerRentalRequestsContent() {
   async function handleReject(bookingId: string) {
     setFeedback(null);
     setActionError(null);
-    const reason = rejectReasons[bookingId]?.trim() ?? "";
+    const reason = rejectReasons[bookingId]?.trim() ?? '';
 
     if (reason.length < 5) {
       setActionError(
-        "Add a short rejection reason before declining the booking.",
+        'Add a short rejection reason before declining the booking.'
       );
       return;
     }
 
     try {
       await rejectMutation.mutateAsync({ bookingId, reason });
-      setFeedback("Booking request rejected.");
+      setFeedback('Booking request rejected.');
     } catch (error) {
       setActionError(
         error instanceof ApiError
           ? error.message
-          : "Unable to reject this booking.",
+          : 'Unable to reject this booking.'
       );
     }
   }
@@ -456,12 +472,12 @@ export function OwnerRentalRequestsContent() {
     setActionError(null);
     try {
       await startMutation.mutateAsync(bookingId);
-      setFeedback("Booking marked in progress.");
+      setFeedback('Booking marked in progress.');
     } catch (error) {
       setActionError(
         error instanceof ApiError
           ? error.message
-          : "Unable to start this booking.",
+          : 'Unable to start this booking.'
       );
     }
   }
@@ -472,13 +488,13 @@ export function OwnerRentalRequestsContent() {
     try {
       await completeMutation.mutateAsync(bookingId);
       setFeedback(
-        "Booking completed. Admin payout and deposit refund are now waiting for manual settlement.",
+        'Booking completed. Admin payout and deposit refund are now waiting for manual settlement.'
       );
     } catch (error) {
       setActionError(
         error instanceof ApiError
           ? error.message
-          : "Unable to complete this booking.",
+          : 'Unable to complete this booking.'
       );
     }
   }
@@ -494,7 +510,9 @@ export function OwnerRentalRequestsContent() {
     const reason = disputeReason.trim();
 
     if (reason.length < 5) {
-      setDisputeModalError("Add a short dispute reason before reporting damage.");
+      setDisputeModalError(
+        'Add a short dispute reason before reporting damage.'
+      );
       return;
     }
 
@@ -503,107 +521,105 @@ export function OwnerRentalRequestsContent() {
         bookingId: disputeBooking.id,
         input: {
           reason,
-          photos: disputePhotos.map((photo) => photo.file),
-        },
+          photos: disputePhotos.map((photo) => photo.file)
+        }
       });
       resetDisputeModal();
-      setFeedback("Damage dispute opened for this booking.");
+      setFeedback('Damage dispute opened for this booking.');
     } catch (error) {
       setDisputeModalError(
         error instanceof ApiError
           ? error.message
-          : "Unable to dispute this booking.",
+          : 'Unable to dispute this booking.'
       );
     }
   }
 
   return (
-    <section className='space-y-16'>
+    <section className="space-y-16">
       <div>
-        <h1 className='text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl'>
+        <h1 className="text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
           Rental Requests
         </h1>
-        <p className='mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]'>
+        <p className="mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]">
           Review renter requests, track renter payment, and manage each rental
           until admin settles payout manually after completion.
         </p>
       </div>
 
       {feedback ? (
-        <div className='rounded-xl border border-[#d8dfdb] bg-[#f7faf7] px-5 py-4 text-sm font-medium text-primary'>
+        <div className="rounded-xl border border-[#d8dfdb] bg-[#f7faf7] px-5 py-4 text-sm font-medium text-primary">
           {feedback}
         </div>
       ) : null}
       {actionError ? (
-        <div className='rounded-xl border border-[#f3d3d3] bg-[#fff7f7] px-5 py-4 text-sm font-medium text-[#b42318]'>
+        <div className="rounded-xl border border-[#f3d3d3] bg-[#fff7f7] px-5 py-4 text-sm font-medium text-[#b42318]">
           {actionError}
         </div>
       ) : null}
 
       {bookingsQuery.isPending ? (
-        <div className='flex min-h-[240px] items-center justify-center rounded-xl border border-[#d8dfdb] bg-white'>
-          <Loader2 className='h-6 w-6 animate-spin text-primary' />
+        <div className="flex min-h-[240px] items-center justify-center rounded-xl border border-[#d8dfdb] bg-white">
+          <Loader2 className="h-6 w-6 animate-spin text-primary" />
         </div>
       ) : null}
 
       {bookingsQuery.isError ? (
-        <div className='rounded-xl border border-[#f3d3d3] bg-[#fff7f7] px-5 py-4 text-sm text-[#b42318]'>
+        <div className="rounded-xl border border-[#f3d3d3] bg-[#fff7f7] px-5 py-4 text-sm text-[#b42318]">
           We could not load owner booking requests right now.
         </div>
       ) : null}
 
       {!bookingsQuery.isPending && !bookingsQuery.isError ? (
         <>
-          <section className='space-y-6'>
+          <section className="space-y-6">
             <SectionHeader
-              title='Pending Approvals'
-              description='These renter requests need an owner decision before the payment step can begin.'
+              title="Pending Approvals"
+              description="These renter requests need an owner decision before the payment step can begin."
               count={grouped.pending.length}
             />
             {grouped.pending.length > 0 ? (
-              <div className='space-y-8'>
+              <div className="space-y-8">
                 {grouped.pending.map((booking, index) => (
                   <BookingCard
                     key={booking.id}
                     booking={booking}
                     index={index}
                     helper={
-                      <div className='space-y-3'>
+                      <div className="space-y-3">
                         <textarea
-                          value={rejectReasons[booking.id] ?? ""}
+                          value={rejectReasons[booking.id] ?? ''}
                           onChange={(event) =>
                             setRejectReasons((current) => ({
                               ...current,
-                              [booking.id]: event.target.value,
+                              [booking.id]: event.target.value
                             }))
                           }
-                          placeholder='Optional approval note or add rejection reason here'
-                          className='min-h-24 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary'
+                          placeholder="Optional approval note or add rejection reason here"
+                          className="min-h-24 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary"
                         />
                       </div>
                     }
                     actions={
                       <>
                         <button
-                          type='button'
+                          type="button"
                           onClick={() => handleApprove(booking.id)}
                           disabled={
                             approveMutation.isPending ||
                             rejectMutation.isPending
                           }
-                          className='rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70'
-                        >
+                          className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
                           Approve Request
                         </button>
                         <button
-                          type='button'
+                          type="button"
                           onClick={() => handleReject(booking.id)}
                           disabled={
                             approveMutation.isPending ||
                             rejectMutation.isPending
                           }
-                          className='rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70'
-                        >
+                          className="rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
                           Reject Request
                         </button>
                       </>
@@ -612,33 +628,33 @@ export function OwnerRentalRequestsContent() {
                 ))}
               </div>
             ) : (
-              <EmptyState message='No booking requests are waiting for your approval right now.' />
+              <EmptyState message="No booking requests are waiting for your approval right now." />
             )}
           </section>
 
-          <section className='space-y-6'>
+          <section className="space-y-6">
             <SectionHeader
-              title='Waiting For Renter Payment'
-              description='Approved requests remain reserved here while renters complete Cashfree checkout.'
+              title="Waiting For Renter Payment"
+              description="Approved requests remain reserved here while renters complete Cashfree checkout."
               count={grouped.awaitingPayment.length}
             />
             {grouped.awaitingPayment.length > 0 ? (
-              <div className='space-y-8'>
+              <div className="space-y-8">
                 {grouped.awaitingPayment.map((booking, index) => (
                   <BookingCard
                     key={booking.id}
                     booking={booking}
                     index={index}
                     helper={
-                      <div className='flex items-start gap-3 rounded-xl border border-[#f5deb3] bg-[#fffaf0] p-4'>
-                        <Clock3 className='mt-0.5 h-5 w-5 shrink-0 text-[#9a6700]' />
+                      <div className="flex items-start gap-3 rounded-xl border border-[#f5deb3] bg-[#fffaf0] p-4">
+                        <Clock3 className="mt-0.5 h-5 w-5 shrink-0 text-[#9a6700]" />
                         <div>
-                          <p className='text-sm font-semibold text-[#9a6700]'>
+                          <p className="text-sm font-semibold text-[#9a6700]">
                             {getDeadlineLabel(
-                              booking.renterPaymentDeadlineAt,
-                            ) ?? "Payment window active"}
+                              booking.renterPaymentDeadlineAt
+                            ) ?? 'Payment window active'}
                           </p>
-                          <p className='mt-1 text-xs leading-6 text-[#7c5a00]'>
+                          <p className="mt-1 text-xs leading-6 text-[#7c5a00]">
                             These dates stay blocked while the renter completes
                             payment for this booking.
                           </p>
@@ -649,65 +665,74 @@ export function OwnerRentalRequestsContent() {
                 ))}
               </div>
             ) : (
-              <EmptyState message='No approved requests are currently waiting on renter payment.' />
+              <EmptyState message="No approved requests are currently waiting on renter payment." />
             )}
           </section>
 
-          <section className='space-y-6'>
+          <section className="space-y-6">
             <SectionHeader
-              title='Confirmed Rentals'
-              description='These bookings are confirmed after payment and ready for rental handoff. Owner payout will be settled manually by admin later.'
+              title="Confirmed Rentals"
+              description="These bookings are confirmed after payment and ready for rental handoff. Owner payout will be settled manually by admin later."
               count={grouped.confirmed.length}
             />
             {grouped.confirmed.length > 0 ? (
-              <div className='space-y-8'>
+              <div className="space-y-8">
                 {grouped.confirmed.map((booking, index) => (
                   <BookingCard
                     key={booking.id}
                     booking={booking}
                     index={index}
                     helper={(() => {
-                      const rentalWindowEnded = hasBookingWindowEnded(booking.endDate);
+                      const rentalWindowEnded = hasBookingWindowEnded(
+                        booking.endDate
+                      );
 
                       return (
-                        <div className='flex items-start gap-3 rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4'>
-                          <ShieldCheck className='mt-0.5 h-5 w-5 shrink-0 text-primary' />
+                        <div className="flex items-start gap-3 rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4">
+                          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                           <div>
-                            <p className='text-sm font-semibold text-primary'>
-                              {rentalWindowEnded ? "Rental window ended" : "Payment marked complete"}
-                            </p>
-                            <p className='mt-1 text-xs leading-6 text-muted-foreground'>
+                            <p className="text-sm font-semibold text-primary">
                               {rentalWindowEnded
-                                ? "This rental period has ended. Mark it returned safely or open a dispute if something went wrong during handoff or return."
-                                : "Start the booking when the equipment handoff begins. Admin payout is tracked after the rental is completed."}
+                                ? 'Rental window ended'
+                                : 'Payment marked complete'}
+                            </p>
+                            <p className="mt-1 text-xs leading-6 text-muted-foreground">
+                              {rentalWindowEnded
+                                ? 'This rental period has ended. Mark it returned safely or open a dispute if something went wrong during handoff or return.'
+                                : 'Start the booking when the equipment handoff begins. Admin payout is tracked after the rental is completed.'}
                             </p>
                           </div>
                         </div>
                       );
                     })()}
                     actions={(() => {
-                      if (canOwnerCompleteBooking(booking.status, booking.endDate)) {
+                      if (
+                        canOwnerCompleteBooking(booking.status, booking.endDate)
+                      ) {
                         return (
                           <>
                             <button
-                              type='button'
+                              type="button"
                               onClick={() => handleComplete(booking.id)}
                               disabled={
-                                completeMutation.isPending || disputeMutation.isPending
+                                completeMutation.isPending ||
+                                disputeMutation.isPending
                               }
-                              className='rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70'
-                            >
+                              className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
                               Mark Returned Safely
                             </button>
-                            {canOwnerDisputeBooking(booking.status, booking.endDate) ? (
+                            {canOwnerDisputeBooking(
+                              booking.status,
+                              booking.endDate
+                            ) ? (
                               <button
-                                type='button'
+                                type="button"
                                 onClick={() => openDisputeModal(booking)}
                                 disabled={
-                                  completeMutation.isPending || disputeMutation.isPending
+                                  completeMutation.isPending ||
+                                  disputeMutation.isPending
                                 }
-                                className='rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70'
-                              >
+                                className="rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
                                 Open Dispute
                               </button>
                             ) : null}
@@ -717,11 +742,10 @@ export function OwnerRentalRequestsContent() {
 
                       return (
                         <button
-                          type='button'
+                          type="button"
                           onClick={() => handleStart(booking.id)}
                           disabled={startMutation.isPending}
-                          className='rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70'
-                        >
+                          className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
                           Start Rental
                         </button>
                       );
@@ -730,50 +754,50 @@ export function OwnerRentalRequestsContent() {
                 ))}
               </div>
             ) : (
-              <EmptyState message='No confirmed rentals are waiting for handoff.' />
+              <EmptyState message="No confirmed rentals are waiting for handoff." />
             )}
           </section>
 
-          <section className='space-y-6'>
+          <section className="space-y-6">
             <SectionHeader
-              title='In Progress'
-              description='Live rentals can be safely completed or escalated into a dispute from here.'
+              title="In Progress"
+              description="Live rentals can be safely completed or escalated into a dispute from here."
               count={grouped.inProgress.length}
             />
             {grouped.inProgress.length > 0 ? (
-              <div className='space-y-8'>
+              <div className="space-y-8">
                 {grouped.inProgress.map((booking, index) => (
                   <BookingCard
                     key={booking.id}
                     booking={booking}
                     index={index}
                     helper={
-                      <div className='rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4 text-sm leading-7 text-muted-foreground'>
-                        Close the rental after safe return, or open a dispute with notes and optional evidence images if there was damage or a return issue.
+                      <div className="rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4 text-sm leading-7 text-muted-foreground">
+                        Close the rental after safe return, or open a dispute
+                        with notes and optional evidence images if there was
+                        damage or a return issue.
                       </div>
                     }
                     actions={
                       <>
                         <button
-                          type='button'
+                          type="button"
                           onClick={() => handleComplete(booking.id)}
                           disabled={
                             completeMutation.isPending ||
                             disputeMutation.isPending
                           }
-                          className='rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70'
-                        >
+                          className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
                           Mark Returned Safely
                         </button>
                         <button
-                          type='button'
+                          type="button"
                           onClick={() => openDisputeModal(booking)}
                           disabled={
                             completeMutation.isPending ||
                             disputeMutation.isPending
                           }
-                          className='rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70'
-                        >
+                          className="rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
                           Open Dispute
                         </button>
                       </>
@@ -782,76 +806,74 @@ export function OwnerRentalRequestsContent() {
                 ))}
               </div>
             ) : (
-              <EmptyState message='No rentals are currently in progress.' />
+              <EmptyState message="No rentals are currently in progress." />
             )}
           </section>
 
-          <section className='space-y-6'>
+          <section className="space-y-6">
             <SectionHeader
-              title='History'
-              description='Completed, cancelled, and disputed booking records stay visible here for reference.'
+              title="History"
+              description="Completed, cancelled, and disputed booking records stay visible here for reference."
               count={grouped.history.length}
             />
             {grouped.history.length > 0 ? (
-              <div className='overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm'>
-                <div className='overflow-x-auto'>
-                  <table className='min-w-full border-collapse'>
-                    <thead className='bg-[#f8faf7]'>
+              <div className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
+                <div className="overflow-x-auto">
+                  <table className="min-w-full border-collapse">
+                    <thead className="bg-[#f8faf7]">
                       <tr>
-                        {["Item", "Renter", "Dates", "Total", "Status"].map(
+                        {['Item', 'Renter', 'Dates', 'Total', 'Status'].map(
                           (heading) => (
                             <th
                               key={heading}
-                              className='px-6 py-4 text-left text-sm font-semibold uppercase tracking-[0.2em] text-[#64748b]'
-                            >
+                              className="px-6 py-4 text-left text-sm font-semibold uppercase tracking-[0.2em] text-[#64748b]">
                               {heading}
                             </th>
-                          ),
+                          )
                         )}
                       </tr>
                     </thead>
-                    <tbody className='divide-y divide-[#edf1ee]'>
+                    <tbody className="divide-y divide-[#edf1ee]">
                       {grouped.history.map((booking, index) => (
                         <motion.tr
                           key={booking.id}
                           {...getDashboardRevealProps(
                             shouldReduceMotion,
-                            index,
+                            index
                           )}
-                          className='transition-colors hover:bg-[#fbfcfa]'
-                        >
-                          <td className='px-6 py-5'>
-                            <div className='flex min-w-[240px] items-center gap-4'>
-                              <div className='relative h-12 w-12 overflow-hidden rounded-lg bg-[#eef2ed]'>
+                          className="transition-colors hover:bg-[#fbfcfa]">
+                          <td className="px-6 py-5">
+                            <div className="flex min-w-[240px] items-center gap-4">
+                              <div className="relative h-12 w-12 overflow-hidden rounded-lg bg-[#eef2ed]">
                                 <Image
                                   src={getImageSrc(booking)}
                                   alt={booking.equipment.title}
+                                  loading={'lazy'}
                                   fill
-                                  className='object-cover'
+                                  className="object-cover"
                                   unoptimized
                                 />
                               </div>
-                              <p className='text-lg font-medium text-primary'>
+                              <p className="text-lg font-medium text-primary">
                                 {booking.equipment.title}
                               </p>
                             </div>
                           </td>
-                          <td className='px-6 py-5 text-base text-[#475569]'>
+                          <td className="px-6 py-5 text-base text-[#475569]">
                             {booking.renter.fullName}
                           </td>
-                          <td className='px-6 py-5 text-base text-[#475569]'>
+                          <td className="px-6 py-5 text-base text-[#475569]">
                             {formatDateRange(
                               booking.startDate,
-                              booking.endDate,
+                              booking.endDate
                             )}
                           </td>
-                          <td className='px-6 py-5 text-lg font-semibold text-primary'>
+                          <td className="px-6 py-5 text-lg font-semibold text-primary">
                             {formatCurrency(booking.totalAuthorized)}
                           </td>
-                          <td className='px-6 py-5'>
+                          <td className="px-6 py-5">
                             <span
-                              className={`inline-flex rounded-full px-3 py-1 text-sm font-medium ${getStatusTone(booking.status)}`}
-                            >
+                              className={`inline-flex rounded-full px-3 py-1 text-sm font-medium ${getStatusTone(booking.status)}`}>
                               {getStatusLabel(booking.status)}
                             </span>
                           </td>
@@ -862,7 +884,7 @@ export function OwnerRentalRequestsContent() {
                 </div>
               </div>
             ) : (
-              <EmptyState message='Booking history will appear here as requests are resolved.' />
+              <EmptyState message="Booking history will appear here as requests are resolved." />
             )}
           </section>
         </>
@@ -874,29 +896,28 @@ export function OwnerRentalRequestsContent() {
           if (!open) {
             resetDisputeModal();
           }
-        }}
-      >
-        <DialogContent className='p-0'>
-          <div className='relative p-6 sm:p-8'>
+        }}>
+        <DialogContent className="p-0">
+          <div className="relative p-6 sm:p-8">
             <DialogDismissButton />
-            <DialogHeader className='pr-10'>
+            <DialogHeader className="pr-10">
               <DialogTitle>Open Dispute</DialogTitle>
               <DialogDescription>
                 {disputeBooking
                   ? `Share what went wrong for ${disputeBooking.equipment.title}. You can add a reason and up to 5 optional evidence images.`
-                  : "Share what went wrong and attach optional evidence images."}
+                  : 'Share what went wrong and attach optional evidence images.'}
               </DialogDescription>
             </DialogHeader>
 
             {disputeModalError ? (
-              <div className='mt-5 rounded-xl border border-[#f3d3d3] bg-[#fff7f7] px-4 py-3 text-sm font-medium text-[#b42318]'>
+              <div className="mt-5 rounded-xl border border-[#f3d3d3] bg-[#fff7f7] px-4 py-3 text-sm font-medium text-[#b42318]">
                 {disputeModalError}
               </div>
             ) : null}
 
-            <div className='mt-6 space-y-6'>
+            <div className="mt-6 space-y-6">
               <div>
-                <label className='text-sm font-semibold uppercase tracking-[0.16em] text-[#64748b]'>
+                <label className="text-sm font-semibold uppercase tracking-[0.16em] text-[#64748b]">
                   Dispute reason
                 </label>
                 <textarea
@@ -904,33 +925,36 @@ export function OwnerRentalRequestsContent() {
                   onChange={(event) => setDisputeReason(event.target.value)}
                   maxLength={400}
                   rows={6}
-                  className='mt-3 min-h-32 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm leading-7 text-primary outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary'
-                  placeholder='Describe the damage, return issue, or anything that needs admin review.'
+                  className="mt-3 min-h-32 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm leading-7 text-primary outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary"
+                  placeholder="Describe the damage, return issue, or anything that needs admin review."
                 />
-                <p className='mt-2 text-right text-xs text-[#94a3b8]'>
+                <p className="mt-2 text-right text-xs text-[#94a3b8]">
                   {disputeReason.trim().length}/400
                 </p>
               </div>
 
               <div>
-                <div className='flex items-center justify-between gap-3'>
-                  <label className='text-sm font-semibold uppercase tracking-[0.16em] text-[#64748b]'>
+                <div className="flex items-center justify-between gap-3">
+                  <label className="text-sm font-semibold uppercase tracking-[0.16em] text-[#64748b]">
                     Evidence photos
                   </label>
-                  <span className='text-xs text-[#94a3b8]'>
+                  <span className="text-xs text-[#94a3b8]">
                     Optional, up to 5 images
                   </span>
                 </div>
 
                 {disputeBooking?.disputeImages.length ? (
-                  <div className='mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3'>
+                  <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
                     {disputeBooking.disputeImages.map((photo) => (
-                      <ExistingDisputePhoto key={photo.id} photo={photo} />
+                      <ExistingDisputePhoto
+                        key={photo.id}
+                        photo={photo}
+                      />
                     ))}
                   </div>
                 ) : null}
 
-                <div className='mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3'>
+                <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {disputePhotos.map((photo) => (
                     <NewDisputePhoto
                       key={photo.id}
@@ -939,18 +963,22 @@ export function OwnerRentalRequestsContent() {
                     />
                   ))}
                   {disputePhotos.length < 5 ? (
-                    <label className='flex min-h-24 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-[#b8c9bf] bg-[#fbfcfa] px-4 py-5 text-center text-sm text-[#5c5f60] transition-colors hover:border-[#1b4332] hover:bg-[#f7faf7]'>
-                      <Upload className='h-5 w-5 text-primary' />
-                      <span className='mt-3 font-medium text-primary'>Upload photos</span>
-                      <span className='mt-1 text-xs text-[#94a3b8]'>
+                    <label className="flex min-h-24 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-[#b8c9bf] bg-[#fbfcfa] px-4 py-5 text-center text-sm text-[#5c5f60] transition-colors hover:border-[#1b4332] hover:bg-[#f7faf7]">
+                      <Upload className="h-5 w-5 text-primary" />
+                      <span className="mt-3 font-medium text-primary">
+                        Upload photos
+                      </span>
+                      <span className="mt-1 text-xs text-[#94a3b8]">
                         JPG, PNG or WEBP
                       </span>
                       <input
-                        type='file'
-                        accept='image/*'
+                        type="file"
+                        accept="image/*"
                         multiple
-                        onChange={(event) => handleDisputeFilesSelected(event.target.files)}
-                        className='hidden'
+                        onChange={(event) =>
+                          handleDisputeFilesSelected(event.target.files)
+                        }
+                        className="hidden"
                       />
                     </label>
                   ) : null}
@@ -960,20 +988,18 @@ export function OwnerRentalRequestsContent() {
 
             <DialogFooter>
               <button
-                type='button'
+                type="button"
                 onClick={() => resetDisputeModal()}
-                className='rounded-[4px] border border-[#d8dfdb] px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6]'
-              >
+                className="rounded-[4px] border border-[#d8dfdb] px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6]">
                 Cancel
               </button>
               <button
-                type='button'
+                type="button"
                 onClick={() => handleDispute()}
                 disabled={disputeMutation.isPending}
-                className='inline-flex items-center gap-2 rounded-[4px] bg-[#1b4332] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70'
-              >
+                className="inline-flex items-center gap-2 rounded-[4px] bg-[#1b4332] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
                 {disputeMutation.isPending ? (
-                  <Loader2 className='h-4 w-4 animate-spin' />
+                  <Loader2 className="h-4 w-4 animate-spin" />
                 ) : null}
                 Submit Dispute
               </button>

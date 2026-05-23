@@ -1,392 +1,622 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Verification Queue | Rentmart Admin</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "error": "#ba1a1a",
-                        "primary": "#012d1d",
-                        "primary-container": "#1b4332",
-                        "background": "#f9faf6",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "surface-container-low": "#f3f4f1",
-                        "outline": "#717973",
-                        "on-primary-fixed": "#002114",
-                        "secondary-fixed": "#e1e2e4",
-                        "outline-variant": "#c1c8c2",
-                        "on-tertiary-fixed": "#331111",
-                        "on-surface-variant": "#414844",
-                        "surface": "#f9faf6",
-                        "on-error": "#ffffff",
-                        "tertiary-container": "#5a302f",
-                        "surface-container-highest": "#e2e3e0",
-                        "on-tertiary-fixed-variant": "#673a39",
-                        "on-secondary": "#ffffff",
-                        "surface-dim": "#dadad7",
-                        "on-tertiary-container": "#d29895",
-                        "on-tertiary": "#ffffff",
-                        "on-primary-container": "#86af99",
-                        "tertiary": "#401b1b",
-                        "on-background": "#1a1c1a",
-                        "tertiary-fixed": "#ffdad8",
-                        "surface-variant": "#e2e3e0",
-                        "primary-fixed": "#c1ecd4",
-                        "inverse-primary": "#a5d0b9",
-                        "inverse-surface": "#2f312f",
-                        "surface-container": "#eeeeeb",
-                        "surface-bright": "#f9faf6",
-                        "secondary": "#5c5f60",
-                        "on-secondary-container": "#606365",
-                        "inverse-on-surface": "#f0f1ee",
-                        "secondary-container": "#dee0e2",
-                        "on-primary-fixed-variant": "#274e3d",
-                        "error-container": "#ffdad6",
-                        "on-secondary-fixed-variant": "#444749",
-                        "primary-fixed-dim": "#a5d0b9",
-                        "on-surface": "#1a1c1a",
-                        "on-secondary-fixed": "#191c1e",
-                        "tertiary-fixed-dim": "#f5b7b4",
-                        "surface-tint": "#3f6653",
-                        "surface-container-high": "#e8e8e5",
-                        "surface-container-lowest": "#ffffff",
-                        "on-error-container": "#93000a",
-                        "on-primary": "#ffffff"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "section-gap": "80px",
-                        "margin-page": "64px",
-                        "container-max": "1440px",
-                        "unit": "8px",
-                        "stack-md": "16px",
-                        "stack-lg": "32px",
-                        "gutter": "32px",
-                        "stack-sm": "8px"
-                    },
-                    "fontFamily": {
-                        "body-lg": ["Inter"],
-                        "body-base": ["Inter"],
-                        "h2": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "h3": ["Inter"],
-                        "h1": ["Inter"],
-                        "display-xl": ["Inter"],
-                        "caption": ["Inter"]
-                    },
-                    "fontSize": {
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}]
-                    }
-                },
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0"
+      name="viewport" />
+    <title>Verification Queue | Rentmart Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              error: '#ba1a1a',
+              primary: '#012d1d',
+              'primary-container': '#1b4332',
+              background: '#f9faf6',
+              'secondary-fixed-dim': '#c5c6c8',
+              'surface-container-low': '#f3f4f1',
+              outline: '#717973',
+              'on-primary-fixed': '#002114',
+              'secondary-fixed': '#e1e2e4',
+              'outline-variant': '#c1c8c2',
+              'on-tertiary-fixed': '#331111',
+              'on-surface-variant': '#414844',
+              surface: '#f9faf6',
+              'on-error': '#ffffff',
+              'tertiary-container': '#5a302f',
+              'surface-container-highest': '#e2e3e0',
+              'on-tertiary-fixed-variant': '#673a39',
+              'on-secondary': '#ffffff',
+              'surface-dim': '#dadad7',
+              'on-tertiary-container': '#d29895',
+              'on-tertiary': '#ffffff',
+              'on-primary-container': '#86af99',
+              tertiary: '#401b1b',
+              'on-background': '#1a1c1a',
+              'tertiary-fixed': '#ffdad8',
+              'surface-variant': '#e2e3e0',
+              'primary-fixed': '#c1ecd4',
+              'inverse-primary': '#a5d0b9',
+              'inverse-surface': '#2f312f',
+              'surface-container': '#eeeeeb',
+              'surface-bright': '#f9faf6',
+              secondary: '#5c5f60',
+              'on-secondary-container': '#606365',
+              'inverse-on-surface': '#f0f1ee',
+              'secondary-container': '#dee0e2',
+              'on-primary-fixed-variant': '#274e3d',
+              'error-container': '#ffdad6',
+              'on-secondary-fixed-variant': '#444749',
+              'primary-fixed-dim': '#a5d0b9',
+              'on-surface': '#1a1c1a',
+              'on-secondary-fixed': '#191c1e',
+              'tertiary-fixed-dim': '#f5b7b4',
+              'surface-tint': '#3f6653',
+              'surface-container-high': '#e8e8e5',
+              'surface-container-lowest': '#ffffff',
+              'on-error-container': '#93000a',
+              'on-primary': '#ffffff'
             },
+            borderRadius: {
+              DEFAULT: '0.125rem',
+              lg: '0.25rem',
+              xl: '0.5rem',
+              full: '0.75rem'
+            },
+            spacing: {
+              'section-gap': '80px',
+              'margin-page': '64px',
+              'container-max': '1440px',
+              unit: '8px',
+              'stack-md': '16px',
+              'stack-lg': '32px',
+              gutter: '32px',
+              'stack-sm': '8px'
+            },
+            fontFamily: {
+              'body-lg': ['Inter'],
+              'body-base': ['Inter'],
+              h2: ['Inter'],
+              'label-sm': ['Inter'],
+              h3: ['Inter'],
+              h1: ['Inter'],
+              'display-xl': ['Inter'],
+              caption: ['Inter']
+            },
+            fontSize: {
+              'body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+              'body-base': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+              h2: [
+                '30px',
+                {
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              'label-sm': [
+                '14px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '0.05em',
+                  fontWeight: '500'
+                }
+              ],
+              h3: ['24px', { lineHeight: '1.4', fontWeight: '600' }],
+              h1: [
+                '40px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              'display-xl': [
+                '64px',
+                {
+                  lineHeight: '1.1',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700'
+                }
+              ],
+              caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }]
+            }
+          }
         }
+      };
     </script>
-<style>
-        body { background-color: #ffffff; color: #1a1c1a; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    <style>
+      body {
+        background-color: #ffffff;
+        color: #1a1c1a;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
     </style>
-</head>
-<body class="font-body-base">
-<!-- SideNavBar Anchor -->
-<aside class="fixed left-0 top-0 h-screen w-64 border-r border-slate-200 bg-white flex flex-col h-full z-50">
-<div class="p-8">
-<h1 class="text-lg font-black text-emerald-900 uppercase tracking-widest">Rentmart Admin</h1>
-<p class="text-slate-500 font-['Inter'] text-sm font-medium tracking-tight mt-1">Management Portal</p>
-</div>
-<nav class="flex-1 px-4 space-y-1">
-<a class="text-slate-500 py-3 px-4 flex items-center gap-3 hover:text-slate-900 hover:bg-slate-50 transition-colors duration-200 font-['Inter'] text-sm font-medium tracking-tight" href="#">
-<span class="material-symbols-outlined">dashboard</span>
-                Platform Overview
-            </a>
-<a class="bg-emerald-50 text-emerald-900 font-bold border-r-4 border-emerald-900 py-3 px-4 flex items-center gap-3 font-['Inter'] text-sm font-medium tracking-tight" href="#">
-<span class="material-symbols-outlined">verified_user</span>
-                Verifications
-            </a>
-<a class="text-slate-500 py-3 px-4 flex items-center gap-3 hover:text-slate-900 hover:bg-slate-50 transition-colors duration-200 font-['Inter'] text-sm font-medium tracking-tight" href="#">
-<span class="material-symbols-outlined">group</span>
-                User Management
-            </a>
-<a class="text-slate-500 py-3 px-4 flex items-center gap-3 hover:text-slate-900 hover:bg-slate-50 transition-colors duration-200 font-['Inter'] text-sm font-medium tracking-tight" href="#">
-<span class="material-symbols-outlined">receipt_long</span>
-                Transactions
-            </a>
-</nav>
-<div class="p-4 border-t border-slate-200">
-<div class="flex items-center gap-3 px-4 py-3 mb-4">
-<img class="w-10 h-10 rounded-full object-cover" data-alt="Close-up professional portrait of a male administrator in a clean white studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBifiTD9Az374SOBpfhkCC970PoXwP_lKZk6Yu5bP-vHP7eNXBQUEczesUuugzXOjSxzfvtVtDXPHbPbjG3MTPThIv4IzA8SlcTy1b1YjH2P_7ucHA0Rux_X4mwTsf9gn3RipETdR0IqzQAQYZg1fJIK7IP1Le5zKobEf4j8Kl2IXNG4OkzZ7_Oje6pUI80FLAbwg2tO4tjoUmlgXP7YB_HTp6w-Cw4n8kRDIjYZHAo0cAj1ShEUJJF9t-xSqVCAETKZITMHF0HhXE"/>
-<div>
-<p class="font-bold text-sm text-on-surface">Admin User</p>
-<p class="text-xs text-secondary">Super Admin</p>
-</div>
-</div>
-<a class="text-slate-500 py-3 px-4 flex items-center gap-3 hover:text-slate-900 hover:bg-slate-50 transition-colors duration-200 font-['Inter'] text-sm font-medium tracking-tight" href="#">
-<span class="material-symbols-outlined">help</span>
-                Support
-            </a>
-<a class="text-slate-500 py-3 px-4 flex items-center gap-3 hover:text-slate-900 hover:bg-slate-50 transition-colors duration-200 font-['Inter'] text-sm font-medium tracking-tight" href="#">
-<span class="material-symbols-outlined">settings</span>
-                Settings
-            </a>
-</div>
-</aside>
-<!-- TopAppBar Anchor -->
-<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-white/90 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-8 ml-64 z-40">
-<div class="flex items-center bg-surface-container rounded px-4 py-2 w-96 border border-slate-100">
-<span class="material-symbols-outlined text-slate-400 mr-2">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-full" placeholder="Search listings..." type="text"/>
-</div>
-<div class="flex items-center gap-6">
-<button class="text-slate-500 hover:text-emerald-800 transition-colors">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<button class="text-slate-500 hover:text-emerald-800 transition-colors">
-<span class="material-symbols-outlined">history</span>
-</button>
-<button class="text-slate-500 hover:text-emerald-800 transition-colors">
-<span class="material-symbols-outlined">account_circle</span>
-</button>
-</div>
-</header>
-<!-- Main Content Canvas -->
-<main class="ml-64 pt-16 h-screen flex">
-<!-- Left Column: List View -->
-<section class="w-[35%] border-r border-slate-200 flex flex-col h-full bg-white">
-<div class="p-6 border-b border-slate-100 flex items-center justify-between">
-<h2 class="font-h3 text-h3 text-primary">Pending Submissions</h2>
-<span class="bg-primary-container text-on-primary-container text-[10px] px-2 py-0.5 rounded-full font-bold">12 TOTAL</span>
-</div>
-<div class="flex-1 overflow-y-auto hide-scrollbar">
-<!-- Active Item -->
-<div class="p-6 border-b border-emerald-900 bg-emerald-50/30 cursor-pointer">
-<div class="flex gap-4">
-<img class="w-20 h-20 object-cover rounded-lg flex-shrink-0" data-alt="Modern yellow CAT 320 GC hydraulic excavator parked on a clean construction site during daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBExNFFHEXqylr9ToQHbcmuccz-PYfNcyz0B18eiBuW3OOE84GhnuKEldQxG0y27IXvkfY5C1keNtT89qDqr-biYQHgsxPKLf9q5DoO_gMyXSrHxpm_rXcFAcugRyoKyDqHkrWrPMVGG6QsO4b2GwdfTt6RI2sluuaadValiB4Mpk_sLy7b9dB15c0-FxiGcqHmd-0EH6t_ibpAiS7dInN6XOu2er2T9djM-3eF6UO8ePOBuWVIEE4JIudw11fNjSWqRwyv_wGYaoc"/>
-<div class="flex flex-col justify-between overflow-hidden">
-<h3 class="font-h3 text-base text-primary truncate">CAT 320 GC Hydraulic Excavator</h3>
-<p class="text-xs text-secondary">Owner: Kanad Fleetwood</p>
-<div class="flex items-center gap-2 mt-2">
-<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 rounded">Pending</span>
-<span class="text-[10px] text-slate-400">2 hours ago</span>
-</div>
-</div>
-</div>
-</div>
-<!-- List Items -->
-<div class="p-6 border-b border-slate-50 hover:bg-slate-50/50 cursor-pointer transition-colors">
-<div class="flex gap-4">
-<img class="w-20 h-20 object-cover rounded-lg flex-shrink-0 grayscale-[0.5]" data-alt="Large industrial crane truck with extended arm against a clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbCdTsN0LBDaKB7V1tZGpYxtPRJXtihxiRs938XUCEBu6RhKHXI69XNyhYc5A5WlOLbjhptOcixzC2g0O_e3ftsRezkOvbGYQXpHrerr093eyxzWe--xPKO7e7XqIi8HG1FwJCShHvoq9O9Tt5lgFVKy_gD4NJRPfzd-LAOsGni-Bsl6-V3ZdXQPcfxxCoIs4r6MZKAOxQ0cMOEXMjGGqfDSimgOAv72SAbgGRrKkkLcZK5003RgiatXoSHVZt59HR9-WgKV3VzQ0"/>
-<div class="flex flex-col justify-between overflow-hidden">
-<h3 class="font-h3 text-base text-secondary truncate">Terex RT 90 Rough Terrain Crane</h3>
-<p class="text-xs text-secondary">Owner: Atlas Heavy Rentals</p>
-<div class="flex items-center gap-2 mt-2">
-<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 rounded">Pending</span>
-<span class="text-[10px] text-slate-400">5 hours ago</span>
-</div>
-</div>
-</div>
-</div>
-<div class="p-6 border-b border-slate-50 hover:bg-slate-50/50 cursor-pointer transition-colors">
-<div class="flex gap-4">
-<img class="w-20 h-20 object-cover rounded-lg flex-shrink-0 grayscale-[0.5]" data-alt="Industrial yellow bulldozer moving soil on a construction project site" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIP-csmgzlQPxYsjpiE6szv6WQnTv2D9ECTYMUoogXhT-XfpFMDvGv6lqRxbnwt06z6tBxqnwAC0CIbQ5iptY7D8tunhmDZJZwwvhkubIhx6rToUzu_cEZgCo41vz2It_sJRD8AHC29Tf2X7WE1K_sAWX8vH2vmYGbRkIO77_AMNpmFukWpc8KebGptlvsWxXURjGlBA_aLMb9AQRmTxcd8oB5lsXZkrKhUZEixuj32BIhxckkXld6hOde7C72FI9JRcvhg5cCVr4"/>
-<div class="flex flex-col justify-between overflow-hidden">
-<h3 class="font-h3 text-base text-secondary truncate">Komatsu D155AX-8 Dozer</h3>
-<p class="text-xs text-secondary">Owner: Peak Earthmovers</p>
-<div class="flex items-center gap-2 mt-2">
-<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 rounded">Pending</span>
-<span class="text-[10px] text-slate-400">1 day ago</span>
-</div>
-</div>
-</div>
-</div>
-<div class="p-6 border-b border-slate-50 hover:bg-slate-50/50 cursor-pointer transition-colors">
-<div class="flex gap-4">
-<img class="w-20 h-20 object-cover rounded-lg flex-shrink-0 grayscale-[0.5]" data-alt="Compact white Bobcat skid steer loader sitting on a wooden pallet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVdBwX1aqpTtwV_6_CPh_T2Srg7giNQekCfxUSqmyCjCpAHfVZQGDoXu9rqBSmEKPWs771a3uUfp2oFZG-_fogeFFR_DV2yBJJzQWwP_6TFFSaWf5EvZY4pjSSB-RJW52dfPmAX-KiZwI2JahctqJf7JwGlbOcKax1geN8pT2A8k4x4h68LcyeOoWiV0GExOKIEuRRppbRPaSsxa4fiBIm-oP-NfFJqSD98Xq3GUeApKXB2RYYF8XlOqNg0V2WBaF-n5EEpJj23Qk"/>
-<div class="flex flex-col justify-between overflow-hidden">
-<h3 class="font-h3 text-base text-secondary truncate">Bobcat S76 Skid-Steer Loader</h3>
-<p class="text-xs text-secondary">Owner: QuickHire Tools</p>
-<div class="flex items-center gap-2 mt-2">
-<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 rounded">Pending</span>
-<span class="text-[10px] text-slate-400">2 days ago</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Right Column: Detail View -->
-<section class="w-[65%] h-full flex flex-col bg-white overflow-y-auto hide-scrollbar">
-<!-- Header Sticky Info -->
-<div class="p-8 border-b border-slate-100 flex items-start justify-between"><div>
-<nav class="flex text-xs text-slate-400 gap-2 mb-2 font-label-sm">
-<span>Verifications</span>
-<span>/</span>
-<span>Equipment</span>
-<span>/</span>
-<span class="text-primary font-bold">Submission #88321</span>
-</nav>
-<div class="flex items-end gap-4">
-<h1 class="font-h1 text-h2 text-primary leading-none">CAT 320 GC Hydraulic Excavator</h1>
-<div class="bg-emerald-100 text-emerald-900 px-3 py-1 rounded-full text-sm font-bold">
-            $450 <span class="text-[10px] opacity-70 font-medium uppercase">/ Day</span>
-</div>
-</div>
-<p class="text-slate-500 mt-3">Submitted by <span class="font-bold text-slate-700 underline cursor-pointer hover:text-primary transition-colors">Kanad Fleetwood</span> on Oct 24, 2023</p>
-</div>
-<div class="flex gap-2">
-<button class="w-10 h-10 rounded border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all">
-<span class="material-symbols-outlined">share</span>
-</button>
-<button class="w-10 h-10 rounded border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-all">
-<span class="material-symbols-outlined">more_vert</span>
-</button>
-</div></div>
-<!-- Content Area -->
-<div class="p-8 space-y-stack-lg flex-1"><!-- Top Content Row: Gallery & Primary Specs -->
-<div class="grid grid-cols-12 gap-6">
-<!-- Gallery -->
-<div class="col-span-8 space-y-4">
-<div class="aspect-video w-full overflow-hidden rounded-lg shadow-sm">
-<img class="w-full h-full object-cover" data-alt="Full side profile of a high-power excavator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD98uS6qIwQ7NSucRFm-CT49M5oHaVTyW17D863U68-SRx0xWmzw47O9qTlGv-rXv3mXrZwyyd433W0luMZvjKNbwzEnAlt6RzOJyoXGYuJwxpiFud8b1Q8V6gpsORMdkUIF6sqcccQyFY6p3z7g4w62ykIZoKheKgXScVl5lbMBa9zYKYWeck4jueE-V8dGEA5m1ft8qB2BtzMBAcJbqg1WzOdUpnx-Xxm22BvTk7yfD7HWZua9jpf47gaXjhzXktt5Rc32EMbUnE"/>
-</div>
-<div class="grid grid-cols-4 gap-4 h-24">
-<img class="w-full h-full object-cover rounded shadow-sm cursor-pointer hover:opacity-80 transition-opacity" data-alt="Excavator bucket detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClCODr7Ggpi-Qu1DMGxeuEw5vmBjFaHgJL15-LJ5LTTAfMcIki2kpsNHgzyU3o9QUMWL2jvjZk1dICu_ccpUtCkOGrQpH0bmWhb9CVsW_E2s6L1Gh07xi904GuW6dRD4TWhS7t2SFg0uwQi3cACP3Oo3VmxikWdtvOtPJiawWJcaplSkn4eoD-_MqCo1q5pG5ggHiDTsgdSq1NQw0W2RFnmxz4UMbado4s9zeViTWy0WE5Y2NjJ6LXB-l_z0vSZCRxtq_eAUwi7PM"/>
-<img class="w-full h-full object-cover rounded shadow-sm cursor-pointer hover:opacity-80 transition-opacity" data-alt="Cockpit interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC639nazfC-LJUzGGeOlTjR7cj3bBq20SdM2mBx1weq9cDgu7RnryDd_3ON3Bt4yQS56nHDRxbWTmv6FDkrLZNiJATsLVzMqa2sYG330Vr-0U5jQwA0AJOxhtR7AUgS9GGDsovhhXIbZgwqOYC6WwfOaIB9xATZ-PpEBAsYN3a5162gLwAviw__81QmF7mpJFmWXnHZKBo66qH6MSTceuMUx2m_08npTXsYJNvXQs3jhJ2RA5Zr3ylEXgrVFgngwU_7091BEqqnExM"/>
-<img class="w-full h-full object-cover rounded shadow-sm cursor-pointer hover:opacity-80 transition-opacity" data-alt="Engine detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbN8qpLAub_8_1qibke9GWEzfS8AxLHg-SjToSx7dgOanlHK8wjaV_uFJ8FXp9Kmuz9-W1scyabxROKy5OeP0-W99WaoVUK5HkbBmkSW2FMsp-JNgmkYPCKg1WvvSDRxCeEjbM-WQnDlgldRjYWJNEu4G4oXTivuXiABHxeIyiC3mz5d1QZjKuGVUqzcHuAm1gvDgC79zKR6NKvnmUw411MiJlVDY66jFqF8U9MJG39Vgc3MdETl260ICy5rTo1GJZ5yaglfSS9ko"/>
-<div class="relative rounded shadow-sm cursor-pointer group">
-<img class="w-full h-full object-cover rounded" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbN8qpLAub_8_1qibke9GWEzfS8AxLHg-SjToSx7dgOanlHK8wjaV_uFJ8FXp9Kmuz9-W1scyabxROKy5OeP0-W99WaoVUK5HkbBmkSW2FMsp-JNgmkYPCKg1WvvSDRxCeEjbM-WQnDlgldRjYWJNEu4G4oXTivuXiABHxeIyiC3mz5d1QZjKuGVUqzcHuAm1gvDgC79zKR6NKvnmUw411MiJlVDY66jFqF8U9MJG39Vgc3MdETl260ICy5rTo1GJZ5yaglfSS9ko"/>
-<div class="absolute inset-0 bg-primary/60 group-hover:bg-primary/40 transition-colors flex items-center justify-center text-white font-bold text-xs rounded">
-                    +8 Photos
+  </head>
+  <body class="font-body-base">
+    <!-- SideNavBar Anchor -->
+    <aside
+      class="fixed top-0 left-0 z-50 flex h-full h-screen w-64 flex-col border-r border-slate-200 bg-white">
+      <div class="p-8">
+        <h1
+          class="text-lg font-black tracking-widest text-emerald-900 uppercase">
+          Rentmart Admin
+        </h1>
+        <p
+          class="mt-1 font-['Inter'] text-sm font-medium tracking-tight text-slate-500">
+          Management Portal
+        </p>
+      </div>
+      <nav class="flex-1 space-y-1 px-4">
+        <a
+          class="flex items-center gap-3 px-4 py-3 font-['Inter'] text-sm font-medium tracking-tight text-slate-500 transition-colors duration-200 hover:bg-slate-50 hover:text-slate-900"
+          href="#">
+          <span class="material-symbols-outlined">dashboard</span>
+          Platform Overview
+        </a>
+        <a
+          class="flex items-center gap-3 border-r-4 border-emerald-900 bg-emerald-50 px-4 py-3 font-['Inter'] text-sm font-bold font-medium tracking-tight text-emerald-900"
+          href="#">
+          <span class="material-symbols-outlined">verified_user</span>
+          Verifications
+        </a>
+        <a
+          class="flex items-center gap-3 px-4 py-3 font-['Inter'] text-sm font-medium tracking-tight text-slate-500 transition-colors duration-200 hover:bg-slate-50 hover:text-slate-900"
+          href="#">
+          <span class="material-symbols-outlined">group</span>
+          User Management
+        </a>
+        <a
+          class="flex items-center gap-3 px-4 py-3 font-['Inter'] text-sm font-medium tracking-tight text-slate-500 transition-colors duration-200 hover:bg-slate-50 hover:text-slate-900"
+          href="#">
+          <span class="material-symbols-outlined">receipt_long</span>
+          Transactions
+        </a>
+      </nav>
+      <div class="border-t border-slate-200 p-4">
+        <div class="mb-4 flex items-center gap-3 px-4 py-3">
+          <img
+            class="h-10 w-10 rounded-full object-cover"
+            data-alt="Close-up professional portrait of a male administrator in a clean white studio background"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBifiTD9Az374SOBpfhkCC970PoXwP_lKZk6Yu5bP-vHP7eNXBQUEczesUuugzXOjSxzfvtVtDXPHbPbjG3MTPThIv4IzA8SlcTy1b1YjH2P_7ucHA0Rux_X4mwTsf9gn3RipETdR0IqzQAQYZg1fJIK7IP1Le5zKobEf4j8Kl2IXNG4OkzZ7_Oje6pUI80FLAbwg2tO4tjoUmlgXP7YB_HTp6w-Cw4n8kRDIjYZHAo0cAj1ShEUJJF9t-xSqVCAETKZITMHF0HhXE" />
+          <div>
+            <p class="text-on-surface text-sm font-bold">Admin User</p>
+            <p class="text-secondary text-xs">Super Admin</p>
+          </div>
+        </div>
+        <a
+          class="flex items-center gap-3 px-4 py-3 font-['Inter'] text-sm font-medium tracking-tight text-slate-500 transition-colors duration-200 hover:bg-slate-50 hover:text-slate-900"
+          href="#">
+          <span class="material-symbols-outlined">help</span>
+          Support
+        </a>
+        <a
+          class="flex items-center gap-3 px-4 py-3 font-['Inter'] text-sm font-medium tracking-tight text-slate-500 transition-colors duration-200 hover:bg-slate-50 hover:text-slate-900"
+          href="#">
+          <span class="material-symbols-outlined">settings</span>
+          Settings
+        </a>
+      </div>
+    </aside>
+    <!-- TopAppBar Anchor -->
+    <header
+      class="fixed top-0 right-0 z-40 ml-64 flex h-16 w-[calc(100%-16rem)] items-center justify-between border-b border-slate-200 bg-white/90 px-8 backdrop-blur-md">
+      <div
+        class="bg-surface-container flex w-96 items-center rounded border border-slate-100 px-4 py-2">
+        <span class="material-symbols-outlined mr-2 text-slate-400"
+          >search</span
+        >
+        <input
+          class="w-full border-none bg-transparent text-sm focus:ring-0"
+          placeholder="Search listings..."
+          type="text" />
+      </div>
+      <div class="flex items-center gap-6">
+        <button class="text-slate-500 transition-colors hover:text-emerald-800">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button class="text-slate-500 transition-colors hover:text-emerald-800">
+          <span class="material-symbols-outlined">history</span>
+        </button>
+        <button class="text-slate-500 transition-colors hover:text-emerald-800">
+          <span class="material-symbols-outlined">account_circle</span>
+        </button>
+      </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="ml-64 flex h-screen pt-16">
+      <!-- Left Column: List View -->
+      <section
+        class="flex h-full w-[35%] flex-col border-r border-slate-200 bg-white">
+        <div
+          class="flex items-center justify-between border-b border-slate-100 p-6">
+          <h2 class="font-h3 text-h3 text-primary">Pending Submissions</h2>
+          <span
+            class="bg-primary-container text-on-primary-container rounded-full px-2 py-0.5 text-[10px] font-bold"
+            >12 TOTAL</span
+          >
+        </div>
+        <div class="hide-scrollbar flex-1 overflow-y-auto">
+          <!-- Active Item -->
+          <div
+            class="cursor-pointer border-b border-emerald-900 bg-emerald-50/30 p-6">
+            <div class="flex gap-4">
+              <img
+                class="h-20 w-20 flex-shrink-0 rounded-lg object-cover"
+                data-alt="Modern yellow CAT 320 GC hydraulic excavator parked on a clean construction site during daylight"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBExNFFHEXqylr9ToQHbcmuccz-PYfNcyz0B18eiBuW3OOE84GhnuKEldQxG0y27IXvkfY5C1keNtT89qDqr-biYQHgsxPKLf9q5DoO_gMyXSrHxpm_rXcFAcugRyoKyDqHkrWrPMVGG6QsO4b2GwdfTt6RI2sluuaadValiB4Mpk_sLy7b9dB15c0-FxiGcqHmd-0EH6t_ibpAiS7dInN6XOu2er2T9djM-3eF6UO8ePOBuWVIEE4JIudw11fNjSWqRwyv_wGYaoc" />
+              <div class="flex flex-col justify-between overflow-hidden">
+                <h3 class="font-h3 text-primary truncate text-base">
+                  CAT 320 GC Hydraulic Excavator
+                </h3>
+                <p class="text-secondary text-xs">Owner: Kanad Fleetwood</p>
+                <div class="mt-2 flex items-center gap-2">
+                  <span
+                    class="bg-surface-container-high text-on-surface-variant rounded px-2 py-0.5 text-[10px]"
+                    >Pending</span
+                  >
+                  <span class="text-[10px] text-slate-400">2 hours ago</span>
                 </div>
-</div>
-</div>
-</div>
-<!-- Quick Specs Sidebar -->
-<div class="col-span-4 space-y-6">
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-100">
-<h4 class="font-label-sm text-secondary uppercase mb-4 tracking-wider">Technical Overview</h4>
-<div class="space-y-4">
-<div class="flex justify-between border-b border-slate-200 pb-2">
-<span class="text-xs text-slate-500 uppercase">Model Year</span>
-<span class="font-bold text-primary">2021</span>
-</div>
-<div class="flex justify-between border-b border-slate-200 pb-2">
-<span class="text-xs text-slate-500 uppercase">Weight</span>
-<span class="font-bold text-primary">22,500 kg</span>
-</div>
-<div class="flex justify-between border-b border-slate-200 pb-2">
-<span class="text-xs text-slate-500 uppercase">Net Power</span>
-<span class="font-bold text-primary">145 HP</span>
-</div>
-<div class="flex justify-between border-b border-slate-200 pb-2">
-<span class="text-xs text-slate-500 uppercase">Dig Depth</span>
-<span class="font-bold text-primary">6.72 m</span>
-</div>
-<div class="flex justify-between">
-<span class="text-xs text-slate-500 uppercase">Hours Used</span>
-<span class="font-bold text-primary">1,240 hrs</span>
-</div>
-</div>
-</div>
-<!-- Owner Details -->
-<div class="bg-white p-6 rounded-lg border border-slate-100 shadow-sm">
-<h4 class="font-label-sm text-secondary uppercase mb-4 tracking-wider">Owner Details</h4>
-<div class="flex items-center gap-3">
-<img class="w-12 h-12 rounded-full object-cover" data-alt="Owner profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcMOPp3lFLR9MJDZy8yZNwe3oDntXPQUmFFk5YKbcCl3HoAk9rfjL3i9qEWel0wiLGfArkWc1MTp1Teir5PT29avbJk_ZFe5a5BuKR1uK7J9veit_zCIjcz_d9nAE3bCCgj_4_7ny55aqUhNKLS4jh-m8zSS1mxG6Puh9a6WnUWFAb8RkH2cKWHzikOFZ6okudJ0uCNbKi14_DlRL0fE7BMiQFpxAdm3kuYiFhbvcLUxNM2KTCYDXFfefjjFGg9R-qQmIKVVj7_C4"/>
-<div>
-<p class="font-bold text-primary text-sm">Kanad Fleetwood</p>
-<p class="text-[10px] text-slate-400 uppercase tracking-tight">Fleet Manager, 12+ Units</p>
-</div>
-</div>
-<div class="mt-4 flex items-center gap-2 text-emerald-700 bg-emerald-50 w-fit px-2 py-1 rounded text-[10px] font-bold">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
-                VERIFIED USER
+              </div>
             </div>
-</div>
-</div>
-</div>
-<!-- Bottom Content Area -->
-<div class="grid grid-cols-12 gap-8 pt-4">
-<div class="col-span-8 space-y-8">
-<div class="prose prose-slate max-w-none">
-<h4 class="font-h3 text-lg text-primary mb-3 border-b border-slate-100 pb-2">Listing Description</h4>
-<p class="text-body-base text-slate-600 leading-relaxed">
-                The Cat 320 GC Excavator balances productivity with easy-to-use technology features, a new comfortable cab, reduced fuel consumption by up to 20 percent, and longer maintenance intervals. Extremely well-maintained unit. Minor cosmetic scratches on the counterweight. Undercarriage at 85% life remaining. Full service history available via authorized dealer. Recent hydraulic fluid flush performed at 1,200 hours.
-            </p>
-</div>
-<div>
-<h4 class="font-h3 text-lg text-primary mb-3 border-b border-slate-100 pb-2">Extended Specifications</h4>
-<div class="grid grid-cols-2 gap-x-12 gap-y-2">
-<div class="flex justify-between py-2 border-b border-slate-50">
-<span class="text-sm text-slate-500">Bucket Capacity</span>
-<span class="text-sm font-semibold text-primary">1.2 m³</span>
-</div>
-<div class="flex justify-between py-2 border-b border-slate-50">
-<span class="text-sm text-slate-500">Emission Level</span>
-<span class="text-sm font-semibold text-primary">Tier 4 Final</span>
-</div>
-<div class="flex justify-between py-2 border-b border-slate-50">
-<span class="text-sm text-slate-500">Max Reach at Ground</span>
-<span class="text-sm font-semibold text-primary">9.86 m</span>
-</div>
-<div class="flex justify-between py-2 border-b border-slate-50">
-<span class="text-sm text-slate-500">Transport Width</span>
-<span class="text-sm font-semibold text-primary">2.98 m</span>
-</div>
-</div>
-</div>
-</div>
-<div class="col-span-4 space-y-6">
-<div class="space-y-3">
-<h4 class="font-label-sm text-secondary uppercase tracking-wider">Pickup Location</h4>
-<div class="h-48 bg-slate-200 rounded-lg relative overflow-hidden group border border-slate-100 shadow-inner">
-<img class="w-full h-full object-cover" data-alt="Map location" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDezMrktG15OFnxfYBwp82AOtfj7VZauBwcQAqFYJfNjaDdFajd92cVbEcApgpqBbRr8cB8NYeYRDGL0qsE8FwPHLJvftGQ0E--6hP7ycWnFt6qctuwVwg0fvgYr1VxF6yb8tOSPQOUq1GqWAR-s25BUs7M9XEbZAF2Pv2TQmdhshErls59qfu74dhTE6ECLrYfCufhsAcDokfUCKML5MILS4wFqAi5UCk36BVO-dTyEIRj9uAhi-hja97CIvHGe-cjGeYXJnej2X0"/>
-<div class="absolute bottom-3 left-3 bg-white px-3 py-1.5 rounded shadow-lg text-[10px] font-bold text-primary">
-                    Houston, TX 77001
+          </div>
+          <!-- List Items -->
+          <div
+            class="cursor-pointer border-b border-slate-50 p-6 transition-colors hover:bg-slate-50/50">
+            <div class="flex gap-4">
+              <img
+                class="h-20 w-20 flex-shrink-0 rounded-lg object-cover grayscale-[0.5]"
+                data-alt="Large industrial crane truck with extended arm against a clear blue sky"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbCdTsN0LBDaKB7V1tZGpYxtPRJXtihxiRs938XUCEBu6RhKHXI69XNyhYc5A5WlOLbjhptOcixzC2g0O_e3ftsRezkOvbGYQXpHrerr093eyxzWe--xPKO7e7XqIi8HG1FwJCShHvoq9O9Tt5lgFVKy_gD4NJRPfzd-LAOsGni-Bsl6-V3ZdXQPcfxxCoIs4r6MZKAOxQ0cMOEXMjGGqfDSimgOAv72SAbgGRrKkkLcZK5003RgiatXoSHVZt59HR9-WgKV3VzQ0" />
+              <div class="flex flex-col justify-between overflow-hidden">
+                <h3 class="font-h3 text-secondary truncate text-base">
+                  Terex RT 90 Rough Terrain Crane
+                </h3>
+                <p class="text-secondary text-xs">Owner: Atlas Heavy Rentals</p>
+                <div class="mt-2 flex items-center gap-2">
+                  <span
+                    class="bg-surface-container-high text-on-surface-variant rounded px-2 py-0.5 text-[10px]"
+                    >Pending</span
+                  >
+                  <span class="text-[10px] text-slate-400">5 hours ago</span>
                 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="h-24"></div></div>
-<!-- Sticky Bottom Action Bar -->
-<div class="sticky bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 p-6 flex items-center justify-between shadow-[0_-10px_30px_rgba(0,0,0,0.03)]">
-<div class="flex items-center gap-4 text-slate-500">
-<span class="material-symbols-outlined">warning</span>
-<p class="text-sm">Verify serial numbers and insurance docs before approval.</p>
-</div>
-<div class="flex gap-4">
-<button class="px-8 py-3 rounded border border-error/20 text-error hover:bg-error/5 font-bold transition-all flex items-center gap-2">
-<span class="material-symbols-outlined">close</span>
-                        Reject Listing
-                    </button>
-<button class="px-10 py-3 rounded bg-primary-container text-white hover:bg-primary font-bold transition-all shadow-lg shadow-emerald-900/10 flex items-center gap-2">
-<span class="material-symbols-outlined">check_circle</span>
-                        Approve &amp; Publish
-                    </button>
-</div>
-</div>
-</section>
-</main>
-</body></html>
+              </div>
+            </div>
+          </div>
+          <div
+            class="cursor-pointer border-b border-slate-50 p-6 transition-colors hover:bg-slate-50/50">
+            <div class="flex gap-4">
+              <img
+                class="h-20 w-20 flex-shrink-0 rounded-lg object-cover grayscale-[0.5]"
+                data-alt="Industrial yellow bulldozer moving soil on a construction project site"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIP-csmgzlQPxYsjpiE6szv6WQnTv2D9ECTYMUoogXhT-XfpFMDvGv6lqRxbnwt06z6tBxqnwAC0CIbQ5iptY7D8tunhmDZJZwwvhkubIhx6rToUzu_cEZgCo41vz2It_sJRD8AHC29Tf2X7WE1K_sAWX8vH2vmYGbRkIO77_AMNpmFukWpc8KebGptlvsWxXURjGlBA_aLMb9AQRmTxcd8oB5lsXZkrKhUZEixuj32BIhxckkXld6hOde7C72FI9JRcvhg5cCVr4" />
+              <div class="flex flex-col justify-between overflow-hidden">
+                <h3 class="font-h3 text-secondary truncate text-base">
+                  Komatsu D155AX-8 Dozer
+                </h3>
+                <p class="text-secondary text-xs">Owner: Peak Earthmovers</p>
+                <div class="mt-2 flex items-center gap-2">
+                  <span
+                    class="bg-surface-container-high text-on-surface-variant rounded px-2 py-0.5 text-[10px]"
+                    >Pending</span
+                  >
+                  <span class="text-[10px] text-slate-400">1 day ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="cursor-pointer border-b border-slate-50 p-6 transition-colors hover:bg-slate-50/50">
+            <div class="flex gap-4">
+              <img
+                class="h-20 w-20 flex-shrink-0 rounded-lg object-cover grayscale-[0.5]"
+                data-alt="Compact white Bobcat skid steer loader sitting on a wooden pallet"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVdBwX1aqpTtwV_6_CPh_T2Srg7giNQekCfxUSqmyCjCpAHfVZQGDoXu9rqBSmEKPWs771a3uUfp2oFZG-_fogeFFR_DV2yBJJzQWwP_6TFFSaWf5EvZY4pjSSB-RJW52dfPmAX-KiZwI2JahctqJf7JwGlbOcKax1geN8pT2A8k4x4h68LcyeOoWiV0GExOKIEuRRppbRPaSsxa4fiBIm-oP-NfFJqSD98Xq3GUeApKXB2RYYF8XlOqNg0V2WBaF-n5EEpJj23Qk" />
+              <div class="flex flex-col justify-between overflow-hidden">
+                <h3 class="font-h3 text-secondary truncate text-base">
+                  Bobcat S76 Skid-Steer Loader
+                </h3>
+                <p class="text-secondary text-xs">Owner: QuickHire Tools</p>
+                <div class="mt-2 flex items-center gap-2">
+                  <span
+                    class="bg-surface-container-high text-on-surface-variant rounded px-2 py-0.5 text-[10px]"
+                    >Pending</span
+                  >
+                  <span class="text-[10px] text-slate-400">2 days ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Right Column: Detail View -->
+      <section
+        class="hide-scrollbar flex h-full w-[65%] flex-col overflow-y-auto bg-white">
+        <!-- Header Sticky Info -->
+        <div
+          class="flex items-start justify-between border-b border-slate-100 p-8">
+          <div>
+            <nav class="font-label-sm mb-2 flex gap-2 text-xs text-slate-400">
+              <span>Verifications</span>
+              <span>/</span>
+              <span>Equipment</span>
+              <span>/</span>
+              <span class="text-primary font-bold">Submission #88321</span>
+            </nav>
+            <div class="flex items-end gap-4">
+              <h1 class="font-h1 text-h2 text-primary leading-none">
+                CAT 320 GC Hydraulic Excavator
+              </h1>
+              <div
+                class="rounded-full bg-emerald-100 px-3 py-1 text-sm font-bold text-emerald-900">
+                $450
+                <span class="text-[10px] font-medium uppercase opacity-70"
+                  >/ Day</span
+                >
+              </div>
+            </div>
+            <p class="mt-3 text-slate-500">
+              Submitted by
+              <span
+                class="hover:text-primary cursor-pointer font-bold text-slate-700 underline transition-colors"
+                >Kanad Fleetwood</span
+              >
+              on Oct 24, 2023
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button
+              class="hover:text-primary hover:border-primary flex h-10 w-10 items-center justify-center rounded border border-slate-200 text-slate-400 transition-all">
+              <span class="material-symbols-outlined">share</span>
+            </button>
+            <button
+              class="hover:text-primary hover:border-primary flex h-10 w-10 items-center justify-center rounded border border-slate-200 text-slate-400 transition-all">
+              <span class="material-symbols-outlined">more_vert</span>
+            </button>
+          </div>
+        </div>
+        <!-- Content Area -->
+        <div class="space-y-stack-lg flex-1 p-8">
+          <!-- Top Content Row: Gallery & Primary Specs -->
+          <div class="grid grid-cols-12 gap-6">
+            <!-- Gallery -->
+            <div class="col-span-8 space-y-4">
+              <div
+                class="aspect-video w-full overflow-hidden rounded-lg shadow-sm">
+                <img
+                  class="h-full w-full object-cover"
+                  data-alt="Full side profile of a high-power excavator"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD98uS6qIwQ7NSucRFm-CT49M5oHaVTyW17D863U68-SRx0xWmzw47O9qTlGv-rXv3mXrZwyyd433W0luMZvjKNbwzEnAlt6RzOJyoXGYuJwxpiFud8b1Q8V6gpsORMdkUIF6sqcccQyFY6p3z7g4w62ykIZoKheKgXScVl5lbMBa9zYKYWeck4jueE-V8dGEA5m1ft8qB2BtzMBAcJbqg1WzOdUpnx-Xxm22BvTk7yfD7HWZua9jpf47gaXjhzXktt5Rc32EMbUnE" />
+              </div>
+              <div class="grid h-24 grid-cols-4 gap-4">
+                <img
+                  class="h-full w-full cursor-pointer rounded object-cover shadow-sm transition-opacity hover:opacity-80"
+                  data-alt="Excavator bucket detail"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuClCODr7Ggpi-Qu1DMGxeuEw5vmBjFaHgJL15-LJ5LTTAfMcIki2kpsNHgzyU3o9QUMWL2jvjZk1dICu_ccpUtCkOGrQpH0bmWhb9CVsW_E2s6L1Gh07xi904GuW6dRD4TWhS7t2SFg0uwQi3cACP3Oo3VmxikWdtvOtPJiawWJcaplSkn4eoD-_MqCo1q5pG5ggHiDTsgdSq1NQw0W2RFnmxz4UMbado4s9zeViTWy0WE5Y2NjJ6LXB-l_z0vSZCRxtq_eAUwi7PM" />
+                <img
+                  class="h-full w-full cursor-pointer rounded object-cover shadow-sm transition-opacity hover:opacity-80"
+                  data-alt="Cockpit interior"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC639nazfC-LJUzGGeOlTjR7cj3bBq20SdM2mBx1weq9cDgu7RnryDd_3ON3Bt4yQS56nHDRxbWTmv6FDkrLZNiJATsLVzMqa2sYG330Vr-0U5jQwA0AJOxhtR7AUgS9GGDsovhhXIbZgwqOYC6WwfOaIB9xATZ-PpEBAsYN3a5162gLwAviw__81QmF7mpJFmWXnHZKBo66qH6MSTceuMUx2m_08npTXsYJNvXQs3jhJ2RA5Zr3ylEXgrVFgngwU_7091BEqqnExM" />
+                <img
+                  class="h-full w-full cursor-pointer rounded object-cover shadow-sm transition-opacity hover:opacity-80"
+                  data-alt="Engine detail"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbN8qpLAub_8_1qibke9GWEzfS8AxLHg-SjToSx7dgOanlHK8wjaV_uFJ8FXp9Kmuz9-W1scyabxROKy5OeP0-W99WaoVUK5HkbBmkSW2FMsp-JNgmkYPCKg1WvvSDRxCeEjbM-WQnDlgldRjYWJNEu4G4oXTivuXiABHxeIyiC3mz5d1QZjKuGVUqzcHuAm1gvDgC79zKR6NKvnmUw411MiJlVDY66jFqF8U9MJG39Vgc3MdETl260ICy5rTo1GJZ5yaglfSS9ko" />
+                <div class="group relative cursor-pointer rounded shadow-sm">
+                  <img
+                    class="h-full w-full rounded object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbN8qpLAub_8_1qibke9GWEzfS8AxLHg-SjToSx7dgOanlHK8wjaV_uFJ8FXp9Kmuz9-W1scyabxROKy5OeP0-W99WaoVUK5HkbBmkSW2FMsp-JNgmkYPCKg1WvvSDRxCeEjbM-WQnDlgldRjYWJNEu4G4oXTivuXiABHxeIyiC3mz5d1QZjKuGVUqzcHuAm1gvDgC79zKR6NKvnmUw411MiJlVDY66jFqF8U9MJG39Vgc3MdETl260ICy5rTo1GJZ5yaglfSS9ko" />
+                  <div
+                    class="bg-primary/60 group-hover:bg-primary/40 absolute inset-0 flex items-center justify-center rounded text-xs font-bold text-white transition-colors">
+                    +8 Photos
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Quick Specs Sidebar -->
+            <div class="col-span-4 space-y-6">
+              <div class="rounded-lg border border-slate-100 bg-slate-50 p-6">
+                <h4
+                  class="font-label-sm text-secondary mb-4 tracking-wider uppercase">
+                  Technical Overview
+                </h4>
+                <div class="space-y-4">
+                  <div
+                    class="flex justify-between border-b border-slate-200 pb-2">
+                    <span class="text-xs text-slate-500 uppercase"
+                      >Model Year</span
+                    >
+                    <span class="text-primary font-bold">2021</span>
+                  </div>
+                  <div
+                    class="flex justify-between border-b border-slate-200 pb-2">
+                    <span class="text-xs text-slate-500 uppercase">Weight</span>
+                    <span class="text-primary font-bold">22,500 kg</span>
+                  </div>
+                  <div
+                    class="flex justify-between border-b border-slate-200 pb-2">
+                    <span class="text-xs text-slate-500 uppercase"
+                      >Net Power</span
+                    >
+                    <span class="text-primary font-bold">145 HP</span>
+                  </div>
+                  <div
+                    class="flex justify-between border-b border-slate-200 pb-2">
+                    <span class="text-xs text-slate-500 uppercase"
+                      >Dig Depth</span
+                    >
+                    <span class="text-primary font-bold">6.72 m</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-xs text-slate-500 uppercase"
+                      >Hours Used</span
+                    >
+                    <span class="text-primary font-bold">1,240 hrs</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Owner Details -->
+              <div
+                class="rounded-lg border border-slate-100 bg-white p-6 shadow-sm">
+                <h4
+                  class="font-label-sm text-secondary mb-4 tracking-wider uppercase">
+                  Owner Details
+                </h4>
+                <div class="flex items-center gap-3">
+                  <img
+                    class="h-12 w-12 rounded-full object-cover"
+                    data-alt="Owner profile"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcMOPp3lFLR9MJDZy8yZNwe3oDntXPQUmFFk5YKbcCl3HoAk9rfjL3i9qEWel0wiLGfArkWc1MTp1Teir5PT29avbJk_ZFe5a5BuKR1uK7J9veit_zCIjcz_d9nAE3bCCgj_4_7ny55aqUhNKLS4jh-m8zSS1mxG6Puh9a6WnUWFAb8RkH2cKWHzikOFZ6okudJ0uCNbKi14_DlRL0fE7BMiQFpxAdm3kuYiFhbvcLUxNM2KTCYDXFfefjjFGg9R-qQmIKVVj7_C4" />
+                  <div>
+                    <p class="text-primary text-sm font-bold">
+                      Kanad Fleetwood
+                    </p>
+                    <p
+                      class="text-[10px] tracking-tight text-slate-400 uppercase">
+                      Fleet Manager, 12+ Units
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="mt-4 flex w-fit items-center gap-2 rounded bg-emerald-50 px-2 py-1 text-[10px] font-bold text-emerald-700">
+                  <span
+                    class="material-symbols-outlined text-sm"
+                    style="font-variation-settings: 'FILL' 1"
+                    >verified</span
+                  >
+                  VERIFIED USER
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Bottom Content Area -->
+          <div class="grid grid-cols-12 gap-8 pt-4">
+            <div class="col-span-8 space-y-8">
+              <div class="prose prose-slate max-w-none">
+                <h4
+                  class="font-h3 text-primary mb-3 border-b border-slate-100 pb-2 text-lg">
+                  Listing Description
+                </h4>
+                <p class="text-body-base leading-relaxed text-slate-600">
+                  The Cat 320 GC Excavator balances productivity with
+                  easy-to-use technology features, a new comfortable cab,
+                  reduced fuel consumption by up to 20 percent, and longer
+                  maintenance intervals. Extremely well-maintained unit. Minor
+                  cosmetic scratches on the counterweight. Undercarriage at 85%
+                  life remaining. Full service history available via authorized
+                  dealer. Recent hydraulic fluid flush performed at 1,200 hours.
+                </p>
+              </div>
+              <div>
+                <h4
+                  class="font-h3 text-primary mb-3 border-b border-slate-100 pb-2 text-lg">
+                  Extended Specifications
+                </h4>
+                <div class="grid grid-cols-2 gap-x-12 gap-y-2">
+                  <div
+                    class="flex justify-between border-b border-slate-50 py-2">
+                    <span class="text-sm text-slate-500">Bucket Capacity</span>
+                    <span class="text-primary text-sm font-semibold"
+                      >1.2 m³</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between border-b border-slate-50 py-2">
+                    <span class="text-sm text-slate-500">Emission Level</span>
+                    <span class="text-primary text-sm font-semibold"
+                      >Tier 4 Final</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between border-b border-slate-50 py-2">
+                    <span class="text-sm text-slate-500"
+                      >Max Reach at Ground</span
+                    >
+                    <span class="text-primary text-sm font-semibold"
+                      >9.86 m</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between border-b border-slate-50 py-2">
+                    <span class="text-sm text-slate-500">Transport Width</span>
+                    <span class="text-primary text-sm font-semibold"
+                      >2.98 m</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-span-4 space-y-6">
+              <div class="space-y-3">
+                <h4
+                  class="font-label-sm text-secondary tracking-wider uppercase">
+                  Pickup Location
+                </h4>
+                <div
+                  class="group relative h-48 overflow-hidden rounded-lg border border-slate-100 bg-slate-200 shadow-inner">
+                  <img
+                    class="h-full w-full object-cover"
+                    data-alt="Map location"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDezMrktG15OFnxfYBwp82AOtfj7VZauBwcQAqFYJfNjaDdFajd92cVbEcApgpqBbRr8cB8NYeYRDGL0qsE8FwPHLJvftGQ0E--6hP7ycWnFt6qctuwVwg0fvgYr1VxF6yb8tOSPQOUq1GqWAR-s25BUs7M9XEbZAF2Pv2TQmdhshErls59qfu74dhTE6ECLrYfCufhsAcDokfUCKML5MILS4wFqAi5UCk36BVO-dTyEIRj9uAhi-hja97CIvHGe-cjGeYXJnej2X0" />
+                  <div
+                    class="text-primary absolute bottom-3 left-3 rounded bg-white px-3 py-1.5 text-[10px] font-bold shadow-lg">
+                    Houston, TX 77001
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="h-24"></div>
+        </div>
+        <!-- Sticky Bottom Action Bar -->
+        <div
+          class="sticky right-0 bottom-0 left-0 flex items-center justify-between border-t border-slate-100 bg-white/95 p-6 shadow-[0_-10px_30px_rgba(0,0,0,0.03)] backdrop-blur-md">
+          <div class="flex items-center gap-4 text-slate-500">
+            <span class="material-symbols-outlined">warning</span>
+            <p class="text-sm">
+              Verify serial numbers and insurance docs before approval.
+            </p>
+          </div>
+          <div class="flex gap-4">
+            <button
+              class="border-error/20 text-error hover:bg-error/5 flex items-center gap-2 rounded border px-8 py-3 font-bold transition-all">
+              <span class="material-symbols-outlined">close</span>
+              Reject Listing
+            </button>
+            <button
+              class="bg-primary-container hover:bg-primary flex items-center gap-2 rounded px-10 py-3 font-bold text-white shadow-lg shadow-emerald-900/10 transition-all">
+              <span class="material-symbols-outlined">check_circle</span>
+              Approve &amp; Publish
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

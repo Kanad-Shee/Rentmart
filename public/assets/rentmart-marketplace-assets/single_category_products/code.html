@@ -1,387 +1,724 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "surface-container-highest": "#e2e3e0",
-                        "primary": "#012d1d",
-                        "on-surface-variant": "#414844",
-                        "inverse-on-surface": "#f0f1ee",
-                        "tertiary": "#401b1b",
-                        "outline": "#717973",
-                        "on-error": "#ffffff",
-                        "on-secondary-fixed-variant": "#444749",
-                        "tertiary-container": "#5a302f",
-                        "surface-bright": "#f9faf6",
-                        "primary-container": "#1b4332",
-                        "on-tertiary": "#ffffff",
-                        "on-secondary-fixed": "#191c1e",
-                        "on-primary-fixed": "#002114",
-                        "on-tertiary-fixed": "#331111",
-                        "on-secondary": "#ffffff",
-                        "tertiary-fixed-dim": "#f5b7b4",
-                        "outline-variant": "#c1c8c2",
-                        "surface-dim": "#dadad7",
-                        "surface-container-lowest": "#ffffff",
-                        "on-tertiary-container": "#d29895",
-                        "surface-variant": "#e2e3e0",
-                        "on-surface": "#1a1c1a",
-                        "surface-tint": "#3f6653",
-                        "secondary": "#5c5f60",
-                        "secondary-fixed": "#e1e2e4",
-                        "on-primary": "#ffffff",
-                        "surface-container": "#eeeeeb",
-                        "surface-container-high": "#e8e8e5",
-                        "on-error-container": "#93000a",
-                        "error": "#ba1a1a",
-                        "surface-container-low": "#f3f4f1",
-                        "surface": "#f9faf6",
-                        "primary-fixed": "#c1ecd4",
-                        "on-tertiary-fixed-variant": "#673a39",
-                        "inverse-surface": "#2f312f",
-                        "inverse-primary": "#a5d0b9",
-                        "background": "#f9faf6",
-                        "secondary-fixed-dim": "#c5c6c8",
-                        "error-container": "#ffdad6",
-                        "on-primary-container": "#86af99",
-                        "on-background": "#1a1c1a",
-                        "on-primary-fixed-variant": "#274e3d",
-                        "tertiary-fixed": "#ffdad8",
-                        "primary-fixed-dim": "#a5d0b9",
-                        "on-secondary-container": "#606365",
-                        "secondary-container": "#dee0e2"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "stack-lg": "32px",
-                        "margin-page": "64px",
-                        "container-max": "1440px",
-                        "section-gap": "80px",
-                        "unit": "8px",
-                        "stack-sm": "8px",
-                        "stack-md": "16px",
-                        "gutter": "32px"
-                    },
-                    "fontFamily": {
-                        "h1": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "h2": ["Inter"],
-                        "h3": ["Inter"],
-                        "body-base": ["Inter"],
-                        "caption": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "display-xl": ["Inter"]
-                    },
-                    "fontSize": {
-                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h2": ["30px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                        "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
-                        "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                        "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-                    }
-                },
+<html
+  class="light"
+  lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0"
+      name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'surface-container-highest': '#e2e3e0',
+              primary: '#012d1d',
+              'on-surface-variant': '#414844',
+              'inverse-on-surface': '#f0f1ee',
+              tertiary: '#401b1b',
+              outline: '#717973',
+              'on-error': '#ffffff',
+              'on-secondary-fixed-variant': '#444749',
+              'tertiary-container': '#5a302f',
+              'surface-bright': '#f9faf6',
+              'primary-container': '#1b4332',
+              'on-tertiary': '#ffffff',
+              'on-secondary-fixed': '#191c1e',
+              'on-primary-fixed': '#002114',
+              'on-tertiary-fixed': '#331111',
+              'on-secondary': '#ffffff',
+              'tertiary-fixed-dim': '#f5b7b4',
+              'outline-variant': '#c1c8c2',
+              'surface-dim': '#dadad7',
+              'surface-container-lowest': '#ffffff',
+              'on-tertiary-container': '#d29895',
+              'surface-variant': '#e2e3e0',
+              'on-surface': '#1a1c1a',
+              'surface-tint': '#3f6653',
+              secondary: '#5c5f60',
+              'secondary-fixed': '#e1e2e4',
+              'on-primary': '#ffffff',
+              'surface-container': '#eeeeeb',
+              'surface-container-high': '#e8e8e5',
+              'on-error-container': '#93000a',
+              error: '#ba1a1a',
+              'surface-container-low': '#f3f4f1',
+              surface: '#f9faf6',
+              'primary-fixed': '#c1ecd4',
+              'on-tertiary-fixed-variant': '#673a39',
+              'inverse-surface': '#2f312f',
+              'inverse-primary': '#a5d0b9',
+              background: '#f9faf6',
+              'secondary-fixed-dim': '#c5c6c8',
+              'error-container': '#ffdad6',
+              'on-primary-container': '#86af99',
+              'on-background': '#1a1c1a',
+              'on-primary-fixed-variant': '#274e3d',
+              'tertiary-fixed': '#ffdad8',
+              'primary-fixed-dim': '#a5d0b9',
+              'on-secondary-container': '#606365',
+              'secondary-container': '#dee0e2'
             },
+            borderRadius: {
+              DEFAULT: '0.125rem',
+              lg: '0.25rem',
+              xl: '0.5rem',
+              full: '0.75rem'
+            },
+            spacing: {
+              'stack-lg': '32px',
+              'margin-page': '64px',
+              'container-max': '1440px',
+              'section-gap': '80px',
+              unit: '8px',
+              'stack-sm': '8px',
+              'stack-md': '16px',
+              gutter: '32px'
+            },
+            fontFamily: {
+              h1: ['Inter'],
+              'body-lg': ['Inter'],
+              h2: ['Inter'],
+              h3: ['Inter'],
+              'body-base': ['Inter'],
+              caption: ['Inter'],
+              'label-sm': ['Inter'],
+              'display-xl': ['Inter']
+            },
+            fontSize: {
+              h1: [
+                '40px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              'body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+              h2: [
+                '30px',
+                {
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600'
+                }
+              ],
+              h3: ['24px', { lineHeight: '1.4', fontWeight: '600' }],
+              'body-base': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+              caption: ['12px', { lineHeight: '1.4', fontWeight: '400' }],
+              'label-sm': [
+                '14px',
+                {
+                  lineHeight: '1.2',
+                  letterSpacing: '0.05em',
+                  fontWeight: '500'
+                }
+              ],
+              'display-xl': [
+                '64px',
+                {
+                  lineHeight: '1.1',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700'
+                }
+              ]
+            }
+          }
         }
+      };
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            background-color: #f9faf6;
-        }
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
+      body {
+        background-color: #f9faf6;
+      }
     </style>
-</head>
-<body class="font-body-base text-on-surface">
-<!-- TopNavBar -->
-<header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50">
-<div class="max-w-[1440px] mx-auto px-16 flex items-center justify-between h-20 w-full">
-<div class="flex items-center gap-12">
-<span class="text-2xl font-black tracking-tighter text-emerald-900">Rentmart</span>
-<nav class="hidden md:flex gap-8">
-<a class="font-inter antialiased text-sm tracking-tight text-slate-600 hover:text-emerald-800 transition-colors" href="#">Inventory</a>
-<a class="font-inter antialiased text-sm tracking-tight text-slate-600 hover:text-emerald-800 transition-colors" href="#">Fleet Management</a>
-<a class="font-inter antialiased text-sm tracking-tight text-slate-600 hover:text-emerald-800 transition-colors" href="#">Solutions</a>
-<a class="font-inter antialiased text-sm tracking-tight text-slate-600 hover:text-emerald-800 transition-colors" href="#">Support</a>
-</nav>
-</div>
-<div class="flex items-center gap-6">
-<div class="relative hidden lg:block w-64">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container" placeholder="Search equipment..." type="text"/>
-</div>
-<button class="font-inter antialiased text-sm tracking-tight text-slate-600 hover:text-emerald-800 transition-colors">Sign In</button>
-<button class="bg-primary-container text-white px-6 py-2.5 rounded font-inter antialiased text-sm font-semibold tracking-tight active:scale-[0.98] duration-150 transition-all">List Equipment</button>
-</div>
-</div>
-</header>
-<main class="max-w-[1440px] mx-auto px-16 py-8">
-<!-- Breadcrumbs -->
-<nav class="flex items-center gap-2 mb-8 text-slate-500 font-label-sm text-caption">
-<a class="hover:text-primary transition-colors" href="#">Home</a>
-<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
-<a class="hover:text-primary transition-colors" href="#">Categories</a>
-<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
-<span class="text-primary font-semibold">Tractors</span>
-</nav>
-<!-- Header Section -->
-<header class="mb-10">
-<div class="flex items-end justify-between mb-4">
-<h1 class="font-h1 text-h1 text-primary">Tractors &amp; Farming Equipment</h1>
-<span class="font-body-base text-slate-500 mb-1">142 items found</span>
-</div>
-<p class="font-body-base text-on-surface-variant max-w-2xl">
-                High-performance tractors for diverse agricultural and industrial needs. From compact utility models to heavy-duty machinery, find the precision tools your project demands.
-            </p>
-</header>
-<!-- Filter Section -->
-<section class="mb-12 space-y-6">
-<div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
-<button class="px-6 py-2 rounded-full bg-primary-container text-white font-label-sm whitespace-nowrap">All Tractors</button>
-<button class="px-6 py-2 rounded-full bg-white border border-slate-200 text-on-surface-variant font-label-sm whitespace-nowrap hover:border-primary-container transition-colors">Compact Tractors</button>
-<button class="px-6 py-2 rounded-full bg-white border border-slate-200 text-on-surface-variant font-label-sm whitespace-nowrap hover:border-primary-container transition-colors">Utility Tractors</button>
-<button class="px-6 py-2 rounded-full bg-white border border-slate-200 text-on-surface-variant font-label-sm whitespace-nowrap hover:border-primary-container transition-colors">Attachments</button>
-<button class="px-6 py-2 rounded-full bg-white border border-slate-200 text-on-surface-variant font-label-sm whitespace-nowrap hover:border-primary-container transition-colors">Heavy Duty</button>
-<button class="px-6 py-2 rounded-full bg-white border border-slate-200 text-on-surface-variant font-label-sm whitespace-nowrap hover:border-primary-container transition-colors">Specialized</button>
-</div>
-<div class="flex flex-wrap gap-4 items-center border-t border-slate-200 pt-6">
-<div class="relative min-w-[160px]">
-<label class="block font-label-sm text-slate-500 mb-1">Price Range</label>
-<select class="w-full appearance-none bg-white border border-slate-200 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary-container">
-<option>Any Price</option>
-<option>$0 - $500/day</option>
-<option>$500 - $1,500/day</option>
-<option>$1,500+</option>
-</select>
-</div>
-<div class="relative min-w-[160px]">
-<label class="block font-label-sm text-slate-500 mb-1">Distance</label>
-<select class="w-full appearance-none bg-white border border-slate-200 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary-container">
-<option>Within 50km</option>
-<option>Within 100km</option>
-<option>Nationwide</option>
-</select>
-</div>
-<div class="relative min-w-[160px]">
-<label class="block font-label-sm text-slate-500 mb-1">Availability</label>
-<select class="w-full appearance-none bg-white border border-slate-200 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary-container">
-<option>Available Now</option>
-<option>Next 7 Days</option>
-<option>Coming Soon</option>
-</select>
-</div>
-<button class="ml-auto flex items-center gap-2 px-4 py-2 border border-slate-200 rounded text-sm hover:bg-slate-50 transition-all">
-<span class="material-symbols-outlined text-lg" data-icon="tune">tune</span>
-                    Advanced Filters
-                </button>
-</div>
-</section>
-<!-- Machinery Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
-<!-- Card 1 (Normal State) -->
-<article class="bg-white border border-slate-200 rounded overflow-hidden transition-all duration-300">
-<div class="relative h-56 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="John Deere modern utility tractor parked in a sunlit farm field with high detail and sharp focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCffyVzngysbZ_LfgdnM2x5Wmttr6AdPcS4T8GkJgRWesaolMGpaFH9PyP83scZQGw-6m4W9h8gkLrJruRNVhDmsP7r7PsJlOuZ2dqs41tP8vPCEAR7ZujBv1q_a1gpZbW70-tGGqmYj7NWmQvqHSUjRuxYhK6zquFchbKqKd5sk0di2Tk0TSzgREuOYd_nSnsARB8wIsoCdMLAkWUFAlhRVitCX3o0_oDJl-jTjezUGqll_kaf3AHgYgwlGUVnkgVc-rhDN9sRhxU"/>
-<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-<span class="material-symbols-outlined text-primary text-[14px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
-<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Verified</span>
-</div>
-<button class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 backdrop-blur-md p-2 rounded-full text-white transition-colors">
-<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
-</button>
-</div>
-<div class="p-5">
-<div class="flex items-center gap-1 text-amber-500 mb-2">
-<span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-sm text-on-surface">4.9</span>
-<span class="text-caption text-slate-400">(42)</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-1 truncate">John Deere 5075E</h3>
-<div class="flex items-center gap-1 text-slate-500 mb-4">
-<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
-<span class="text-caption">Kalatala Hat, 5km</span>
-</div>
-<div class="flex items-baseline gap-1">
-<span class="font-h2 text-h2 text-primary">$450</span>
-<span class="text-caption text-slate-500 font-medium">/ DAY</span>
-</div>
-</div>
-</article>
-<!-- Card 2 (Hover State Special) -->
-<article class="bg-white border border-slate-200 rounded overflow-hidden shadow-[0px_10px_30px_rgba(0,0,0,0.06)] -translate-y-2 relative group transition-all duration-300">
-<div class="relative h-56 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Heavy duty orange tractor on a construction site with clear sky background and dramatic perspective" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5igZDUVKwQIg5lsp5lR8sXt3MSTfr7k_vpkmHdF3waKbTWh0J38CaBiVDr185E0u8IwPRSRfDIdYg810OG8KNj4bgplL7kLxxlMtpsBgxe4I61Tb120vLTTGi84YgOV8iIEvXt6d6BY6emC3V7_8RPhj9InAG1OfIT4UbNSYUjI9ZOw-73zHaPeIYkXOdiODC-6ko5SqDj96jgwDj_UQ5HdWxIlQetPuv6b4UpAalBkHwRyriY7ZpbRXYWA9aT_LKd6MveRk8dPw"/>
-<div class="absolute inset-0 bg-primary/20 flex items-center justify-center opacity-100 transition-opacity">
-<button class="bg-white text-primary px-6 py-2.5 rounded font-label-sm font-bold shadow-xl active:scale-95 transition-transform">
-                            Quick View
-                        </button>
-</div>
-<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-<span class="material-symbols-outlined text-primary text-[14px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
-<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Verified</span>
-</div>
-</div>
-<div class="p-5">
-<div class="flex items-center gap-1 text-amber-500 mb-2">
-<span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-sm text-on-surface">5.0</span>
-<span class="text-caption text-slate-400">(18)</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-1 truncate">Kubota M7-172 Gen2</h3>
-<div class="flex items-center gap-1 text-slate-500 mb-4">
-<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
-<span class="text-caption">Narayanganj, 12km</span>
-</div>
-<div class="flex items-baseline gap-1">
-<span class="font-h2 text-h2 text-primary">$890</span>
-<span class="text-caption text-slate-500 font-medium">/ DAY</span>
-</div>
-</div>
-</article>
-<!-- Card 3 -->
-<article class="bg-white border border-slate-200 rounded overflow-hidden transition-all duration-300">
-<div class="relative h-56 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Blue compact tractor parked near a greenhouse with soft morning lighting and natural greens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb2596pd2Zxl2tL3yiikIukYqdN-1IPNUoqPHrnLI3AuqE_aoL6__x33sB5Hic6LZs_x0reGScabpmevd7fi5QW_x9YW6QWhfKiKN_Qeq6oUkurA8GsiNgdXCpcjYA2JXKhqp67cwmyYUxGrQevpvTy5Uq-YcMgzCE7YLqYCUj_szUeGt9cBLxNXkSt5kFsuvL5Q8EQl2UbZe9Emt8KFbTILiPQi5-lRS2q1NrYyjEY8-fXVX1fOmBuaqGFsdh0w2mtufKRDbOabI"/>
-<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-<span class="material-symbols-outlined text-primary text-[14px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
-<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Verified</span>
-</div>
-</div>
-<div class="p-5">
-<div class="flex items-center gap-1 text-amber-500 mb-2">
-<span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-sm text-on-surface">4.8</span>
-<span class="text-caption text-slate-400">(56)</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-1 truncate">New Holland T4.75</h3>
-<div class="flex items-center gap-1 text-slate-500 mb-4">
-<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
-<span class="text-caption">Savar Industrial, 8km</span>
-</div>
-<div class="flex items-baseline gap-1">
-<span class="font-h2 text-h2 text-primary">$320</span>
-<span class="text-caption text-slate-500 font-medium">/ DAY</span>
-</div>
-</div>
-</article>
-<!-- Card 4 -->
-<article class="bg-white border border-slate-200 rounded overflow-hidden transition-all duration-300">
-<div class="relative h-56 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Classic red Massey Ferguson tractor in a wheat field at sunset with warm lens flare" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuMDUvAR68Mj6bq2fqLxzTDV-fN2O5kT83tqfA1C8EaK9DtSa3y7S9HMxtyCG6blHlpUkGf2ZNGo9nSWWPSBZhNDlhBd6UDtiOxbsy1hPEFnk-mp2AtyypmYD10h5hS9sfRxxaT_xVn3MeajBFNy_jAAbESTsrvoUmIB8QtisIxxJMZ66crVjTwcdE7RHEIzN3kwaMXTDCT8zi3mdBjAifIveVEKQL86pamNwF5UNLpbzxJKZ2nBYFHxm0oFBMwh8ZM7FbbX7TOtg"/>
-<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-<span class="material-symbols-outlined text-primary text-[14px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
-<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Verified</span>
-</div>
-</div>
-<div class="p-5">
-<div class="flex items-center gap-1 text-amber-500 mb-2">
-<span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-sm text-on-surface">4.7</span>
-<span class="text-caption text-slate-400">(29)</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-1 truncate">Massey Ferguson 4707</h3>
-<div class="flex items-center gap-1 text-slate-500 mb-4">
-<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
-<span class="text-caption">Gazipur City, 22km</span>
-</div>
-<div class="flex items-baseline gap-1">
-<span class="font-h2 text-h2 text-primary">$550</span>
-<span class="text-caption text-slate-500 font-medium">/ DAY</span>
-</div>
-</div>
-</article>
-<!-- Card 5 -->
-<article class="bg-white border border-slate-200 rounded overflow-hidden transition-all duration-300">
-<div class="relative h-56 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Case IH heavy duty tractor during harvest time with dust and golden light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuqdGICNiwTDAQPU86ir_nflqdAMNwnv-tdKtw8gi10YGWjttUrZnbMqR9evyjnhxzHat6PMHk69eMI4ZSaQLsa_gDaJvjqMgl7YWGBGyBU8ZntQxqbGaOEtoD2DYMLMHW4uuzQrlxL1BTw0AbuIQoEacqNSWahHlB_MhJPCnkxVDaLM0kueMtuHZ1GNLCDyyFu-JBld5_oHoUWyIDgka54luT9zhgTZyWwx4CQkDp88JK8mgV2ZVeyEHMs4_4HlHIS7HTYy2wQZk"/>
-<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-<span class="material-symbols-outlined text-primary text-[14px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
-<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Verified</span>
-</div>
-</div>
-<div class="p-5">
-<div class="flex items-center gap-1 text-amber-500 mb-2">
-<span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-sm text-on-surface">4.9</span>
-<span class="text-caption text-slate-400">(11)</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-1 truncate">Case IH Magnum 340</h3>
-<div class="flex items-center gap-1 text-slate-500 mb-4">
-<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
-<span class="text-caption">Mymensingh Hub, 45km</span>
-</div>
-<div class="flex items-baseline gap-1">
-<span class="font-h2 text-h2 text-primary">$1,250</span>
-<span class="text-caption text-slate-500 font-medium">/ DAY</span>
-</div>
-</div>
-</article>
-</div>
-<!-- Pagination -->
-<div class="mt-16 flex items-center justify-center gap-4">
-<button class="w-10 h-10 border border-slate-200 rounded flex items-center justify-center text-slate-400 hover:border-primary-container hover:text-primary transition-all">
-<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
-</button>
-<button class="w-10 h-10 bg-primary-container text-white rounded font-label-sm">1</button>
-<button class="w-10 h-10 border border-slate-200 text-slate-600 rounded font-label-sm hover:bg-slate-50">2</button>
-<button class="w-10 h-10 border border-slate-200 text-slate-600 rounded font-label-sm hover:bg-slate-50">3</button>
-<span class="text-slate-400">...</span>
-<button class="w-10 h-10 border border-slate-200 text-slate-600 rounded font-label-sm hover:bg-slate-50">12</button>
-<button class="w-10 h-10 border border-slate-200 rounded flex items-center justify-center text-slate-400 hover:border-primary-container hover:text-primary transition-all">
-<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
-</button>
-</div>
-</main>
-<!-- Footer -->
-<footer class="w-full border-t border-slate-200 mt-20 bg-slate-50">
-<div class="max-w-[1440px] mx-auto px-16 py-12 flex flex-col md:flex-row justify-between items-start gap-12">
-<div class="max-w-xs">
-<span class="text-lg font-bold text-emerald-900 block mb-4">Rentmart</span>
-<p class="font-inter text-xs text-slate-500 uppercase tracking-widest leading-relaxed">
-                    The world's leading marketplace for heavy machinery rental and procurement.
-                </p>
-</div>
-<div class="grid grid-cols-2 lg:grid-cols-3 gap-12">
-<div class="flex flex-col gap-4">
-<span class="font-inter text-xs uppercase tracking-widest font-bold text-emerald-900">Marketplace</span>
-<a class="font-inter text-xs uppercase tracking-widest text-slate-500 hover:text-emerald-700 transition-opacity" href="#">Browse Categories</a>
-<a class="font-inter text-xs uppercase tracking-widest text-slate-500 hover:text-emerald-700 transition-opacity" href="#">Partner Program</a>
-<a class="font-inter text-xs uppercase tracking-widest text-slate-500 hover:text-emerald-700 transition-opacity" href="#">Rental Terms</a>
-</div>
-<div class="flex flex-col gap-4">
-<span class="font-inter text-xs uppercase tracking-widest font-bold text-emerald-900">Support</span>
-<a class="font-inter text-xs uppercase tracking-widest text-slate-500 hover:text-emerald-700 transition-opacity" href="#">Technical Support</a>
-<a class="font-inter text-xs uppercase tracking-widest text-slate-500 hover:text-emerald-700 transition-opacity" href="#">Insurance &amp; Protection</a>
-<a class="font-inter text-xs uppercase tracking-widest text-slate-500 hover:text-emerald-700 transition-opacity" href="#">Help Center</a>
-</div>
-</div>
-</div>
-<div class="max-w-[1440px] mx-auto px-16 py-6 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="font-inter text-xs uppercase tracking-widest text-slate-500">
-                © 2024 Rentmart Global Machinery Marketplace. Professional Procurement Simplified.
-            </p>
-<div class="flex gap-6">
-<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg" data-icon="public">public</span></a>
-<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg" data-icon="share">share</span></a>
-</div>
-</div>
-</footer>
-</body></html>
+  </head>
+  <body class="font-body-base text-on-surface">
+    <!-- TopNavBar -->
+    <header
+      class="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
+      <div
+        class="mx-auto flex h-20 w-full max-w-[1440px] items-center justify-between px-16">
+        <div class="flex items-center gap-12">
+          <span class="text-2xl font-black tracking-tighter text-emerald-900"
+            >Rentmart</span
+          >
+          <nav class="hidden gap-8 md:flex">
+            <a
+              class="font-inter text-sm tracking-tight text-slate-600 antialiased transition-colors hover:text-emerald-800"
+              href="#"
+              >Inventory</a
+            >
+            <a
+              class="font-inter text-sm tracking-tight text-slate-600 antialiased transition-colors hover:text-emerald-800"
+              href="#"
+              >Fleet Management</a
+            >
+            <a
+              class="font-inter text-sm tracking-tight text-slate-600 antialiased transition-colors hover:text-emerald-800"
+              href="#"
+              >Solutions</a
+            >
+            <a
+              class="font-inter text-sm tracking-tight text-slate-600 antialiased transition-colors hover:text-emerald-800"
+              href="#"
+              >Support</a
+            >
+          </nav>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="relative hidden w-64 lg:block">
+            <span
+              class="material-symbols-outlined absolute top-1/2 left-3 -translate-y-1/2 text-lg text-slate-400"
+              data-icon="search"
+              >search</span
+            >
+            <input
+              class="focus:border-primary-container focus:ring-primary-container w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pr-4 pl-10 text-sm focus:ring-1 focus:outline-none"
+              placeholder="Search equipment..."
+              type="text" />
+          </div>
+          <button
+            class="font-inter text-sm tracking-tight text-slate-600 antialiased transition-colors hover:text-emerald-800">
+            Sign In
+          </button>
+          <button
+            class="bg-primary-container font-inter rounded px-6 py-2.5 text-sm font-semibold tracking-tight text-white antialiased transition-all duration-150 active:scale-[0.98]">
+            List Equipment
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="mx-auto max-w-[1440px] px-16 py-8">
+      <!-- Breadcrumbs -->
+      <nav
+        class="font-label-sm text-caption mb-8 flex items-center gap-2 text-slate-500">
+        <a
+          class="hover:text-primary transition-colors"
+          href="#"
+          >Home</a
+        >
+        <span
+          class="material-symbols-outlined text-[16px]"
+          data-icon="chevron_right"
+          >chevron_right</span
+        >
+        <a
+          class="hover:text-primary transition-colors"
+          href="#"
+          >Categories</a
+        >
+        <span
+          class="material-symbols-outlined text-[16px]"
+          data-icon="chevron_right"
+          >chevron_right</span
+        >
+        <span class="text-primary font-semibold">Tractors</span>
+      </nav>
+      <!-- Header Section -->
+      <header class="mb-10">
+        <div class="mb-4 flex items-end justify-between">
+          <h1 class="font-h1 text-h1 text-primary">
+            Tractors &amp; Farming Equipment
+          </h1>
+          <span class="font-body-base mb-1 text-slate-500"
+            >142 items found</span
+          >
+        </div>
+        <p class="font-body-base text-on-surface-variant max-w-2xl">
+          High-performance tractors for diverse agricultural and industrial
+          needs. From compact utility models to heavy-duty machinery, find the
+          precision tools your project demands.
+        </p>
+      </header>
+      <!-- Filter Section -->
+      <section class="mb-12 space-y-6">
+        <div
+          class="scrollbar-hide flex items-center gap-3 overflow-x-auto pb-2">
+          <button
+            class="bg-primary-container font-label-sm rounded-full px-6 py-2 whitespace-nowrap text-white">
+            All Tractors
+          </button>
+          <button
+            class="text-on-surface-variant font-label-sm hover:border-primary-container rounded-full border border-slate-200 bg-white px-6 py-2 whitespace-nowrap transition-colors">
+            Compact Tractors
+          </button>
+          <button
+            class="text-on-surface-variant font-label-sm hover:border-primary-container rounded-full border border-slate-200 bg-white px-6 py-2 whitespace-nowrap transition-colors">
+            Utility Tractors
+          </button>
+          <button
+            class="text-on-surface-variant font-label-sm hover:border-primary-container rounded-full border border-slate-200 bg-white px-6 py-2 whitespace-nowrap transition-colors">
+            Attachments
+          </button>
+          <button
+            class="text-on-surface-variant font-label-sm hover:border-primary-container rounded-full border border-slate-200 bg-white px-6 py-2 whitespace-nowrap transition-colors">
+            Heavy Duty
+          </button>
+          <button
+            class="text-on-surface-variant font-label-sm hover:border-primary-container rounded-full border border-slate-200 bg-white px-6 py-2 whitespace-nowrap transition-colors">
+            Specialized
+          </button>
+        </div>
+        <div
+          class="flex flex-wrap items-center gap-4 border-t border-slate-200 pt-6">
+          <div class="relative min-w-[160px]">
+            <label class="font-label-sm mb-1 block text-slate-500"
+              >Price Range</label
+            >
+            <select
+              class="focus:ring-primary-container w-full appearance-none rounded border border-slate-200 bg-white px-3 py-2 text-sm focus:ring-1">
+              <option>Any Price</option>
+              <option>$0 - $500/day</option>
+              <option>$500 - $1,500/day</option>
+              <option>$1,500+</option>
+            </select>
+          </div>
+          <div class="relative min-w-[160px]">
+            <label class="font-label-sm mb-1 block text-slate-500"
+              >Distance</label
+            >
+            <select
+              class="focus:ring-primary-container w-full appearance-none rounded border border-slate-200 bg-white px-3 py-2 text-sm focus:ring-1">
+              <option>Within 50km</option>
+              <option>Within 100km</option>
+              <option>Nationwide</option>
+            </select>
+          </div>
+          <div class="relative min-w-[160px]">
+            <label class="font-label-sm mb-1 block text-slate-500"
+              >Availability</label
+            >
+            <select
+              class="focus:ring-primary-container w-full appearance-none rounded border border-slate-200 bg-white px-3 py-2 text-sm focus:ring-1">
+              <option>Available Now</option>
+              <option>Next 7 Days</option>
+              <option>Coming Soon</option>
+            </select>
+          </div>
+          <button
+            class="ml-auto flex items-center gap-2 rounded border border-slate-200 px-4 py-2 text-sm transition-all hover:bg-slate-50">
+            <span
+              class="material-symbols-outlined text-lg"
+              data-icon="tune"
+              >tune</span
+            >
+            Advanced Filters
+          </button>
+        </div>
+      </section>
+      <!-- Machinery Grid -->
+      <div
+        class="gap-gutter grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <!-- Card 1 (Normal State) -->
+        <article
+          class="overflow-hidden rounded border border-slate-200 bg-white transition-all duration-300">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              class="h-full w-full object-cover"
+              data-alt="John Deere modern utility tractor parked in a sunlit farm field with high detail and sharp focus"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCffyVzngysbZ_LfgdnM2x5Wmttr6AdPcS4T8GkJgRWesaolMGpaFH9PyP83scZQGw-6m4W9h8gkLrJruRNVhDmsP7r7PsJlOuZ2dqs41tP8vPCEAR7ZujBv1q_a1gpZbW70-tGGqmYj7NWmQvqHSUjRuxYhK6zquFchbKqKd5sk0di2Tk0TSzgREuOYd_nSnsARB8wIsoCdMLAkWUFAlhRVitCX3o0_oDJl-jTjezUGqll_kaf3AHgYgwlGUVnkgVc-rhDN9sRhxU" />
+            <div
+              class="absolute top-4 left-4 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 shadow-sm backdrop-blur-sm">
+              <span
+                class="material-symbols-outlined text-primary text-[14px]"
+                data-icon="verified"
+                style="font-variation-settings: 'FILL' 1"
+                >verified</span
+              >
+              <span
+                class="text-primary text-[10px] font-bold tracking-wider uppercase"
+                >Verified</span
+              >
+            </div>
+            <button
+              class="absolute top-4 right-4 rounded-full bg-white/20 p-2 text-white backdrop-blur-md transition-colors hover:bg-white/40">
+              <span
+                class="material-symbols-outlined"
+                data-icon="favorite"
+                >favorite</span
+              >
+            </button>
+          </div>
+          <div class="p-5">
+            <div class="mb-2 flex items-center gap-1 text-amber-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="star"
+                style="font-variation-settings: 'FILL' 1"
+                >star</span
+              >
+              <span class="font-label-sm text-on-surface">4.9</span>
+              <span class="text-caption text-slate-400">(42)</span>
+            </div>
+            <h3 class="font-h3 text-h3 text-primary mb-1 truncate">
+              John Deere 5075E
+            </h3>
+            <div class="mb-4 flex items-center gap-1 text-slate-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="location_on"
+                >location_on</span
+              >
+              <span class="text-caption">Kalatala Hat, 5km</span>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <span class="font-h2 text-h2 text-primary">$450</span>
+              <span class="text-caption font-medium text-slate-500">/ DAY</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 2 (Hover State Special) -->
+        <article
+          class="group relative -translate-y-2 overflow-hidden rounded border border-slate-200 bg-white shadow-[0px_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              class="h-full w-full object-cover"
+              data-alt="Heavy duty orange tractor on a construction site with clear sky background and dramatic perspective"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5igZDUVKwQIg5lsp5lR8sXt3MSTfr7k_vpkmHdF3waKbTWh0J38CaBiVDr185E0u8IwPRSRfDIdYg810OG8KNj4bgplL7kLxxlMtpsBgxe4I61Tb120vLTTGi84YgOV8iIEvXt6d6BY6emC3V7_8RPhj9InAG1OfIT4UbNSYUjI9ZOw-73zHaPeIYkXOdiODC-6ko5SqDj96jgwDj_UQ5HdWxIlQetPuv6b4UpAalBkHwRyriY7ZpbRXYWA9aT_LKd6MveRk8dPw" />
+            <div
+              class="bg-primary/20 absolute inset-0 flex items-center justify-center opacity-100 transition-opacity">
+              <button
+                class="text-primary font-label-sm rounded bg-white px-6 py-2.5 font-bold shadow-xl transition-transform active:scale-95">
+                Quick View
+              </button>
+            </div>
+            <div
+              class="absolute top-4 left-4 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 shadow-sm backdrop-blur-sm">
+              <span
+                class="material-symbols-outlined text-primary text-[14px]"
+                data-icon="verified"
+                style="font-variation-settings: 'FILL' 1"
+                >verified</span
+              >
+              <span
+                class="text-primary text-[10px] font-bold tracking-wider uppercase"
+                >Verified</span
+              >
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="mb-2 flex items-center gap-1 text-amber-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="star"
+                style="font-variation-settings: 'FILL' 1"
+                >star</span
+              >
+              <span class="font-label-sm text-on-surface">5.0</span>
+              <span class="text-caption text-slate-400">(18)</span>
+            </div>
+            <h3 class="font-h3 text-h3 text-primary mb-1 truncate">
+              Kubota M7-172 Gen2
+            </h3>
+            <div class="mb-4 flex items-center gap-1 text-slate-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="location_on"
+                >location_on</span
+              >
+              <span class="text-caption">Narayanganj, 12km</span>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <span class="font-h2 text-h2 text-primary">$890</span>
+              <span class="text-caption font-medium text-slate-500">/ DAY</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 3 -->
+        <article
+          class="overflow-hidden rounded border border-slate-200 bg-white transition-all duration-300">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              class="h-full w-full object-cover"
+              data-alt="Blue compact tractor parked near a greenhouse with soft morning lighting and natural greens"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb2596pd2Zxl2tL3yiikIukYqdN-1IPNUoqPHrnLI3AuqE_aoL6__x33sB5Hic6LZs_x0reGScabpmevd7fi5QW_x9YW6QWhfKiKN_Qeq6oUkurA8GsiNgdXCpcjYA2JXKhqp67cwmyYUxGrQevpvTy5Uq-YcMgzCE7YLqYCUj_szUeGt9cBLxNXkSt5kFsuvL5Q8EQl2UbZe9Emt8KFbTILiPQi5-lRS2q1NrYyjEY8-fXVX1fOmBuaqGFsdh0w2mtufKRDbOabI" />
+            <div
+              class="absolute top-4 left-4 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 shadow-sm backdrop-blur-sm">
+              <span
+                class="material-symbols-outlined text-primary text-[14px]"
+                data-icon="verified"
+                style="font-variation-settings: 'FILL' 1"
+                >verified</span
+              >
+              <span
+                class="text-primary text-[10px] font-bold tracking-wider uppercase"
+                >Verified</span
+              >
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="mb-2 flex items-center gap-1 text-amber-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="star"
+                style="font-variation-settings: 'FILL' 1"
+                >star</span
+              >
+              <span class="font-label-sm text-on-surface">4.8</span>
+              <span class="text-caption text-slate-400">(56)</span>
+            </div>
+            <h3 class="font-h3 text-h3 text-primary mb-1 truncate">
+              New Holland T4.75
+            </h3>
+            <div class="mb-4 flex items-center gap-1 text-slate-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="location_on"
+                >location_on</span
+              >
+              <span class="text-caption">Savar Industrial, 8km</span>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <span class="font-h2 text-h2 text-primary">$320</span>
+              <span class="text-caption font-medium text-slate-500">/ DAY</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 4 -->
+        <article
+          class="overflow-hidden rounded border border-slate-200 bg-white transition-all duration-300">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              class="h-full w-full object-cover"
+              data-alt="Classic red Massey Ferguson tractor in a wheat field at sunset with warm lens flare"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuMDUvAR68Mj6bq2fqLxzTDV-fN2O5kT83tqfA1C8EaK9DtSa3y7S9HMxtyCG6blHlpUkGf2ZNGo9nSWWPSBZhNDlhBd6UDtiOxbsy1hPEFnk-mp2AtyypmYD10h5hS9sfRxxaT_xVn3MeajBFNy_jAAbESTsrvoUmIB8QtisIxxJMZ66crVjTwcdE7RHEIzN3kwaMXTDCT8zi3mdBjAifIveVEKQL86pamNwF5UNLpbzxJKZ2nBYFHxm0oFBMwh8ZM7FbbX7TOtg" />
+            <div
+              class="absolute top-4 left-4 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 shadow-sm backdrop-blur-sm">
+              <span
+                class="material-symbols-outlined text-primary text-[14px]"
+                data-icon="verified"
+                style="font-variation-settings: 'FILL' 1"
+                >verified</span
+              >
+              <span
+                class="text-primary text-[10px] font-bold tracking-wider uppercase"
+                >Verified</span
+              >
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="mb-2 flex items-center gap-1 text-amber-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="star"
+                style="font-variation-settings: 'FILL' 1"
+                >star</span
+              >
+              <span class="font-label-sm text-on-surface">4.7</span>
+              <span class="text-caption text-slate-400">(29)</span>
+            </div>
+            <h3 class="font-h3 text-h3 text-primary mb-1 truncate">
+              Massey Ferguson 4707
+            </h3>
+            <div class="mb-4 flex items-center gap-1 text-slate-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="location_on"
+                >location_on</span
+              >
+              <span class="text-caption">Gazipur City, 22km</span>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <span class="font-h2 text-h2 text-primary">$550</span>
+              <span class="text-caption font-medium text-slate-500">/ DAY</span>
+            </div>
+          </div>
+        </article>
+        <!-- Card 5 -->
+        <article
+          class="overflow-hidden rounded border border-slate-200 bg-white transition-all duration-300">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              class="h-full w-full object-cover"
+              data-alt="Case IH heavy duty tractor during harvest time with dust and golden light"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuqdGICNiwTDAQPU86ir_nflqdAMNwnv-tdKtw8gi10YGWjttUrZnbMqR9evyjnhxzHat6PMHk69eMI4ZSaQLsa_gDaJvjqMgl7YWGBGyBU8ZntQxqbGaOEtoD2DYMLMHW4uuzQrlxL1BTw0AbuIQoEacqNSWahHlB_MhJPCnkxVDaLM0kueMtuHZ1GNLCDyyFu-JBld5_oHoUWyIDgka54luT9zhgTZyWwx4CQkDp88JK8mgV2ZVeyEHMs4_4HlHIS7HTYy2wQZk" />
+            <div
+              class="absolute top-4 left-4 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 shadow-sm backdrop-blur-sm">
+              <span
+                class="material-symbols-outlined text-primary text-[14px]"
+                data-icon="verified"
+                style="font-variation-settings: 'FILL' 1"
+                >verified</span
+              >
+              <span
+                class="text-primary text-[10px] font-bold tracking-wider uppercase"
+                >Verified</span
+              >
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="mb-2 flex items-center gap-1 text-amber-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="star"
+                style="font-variation-settings: 'FILL' 1"
+                >star</span
+              >
+              <span class="font-label-sm text-on-surface">4.9</span>
+              <span class="text-caption text-slate-400">(11)</span>
+            </div>
+            <h3 class="font-h3 text-h3 text-primary mb-1 truncate">
+              Case IH Magnum 340
+            </h3>
+            <div class="mb-4 flex items-center gap-1 text-slate-500">
+              <span
+                class="material-symbols-outlined text-[16px]"
+                data-icon="location_on"
+                >location_on</span
+              >
+              <span class="text-caption">Mymensingh Hub, 45km</span>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <span class="font-h2 text-h2 text-primary">$1,250</span>
+              <span class="text-caption font-medium text-slate-500">/ DAY</span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <!-- Pagination -->
+      <div class="mt-16 flex items-center justify-center gap-4">
+        <button
+          class="hover:border-primary-container hover:text-primary flex h-10 w-10 items-center justify-center rounded border border-slate-200 text-slate-400 transition-all">
+          <span
+            class="material-symbols-outlined"
+            data-icon="chevron_left"
+            >chevron_left</span
+          >
+        </button>
+        <button
+          class="bg-primary-container font-label-sm h-10 w-10 rounded text-white">
+          1
+        </button>
+        <button
+          class="font-label-sm h-10 w-10 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">
+          2
+        </button>
+        <button
+          class="font-label-sm h-10 w-10 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">
+          3
+        </button>
+        <span class="text-slate-400">...</span>
+        <button
+          class="font-label-sm h-10 w-10 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">
+          12
+        </button>
+        <button
+          class="hover:border-primary-container hover:text-primary flex h-10 w-10 items-center justify-center rounded border border-slate-200 text-slate-400 transition-all">
+          <span
+            class="material-symbols-outlined"
+            data-icon="chevron_right"
+            >chevron_right</span
+          >
+        </button>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer class="mt-20 w-full border-t border-slate-200 bg-slate-50">
+      <div
+        class="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-12 px-16 py-12 md:flex-row">
+        <div class="max-w-xs">
+          <span class="mb-4 block text-lg font-bold text-emerald-900"
+            >Rentmart</span
+          >
+          <p
+            class="font-inter text-xs leading-relaxed tracking-widest text-slate-500 uppercase">
+            The world's leading marketplace for heavy machinery rental and
+            procurement.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-12 lg:grid-cols-3">
+          <div class="flex flex-col gap-4">
+            <span
+              class="font-inter text-xs font-bold tracking-widest text-emerald-900 uppercase"
+              >Marketplace</span
+            >
+            <a
+              class="font-inter text-xs tracking-widest text-slate-500 uppercase transition-opacity hover:text-emerald-700"
+              href="#"
+              >Browse Categories</a
+            >
+            <a
+              class="font-inter text-xs tracking-widest text-slate-500 uppercase transition-opacity hover:text-emerald-700"
+              href="#"
+              >Partner Program</a
+            >
+            <a
+              class="font-inter text-xs tracking-widest text-slate-500 uppercase transition-opacity hover:text-emerald-700"
+              href="#"
+              >Rental Terms</a
+            >
+          </div>
+          <div class="flex flex-col gap-4">
+            <span
+              class="font-inter text-xs font-bold tracking-widest text-emerald-900 uppercase"
+              >Support</span
+            >
+            <a
+              class="font-inter text-xs tracking-widest text-slate-500 uppercase transition-opacity hover:text-emerald-700"
+              href="#"
+              >Technical Support</a
+            >
+            <a
+              class="font-inter text-xs tracking-widest text-slate-500 uppercase transition-opacity hover:text-emerald-700"
+              href="#"
+              >Insurance &amp; Protection</a
+            >
+            <a
+              class="font-inter text-xs tracking-widest text-slate-500 uppercase transition-opacity hover:text-emerald-700"
+              href="#"
+              >Help Center</a
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        class="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-4 border-t border-slate-200 px-16 py-6 md:flex-row">
+        <p class="font-inter text-xs tracking-widest text-slate-500 uppercase">
+          © 2024 Rentmart Global Machinery Marketplace. Professional Procurement
+          Simplified.
+        </p>
+        <div class="flex gap-6">
+          <a
+            class="hover:text-primary text-slate-400 transition-colors"
+            href="#"
+            ><span
+              class="material-symbols-outlined text-lg"
+              data-icon="public"
+              >public</span
+            ></a
+          >
+          <a
+            class="hover:text-primary text-slate-400 transition-colors"
+            href="#"
+            ><span
+              class="material-symbols-outlined text-lg"
+              data-icon="share"
+              >share</span
+            ></a
+          >
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

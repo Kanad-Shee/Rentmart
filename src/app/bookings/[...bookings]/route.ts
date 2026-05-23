@@ -1,32 +1,32 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { getBackendUrl } from "@/lib/http";
+import { getBackendUrl } from '@/lib/http';
+import { NextResponse, type NextRequest } from 'next/server';
 
 function getSetCookieHeaders(response: Response) {
   const nextHeaders = response.headers as Headers & {
     getSetCookie?: () => string[];
   };
 
-  if (typeof nextHeaders.getSetCookie === "function") {
+  if (typeof nextHeaders.getSetCookie === 'function') {
     return nextHeaders.getSetCookie();
   }
 
-  const header = response.headers.get("set-cookie");
+  const header = response.headers.get('set-cookie');
   return header ? [header] : [];
 }
 
 async function proxyBookingRequest(
   request: NextRequest,
   bookingPath: string[],
-  method: "GET" | "POST" | "PATCH",
+  method: 'GET' | 'POST' | 'PATCH'
 ) {
   const backendPath = bookingPath.length
-    ? `/bookings/${bookingPath.join("/")}${request.nextUrl.search}`
+    ? `/bookings/${bookingPath.join('/')}${request.nextUrl.search}`
     : `/bookings${request.nextUrl.search}`;
-  const contentType = request.headers.get("content-type") ?? "";
+  const contentType = request.headers.get('content-type') ?? '';
   const body =
-    method === "GET"
+    method === 'GET'
       ? undefined
-      : contentType.includes("multipart/form-data")
+      : contentType.includes('multipart/form-data')
         ? await request.formData()
         : await request.text();
 
@@ -36,30 +36,32 @@ async function proxyBookingRequest(
     backendResponse = await fetch(getBackendUrl(backendPath), {
       method,
       body,
-      cache: "no-store",
+      cache: 'no-store',
       headers: {
-        accept: request.headers.get("accept") ?? "application/json",
-        ...(contentType && !contentType.includes("multipart/form-data")
-          ? { "content-type": contentType }
+        accept: request.headers.get('accept') ?? 'application/json',
+        ...(contentType && !contentType.includes('multipart/form-data')
+          ? { 'content-type': contentType }
           : {}),
-        ...(request.headers.get("x-idempotency-key")
+        ...(request.headers.get('x-idempotency-key')
           ? {
-              "x-idempotency-key": request.headers.get("x-idempotency-key") as string,
+              'x-idempotency-key': request.headers.get(
+                'x-idempotency-key'
+              ) as string
             }
           : {}),
-        ...(request.headers.get("cookie")
-          ? { cookie: request.headers.get("cookie") as string }
-          : {}),
-      },
+        ...(request.headers.get('cookie')
+          ? { cookie: request.headers.get('cookie') as string }
+          : {})
+      }
     });
   } catch (error) {
-    console.error("Booking proxy request failed:", error);
+    console.error('Booking proxy request failed:', error);
     return NextResponse.json(
       {
         success: false,
-        message: "Unable to reach the backend server.",
+        message: 'Unable to reach the backend server.'
       },
-      { status: 502 },
+      { status: 502 }
     );
   }
 
@@ -67,13 +69,13 @@ async function proxyBookingRequest(
   const response = new NextResponse(payload, {
     status: backendResponse.status,
     headers: {
-      "content-type":
-        backendResponse.headers.get("content-type") ?? "application/json",
-    },
+      'content-type':
+        backendResponse.headers.get('content-type') ?? 'application/json'
+    }
   });
 
   for (const setCookie of getSetCookieHeaders(backendResponse)) {
-    response.headers.append("set-cookie", setCookie);
+    response.headers.append('set-cookie', setCookie);
   }
 
   return response;
@@ -81,24 +83,24 @@ async function proxyBookingRequest(
 
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ bookings: string[] }> },
+  context: { params: Promise<{ bookings: string[] }> }
 ) {
   const { bookings } = await context.params;
-  return proxyBookingRequest(request, bookings, "GET");
+  return proxyBookingRequest(request, bookings, 'GET');
 }
 
 export async function POST(
   request: NextRequest,
-  context: { params: Promise<{ bookings: string[] }> },
+  context: { params: Promise<{ bookings: string[] }> }
 ) {
   const { bookings } = await context.params;
-  return proxyBookingRequest(request, bookings, "POST");
+  return proxyBookingRequest(request, bookings, 'POST');
 }
 
 export async function PATCH(
   request: NextRequest,
-  context: { params: Promise<{ bookings: string[] }> },
+  context: { params: Promise<{ bookings: string[] }> }
 ) {
   const { bookings } = await context.params;
-  return proxyBookingRequest(request, bookings, "PATCH");
+  return proxyBookingRequest(request, bookings, 'PATCH');
 }

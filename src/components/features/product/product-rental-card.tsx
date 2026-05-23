@@ -1,20 +1,14 @@
-"use client";
+'use client';
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { format } from "date-fns";
-import type { DateRange } from "react-day-picker";
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
-  CalendarDays,
-  CircleCheckBig,
-  CircleAlert,
-  Loader2,
-  ShieldCheck,
-} from "lucide-react";
-import { toast } from "sonner";
-import { useCreateBookingMutation } from "@/hooks/use-bookings";
-import { useCurrentUserQuery } from "@/hooks/use-auth";
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover';
+import { useCurrentUserQuery } from '@/hooks/use-auth';
+import { useCreateBookingMutation } from '@/hooks/use-bookings';
 import {
   BOOKING_DAMAGE_WAIVER_FEE,
   BOOKING_PLATFORM_FEE_RATE,
@@ -22,12 +16,22 @@ import {
   BOOKING_SECURITY_DEPOSIT_MIN,
   BOOKING_SECURITY_DEPOSIT_RATE,
   buildBookingPayload,
-  calculateBookingPricing,
-} from "@/lib/booking";
-import { ApiError } from "@/lib/http";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+  calculateBookingPricing
+} from '@/lib/booking';
+import { ApiError } from '@/lib/http';
+import { format } from 'date-fns';
+import {
+  CalendarDays,
+  CircleCheckBig,
+  CircleAlert,
+  Loader2,
+  ShieldCheck
+} from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useMemo, useState } from 'react';
+import type { DateRange } from 'react-day-picker';
+import { toast } from 'sonner';
 
 type ProductRentalCardProps = {
   equipmentId: string;
@@ -35,10 +39,10 @@ type ProductRentalCardProps = {
 };
 
 function formatCurrency(value: number) {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
   }).format(value);
 }
 
@@ -49,19 +53,19 @@ function getTodayAtLocalMidnight() {
 
 function formatRangeLabel(range: DateRange | undefined) {
   if (!range?.from) {
-    return "Select rental dates";
+    return 'Select rental dates';
   }
 
   if (!range.to) {
-    return `${format(range.from, "MMM d, yyyy")} - Pick end date`;
+    return `${format(range.from, 'MMM d, yyyy')} - Pick end date`;
   }
 
-  return `${format(range.from, "MMM d, yyyy")} - ${format(range.to, "MMM d, yyyy")}`;
+  return `${format(range.from, 'MMM d, yyyy')} - ${format(range.to, 'MMM d, yyyy')}`;
 }
 
 export function ProductRentalCard({
   equipmentId,
-  pricePerDay,
+  pricePerDay
 }: ProductRentalCardProps) {
   const router = useRouter();
   const currentUserQuery = useCurrentUserQuery();
@@ -81,8 +85,8 @@ export function ProductRentalCard({
         equipmentId,
         pricePerDay,
         selectedRange.from,
-        selectedRange.to,
-      ).rentalDays,
+        selectedRange.to
+      ).rentalDays
     );
   }, [equipmentId, pricePerDay, selectedRange]);
 
@@ -90,7 +94,7 @@ export function ProductRentalCard({
   const isGuest = !currentUserQuery.isPending && !currentUser;
   const showBookingPricingDetails =
     !currentUserQuery.isPending && Boolean(currentUser);
-  const isRenter = currentUser?.role === "RENTER";
+  const isRenter = currentUser?.role === 'RENTER';
   const isPhoneVerified = Boolean(currentUser?.phoneVerified);
   const hasFullRange = Boolean(selectedRange?.from && selectedRange.to);
   const isPartialRange = Boolean(selectedRange?.from && !selectedRange.to);
@@ -104,7 +108,7 @@ export function ProductRentalCard({
       equipmentId,
       pricePerDay,
       selectedRange.from,
-      selectedRange.to,
+      selectedRange.to
     ).rentalDays;
   }, [equipmentId, pricePerDay, selectedRange]);
 
@@ -112,33 +116,33 @@ export function ProductRentalCard({
     setFeedback(null);
 
     if (!currentUser) {
-      toast.info("Sign in to request this booking.");
-      router.push("/sign-in");
+      toast.info('Sign in to request this booking.');
+      router.push('/sign-in');
       return;
     }
 
     if (!isRenter) {
-      toast.error("Only renter accounts can submit booking requests.");
-      setFeedback("Only renter accounts can submit booking requests.");
+      toast.error('Only renter accounts can submit booking requests.');
+      setFeedback('Only renter accounts can submit booking requests.');
       return;
     }
 
     if (!isPhoneVerified) {
-      toast.error("Verify your phone number before requesting a booking.", {
+      toast.error('Verify your phone number before requesting a booking.', {
         action: {
-          label: "Open settings",
+          label: 'Open settings',
           onClick: () => {
-            router.push("/dashboard/settings");
-          },
-        },
+            router.push('/dashboard/settings');
+          }
+        }
       });
-      router.push("/dashboard/settings");
+      router.push('/dashboard/settings');
       return;
     }
 
     if (!selectedRange?.from || !selectedRange.to) {
-      toast.info("Select your rental start and end dates first.");
-      setFeedback("Select your rental start and end dates first.");
+      toast.info('Select your rental start and end dates first.');
+      setFeedback('Select your rental start and end dates first.');
       return;
     }
 
@@ -147,57 +151,57 @@ export function ProductRentalCard({
         equipmentId,
         pricePerDay,
         selectedRange.from,
-        selectedRange.to,
+        selectedRange.to
       );
 
       const booking = await createBookingMutation.mutateAsync(payload);
-      toast.success("Booking request submitted.", {
+      toast.success('Booking request submitted.', {
         action: {
-          label: "Open bookings",
+          label: 'Open bookings',
           onClick: () => {
-            router.push("/dashboard/bookings");
-          },
-        },
+            router.push('/dashboard/bookings');
+          }
+        }
       });
       setFeedback(
-        `Booking request submitted. Status: ${booking.status.replaceAll("_", " ")}.`,
+        `Booking request submitted. Status: ${booking.status.replaceAll('_', ' ')}.`
       );
     } catch (error) {
       toast.error(
         error instanceof ApiError
           ? error.message
-          : "We couldn't submit your booking request right now.",
+          : "We couldn't submit your booking request right now."
       );
       setFeedback(
         error instanceof ApiError
           ? error.message
-          : "We couldn't submit your booking request right now.",
+          : "We couldn't submit your booking request right now."
       );
     }
   }
 
   const ctaLabel = (() => {
     if (createBookingMutation.isPending) {
-      return "Submitting Request...";
+      return 'Submitting Request...';
     }
 
     if (isGuest) {
-      return "Sign In to Book";
+      return 'Sign In to Book';
     }
 
     if (!isRenter) {
-      return "Renters Only";
+      return 'Renters Only';
     }
 
     if (!isPhoneVerified) {
-      return "Verify Phone to Continue";
+      return 'Verify Phone to Continue';
     }
 
     if (!hasFullRange) {
-      return "Select Rental Dates";
+      return 'Select Rental Dates';
     }
 
-    return "Request Booking";
+    return 'Request Booking';
   })();
 
   return (
@@ -207,16 +211,19 @@ export function ProductRentalCard({
           <span className="text-4xl font-semibold text-primary">
             {formatCurrency(pricePerDay)}
           </span>
-          <span className="text-sm font-medium text-muted-foreground">/ day</span>
+          <span className="text-sm font-medium text-muted-foreground">
+            / day
+          </span>
         </div>
 
         <div className="mb-6 space-y-4">
           {showBookingPricingDetails ? (
-            <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+            <Popover
+              open={calendarOpen}
+              onOpenChange={setCalendarOpen}>
               <PopoverTrigger
                 className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/15 px-4 py-4 text-left transition-colors hover:border-primary/30 hover:bg-muted/30"
-                aria-label="Open rental date picker"
-              >
+                aria-label="Open rental date picker">
                 <div className="min-w-0">
                   <div className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
                     <CalendarDays className="h-3.5 w-3.5" />
@@ -243,7 +250,7 @@ export function ProductRentalCard({
                     }
                   }}
                   disabled={{
-                    before: getTodayAtLocalMidnight(),
+                    before: getTodayAtLocalMidnight()
                   }}
                 />
               </PopoverContent>
@@ -259,9 +266,10 @@ export function ProductRentalCard({
                 </p>
                 <p className="mt-1 text-xs leading-6 text-muted-foreground">
                   Rentmart only places the authorization hold after the owner
-                  approves your request. Your refundable security hold is 30% of the rental fee, capped between
-                  {` ${formatCurrency(BOOKING_SECURITY_DEPOSIT_MIN)} and ${formatCurrency(BOOKING_SECURITY_DEPOSIT_MAX)}`},
-                  and is only captured if damage is reported.
+                  approves your request. Your refundable security hold is 30% of
+                  the rental fee, capped between
+                  {` ${formatCurrency(BOOKING_SECURITY_DEPOSIT_MIN)} and ${formatCurrency(BOOKING_SECURITY_DEPOSIT_MAX)}`}
+                  , and is only captured if damage is reported.
                 </p>
               </div>
             </div>
@@ -272,10 +280,12 @@ export function ProductRentalCard({
           <div className="flex justify-between gap-4">
             <span>
               Rental Fee
-              {rentalDays > 0 ? ` (${formatCurrency(pricePerDay)} x ${rentalDays} day${rentalDays === 1 ? "" : "s"})` : ""}
+              {rentalDays > 0
+                ? ` (${formatCurrency(pricePerDay)} x ${rentalDays} day${rentalDays === 1 ? '' : 's'})`
+                : ''}
             </span>
             <span>
-              {pricing ? formatCurrency(pricing.rentalFee) : "Select dates"}
+              {pricing ? formatCurrency(pricing.rentalFee) : 'Select dates'}
             </span>
           </div>
           <div className="flex justify-between gap-4">
@@ -286,9 +296,7 @@ export function ProductRentalCard({
               </span>
             </span>
             <span>
-              {pricing
-                ? formatCurrency(pricing.platformFee)
-                : "Select dates"}
+              {pricing ? formatCurrency(pricing.platformFee) : 'Select dates'}
             </span>
           </div>
           <div className="flex justify-between gap-4">
@@ -303,7 +311,9 @@ export function ProductRentalCard({
               </span>
             </span>
             <span>
-              {pricing ? formatCurrency(pricing.securityDeposit) : "Select dates"}
+              {pricing
+                ? formatCurrency(pricing.securityDeposit)
+                : 'Select dates'}
             </span>
           </div>
           {showBookingPricingDetails ? (
@@ -312,7 +322,7 @@ export function ProductRentalCard({
               <span>
                 {pricing
                   ? formatCurrency(pricing.totalAuthorized)
-                  : "Select dates"}
+                  : 'Select dates'}
               </span>
             </div>
           ) : null}
@@ -322,8 +332,7 @@ export function ProductRentalCard({
           type="button"
           onClick={handleProceedToRent}
           disabled={createBookingMutation.isPending}
-          className="mt-5 h-12 w-full rounded-xl text-sm font-bold"
-        >
+          className="mt-5 h-12 w-full rounded-xl text-sm font-bold">
           {createBookingMutation.isPending ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : null}
@@ -332,7 +341,8 @@ export function ProductRentalCard({
 
         <div className="mt-4 space-y-2">
           <p className="text-center text-xs text-muted-foreground">
-            Submit your date request first. If the owner approves, you will get a 1-hour window to complete payment authorization.
+            Submit your date request first. If the owner approves, you will get
+            a 1-hour window to complete payment authorization.
           </p>
           {isPartialRange ? (
             <p className="text-center text-xs text-primary">
@@ -341,12 +351,17 @@ export function ProductRentalCard({
           ) : null}
           {!currentUserQuery.isPending && currentUser && !isRenter ? (
             <p className="text-center text-xs text-destructive">
-              Owner and admin accounts can review listings, but only renters can book them.
+              Owner and admin accounts can review listings, but only renters can
+              book them.
             </p>
           ) : null}
-          {!currentUserQuery.isPending && currentUser && isRenter && !isPhoneVerified ? (
+          {!currentUserQuery.isPending &&
+          currentUser &&
+          isRenter &&
+          !isPhoneVerified ? (
             <p className="text-center text-xs text-primary">
-              Phone verification is required before your booking request can be submitted.
+              Phone verification is required before your booking request can be
+              submitted.
             </p>
           ) : null}
           {feedback ? (
@@ -357,21 +372,25 @@ export function ProductRentalCard({
 
       <div className="rounded-xl border border-border bg-muted/30 p-4">
         <div className="flex items-start gap-3">
-          {feedback && feedback.startsWith("Booking request submitted") ? (
+          {feedback && feedback.startsWith('Booking request submitted') ? (
             <CircleCheckBig className="mt-0.5 h-5 w-5 text-primary" />
           ) : (
             <CircleAlert className="mt-0.5 h-5 w-5 text-primary" />
           )}
           <div>
-            <p className="text-sm font-semibold text-primary">Booking Protection</p>
+            <p className="text-sm font-semibold text-primary">
+              Booking Protection
+            </p>
             <p className="mt-1 text-xs leading-6 text-muted-foreground">
-              Damage waiver and platform charges are mandatory. Payment authorization happens after owner approval, and final routing completes after safe return or dispute handling.
+              Damage waiver and platform charges are mandatory. Payment
+              authorization happens after owner approval, and final routing
+              completes after safe return or dispute handling.
             </p>
             {currentUser && isRenter && !isPhoneVerified ? (
               <Link
+                prefetch
                 href="/dashboard/settings"
-                className="mt-2 inline-flex text-xs font-semibold text-primary underline-offset-4 hover:underline"
-              >
+                className="mt-2 inline-flex text-xs font-semibold text-primary underline-offset-4 hover:underline">
                 Verify your phone in dashboard settings
               </Link>
             ) : null}

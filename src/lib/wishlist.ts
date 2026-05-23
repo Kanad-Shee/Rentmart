@@ -1,19 +1,22 @@
-import { apiRequest } from "./http";
-import type { EquipmentListing } from "./equipment";
+import type { EquipmentListing } from './equipment';
+import { apiRequest } from './http';
 
 export const wishlistQueryKeys = {
-  mine: ["wishlist", "mine"] as const,
+  mine: ['wishlist', 'mine'] as const
 };
 
 export async function getMyWishlist() {
-  const response = await apiRequest<EquipmentListing[]>("/wishlists/mine");
+  const response = await apiRequest<EquipmentListing[]>('/wishlists/mine');
   return response.data;
 }
 
 export async function addToWishlist(equipmentId: string) {
-  const response = await apiRequest<EquipmentListing>(`/wishlists/${equipmentId}`, {
-    method: "POST",
-  });
+  const response = await apiRequest<EquipmentListing>(
+    `/wishlists/${equipmentId}`,
+    {
+      method: 'POST'
+    }
+  );
 
   return response.data;
 }
@@ -22,8 +25,8 @@ export async function removeFromWishlist(equipmentId: string) {
   const response = await apiRequest<{ equipmentId: string }>(
     `/wishlists/${equipmentId}`,
     {
-      method: "DELETE",
-    },
+      method: 'DELETE'
+    }
   );
 
   return response.data;

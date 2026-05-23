@@ -1,10 +1,9 @@
-import "server-only";
-
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { type User } from "./auth";
-import { AUTH_COOKIE_NAME } from "./auth-cookie";
-import { ApiError, apiRequest, getBackendUrl } from "./http";
+import { type User } from './auth';
+import { AUTH_COOKIE_NAME } from './auth-cookie';
+import { ApiError, apiRequest, getBackendUrl } from './http';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import 'server-only';
 
 export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
@@ -15,12 +14,15 @@ export async function getCurrentUser(): Promise<User | null> {
   }
 
   try {
-    const response = await apiRequest<{ user: User }>(getBackendUrl("/auth/me"), {
-      headers: {
-        cookie: `${AUTH_COOKIE_NAME}=${authCookie}`,
-      },
-      credentials: "omit",
-    });
+    const response = await apiRequest<{ user: User }>(
+      getBackendUrl('/auth/me'),
+      {
+        headers: {
+          cookie: `${AUTH_COOKIE_NAME}=${authCookie}`
+        },
+        credentials: 'omit'
+      }
+    );
 
     return response.data.user;
   } catch (error) {
@@ -36,15 +38,15 @@ export async function requireUser() {
   const user = await getCurrentUser();
 
   if (!user) {
-    redirect("/sign-in");
+    redirect('/sign-in');
   }
 
   return user;
 }
 
 export async function requireUserRole(
-  allowedRoles: User["role"][],
-  redirectTo = "/dashboard/overview",
+  allowedRoles: User['role'][],
+  redirectTo = '/dashboard/overview'
 ) {
   const user = await requireUser();
 
@@ -59,6 +61,6 @@ export async function requireGuest() {
   const user = await getCurrentUser();
 
   if (user) {
-    redirect("/dashboard");
+    redirect('/dashboard');
   }
 }

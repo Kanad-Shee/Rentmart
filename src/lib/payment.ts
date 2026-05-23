@@ -1,4 +1,4 @@
-import { apiRequest } from "./http";
+import { apiRequest } from './http';
 
 export type AdminPaymentEvent = {
   id: string;
@@ -16,15 +16,17 @@ export type AdminPaymentEvent = {
     ownerName: string;
     renterName: string;
   } | null;
-  status: "processed" | "unprocessed" | "unmatched";
+  status: 'processed' | 'unprocessed' | 'unmatched';
 };
 
 export const paymentQueryKeys = {
-  all: ["payments"] as const,
-  adminEvents: ["payments", "admin", "events"] as const,
+  all: ['payments'] as const,
+  adminEvents: ['payments', 'admin', 'events'] as const
 };
 
 export async function getAdminPaymentEvents() {
-  const response = await apiRequest<AdminPaymentEvent[]>("/payments/admin/events");
+  const response = await apiRequest<AdminPaymentEvent[]>(
+    '/payments/admin/events'
+  );
   return response.data;
 }

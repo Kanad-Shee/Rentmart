@@ -1,55 +1,59 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LockKeyhole, MapPinHouse, UserRound } from "lucide-react";
-import {
-  type UpdatePasswordInput,
-  type UpdateProfileInput,
-  type User,
-  updatePasswordSchema,
-  updateProfileSchema,
-} from "@/lib/auth";
-import { ApiError } from "@/lib/http";
-import {
-  useCurrentUserQuery,
-  useUpdatePasswordMutation,
-  useUpdateProfileMutation,
-} from "@/hooks/use-auth";
-import { PhoneVerificationCard } from "@/components/features/dashboard/owner-phone-verification-card";
-import { Button } from "@/components/ui/button";
+import { PhoneVerificationCard } from '@/components/features/dashboard/owner-phone-verification-card';
+import { Button } from '@/components/ui/button';
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+  FieldLabel
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import {
+  useCurrentUserQuery,
+  useUpdatePasswordMutation,
+  useUpdateProfileMutation
+} from '@/hooks/use-auth';
+import {
+  type UpdatePasswordInput,
+  type UpdateProfileInput,
+  type User,
+  updatePasswordSchema,
+  updateProfileSchema
+} from '@/lib/auth';
+import { ApiError } from '@/lib/http';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { LockKeyhole, MapPinHouse, UserRound } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 function getUserInitials(fullName: string) {
   return fullName
-    .split(" ")
-    .map((part) => part[0] ?? "")
-    .join("")
+    .split(' ')
+    .map((part) => part[0] ?? '')
+    .join('')
     .slice(0, 2)
     .toUpperCase();
 }
 
-function formatRoleLabel(role: User["role"]) {
+function formatRoleLabel(role: User['role']) {
   switch (role) {
-    case "ADMIN":
-      return "Platform Admin";
-    case "OWNER":
-      return "Equipment Owner";
-    case "RENTER":
+    case 'ADMIN':
+      return 'Platform Admin';
+    case 'OWNER':
+      return 'Equipment Owner';
+    case 'RENTER':
     default:
-      return "Verified Renter";
+      return 'Verified Renter';
   }
 }
 
-export function DashboardSettingsContent({ initialUser }: { initialUser: User }) {
+export function DashboardSettingsContent({
+  initialUser
+}: {
+  initialUser: User;
+}) {
   const currentUserQuery = useCurrentUserQuery();
   const updateProfileMutation = useUpdateProfileMutation();
   const updatePasswordMutation = useUpdatePasswordMutation();
@@ -61,22 +65,22 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
   const profileForm = useForm<UpdateProfileInput>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
-      address: user.address,
-    },
+      address: user.address
+    }
   });
 
   const passwordForm = useForm<UpdatePasswordInput>({
     resolver: zodResolver(updatePasswordSchema),
     defaultValues: {
-      currentPassword: "",
-      newPassword: "",
-      confirmNewPassword: "",
-    },
+      currentPassword: '',
+      newPassword: '',
+      confirmNewPassword: ''
+    }
   });
 
   useEffect(() => {
     profileForm.reset({
-      address: user.address,
+      address: user.address
     });
   }, [profileForm, user.address]);
 
@@ -89,7 +93,7 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
       setProfileError(
         error instanceof ApiError
           ? error.message
-          : "Unable to update your address right now.",
+          : 'Unable to update your address right now.'
       );
     }
   }
@@ -104,7 +108,7 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
       setPasswordError(
         error instanceof ApiError
           ? error.message
-          : "Unable to update your password right now.",
+          : 'Unable to update your password right now.'
       );
     }
   }
@@ -135,30 +139,30 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
                 Account Details
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                This section reflects the current information stored for your account.
+                This section reflects the current information stored for your
+                account.
               </p>
             </div>
           </div>
 
           <span className="inline-flex w-fit items-center rounded-full bg-[#c1ecd4] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#002114]">
-            {user.emailVerified ? "Email Verified" : "Email Pending"}
+            {user.emailVerified ? 'Email Verified' : 'Email Pending'}
           </span>
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {[
-            { label: "Full Name", value: user.fullName },
-            { label: "Email Address", value: user.email },
-            { label: "Role", value: formatRoleLabel(user.role) },
+            { label: 'Full Name', value: user.fullName },
+            { label: 'Email Address', value: user.email },
+            { label: 'Role', value: formatRoleLabel(user.role) },
             {
-              label: "Phone Status",
-              value: user.phoneVerified ? "Verified" : "Not Verified",
-            },
+              label: 'Phone Status',
+              value: user.phoneVerified ? 'Verified' : 'Not Verified'
+            }
           ].map((item) => (
             <div
               key={item.label}
-              className="rounded-xl border border-border bg-muted/20 p-4"
-            >
+              className="rounded-xl border border-border bg-muted/20 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 {item.label}
               </p>
@@ -178,16 +182,15 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
               Address
             </h2>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">
-              Update the address stored on your account. This is the same address
-              used elsewhere in the platform.
+              Update the address stored on your account. This is the same
+              address used elsewhere in the platform.
             </p>
           </div>
         </div>
 
         <form
           onSubmit={profileForm.handleSubmit(handleProfileSubmit)}
-          className="mt-6 space-y-5"
-        >
+          className="mt-6 space-y-5">
           <Field data-invalid={!!profileForm.formState.errors.address}>
             <FieldLabel htmlFor="settings-address">Address</FieldLabel>
             <Input
@@ -195,20 +198,27 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
               type="text"
               placeholder="Enter your address"
               aria-invalid={!!profileForm.formState.errors.address}
-              {...profileForm.register("address")}
+              {...profileForm.register('address')}
             />
             <FieldDescription>
-              Keep this current so booking and profile flows reflect the right location.
+              Keep this current so booking and profile flows reflect the right
+              location.
             </FieldDescription>
             {profileForm.formState.errors.address ? (
               <FieldError errors={[profileForm.formState.errors.address]} />
             ) : null}
           </Field>
 
-          {profileError ? <FieldError errors={[{ message: profileError }]} /> : null}
+          {profileError ? (
+            <FieldError errors={[{ message: profileError }]} />
+          ) : null}
 
-          <Button type="submit" disabled={updateProfileMutation.isPending}>
-            {updateProfileMutation.isPending ? "Saving Address..." : "Save Address"}
+          <Button
+            type="submit"
+            disabled={updateProfileMutation.isPending}>
+            {updateProfileMutation.isPending
+              ? 'Saving Address...'
+              : 'Save Address'}
           </Button>
         </form>
       </section>
@@ -234,19 +244,23 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
 
         <form
           onSubmit={passwordForm.handleSubmit(handlePasswordSubmit)}
-          className="mt-6 space-y-5"
-        >
+          className="mt-6 space-y-5">
           <FieldGroup className="grid gap-5 md:grid-cols-3">
-            <Field data-invalid={!!passwordForm.formState.errors.currentPassword}>
-              <FieldLabel htmlFor="current-password">Current Password</FieldLabel>
+            <Field
+              data-invalid={!!passwordForm.formState.errors.currentPassword}>
+              <FieldLabel htmlFor="current-password">
+                Current Password
+              </FieldLabel>
               <Input
                 id="current-password"
                 type="password"
                 aria-invalid={!!passwordForm.formState.errors.currentPassword}
-                {...passwordForm.register("currentPassword")}
+                {...passwordForm.register('currentPassword')}
               />
               {passwordForm.formState.errors.currentPassword ? (
-                <FieldError errors={[passwordForm.formState.errors.currentPassword]} />
+                <FieldError
+                  errors={[passwordForm.formState.errors.currentPassword]}
+                />
               ) : null}
             </Field>
 
@@ -256,31 +270,46 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
                 id="new-password"
                 type="password"
                 aria-invalid={!!passwordForm.formState.errors.newPassword}
-                {...passwordForm.register("newPassword")}
+                {...passwordForm.register('newPassword')}
               />
               {passwordForm.formState.errors.newPassword ? (
-                <FieldError errors={[passwordForm.formState.errors.newPassword]} />
+                <FieldError
+                  errors={[passwordForm.formState.errors.newPassword]}
+                />
               ) : null}
             </Field>
 
-            <Field data-invalid={!!passwordForm.formState.errors.confirmNewPassword}>
-              <FieldLabel htmlFor="confirm-new-password">Confirm Password</FieldLabel>
+            <Field
+              data-invalid={!!passwordForm.formState.errors.confirmNewPassword}>
+              <FieldLabel htmlFor="confirm-new-password">
+                Confirm Password
+              </FieldLabel>
               <Input
                 id="confirm-new-password"
                 type="password"
-                aria-invalid={!!passwordForm.formState.errors.confirmNewPassword}
-                {...passwordForm.register("confirmNewPassword")}
+                aria-invalid={
+                  !!passwordForm.formState.errors.confirmNewPassword
+                }
+                {...passwordForm.register('confirmNewPassword')}
               />
               {passwordForm.formState.errors.confirmNewPassword ? (
-                <FieldError errors={[passwordForm.formState.errors.confirmNewPassword]} />
+                <FieldError
+                  errors={[passwordForm.formState.errors.confirmNewPassword]}
+                />
               ) : null}
             </Field>
           </FieldGroup>
 
-          {passwordError ? <FieldError errors={[{ message: passwordError }]} /> : null}
+          {passwordError ? (
+            <FieldError errors={[{ message: passwordError }]} />
+          ) : null}
 
-          <Button type="submit" disabled={updatePasswordMutation.isPending}>
-            {updatePasswordMutation.isPending ? "Updating Password..." : "Update Password"}
+          <Button
+            type="submit"
+            disabled={updatePasswordMutation.isPending}>
+            {updatePasswordMutation.isPending
+              ? 'Updating Password...'
+              : 'Update Password'}
           </Button>
         </form>
       </section>
@@ -291,9 +320,10 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
           <div>
             <p className="text-sm font-semibold text-primary">Account Health</p>
             <p className="mt-1 text-sm leading-7 text-muted-foreground">
-              Your email is {user.emailVerified ? "verified" : "not verified"} and your
-              phone is {user.phoneVerified ? "verified" : "not verified"}.
-              Verified contact details unlock protected actions across Rentmart.
+              Your email is {user.emailVerified ? 'verified' : 'not verified'}{' '}
+              and your phone is{' '}
+              {user.phoneVerified ? 'verified' : 'not verified'}. Verified
+              contact details unlock protected actions across Rentmart.
             </p>
           </div>
         </div>

@@ -1,18 +1,20 @@
-"use client";
+'use client';
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { equipmentQueryKeys } from "@/lib/equipment";
+import { equipmentQueryKeys } from '@/lib/equipment';
 import {
   addToWishlist,
   getMyWishlist,
   removeFromWishlist,
-  wishlistQueryKeys,
-} from "@/lib/wishlist";
+  wishlistQueryKeys
+} from '@/lib/wishlist';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
-function invalidateWishlistRelatedQueries(queryClient: ReturnType<typeof useQueryClient>) {
+function invalidateWishlistRelatedQueries(
+  queryClient: ReturnType<typeof useQueryClient>
+) {
   queryClient.invalidateQueries({ queryKey: wishlistQueryKeys.mine });
-  queryClient.invalidateQueries({ queryKey: ["equipment"] });
+  queryClient.invalidateQueries({ queryKey: ['equipment'] });
 }
 
 export function useMyWishlistQuery(enabled = true) {
@@ -20,7 +22,7 @@ export function useMyWishlistQuery(enabled = true) {
     queryKey: wishlistQueryKeys.mine,
     queryFn: getMyWishlist,
     staleTime: 60 * 1000,
-    enabled,
+    enabled
   });
 }
 
@@ -32,11 +34,11 @@ export function useAddToWishlistMutation() {
     onSuccess: (listing) => {
       queryClient.setQueryData(
         equipmentQueryKeys.publicListing(listing.id),
-        listing,
+        listing
       );
       invalidateWishlistRelatedQueries(queryClient);
-      toast.success("Added to your wishlist.");
-    },
+      toast.success('Added to your wishlist.');
+    }
   });
 }
 
@@ -47,11 +49,11 @@ export function useRemoveFromWishlistMutation() {
     mutationFn: (equipmentId: string) => removeFromWishlist(equipmentId),
     onSuccess: (_, equipmentId) => {
       queryClient.invalidateQueries({
-        queryKey: equipmentQueryKeys.publicListing(equipmentId),
+        queryKey: equipmentQueryKeys.publicListing(equipmentId)
       });
       invalidateWishlistRelatedQueries(queryClient);
-      toast.success("Removed from your wishlist.");
-    },
+      toast.success('Removed from your wishlist.');
+    }
   });
 }
 
@@ -62,7 +64,7 @@ export function useToggleWishlistMutation() {
   return useMutation({
     mutationFn: async ({
       equipmentId,
-      isWishlisted,
+      isWishlisted
     }: {
       equipmentId: string;
       isWishlisted: boolean;
@@ -72,6 +74,6 @@ export function useToggleWishlistMutation() {
       }
 
       return addMutation.mutateAsync(equipmentId);
-    },
+    }
   });
 }
