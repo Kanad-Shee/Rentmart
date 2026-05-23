@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import {
   type AdminUsersQueryInput,
   authQueryKeys,
@@ -91,6 +92,9 @@ export function useLogoutMutation() {
 
   return useMutation({
     mutationFn: logout,
+    onSuccess: () => {
+      toast.success("Signed out successfully.");
+    },
     onSettled: () => {
       queryClient.removeQueries({ queryKey: authQueryKeys.currentUser });
     },
@@ -122,6 +126,7 @@ export function useUpdateProfileMutation() {
     mutationFn: (input: UpdateProfileInput) => updateProfile(input),
     onSuccess: ({ user }) => {
       queryClient.setQueryData(authQueryKeys.currentUser, user);
+      toast.success("Address updated successfully.");
     },
   });
 }
@@ -129,5 +134,8 @@ export function useUpdateProfileMutation() {
 export function useUpdatePasswordMutation() {
   return useMutation({
     mutationFn: (input: UpdatePasswordInput) => updatePassword(input),
+    onSuccess: () => {
+      toast.success("Password updated successfully.");
+    },
   });
 }

@@ -15,6 +15,7 @@ import {
   Phone,
   SendHorizontal,
 } from "lucide-react";
+import { toast } from "sonner";
 import { useCurrentUserQuery } from "@/hooks/use-auth";
 import { useCreateSupportQueryMutation } from "@/hooks/use-support-query";
 import { ApiError } from "@/lib/http";
@@ -96,16 +97,6 @@ export function ContactPageContent() {
     [],
   );
 
-  const socialLinks = useMemo(
-    () => [
-      { label: "X", href: "#" },
-      { label: "Facebook", href: "#" },
-      { label: "Instagram", href: "#" },
-      { label: "LinkedIn", href: "#" },
-    ],
-    [],
-  );
-
   const form = useForm<CreateSupportQueryInput>({
     resolver: zodResolver(createSupportQuerySchema),
     defaultValues: {
@@ -125,7 +116,16 @@ export function ContactPageContent() {
         message: "",
       });
       setSubmitNotice("Your query has been sent to the Rentmart support desk.");
+      toast.success("Support request sent.", {
+        description:
+          "Our team will review it and follow up through your account email.",
+      });
     } catch (error) {
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : "We couldn't send your query right now. Please try again shortly.",
+      );
       setSubmitError(
         error instanceof ApiError
           ? error.message
@@ -215,18 +215,6 @@ export function ContactPageContent() {
                   ),
                 )}
               </div>
-            </div>
-
-            <div className='mt-10 flex flex-wrap gap-4'>
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className='inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-white text-sm font-semibold text-muted-foreground transition-colors hover:border-primary hover:text-primary'
-                >
-                  {link.label.slice(0, 1)}
-                </a>
-              ))}
             </div>
           </motion.div>
 

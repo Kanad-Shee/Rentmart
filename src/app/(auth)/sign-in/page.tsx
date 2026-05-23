@@ -11,10 +11,12 @@ import {
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ShieldCheck } from "lucide-react";
+import { toast } from "sonner";
 
 import { useSignInMutation } from "@/hooks/use-auth";
 import { signInSchema, type SignInInput } from "@/lib/auth";
 import { ApiError } from "@/lib/http";
+import { Navbar } from "@/components/common/navbar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -78,23 +80,24 @@ export default function SignInPage() {
       rememberMe: false,
     },
   });
-  
 
   const onSubmit = async (values: SignInInput) => {
     setFormError(null);
 
     try {
       await signInMutation.mutateAsync(values);
+      toast.success("Signed in successfully.");
       router.replace("/dashboard");
     } catch (error) {
-      if (
-        error instanceof ApiError &&
-        error.code === "EMAIL_NOT_VERIFIED"
-      ) {
+      if (error instanceof ApiError && error.code === "EMAIL_NOT_VERIFIED") {
+        toast.error("Please verify your email before signing in.");
         router.push(`/verify-otp?email=${encodeURIComponent(values.email)}`);
         return;
       }
 
+      toast.error(
+        error instanceof ApiError ? error.message : "Unable to sign in.",
+      );
       setFormError(
         error instanceof ApiError ? error.message : "Unable to sign in.",
       );
@@ -103,15 +106,31 @@ export default function SignInPage() {
 
   return (
     <main className='min-h-screen overflow-hidden bg-[#f9faf6] text-foreground'>
-      <div className='flex min-h-screen flex-col lg:flex-row'>
+      <Navbar
+        brand='RENTMART'
+        links={[
+          { href: "/#featured", label: "Marketplace" },
+          { href: "/about", label: "About Us" },
+          { href: "/contact", label: "Support" },
+        ]}
+        authActions={{
+          signIn: { href: "/sign-in", label: "Login" },
+          signUp: { href: "/sign-up", label: "Sign Up" },
+          dashboard: { href: "/dashboard/overview", label: "Dashboard" },
+          settings: { href: "/dashboard/settings", label: "Settings" },
+        }}
+        actions={[
+          {
+            href: "/dashboard/add-listing",
+            label: "List Equipment",
+            variant: "primary",
+          },
+        ]}
+      />
+
+      <div className='flex min-h-[calc(100vh-80px)] flex-col lg:flex-row'>
         <section className='relative flex w-full flex-1 items-center justify-center bg-white px-6 py-10 sm:px-10 lg:w-[48%] lg:px-14 lg:py-14 xl:px-20'>
           <div className='relative z-10 w-full max-w-[420px]'>
-            <div className='mb-8'>
-              <span className='text-2xl font-bold tracking-[-0.04em] text-primary'>
-                Rentmart
-              </span>
-            </div>
-
             <header className='mb-7'>
               <h1 className='max-w-xl text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-[2.55rem] sm:leading-[1.1]'>
                 Welcome back to Rentmart
@@ -173,7 +192,7 @@ export default function SignInPage() {
               <Button
                 type='submit'
                 disabled={signInMutation.isPending}
-                className='h-[52px] w-full rounded-md bg-primary text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90'
+                className='h-[52px] w-full rounded-md text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90'
               >
                 {signInMutation.isPending ? "Signing In..." : "Sign In"}
               </Button>
@@ -195,13 +214,6 @@ export default function SignInPage() {
 
         <section className='relative hidden overflow-hidden bg-[linear-gradient(135deg,#f0fdf4_0%,#ecfeff_50%,#ffffff_100%)] px-10 py-10 lg:flex lg:w-[52%] lg:flex-col lg:items-center lg:justify-center xl:px-14 xl:py-14'>
           <div className='absolute inset-0 opacity-[0.03] [background-image:radial-gradient(#012d1d_1px,transparent_1px)] [background-size:40px_40px]' />
-          <div className='absolute inset-x-0 top-12 flex justify-center'>
-            <div className='flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em] text-primary sm:text-xs'>
-              <span className='h-1.5 w-1.5 rounded-full bg-primary' />
-              Precision Engineered
-              <span className='h-1.5 w-1.5 rounded-full bg-primary' />
-            </div>
-          </div>
 
           <div className='relative z-10 w-full max-w-[600px]'>
             <div className='relative mx-auto aspect-[1.05] w-full max-w-[520px] overflow-hidden'>

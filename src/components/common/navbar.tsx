@@ -404,7 +404,7 @@ export function Navbar({
                 className={[
                   "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-semibold transition-colors",
                   action.variant === "primary"
-                    ? "bg-primary text-primary-foreground hover:bg-[#274e3d]"
+                    ? "bg-linear-to-b from-primary/85 via-primary/90 to-primary/95 text-primary-foreground hover:bg-[#274e3d]"
                     : "border border-border text-muted-foreground hover:bg-muted hover:text-foreground",
                   action.hideOnMobile ? "hidden sm:inline-flex" : "inline-flex",
                   actionClassName,
@@ -440,7 +440,7 @@ export function Navbar({
                 <Link
                   href={signUpHref}
                   className={[
-                    "inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-[#274e3d]",
+                    "inline-flex items-center justify-center rounded-md bg-linear-to-b from-primary/85 via-primary/90 to-primary/95 px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-[#274e3d]",
                     actionClassName,
                   ].join(" ")}
                 >

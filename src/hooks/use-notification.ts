@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import {
   getMyNotifications,
   markAllNotificationsAsRead,
@@ -35,6 +36,7 @@ export function useMarkAllNotificationsAsReadMutation() {
     mutationFn: markAllNotificationsAsRead,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: notificationQueryKeys.mine });
+      toast.success("All notifications marked as read.");
     },
   });
 }

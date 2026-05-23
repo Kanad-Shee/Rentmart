@@ -15,6 +15,7 @@ import {
   X,
   XCircle,
 } from "lucide-react";
+import { toast } from "sonner";
 import {
   useApproveEquipmentMutation,
   usePendingEquipmentQuery,
@@ -282,7 +283,11 @@ export function AdminVerifications() {
     try {
       await approveMutation.mutateAsync(selectedListing.id);
       setActionNotice(`Approved ${selectedListing.title}.`);
+      toast.success(`Approved ${selectedListing.title}.`);
     } catch (error) {
+      toast.error(
+        error instanceof ApiError ? error.message : "Unable to approve the listing.",
+      );
       setActionError(
         error instanceof ApiError ? error.message : "Unable to approve the listing.",
       );
@@ -312,7 +317,11 @@ export function AdminVerifications() {
       setActionNotice(`Rejected ${selectedListing.title}.`);
       setIsRejectMode(false);
       setRejectionReason("");
+      toast.success(`Rejected ${selectedListing.title}.`);
     } catch (error) {
+      toast.error(
+        error instanceof ApiError ? error.message : "Unable to reject the listing.",
+      );
       setActionError(
         error instanceof ApiError ? error.message : "Unable to reject the listing.",
       );

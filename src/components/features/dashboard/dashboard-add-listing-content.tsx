@@ -14,6 +14,7 @@ import {
   Upload,
   X,
 } from "lucide-react";
+import { toast } from "sonner";
 import { useCategoriesQuery } from "@/hooks/use-category";
 import {
   useAddressLocationMutation,
@@ -365,7 +366,15 @@ export function DashboardAddListingContent() {
       });
       setSelectedLocation(location);
       setFormNotice(`Address confirmed: ${location.normalizedAddress}`);
+      toast.success("Address confirmed.", {
+        description: location.normalizedAddress,
+      });
     } catch (error) {
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : "Unable to resolve the address.",
+      );
       setFormError(
         error instanceof ApiError
           ? error.message
@@ -393,8 +402,16 @@ export function DashboardAddListingContent() {
         address: location.normalizedAddress,
       }));
       setFormNotice(`Address confirmed: ${location.normalizedAddress}`);
+      toast.success("Address confirmed.", {
+        description: location.normalizedAddress,
+      });
     } catch (error) {
       setSelectedLocation(null);
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : "Unable to resolve the selected address.",
+      );
       setFormError(
         error instanceof ApiError
           ? error.message
@@ -425,6 +442,14 @@ export function DashboardAddListingContent() {
         });
         applyListingToForm(updatedListing);
         setFormNotice("Draft saved successfully.");
+        toast.success("Draft saved successfully.", {
+          action: {
+            label: "View equipment",
+            onClick: () => {
+              router.push("/dashboard/equipment");
+            },
+          },
+        });
         return;
       }
 
@@ -439,7 +464,20 @@ export function DashboardAddListingContent() {
       });
       resetForm();
       setFormNotice("Draft saved successfully.");
+      toast.success("Draft saved successfully.", {
+        action: {
+          label: "View equipment",
+          onClick: () => {
+            router.push("/dashboard/equipment");
+          },
+        },
+      });
     } catch (error) {
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : "Unable to save the draft listing.",
+      );
       setFormError(
         error instanceof ApiError
           ? error.message
@@ -471,6 +509,14 @@ export function DashboardAddListingContent() {
         });
         applyListingToForm(updatedListing);
         setFormNotice("Listing submitted for verification successfully.");
+        toast.success("Listing submitted for verification.", {
+          action: {
+            label: "Open equipment",
+            onClick: () => {
+              router.push("/dashboard/equipment");
+            },
+          },
+        });
         return;
       }
 
@@ -486,18 +532,39 @@ export function DashboardAddListingContent() {
 
       resetForm();
       setFormNotice("Listing submitted for verification successfully.");
+      toast.success("Listing submitted for verification.", {
+        action: {
+          label: "Open equipment",
+          onClick: () => {
+            router.push("/dashboard/equipment");
+          },
+        },
+      });
     } catch (error) {
       if (
         error instanceof ApiError &&
         error.status === 403 &&
         error.message === "Please verify your phone number first."
       ) {
+        toast.error("Verify your phone number before creating a listing.", {
+          action: {
+            label: "Open settings",
+            onClick: () => {
+              router.push("/dashboard/settings");
+            },
+          },
+        });
         setFormError(
           "Verify your phone number in settings before creating a listing.",
         );
         return;
       }
 
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : "Unable to create the equipment listing.",
+      );
       setFormError(
         error instanceof ApiError
           ? error.message
@@ -520,8 +587,21 @@ export function DashboardAddListingContent() {
 
     try {
       await deleteOwnerEquipmentMutation.mutateAsync(editingListing.id);
+      toast.success("Listing deleted successfully.", {
+        action: {
+          label: "Back to equipment",
+          onClick: () => {
+            router.push("/dashboard/equipment");
+          },
+        },
+      });
       router.push("/dashboard/equipment");
     } catch (error) {
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : "Unable to delete the equipment listing.",
+      );
       setFormError(
         error instanceof ApiError
           ? error.message

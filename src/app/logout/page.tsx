@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { ApiError } from "@/lib/http";
 import { useLogoutMutation } from "@/hooks/use-auth";
 
@@ -20,6 +21,7 @@ export default function LogoutPage() {
           return;
         }
 
+        toast.error("We couldn't sign you out cleanly.");
         router.replace("/dashboard");
       },
     });

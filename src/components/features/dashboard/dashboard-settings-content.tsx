@@ -53,8 +53,6 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
   const currentUserQuery = useCurrentUserQuery();
   const updateProfileMutation = useUpdateProfileMutation();
   const updatePasswordMutation = useUpdatePasswordMutation();
-  const [profileNotice, setProfileNotice] = useState<string | null>(null);
-  const [passwordNotice, setPasswordNotice] = useState<string | null>(null);
   const [profileError, setProfileError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
@@ -84,11 +82,9 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
 
   async function handleProfileSubmit(values: UpdateProfileInput) {
     setProfileError(null);
-    setProfileNotice(null);
 
     try {
       await updateProfileMutation.mutateAsync(values);
-      setProfileNotice("Address updated successfully.");
     } catch (error) {
       setProfileError(
         error instanceof ApiError
@@ -100,12 +96,10 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
 
   async function handlePasswordSubmit(values: UpdatePasswordInput) {
     setPasswordError(null);
-    setPasswordNotice(null);
 
     try {
       await updatePasswordMutation.mutateAsync(values);
       passwordForm.reset();
-      setPasswordNotice("Password updated successfully.");
     } catch (error) {
       setPasswordError(
         error instanceof ApiError
@@ -212,7 +206,6 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
           </Field>
 
           {profileError ? <FieldError errors={[{ message: profileError }]} /> : null}
-          {profileNotice ? <p className="text-sm text-primary">{profileNotice}</p> : null}
 
           <Button type="submit" disabled={updateProfileMutation.isPending}>
             {updateProfileMutation.isPending ? "Saving Address..." : "Save Address"}
@@ -285,7 +278,6 @@ export function DashboardSettingsContent({ initialUser }: { initialUser: User })
           </FieldGroup>
 
           {passwordError ? <FieldError errors={[{ message: passwordError }]} /> : null}
-          {passwordNotice ? <p className="text-sm text-primary">{passwordNotice}</p> : null}
 
           <Button type="submit" disabled={updatePasswordMutation.isPending}>
             {updatePasswordMutation.isPending ? "Updating Password..." : "Update Password"}

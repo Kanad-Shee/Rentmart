@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
+import { toast } from "sonner";
 import {
   verifyPhoneSchema,
   type User,
@@ -71,7 +72,15 @@ export function PhoneVerificationCard({
       setSentPhone(result.phone);
       setHasSentCode(true);
       setNotice(`Verification code sent to ${result.phone}.`);
+      toast.success("Verification code sent.", {
+        description: `We sent an SMS code to ${result.phone}.`,
+      });
     } catch (error) {
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : "Unable to send the verification code.",
+      );
       setFormError(
         error instanceof ApiError
           ? error.message
@@ -90,7 +99,13 @@ export function PhoneVerificationCard({
       setSentPhone(values.phone.trim());
       verificationForm.setValue("code", "");
       setNotice("Phone number verified successfully.");
+      toast.success("Phone number verified.");
     } catch (error) {
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : "Unable to verify the phone number.",
+      );
       setFormError(
         error instanceof ApiError
           ? error.message

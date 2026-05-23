@@ -390,7 +390,7 @@ export default function TermsPage() {
               Rentmart
             </Link>
             <p className='mt-4 text-lg leading-8 text-[#6c7480]'>
-              © 2024 Rentmart Industrial Marketplace. All rights reserved.
+              © 2026 Rentmart Industrial Marketplace. All rights reserved.
               High-capital asset procurement.
             </p>
           </div>

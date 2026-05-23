@@ -7,10 +7,12 @@ import { useRouter } from "next/navigation";
 import { Shield, ShieldCheck, Wallet } from "lucide-react";
 import { Controller, type Control, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 
 import { useSignUpMutation } from "@/hooks/use-auth";
 import { signUpSchema, type SignUpInput } from "@/lib/auth";
 import { ApiError } from "@/lib/http";
+import { Navbar } from "@/components/common/navbar";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -99,8 +101,21 @@ export default function SignUpPage() {
 
     try {
       await signUpMutation.mutateAsync(values);
+      toast.success("Account created. Verify your email to continue.", {
+        action: {
+          label: "Open verification",
+          onClick: () => {
+            router.push(
+              `/verify-otp?email=${encodeURIComponent(values.email)}`,
+            );
+          },
+        },
+      });
       router.push(`/verify-otp?email=${encodeURIComponent(values.email)}`);
     } catch (error) {
+      toast.error(
+        error instanceof ApiError ? error.message : "Unable to create account.",
+      );
       setFormError(
         error instanceof ApiError ? error.message : "Unable to create account.",
       );
@@ -109,16 +124,32 @@ export default function SignUpPage() {
 
   return (
     <main className='min-h-screen overflow-x-hidden bg-[#f9faf6] text-foreground'>
-      <div className='flex min-h-screen flex-col lg:flex-row'>
+      <Navbar
+        brand='RENTMART'
+        links={[
+          { href: "/#featured", label: "Marketplace" },
+          { href: "/about", label: "About Us" },
+          { href: "/contact", label: "Support" },
+        ]}
+        authActions={{
+          signIn: { href: "/sign-in", label: "Login" },
+          signUp: { href: "/sign-up", label: "Sign Up" },
+          dashboard: { href: "/dashboard/overview", label: "Dashboard" },
+          settings: { href: "/dashboard/settings", label: "Settings" },
+        }}
+        actions={[
+          {
+            href: "/dashboard/add-listing",
+            label: "List Equipment",
+            variant: "primary",
+          },
+        ]}
+      />
+
+      <div className='flex min-h-[calc(100vh-80px)] flex-col lg:flex-row'>
         <section className='relative hidden overflow-hidden bg-[linear-gradient(135deg,#f0fdf4_0%,#ecfeff_52%,#ffffff_100%)] px-10 py-10 lg:flex lg:w-[46%] lg:flex-col lg:justify-start xl:px-14 xl:py-14'>
           <div className='absolute inset-0 opacity-[0.05] [background-image:radial-gradient(#012d1d_1px,transparent_1px)] [background-size:42px_42px]' />
           <div className='absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-primary-fixed opacity-25 blur-3xl' />
-
-          <div className='relative z-10 flex items-center gap-2'>
-            <span className='text-3xl font-bold tracking-[-0.04em] text-primary'>
-              Rentmart
-            </span>
-          </div>
 
           <div className='relative pt-10 w-fit ml-auto z-10 max-w-xl'>
             <h1 className='max-w-lg text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-[2.65rem] lg:text-[3.2rem] xl:text-[3.35rem] xl:leading-[1.06]'>
@@ -175,7 +206,7 @@ export default function SignUpPage() {
           </div>
 
           <footer className='relative mt-auto text-center z-10 text-sm text-[#5e6661]'>
-            © 2024 Rentmart Industrial. All rights reserved. Precision in
+            © 2026 Rentmart Industrial. All rights reserved. Precision in
             Procurement.
           </footer>
         </section>
@@ -184,12 +215,6 @@ export default function SignUpPage() {
           <div className='absolute inset-0 opacity-[0.03] [background-image:radial-gradient(#012d1d_1px,transparent_1px)] [background-size:36px_36px]' />
 
           <div className='relative z-10 w-fit lg:mr-auto max-w-xl'>
-            <div className='mb-8 lg:hidden'>
-              <span className='text-2xl font-bold tracking-[-0.04em] text-primary'>
-                Rentmart
-              </span>
-            </div>
-
             <header className='mb-7'>
               <h2 className='text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-[2.15rem]'>
                 Create your account
@@ -296,7 +321,7 @@ export default function SignUpPage() {
                 <Button
                   type='submit'
                   disabled={signUpMutation.isPending}
-                  className='h-[52px] w-full rounded-md bg-primary text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90'
+                  className='h-[52px] w-full rounded-md bg-linear-to-b from-primary/85 via-primary/90 to-primary/95 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90'
                 >
                   {signUpMutation.isPending
                     ? "Creating Account..."

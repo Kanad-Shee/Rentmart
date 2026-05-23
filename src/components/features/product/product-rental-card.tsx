@@ -12,6 +12,7 @@ import {
   Loader2,
   ShieldCheck,
 } from "lucide-react";
+import { toast } from "sonner";
 import { useCreateBookingMutation } from "@/hooks/use-bookings";
 import { useCurrentUserQuery } from "@/hooks/use-auth";
 import {
@@ -111,21 +112,32 @@ export function ProductRentalCard({
     setFeedback(null);
 
     if (!currentUser) {
+      toast.info("Sign in to request this booking.");
       router.push("/sign-in");
       return;
     }
 
     if (!isRenter) {
+      toast.error("Only renter accounts can submit booking requests.");
       setFeedback("Only renter accounts can submit booking requests.");
       return;
     }
 
     if (!isPhoneVerified) {
+      toast.error("Verify your phone number before requesting a booking.", {
+        action: {
+          label: "Open settings",
+          onClick: () => {
+            router.push("/dashboard/settings");
+          },
+        },
+      });
       router.push("/dashboard/settings");
       return;
     }
 
     if (!selectedRange?.from || !selectedRange.to) {
+      toast.info("Select your rental start and end dates first.");
       setFeedback("Select your rental start and end dates first.");
       return;
     }
@@ -139,10 +151,23 @@ export function ProductRentalCard({
       );
 
       const booking = await createBookingMutation.mutateAsync(payload);
+      toast.success("Booking request submitted.", {
+        action: {
+          label: "Open bookings",
+          onClick: () => {
+            router.push("/dashboard/bookings");
+          },
+        },
+      });
       setFeedback(
         `Booking request submitted. Status: ${booking.status.replaceAll("_", " ")}.`,
       );
     } catch (error) {
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : "We couldn't submit your booking request right now.",
+      );
       setFeedback(
         error instanceof ApiError
           ? error.message

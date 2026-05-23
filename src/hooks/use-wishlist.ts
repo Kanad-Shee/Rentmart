@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { equipmentQueryKeys } from "@/lib/equipment";
 import {
   addToWishlist,
@@ -34,6 +35,7 @@ export function useAddToWishlistMutation() {
         listing,
       );
       invalidateWishlistRelatedQueries(queryClient);
+      toast.success("Added to your wishlist.");
     },
   });
 }
@@ -48,6 +50,7 @@ export function useRemoveFromWishlistMutation() {
         queryKey: equipmentQueryKeys.publicListing(equipmentId),
       });
       invalidateWishlistRelatedQueries(queryClient);
+      toast.success("Removed from your wishlist.");
     },
   });
 }

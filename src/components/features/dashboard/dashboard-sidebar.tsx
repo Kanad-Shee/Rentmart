@@ -144,7 +144,7 @@ export function DashboardSidebar({ config }: DashboardSidebarProps) {
 
   return (
     <motion.aside
-      className='fixed inset-y-0 left-0 hidden w-64 overflow-hidden border-r border-border bg-muted/40 md:flex md:flex-col'
+      className='fixed inset-y-0 left-0 hidden min-h-0 w-64 overflow-hidden border-r border-border bg-muted/40 md:flex md:flex-col'
       initial={{
         opacity: 0,
         x: shouldReduceMotion ? 0 : -24,
@@ -191,7 +191,7 @@ export function DashboardSidebar({ config }: DashboardSidebarProps) {
         </p>
       </motion.div>
 
-      <nav className='relative flex-1 px-4'>
+      <nav className='relative flex-1 overflow-y-auto px-4 pb-4'>
         <motion.div
           className='space-y-1'
           initial='hidden'
