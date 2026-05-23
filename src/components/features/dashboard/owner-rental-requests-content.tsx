@@ -115,7 +115,9 @@ function SectionHeader({
         <h2 className="text-xl font-semibold tracking-[-0.04em] text-primary">
           {title}
         </h2>
-        <p className="mt-3 max-w-3xl text-base text-[#5c5f60]">{description}</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
+          {description}
+        </p>
       </div>
       <div className="flex items-center gap-3 rounded-lg border border-[#d8dfdb] bg-white px-4 py-3 text-sm text-[#5c5f60] shadow-sm">
         <span className="font-semibold uppercase tracking-[0.24em] text-[#5c5f60]">
@@ -229,13 +231,13 @@ function BookingCard({
           />
         </div>
 
-        <div className="flex-1 p-6 md:p-8">
+        <div className="flex-1 p-5 sm:p-6 lg:p-8">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
             <div>
               <h3 className="text-xl font-semibold tracking-[-0.04em] text-primary">
                 {booking.equipment.title}
               </h3>
-              <p className="mt-2 text-base font-medium text-[#64748b]">
+              <p className="mt-2 text-sm font-medium text-[#64748b] sm:text-base">
                 Renter: {booking.renter.fullName}
               </p>
             </div>
@@ -246,7 +248,7 @@ function BookingCard({
             </span>
           </div>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#94a3b8]">
                 Rental Period
@@ -272,7 +274,7 @@ function BookingCard({
             </div>
           </div>
 
-          <div className="mt-4 grid gap-4 border-t border-[#edf1ee] pt-6 text-sm text-[#5c5f60] md:grid-cols-1">
+          <div className="mt-4 grid gap-4 border-t border-[#edf1ee] pt-6 text-sm text-[#5c5f60]">
             <div>
               <p className="font-semibold uppercase tracking-[0.2em] text-[#94a3b8]">
                 Rental Fee
@@ -286,10 +288,12 @@ function BookingCard({
           {booking.status === 'CONFIRMED' ||
           booking.status === 'IN_PROGRESS' ? (
             <div className="mt-8">
-              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+              <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                 <div className="flex items-center gap-2 text-primary">
                   <Clock3 className="h-5 w-5 text-[#1b4332]" />
-                  <p className="text-lg font-medium">{progress.label}</p>
+                  <p className="text-base font-medium sm:text-lg">
+                    {progress.label}
+                  </p>
                 </div>
                 <p className="text-sm font-medium text-[#94a3b8]">
                   {progress.percent}% complete
@@ -538,10 +542,10 @@ export function OwnerRentalRequestsContent() {
   return (
     <section className="space-y-16">
       <div>
-        <h1 className="text-2xl font-semibold tracking-[-0.04em] text-primary md:text-3xl">
+        <h1 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
           Rental Requests
         </h1>
-        <p className="mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]">
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
           Review renter requests, track renter payment, and manage each rental
           until admin settles payout manually after completion.
         </p>

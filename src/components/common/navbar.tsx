@@ -12,6 +12,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -188,6 +189,14 @@ export function Navbar({
             : action
         )
       : actions;
+  const mobileResolvedActions = resolvedActions.filter(
+    (action) => !action.hideOnMobile
+  );
+  const hasMobileMenuContent =
+    resolvedLinks.length > 0 ||
+    mobileResolvedActions.length > 0 ||
+    shouldShowGuestActions ||
+    isAuthenticated;
 
   useEffect(() => {
     if (!isProfileMenuOpen && !isNavMenuOpen) {
@@ -261,88 +270,34 @@ export function Navbar({
           containerClassName
         ].join(' ')}>
         <div className="flex items-center gap-4 lg:gap-10">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <motion.div
-              whileHover={
-                shouldReduceMotion ? undefined : { y: -1, scale: 1.01 }
-              }
-              transition={{ duration: 0.2 }}>
-              <Link
-                prefetch
-                href={brandHref}
-                className={[
-                  'text-xl font-brand font-black text-primary sm:text-2xl',
-                  brandClassName
-                ].join(' ')}>
+          <motion.div
+            whileHover={shouldReduceMotion ? undefined : { y: -1, scale: 1.01 }}
+            transition={{ duration: 0.2 }}>
+            <Link
+              prefetch
+              href={brandHref}
+              className={[
+                'flex items-center text-primary',
+                brandClassName
+              ].join(' ')}>
+              <Image
+                src="/rentmart-logo.webp"
+                alt={`${brand} logo`}
+                width={144}
+                height={48}
+                priority
+                className="h-10 md:h-8 w-auto shrink-0"
+              />
+              <span className="hidden pl-3 text-xl font-brand font-black md:inline md:text-2xl">
                 {brand}
-              </Link>
-            </motion.div>
-
-            {resolvedLinks.length > 0 ? (
-              <div
-                ref={navMenuRef}
-                className="relative md:hidden">
-                <motion.button
-                  type="button"
-                  aria-haspopup="menu"
-                  aria-expanded={isNavMenuOpen}
-                  aria-label="Open navigation menu"
-                  onClick={() => setIsNavMenuOpen((open) => !open)}
-                  className="flex items-center gap-2 rounded-full border border-border bg-background px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-                  whileHover={shouldReduceMotion ? undefined : { y: -1 }}
-                  whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}>
-                  <Menu className="h-4 w-4 text-primary" />
-                  <motion.span
-                    animate={{ rotate: isNavMenuOpen ? 180 : 0 }}
-                    transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}>
-                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                  </motion.span>
-                </motion.button>
-
-                <AnimatePresence>
-                  {isNavMenuOpen ? (
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        y: shouldReduceMotion ? 0 : -8,
-                        scale: shouldReduceMotion ? 1 : 0.98
-                      }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{
-                        opacity: 0,
-                        y: shouldReduceMotion ? 0 : -6,
-                        scale: shouldReduceMotion ? 1 : 0.985
-                      }}
-                      transition={{ duration: shouldReduceMotion ? 0 : 0.18 }}
-                      className="absolute left-0 top-[calc(100%+0.75rem)] z-50 w-56 rounded-xl border border-border bg-background p-2 shadow-[0_18px_50px_rgba(0,0,0,0.12)]">
-                      <div className="space-y-1">
-                        {resolvedLinks.map((link: NavbarLink) => (
-                          <Link
-                            prefetch
-                            key={link.label}
-                            href={link.href}
-                            onClick={() => setIsNavMenuOpen(false)}
-                            className={[
-                              'flex rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-primary',
-                              link.active
-                                ? 'bg-muted text-primary'
-                                : 'text-foreground'
-                            ].join(' ')}>
-                            {link.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </div>
-            ) : null}
-          </div>
+              </span>
+            </Link>
+          </motion.div>
 
           {resolvedLinks.length > 0 ? (
-            <nav
+              <nav
               className={[
-                'hidden items-center gap-6 md:flex lg:gap-8',
+                'hidden items-center gap-6 lg:flex lg:gap-8',
                 linksClassName
               ].join(' ')}>
               {resolvedLinks.map((link: NavbarLink, index: number) => (
@@ -374,8 +329,159 @@ export function Navbar({
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          {hasMobileMenuContent ? (
+            <div
+              ref={navMenuRef}
+              className="relative lg:hidden">
+              <motion.button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={isNavMenuOpen}
+                aria-label="Open navigation menu"
+                onClick={() => setIsNavMenuOpen((open) => !open)}
+                className="flex items-center gap-2 rounded-full border border-border bg-background px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+                whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}>
+                <Menu className="h-4 w-4 text-primary" />
+                <motion.span
+                  animate={{ rotate: isNavMenuOpen ? 180 : 0 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}>
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                </motion.span>
+              </motion.button>
+
+              <AnimatePresence>
+                {isNavMenuOpen ? (
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      y: shouldReduceMotion ? 0 : -8,
+                      scale: shouldReduceMotion ? 1 : 0.98
+                    }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{
+                      opacity: 0,
+                      y: shouldReduceMotion ? 0 : -6,
+                      scale: shouldReduceMotion ? 1 : 0.985
+                    }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.18 }}
+                    className="absolute right-0 top-[calc(100%+0.75rem)] z-50 w-64 rounded-xl border border-border bg-background p-2 shadow-[0_18px_50px_rgba(0,0,0,0.12)]">
+                    {isAuthenticated && currentUser ? (
+                      <div className="border-b border-border px-3 py-2">
+                        <p className="truncate text-sm font-semibold text-foreground">
+                          {currentUser.fullName}
+                        </p>
+                        <p className="truncate text-xs text-muted-foreground">
+                          {currentUser.email}
+                        </p>
+                      </div>
+                    ) : null}
+
+                    <div className="space-y-1">
+                      {resolvedLinks.map((link: NavbarLink) => (
+                        <Link
+                          prefetch
+                          key={link.label}
+                          href={link.href}
+                          onClick={() => setIsNavMenuOpen(false)}
+                          className={[
+                            'flex rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-primary',
+                            link.active
+                              ? 'bg-muted text-primary'
+                              : 'text-foreground'
+                          ].join(' ')}>
+                          {link.label}
+                        </Link>
+                      ))}
+
+                      {mobileResolvedActions.map((action) => (
+                        <Link
+                          prefetch
+                          key={action.label}
+                          href={action.href}
+                          onClick={() => setIsNavMenuOpen(false)}
+                          className={[
+                            'flex rounded-lg px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted hover:text-primary'
+                          ].join(' ')}>
+                          {action.label}
+                        </Link>
+                      ))}
+
+                      {shouldShowGuestActions ? (
+                        <>
+                          <Link
+                            prefetch
+                            href={signInHref}
+                            onClick={() => setIsNavMenuOpen(false)}
+                            className="flex rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted hover:text-primary">
+                            {authActions?.signIn?.label ?? 'Login'}
+                          </Link>
+
+                          <Link
+                            prefetch
+                            href={signUpHref}
+                            onClick={() => setIsNavMenuOpen(false)}
+                            className="flex rounded-lg px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted hover:text-primary">
+                            {authActions?.signUp?.label ?? 'Sign Up'}
+                          </Link>
+                        </>
+                      ) : null}
+
+                      {isAuthenticated ? (
+                        <>
+                          <div className="my-1 border-t border-border" />
+
+                          <Link
+                            prefetch
+                            href={dashboardHref}
+                            onClick={() => setIsNavMenuOpen(false)}
+                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary">
+                            <LayoutDashboard className="h-4 w-4" />
+                            {authActions?.dashboard?.label ?? 'Dashboard'}
+                          </Link>
+
+                          <Link
+                            prefetch
+                            href={settingsHref}
+                            onClick={() => setIsNavMenuOpen(false)}
+                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary">
+                            <Settings className="h-4 w-4" />
+                            {authActions?.settings?.label ?? 'Settings'}
+                          </Link>
+
+                          <Link
+                            prefetch
+                            href="/terms"
+                            onClick={() => setIsNavMenuOpen(false)}
+                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary">
+                            <ShieldCheck className="h-4 w-4" />
+                            Terms
+                          </Link>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsNavMenuOpen(false);
+                              handleLogout();
+                            }}
+                            disabled={logoutMutation.isPending}
+                            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm text-foreground transition-colors hover:bg-muted hover:text-primary disabled:cursor-not-allowed disabled:opacity-60">
+                            <LogOut className="h-4 w-4" />
+                            {logoutMutation.isPending
+                              ? 'Logging out...'
+                              : 'Logout'}
+                          </button>
+                        </>
+                      ) : null}
+                    </div>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+            </div>
+          ) : null}
+
           {search ? (
-            <label className="hidden h-10 w-[220px] items-center gap-2 rounded-md border border-border bg-background px-3 text-sm text-muted-foreground md:flex">
+            <label className="hidden h-10 w-[220px] items-center gap-2 rounded-md border border-border bg-background px-3 text-sm text-muted-foreground lg:flex">
               <Search className="h-4 w-4 shrink-0" />
               <input
                 type="search"
@@ -400,7 +506,7 @@ export function Navbar({
                   action.variant === 'primary'
                     ? 'bg-linear-to-b from-primary/85 via-primary/90 to-primary/95 text-primary-foreground hover:bg-[#274e3d]'
                     : 'border border-border text-muted-foreground hover:bg-muted hover:text-foreground',
-                  action.hideOnMobile ? 'hidden sm:inline-flex' : 'inline-flex',
+                  'hidden lg:inline-flex',
                   actionClassName
                 ].join(' ')}>
                 {action.label}
@@ -417,7 +523,7 @@ export function Navbar({
                   prefetch
                   href={signInHref}
                   className={[
-                    'hidden rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:inline-flex',
+                    'hidden rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:inline-flex',
                     actionClassName
                   ].join(' ')}>
                   {authActions?.signIn?.label ?? 'Login'}
@@ -432,7 +538,7 @@ export function Navbar({
                   prefetch
                   href={signUpHref}
                   className={[
-                    'inline-flex items-center justify-center rounded-md bg-linear-to-b from-primary/85 via-primary/90 to-primary/95 px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-[#274e3d]',
+                    'hidden lg:inline-flex items-center justify-center rounded-md bg-linear-to-b from-primary/85 via-primary/90 to-primary/95 px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-[#274e3d]',
                     actionClassName
                   ].join(' ')}>
                   {authActions?.signUp?.label ?? 'Sign Up'}
@@ -444,7 +550,7 @@ export function Navbar({
           {isAuthenticated && currentUser ? (
             <div
               ref={dropdownRef}
-              className="relative">
+              className="relative hidden lg:block">
               <motion.button
                 type="button"
                 aria-haspopup="menu"

@@ -108,7 +108,7 @@ function CategoriesErrorState({ message }: { message: string }) {
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
           Admin Workspace
         </p>
-        <h1 className="mt-3 text-4xl font-extrabold tracking-[-0.04em] text-primary">
+        <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Category Management
         </h1>
       </div>
@@ -257,7 +257,7 @@ export function AdminCategoryManagement() {
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
           Admin Workspace
         </p>
-        <h1 className="mt-3 text-4xl font-extrabold tracking-[-0.04em] text-primary">
+        <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Category Management
         </h1>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">

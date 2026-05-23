@@ -154,7 +154,7 @@ function VerificationsErrorState({ message }: { message: string }) {
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
           Admin Workspace
         </p>
-        <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-primary">
+        <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Verifications
         </h1>
         <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -183,7 +183,7 @@ function EmptyVerificationsState() {
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
           Admin Workspace
         </p>
-        <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-primary">
+        <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Verifications
         </h1>
         <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -351,7 +351,7 @@ export function AdminVerifications() {
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
           Admin Workspace
         </p>
-        <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-primary">
+        <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Verifications
         </h1>
         <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -472,7 +472,7 @@ export function AdminVerifications() {
                           Ref ID: {buildReferenceId(selectedListing.id)}
                         </span>
                       </div>
-                      <h2 className="max-w-4xl text-4xl font-extrabold tracking-[-0.04em] text-primary sm:text-5xl">
+                      <h2 className="max-w-4xl text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
                         {selectedListing.title}
                       </h2>
                     </div>

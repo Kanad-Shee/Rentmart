@@ -36,7 +36,7 @@ function SectionTitle({
       <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
         {eyebrow}
       </p>
-      <h1 className="mt-3 text-4xl font-extrabold tracking-[-0.04em] text-primary">
+      <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
         {title}
       </h1>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -60,7 +60,7 @@ function StatCard({
       <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
         {label}
       </p>
-      <p className="mt-3 text-3xl font-bold tracking-[-0.04em] text-primary">
+      <p className="mt-3 text-2xl font-bold tracking-[-0.04em] text-primary sm:text-3xl">
         {value}
       </p>
       <p className="mt-2 text-sm text-muted-foreground">{helper}</p>
@@ -196,7 +196,7 @@ function RenterOverview() {
         />
       </motion.div>
 
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {[
           {
             label: 'Active Rentals',
@@ -271,7 +271,7 @@ function RenterOverview() {
                   key={booking.id}
                   {...getDashboardRevealProps(shouldReduceMotion, index)}
                   className="rounded-lg border border-border bg-muted/20 p-4">
-                  <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <p className="font-semibold text-foreground">
                       {booking.equipment.title}
                     </p>
@@ -387,7 +387,7 @@ function AdminOverview() {
         />
       </motion.div>
 
-      <div className="grid gap-5 md:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
         {[
           {
             label: 'Pending Verifications',
@@ -470,7 +470,7 @@ function AdminOverview() {
                   key={title}
                   {...getDashboardRevealProps(shouldReduceMotion, index)}
                   className="rounded-lg border border-border bg-muted/20 p-4">
-                  <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <p className="font-semibold text-foreground">{title}</p>
                     <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                       {status}

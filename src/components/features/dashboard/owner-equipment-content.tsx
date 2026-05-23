@@ -147,12 +147,12 @@ function EmptyState({ tab }: { tab: EquipmentTab }) {
 function EquipmentSkeleton() {
   return (
     <section className="space-y-8 animate-pulse">
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
         <div className="space-y-3">
-          <div className="h-12 w-80 rounded bg-muted" />
-          <div className="h-6 w-[540px] rounded bg-muted" />
+          <div className="h-10 w-56 rounded bg-muted sm:w-80" />
+          <div className="h-6 w-full max-w-[540px] rounded bg-muted" />
         </div>
-        <div className="h-14 w-56 rounded bg-muted" />
+        <div className="h-12 w-full max-w-56 rounded bg-muted" />
       </div>
 
       <div className="flex gap-8 border-b border-[#c1c8c2] pb-4">
@@ -192,7 +192,7 @@ function EquipmentErrorState({ message }: { message: string }) {
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
           Owner Workspace
         </p>
-        <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-primary">
+        <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           My Machinery
         </h1>
         <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -302,10 +302,10 @@ export function OwnerEquipmentContent() {
     <section className="space-y-8">
       <div className="flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
         <div className="space-y-2">
-          <h1 className="text-2xl font-extrabold tracking-[-0.04em] text-primary md:text-3xl">
+          <h1 className="text-2xl font-extrabold tracking-[-0.04em] text-primary sm:text-3xl">
             My Machinery
           </h1>
-          <p className="max-w-3xl text-base leading-8 text-[#5c5f60]">
+          <p className="max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
             Manage your active listings, pending approvals, and draft equipment.
           </p>
         </div>
@@ -320,7 +320,7 @@ export function OwnerEquipmentContent() {
       </div>
 
       <div className="border-b border-[#c1c8c2]">
-        <div className="flex flex-wrap gap-3 sm:gap-8">
+        <div className="flex flex-wrap gap-2 sm:gap-6">
           {(['live', 'pending', 'draft'] as EquipmentTab[]).map((tab) => {
             const isActive = activeTab === tab;
             const count = counts[tab];
@@ -331,7 +331,7 @@ export function OwnerEquipmentContent() {
                 type="button"
                 onClick={() => setActiveTab(tab)}
                 className={[
-                  'inline-flex items-center gap-3 border-b-2 px-3 py-4 text-lg transition-colors',
+                  'inline-flex items-center gap-2 border-b-2 px-2 py-4 text-base transition-colors sm:gap-3 sm:px-3 sm:text-lg',
                   isActive
                     ? 'border-primary text-primary'
                     : 'border-transparent text-[#5c5f60] hover:text-primary'
@@ -402,7 +402,7 @@ export function OwnerEquipmentContent() {
 
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-3">
-                        <h2 className="text-2xl font-bold tracking-[-0.04em] text-primary">
+                        <h2 className="text-xl font-bold tracking-[-0.04em] text-primary sm:text-2xl">
                           {listing.title}
                         </h2>
                         <span className="rounded-full bg-[#e8e8e5] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#5c5f60]">
@@ -429,13 +429,13 @@ export function OwnerEquipmentContent() {
                           className={`h-2.5 w-2.5 rounded-full ${status.dotClassName}`}
                         />
                         <span
-                          className={`text-base font-medium ${status.textClassName}`}>
+                          className={`text-sm font-medium sm:text-base ${status.textClassName}`}>
                           {status.label}
                         </span>
                       </div>
-                      <p className="text-2xl font-bold tracking-[-0.04em] text-primary xl:text-right">
+                      <p className="text-xl font-bold tracking-[-0.04em] text-primary sm:text-2xl xl:text-right">
                         {formatPrice(listing.price)}
-                        <span className="ml-2 text-base font-normal text-[#5c5f60]">
+                        <span className="ml-2 text-sm font-normal text-[#5c5f60] sm:text-base">
                           / day
                         </span>
                       </p>

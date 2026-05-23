@@ -39,7 +39,7 @@ function SectionTitle({
       <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
         {eyebrow}
       </p>
-      <h1 className="mt-3 text-4xl font-extrabold tracking-[-0.04em] text-primary">
+      <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
         {title}
       </h1>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -63,7 +63,7 @@ function StatCard({
       <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
         {label}
       </p>
-      <p className="mt-3 text-3xl font-bold tracking-[-0.04em] text-primary">
+      <p className="mt-3 text-2xl font-bold tracking-[-0.04em] text-primary sm:text-3xl">
         {value}
       </p>
       <p className="mt-2 text-sm text-muted-foreground">{helper}</p>
@@ -80,7 +80,7 @@ function OwnerOverviewSkeleton() {
         <div className="mt-3 h-5 max-w-3xl rounded bg-muted" />
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {[0, 1, 2, 3].map((item) => (
           <article
             key={item}

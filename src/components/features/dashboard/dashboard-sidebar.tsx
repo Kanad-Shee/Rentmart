@@ -26,6 +26,7 @@ import {
   Wrench
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -144,7 +145,7 @@ export function DashboardSidebar({ config }: DashboardSidebarProps) {
 
   return (
     <motion.aside
-      className="fixed inset-y-0 left-0 hidden min-h-0 w-64 overflow-hidden border-r border-border bg-[#edeef3] md:flex md:flex-col"
+      className="fixed inset-y-0 left-0 hidden min-h-0 w-64 overflow-hidden border-r border-border bg-[#edeef3] lg:flex lg:flex-col"
       initial={{
         opacity: 0,
         x: shouldReduceMotion ? 0 : -24
@@ -179,8 +180,18 @@ export function DashboardSidebar({ config }: DashboardSidebarProps) {
           <Link
             prefetch
             href="/"
-            className="text-2xl font-brand font-black uppercase text-primary">
-            {config.brand}
+            className="flex items-center gap-3 text-primary">
+            <Image
+              src="/rentmart-logo.webp"
+              alt={`${config.brand} logo`}
+              width={40}
+              height={40}
+              priority
+              className="h-6 w-auto shrink-0"
+            />
+            <span className="text-2xl font-brand font-black uppercase text-primary">
+              {config.brand}
+            </span>
           </Link>
         </motion.div>
         <p className="mt-2 text-sm uppercase tracking-[0.24em] text-muted-foreground">

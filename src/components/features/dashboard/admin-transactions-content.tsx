@@ -482,10 +482,10 @@ export function AdminTransactionsContent() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
             Admin Finance
           </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-[-0.04em] text-primary md:text-5xl">
+          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             Transactions
           </h1>
-          <p className="mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
             Review booking-level money flow first, then inspect raw Cashfree
             webhook events for reconciliation, debugging, and payout follow-up.
           </p>
@@ -503,7 +503,7 @@ export function AdminTransactionsContent() {
         </div>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
         <SummaryCard
           label="Captured Payment Value"
           value={formatCurrency(totals.capturedValue)}
@@ -591,8 +591,8 @@ export function AdminTransactionsContent() {
             </p>
           </div>
 
-          <div className="grid gap-4 rounded-xl border border-[#d8dfdb] bg-white p-5 shadow-sm lg:grid-cols-6">
-            <label className="flex items-center gap-3 rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-[#64748b] lg:col-span-2">
+          <div className="grid gap-4 rounded-xl border border-[#d8dfdb] bg-white p-5 shadow-sm md:grid-cols-2 xl:grid-cols-6">
+            <label className="flex items-center gap-3 rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-[#64748b] md:col-span-2 xl:col-span-2">
               <Search className="h-4 w-4 shrink-0" />
               <input
                 value={bookingSearchTerm}
@@ -685,7 +685,7 @@ export function AdminTransactionsContent() {
                   event.target.value as 'ALL' | 'ONLY_ACTION'
                 )
               }
-              className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none lg:col-span-2">
+              className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none md:col-span-2 xl:col-span-2">
               <option value="ALL">All ledger items</option>
               <option value="ONLY_ACTION">Needs action only</option>
             </select>
@@ -1010,8 +1010,8 @@ export function AdminTransactionsContent() {
             </p>
           </div>
 
-          <div className="grid gap-4 rounded-xl border border-[#d8dfdb] bg-white p-5 shadow-sm lg:grid-cols-4">
-            <label className="flex items-center gap-3 rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-[#64748b] lg:col-span-2">
+          <div className="grid gap-4 rounded-xl border border-[#d8dfdb] bg-white p-5 shadow-sm md:grid-cols-2 xl:grid-cols-4">
+            <label className="flex items-center gap-3 rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-[#64748b] md:col-span-2 xl:col-span-2">
               <Search className="h-4 w-4 shrink-0" />
               <input
                 value={eventSearchTerm}
@@ -1056,7 +1056,7 @@ export function AdminTransactionsContent() {
                   event.target.value as 'ALL' | 'LINKED' | 'UNLINKED'
                 )
               }
-              className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none lg:col-span-2">
+              className="rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-primary outline-none md:col-span-2 xl:col-span-2">
               <option value="ALL">All link states</option>
               <option value="LINKED">Linked to booking</option>
               <option value="UNLINKED">Unlinked / unmatched</option>

@@ -121,7 +121,7 @@ export function OwnerTransactionsContent() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
             Owner Finance
           </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-[-0.04em] text-primary md:text-5xl">
+          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             Transactions
           </h1>
           <p className="mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]">

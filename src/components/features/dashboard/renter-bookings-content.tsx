@@ -106,10 +106,10 @@ function SectionHeader({
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
       <div>
-        <h2 className="text-4xl font-semibold tracking-[-0.04em] text-primary">
+        <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl xl:text-4xl">
           {title}
         </h2>
-        <p className="mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]">
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
           {description}
         </p>
       </div>
@@ -164,10 +164,10 @@ function BookingCard({
           />
         </div>
 
-        <div className="flex-1 p-6 md:p-8">
+        <div className="flex-1 p-5 sm:p-6 lg:p-8">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <h3 className="text-3xl font-semibold tracking-[-0.04em] text-primary">
+              <h3 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
                 {booking.equipment.title}
               </h3>
               <p className="mt-2 text-lg text-[#64748b]">
@@ -181,7 +181,7 @@ function BookingCard({
             </span>
           </div>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#94a3b8]">
                 Rental Period
@@ -207,7 +207,7 @@ function BookingCard({
             </div>
           </div>
 
-          <div className="mt-8 grid gap-4 border-t border-[#edf1ee] pt-6 text-sm text-[#5c5f60] md:grid-cols-4">
+          <div className="mt-8 grid gap-4 border-t border-[#edf1ee] pt-6 text-sm text-[#5c5f60] sm:grid-cols-2 xl:grid-cols-4">
             <div>
               <p className="font-semibold uppercase tracking-[0.2em] text-[#94a3b8]">
                 Rental Fee
@@ -381,10 +381,10 @@ export function RenterBookingsContent() {
       />
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h1 className="text-4xl font-semibold tracking-[-0.04em] text-primary md:text-5xl">
+          <h1 className="text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             My Bookings
           </h1>
-          <p className="mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
             Track owner approvals, complete Cashfree checkout when a request is
             accepted, and follow your rental progress until the admin settles
             owner payout and your deposit refund.

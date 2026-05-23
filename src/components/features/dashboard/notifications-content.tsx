@@ -142,7 +142,7 @@ function EmptyState() {
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
         <Bell className="h-6 w-6" />
       </div>
-      <h2 className="mt-5 text-2xl font-semibold tracking-[-0.03em] text-primary">
+      <h2 className="mt-5 text-xl font-semibold tracking-[-0.03em] text-primary sm:text-2xl">
         No updates yet
       </h2>
       <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
@@ -171,16 +171,16 @@ function ErrorState({ message }: { message: string }) {
 
 function SkeletonState() {
   return (
-    <div className="mt-8 grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
+    <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
       <div className="space-y-6 animate-pulse">
         {[0, 1, 2].map((item) => (
           <div
             key={item}
             className="rounded-xl border border-border bg-background p-6">
-            <div className="flex items-start gap-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
               <div className="h-12 w-12 rounded-full bg-muted" />
               <div className="min-w-0 flex-1">
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div className="h-6 w-2/3 rounded bg-muted" />
                   <div className="h-4 w-20 rounded bg-muted" />
                 </div>
@@ -226,7 +226,7 @@ function NotificationCardRow({
           : { y: -3, transition: { duration: 0.18 } }
       }
       className={[
-        'relative bg-emerald-300/2 flex items-start gap-5 border p-6 transition-shadow hover:shadow-md',
+        'relative flex flex-col gap-4 border bg-emerald-300/2 p-5 transition-shadow hover:shadow-md sm:flex-row sm:items-start sm:gap-5 sm:p-6',
         presentation.cardClassName
       ].join(' ')}>
       {!item.isRead ? (
@@ -243,7 +243,7 @@ function NotificationCardRow({
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <h3 className="text-lg font-semibold tracking-[-0.02em] text-primary">
             {item.title}
           </h3>
@@ -307,7 +307,7 @@ export function NotificationsContent({
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
                   {profileRole}
                 </p>
-                <h1 className="mt-2 text-4xl font-extrabold tracking-[-0.04em] text-primary sm:text-5xl">
+                <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
                   Notifications
                 </h1>
               </div>
@@ -335,7 +335,7 @@ export function NotificationsContent({
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
                   {profileRole}
                 </p>
-                <h1 className="mt-2 text-4xl font-extrabold tracking-[-0.04em] text-primary sm:text-5xl">
+                <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
                   Notifications
                 </h1>
               </div>
@@ -392,7 +392,7 @@ export function NotificationsContent({
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
                 {profileRole}
               </p>
-              <h1 className="mt-2 text-2xl md:text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-5xl">
+              <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
                 Notifications
               </h1>
             </div>
@@ -422,7 +422,7 @@ export function NotificationsContent({
         </button>
       </div>
 
-      <div className="mt-8 grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
+      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="space-y-12">
           {notifications.length === 0 ? <EmptyState /> : null}
 

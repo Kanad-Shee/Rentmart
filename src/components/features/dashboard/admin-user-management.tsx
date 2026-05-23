@@ -139,10 +139,10 @@ export function AdminUserManagement() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
             Admin Workspace
           </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-[-0.04em] text-primary md:text-5xl">
+          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             User Management
           </h1>
-          <p className="mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
             Search platform accounts, review verification readiness, and inspect
             owner and renter activity from one queue.
           </p>
@@ -160,7 +160,7 @@ export function AdminUserManagement() {
         </div>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
         <SummaryCard
           label="Owners"
           value={String(summaries.owners)}
@@ -178,7 +178,7 @@ export function AdminUserManagement() {
         />
       </div>
 
-      <div className="grid gap-4 rounded-xl border border-[#d8dfdb] bg-white p-5 shadow-sm md:grid-cols-[minmax(0,1fr)_180px_220px]">
+      <div className="grid gap-4 rounded-xl border border-[#d8dfdb] bg-white p-5 shadow-sm md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_180px_220px]">
         <label className="flex items-center gap-3 rounded-lg border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-sm text-[#64748b]">
           <Search className="h-4 w-4 shrink-0" />
           <input

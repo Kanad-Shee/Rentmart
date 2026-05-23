@@ -571,7 +571,6 @@ export function HomepageMarketplaceSections() {
                             alt={heroListing.title}
                             fill
                             unoptimized
-                            loading={'lazy'}
                             priority={activeHeroIndex === 0}
                             className="object-cover"
                             sizes="(max-width: 1024px) 100vw, 50vw"

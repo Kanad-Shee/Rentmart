@@ -643,7 +643,7 @@ export function DashboardAddListingContent() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
             Owner Workspace
           </p>
-          <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-primary">
+          <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             Create New Equipment Listing
           </h1>
         </div>
@@ -742,7 +742,7 @@ export function DashboardAddListingContent() {
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#86af99]">
           Owner Workspace
         </p>
-        <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-primary">
+        <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           {isEditing
             ? 'Edit Equipment Listing'
             : 'Create New Equipment Listing'}

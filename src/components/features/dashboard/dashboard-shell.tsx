@@ -16,7 +16,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
     <div className="min-h-screen bg-background text-foreground">
       <DashboardSidebar config={config} />
       <DashboardTopbar config={config} />
-      <main className="pt-16 md:ml-64 bg-linear-to-br from-[#fefefe] to-[#ececf1] min-h-screen">
+      <main className="min-h-screen bg-linear-to-br from-[#fefefe] to-[#ececf1] pt-16 lg:ml-64">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           {children}
         </div>

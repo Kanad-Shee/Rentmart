@@ -165,7 +165,7 @@ export function RenterWishlistContent() {
     return (
       <section className="space-y-8">
         <div className="space-y-2">
-          <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-primary md:text-5xl">
+          <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             My Wishlist
           </h1>
           <p className="max-w-3xl text-base leading-8 text-[#5c5f60]">
@@ -197,7 +197,7 @@ export function RenterWishlistContent() {
     <section className="space-y-10">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div className="space-y-2">
-          <h1 className="text-4xl font-semibold tracking-[-0.04em] text-primary md:text-5xl">
+          <h1 className="text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             Saved Machinery
           </h1>
           <p className="max-w-3xl text-base leading-8 text-[#5c5f60]">
