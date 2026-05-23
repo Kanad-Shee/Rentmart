@@ -56,7 +56,7 @@ function StatCard({
   helper: string;
 }) {
   return (
-    <article className="rounded-xl border border-border bg-emerald-800/5 h-full p-6 shadow-sm">
+    <article className="rounded-xl border border-border bg-[#fefefe] h-full p-6 shadow-lg">
       <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
         {label}
       </p>
@@ -426,7 +426,7 @@ function AdminOverview() {
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
         <motion.section
           {...getDashboardRevealProps(shouldReduceMotion, 2)}
-          className="rounded-xl border border-border bg-emerald-900/5 p-6 shadow-sm">
+          className="rounded-xl border border-border bg-[#fefefe] p-6 shadow-lg">
           <div className="flex items-center justify-between gap-4 border-b border-border pb-5">
             <div>
               <h2 className="text-2xl font-semibold tracking-[-0.03em] text-foreground">

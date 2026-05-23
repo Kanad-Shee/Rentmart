@@ -144,7 +144,7 @@ export function DashboardSidebar({ config }: DashboardSidebarProps) {
 
   return (
     <motion.aside
-      className="fixed inset-y-0 left-0 hidden min-h-0 w-64 overflow-hidden border-r border-border bg-muted/40 md:flex md:flex-col"
+      className="fixed inset-y-0 left-0 hidden min-h-0 w-64 overflow-hidden border-r border-border bg-[#edeef3] md:flex md:flex-col"
       initial={{
         opacity: 0,
         x: shouldReduceMotion ? 0 : -24
