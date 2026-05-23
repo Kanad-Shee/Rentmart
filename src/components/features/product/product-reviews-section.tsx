@@ -207,7 +207,7 @@ function ReviewCard({ review }: { review: EquipmentReviewSummary }) {
   );
 
   return (
-    <article className="flex w-[360px] shrink-0 flex-col rounded border border-[#c1c8c2] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
+    <article className="flex w-90 shrink-0 flex-col rounded border border-[#c1c8c2] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#e8e8e5] text-sm font-semibold text-primary">
           {review.renter.fullName.slice(0, 1).toUpperCase()}
@@ -458,7 +458,7 @@ export function ProductReviewsSection({
 
   return (
     <section className="bg-[#f3f4f1] py-16">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-360 px-4 sm:px-6 lg:px-8">
         <div className="border-b border-[#c1c8c2] pb-8">
           <div className="flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-10">

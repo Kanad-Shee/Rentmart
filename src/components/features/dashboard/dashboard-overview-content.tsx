@@ -440,7 +440,7 @@ function AdminOverview() {
           </div>
 
           {metricsQuery.isPending ? (
-            <div className="flex min-h-[220px] items-center justify-center">
+            <div className="flex min-h-55 items-center justify-center">
               <Loader2 className="h-6 w-6 animate-spin text-primary" />
             </div>
           ) : metricsQuery.isError ? (
