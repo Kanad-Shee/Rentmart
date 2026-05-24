@@ -259,7 +259,7 @@ export function AdminReviewSummaries() {
             </label>
           </div>
 
-          <div className="max-h-[720px] overflow-y-auto">
+          <div className="max-h-180 overflow-y-auto">
             {listings.length > 0 ? (
               listings.map((listing) => {
                 const isSelected = listing.id === resolvedSelectedId;
@@ -492,7 +492,7 @@ export function AdminReviewSummaries() {
               </div>
             </div>
           ) : (
-            <div className="flex min-h-[420px] items-center justify-center rounded-2xl border border-dashed border-border text-center text-sm text-[#5c5f60]">
+            <div className="flex min-h-105 items-center justify-center rounded-2xl border border-dashed border-border text-center text-sm text-[#5c5f60]">
               Select an active listing to manage its public review summary.
             </div>
           )}
