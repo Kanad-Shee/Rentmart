@@ -67,6 +67,11 @@ export const roleConfigs: Record<DashboardRole, RoleConfig> = {
             badge: '12'
           },
           {
+            label: 'Review Summaries',
+            href: '/dashboard/review-summaries',
+            icon: 'clipboardList'
+          },
+          {
             label: 'User Management',
             href: '/dashboard/users',
             icon: 'users'

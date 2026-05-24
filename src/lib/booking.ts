@@ -417,7 +417,9 @@ export async function getMyBookings() {
   return response.items;
 }
 
-export async function getOwnerBookingsPage(input: OwnerBookingsQueryInput = {}) {
+export async function getOwnerBookingsPage(
+  input: OwnerBookingsQueryInput = {}
+) {
   const searchParams = buildPaginationSearchParams(input);
 
   if (input.group && input.group !== 'ALL') {
@@ -436,7 +438,9 @@ export async function getOwnerBookings() {
   return response.items;
 }
 
-export async function getAdminBookingsPage(input: AdminBookingsQueryInput = {}) {
+export async function getAdminBookingsPage(
+  input: AdminBookingsQueryInput = {}
+) {
   const searchParams = buildPaginationSearchParams(input);
   appendSearchParam(searchParams, 'search', input.search);
 

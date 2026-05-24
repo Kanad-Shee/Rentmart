@@ -43,10 +43,7 @@ export function useMyBookingsQuery(enabled = true) {
   });
 }
 
-export function useMyBookingsPageQuery(
-  input: PaginationInput,
-  enabled = true
-) {
+export function useMyBookingsPageQuery(input: PaginationInput, enabled = true) {
   return useQuery({
     queryKey: bookingQueryKeys.minePage(input),
     queryFn: () => getMyBookingsPage(input),

@@ -6,7 +6,10 @@ import {
   createEquipment,
   deleteOwnerEquipment,
   equipmentQueryKeys,
+  generateEquipmentReviewSummary,
+  generateListingDescription,
   geocodeEquipment,
+  getAdminEquipmentReviewSummariesPage,
   getAddressLocationByPlaceId,
   getAddressSuggestions,
   getFeaturedEquipment,
@@ -20,8 +23,10 @@ import {
   submitOwnerEquipment,
   updateEquipmentReview,
   type CreateEquipmentReviewInput,
+  type AdminEquipmentReviewSummaryQueryInput,
   type AddressSuggestionsInput,
   type CreateEquipmentInput,
+  type GenerateListingDescriptionInput,
   type GeocodeEquipmentInput,
   getMyEquipmentPage,
   getPendingEquipmentPage,
@@ -31,6 +36,7 @@ import {
   type RejectEquipmentInput,
   type SaveDraftEquipmentInput,
   type UpdateEquipmentReviewInput,
+  updateEquipmentReviewSummaryVisibility,
   type UpdateEquipmentInput,
   updateOwnerEquipment
 } from '@/lib/equipment';
@@ -68,6 +74,18 @@ export function usePendingEquipmentPageQuery(
   return useQuery({
     queryKey: equipmentQueryKeys.pendingListingsPage(input),
     queryFn: () => getPendingEquipmentPage(input),
+    enabled,
+    staleTime: 30 * 1000
+  });
+}
+
+export function useAdminEquipmentReviewSummariesPageQuery(
+  input: AdminEquipmentReviewSummaryQueryInput,
+  enabled = true
+) {
+  return useQuery({
+    queryKey: equipmentQueryKeys.adminReviewSummariesPage(input),
+    queryFn: () => getAdminEquipmentReviewSummariesPage(input),
     enabled,
     staleTime: 30 * 1000
   });
@@ -127,6 +145,13 @@ export function useCreateEquipmentMutation() {
         queryKey: equipmentQueryKeys.ownerListings
       });
     }
+  });
+}
+
+export function useGenerateListingDescriptionMutation() {
+  return useMutation({
+    mutationFn: (input: GenerateListingDescriptionInput) =>
+      generateListingDescription(input)
   });
 }
 
@@ -259,6 +284,39 @@ export function useUpdateEquipmentReviewMutation() {
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
         queryKey: equipmentQueryKeys.publicListing(variables.id)
+      });
+    }
+  });
+}
+
+export function useGenerateEquipmentReviewSummaryMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => generateEquipmentReviewSummary(id),
+    onSuccess: (_data, id) => {
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.publicListing(id)
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['equipment', 'admin-review-summaries']
+      });
+    }
+  });
+}
+
+export function useUpdateEquipmentReviewSummaryVisibilityMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, visible }: { id: string; visible: boolean }) =>
+      updateEquipmentReviewSummaryVisibility(id, { visible }),
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: equipmentQueryKeys.publicListing(variables.id)
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['equipment', 'admin-review-summaries']
       });
     }
   });

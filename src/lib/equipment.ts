@@ -59,6 +59,13 @@ export type EquipmentReviewViewerState = {
   review: EquipmentReviewSummary | null;
 };
 
+export type EquipmentReviewSummaryDigest = {
+  text: string;
+  generatedAt: string;
+  reviewCount: number;
+  visible?: boolean;
+};
+
 export type EquipmentOwnerSummary = {
   id: string;
   fullName: string;
@@ -95,6 +102,7 @@ export type EquipmentDetails = EquipmentListing & {
   averageRating: number | null;
   reviewCount: number;
   reviews: EquipmentReviewSummary[];
+  reviewSummary: EquipmentReviewSummaryDigest | null;
   viewerReviewState: EquipmentReviewViewerState;
 };
 
@@ -104,6 +112,44 @@ export type EquipmentReviewPayload = {
   reviewCount: number;
   reviews: EquipmentReviewSummary[];
   viewerReviewState: EquipmentReviewViewerState;
+};
+
+export type GenerateListingDescriptionInput = {
+  title: string;
+  description: string;
+};
+
+export type GenerateListingDescriptionResponse = {
+  description: string;
+};
+
+export type AdminEquipmentReviewSummaryItem = EquipmentListing & {
+  averageRating: number | null;
+  reviewCount: number;
+  reviewSummaryVisible: boolean;
+  reviewSummary: EquipmentReviewSummaryDigest | null;
+};
+
+export type AdminEquipmentReviewSummaryQueryInput = PaginationInput & {
+  search?: string;
+};
+
+export type GenerateEquipmentReviewSummaryResponse = {
+  reviewSummary: EquipmentReviewSummaryDigest;
+  reviewSummaryVisible: boolean;
+  averageRating: number | null;
+  reviewCount: number;
+};
+
+export type UpdateEquipmentReviewSummaryVisibilityInput = {
+  visible: boolean;
+};
+
+export type UpdateEquipmentReviewSummaryVisibilityResponse = {
+  reviewSummary: EquipmentReviewSummaryDigest | null;
+  reviewSummaryVisible: boolean;
+  averageRating: number | null;
+  reviewCount: number;
 };
 
 export type GeocodedEquipmentLocation = {
@@ -192,6 +238,14 @@ export const equipmentQueryKeys = {
     [
       'equipment',
       'pending-listings',
+      input.page ?? 1,
+      input.pageSize ?? 10,
+      input.search?.trim() ?? ''
+    ] as const,
+  adminReviewSummariesPage: (input: AdminEquipmentReviewSummaryQueryInput) =>
+    [
+      'equipment',
+      'admin-review-summaries',
       input.page ?? 1,
       input.pageSize ?? 10,
       input.search?.trim() ?? ''
@@ -291,6 +345,37 @@ export async function getPendingEquipmentPage(
 export async function getPendingEquipment() {
   const response = await getPendingEquipmentPage({ page: 1, pageSize: 100 });
   return response.items;
+}
+
+export async function getAdminEquipmentReviewSummariesPage(
+  input: AdminEquipmentReviewSummaryQueryInput = {}
+) {
+  const searchParams = buildPaginationSearchParams(input);
+
+  if (input.search?.trim()) {
+    searchParams.set('search', input.search.trim());
+  }
+
+  const suffix = searchParams.toString();
+  const response = await apiRequest<
+    PaginatedResponse<AdminEquipmentReviewSummaryItem>
+  >(`/equipment/admin/review-summaries${suffix ? `?${suffix}` : ''}`);
+
+  return response.data;
+}
+
+export async function generateListingDescription(
+  input: GenerateListingDescriptionInput
+) {
+  const response = await apiRequest<GenerateListingDescriptionResponse>(
+    '/equipment/ai/listing-description',
+    {
+      method: 'POST',
+      body: input
+    }
+  );
+
+  return response.data;
 }
 
 export async function getFeaturedEquipment() {
@@ -461,6 +546,33 @@ export async function updateEquipmentReview(
       body: createUpdateEquipmentReviewFormData(input)
     }
   );
+
+  return response.data;
+}
+
+export async function generateEquipmentReviewSummary(id: string) {
+  const response = await apiRequest<GenerateEquipmentReviewSummaryResponse>(
+    `/equipment/${id}/review-summary/generate`,
+    {
+      method: 'PATCH'
+    }
+  );
+
+  return response.data;
+}
+
+export async function updateEquipmentReviewSummaryVisibility(
+  id: string,
+  input: UpdateEquipmentReviewSummaryVisibilityInput
+) {
+  const response =
+    await apiRequest<UpdateEquipmentReviewSummaryVisibilityResponse>(
+      `/equipment/${id}/review-summary/visibility`,
+      {
+        method: 'PATCH',
+        body: input
+      }
+    );
 
   return response.data;
 }

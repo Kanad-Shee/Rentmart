@@ -117,7 +117,7 @@ function ProductDetailsSkeleton() {
         <div className="mb-8 h-4 w-60 rounded bg-muted" />
         <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
           <article className="space-y-8 lg:col-span-8">
-        <div className="h-[340px] rounded-md bg-muted sm:h-[420px] lg:h-[520px]" />
+            <div className="h-[340px] rounded-md bg-muted sm:h-[420px] lg:h-[520px]" />
             <div className="space-y-4">
               <div className="h-6 w-36 rounded bg-muted" />
               <div className="h-14 w-3/4 rounded bg-muted" />

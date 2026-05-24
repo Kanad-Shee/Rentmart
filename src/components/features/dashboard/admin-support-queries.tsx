@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { DashboardPaginationControls } from './dashboard-pagination-controls';
+import { Button } from '@/components/ui/button';
 import {
   useAdminSupportQueriesPageQuery,
   useResolveSupportQueryMutation

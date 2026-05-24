@@ -56,7 +56,7 @@ export default function RootLayout({
       lang="en"
       className="h-full antialiased font-sans">
       <body
-        className={`${inter.className} ${manrope.variable} ${geist.variable} ${brand.variable} min-h-full flex flex-col`}>
+        className={`${inter.className} ${manrope.variable} ${geist.variable} ${brand.variable} min-h-full flex flex-col selection:bg-neutral-900 selection:text-white`}>
         <QueryProvider>{children}</QueryProvider>
         <Toaster
           position="bottom-left"

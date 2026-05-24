@@ -8,6 +8,7 @@ import {
   useAddressSuggestionsQuery,
   useCreateEquipmentMutation,
   useDeleteOwnerEquipmentMutation,
+  useGenerateListingDescriptionMutation,
   useGeocodeEquipmentMutation,
   useOwnerEquipmentQuery,
   useSaveDraftEquipmentMutation,
@@ -29,6 +30,7 @@ import {
   ChevronRight,
   LoaderCircle,
   MapPinned,
+  Sparkles,
   Upload,
   X
 } from 'lucide-react';
@@ -88,6 +90,8 @@ export function DashboardAddListingContent() {
   const updateOwnerEquipmentMutation = useUpdateOwnerEquipmentMutation();
   const submitOwnerEquipmentMutation = useSubmitOwnerEquipmentMutation();
   const deleteOwnerEquipmentMutation = useDeleteOwnerEquipmentMutation();
+  const generateListingDescriptionMutation =
+    useGenerateListingDescriptionMutation();
   const geocodeMutation = useGeocodeEquipmentMutation();
   const addressLocationMutation = useAddressLocationMutation();
   const [formState, setFormState] =
@@ -610,6 +614,42 @@ export function DashboardAddListingContent() {
     }
   }
 
+  async function handleGenerateDescription() {
+    if (formState.title.trim().length < 2) {
+      setFormError('Enter a valid listing title before generating copy.');
+      setFormNotice(null);
+      return;
+    }
+
+    setFormError(null);
+    setFormNotice(null);
+
+    try {
+      const result = await generateListingDescriptionMutation.mutateAsync({
+        title: formState.title.trim(),
+        description: formState.description
+      });
+
+      setFormState((current) => ({
+        ...current,
+        description: result.description
+      }));
+      setFormNotice(
+        formState.description.trim().length > 0
+          ? 'Description refreshed with AI. You can edit it before saving.'
+          : 'Description generated with AI. You can edit it before saving.'
+      );
+      toast.success('AI description ready.');
+    } catch (error) {
+      const message =
+        error instanceof ApiError
+          ? error.message
+          : 'Unable to generate the description right now.';
+      setFormError(message);
+      toast.error(message);
+    }
+  }
+
   if (categoriesQuery.isPending) {
     return (
       <section className="space-y-10 pb-12 animate-pulse">
@@ -733,6 +773,7 @@ export function DashboardAddListingContent() {
   const isDeleting = deleteOwnerEquipmentMutation.isPending;
   const isResolvingAddress = geocodeMutation.isPending;
   const isSearchingAddresses = suggestionsQuery.fetchStatus === 'fetching';
+  const isGeneratingDescription = generateListingDescriptionMutation.isPending;
 
   return (
     <form
@@ -805,9 +846,25 @@ export function DashboardAddListingContent() {
                 <label className="block text-sm font-medium text-foreground">
                   Description
                 </label>
-                <span className="text-xs text-muted-foreground">
-                  Optional, up to 2000 characters
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-muted-foreground">
+                    Optional, up to 2000 characters
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleGenerateDescription}
+                    disabled={isGeneratingDescription}
+                    className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60">
+                    {isGeneratingDescription ? (
+                      <LoaderCircle className="h-3.5 w-3.5 animate-spin" />
+                    ) : (
+                      <Sparkles className="h-3.5 w-3.5" />
+                    )}
+                    {formState.description.trim().length > 0
+                      ? 'Improve with AI'
+                      : 'Generate with AI'}
+                  </button>
+                </div>
               </div>
               <textarea
                 value={formState.description}
@@ -825,6 +882,10 @@ export function DashboardAddListingContent() {
               <p className="mt-2 text-xs leading-5 text-muted-foreground">
                 Leave this blank if you want Rentmart to keep showing the
                 standard listing description on the product details page.
+              </p>
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                AI uses the listing title and your current draft only. You can
+                revise the generated copy before saving or submitting.
               </p>
             </div>
             <div>

@@ -194,20 +194,20 @@ export default function TermsPage() {
           <div className="lg:hidden">
             <div className="max-w-full overflow-x-auto rounded-2xl border border-[#e2e3e0] bg-white p-3 pb-4">
               <div className="flex min-w-max gap-3">
-              {sections.map((section) => (
-                <button
-                  key={section.id}
-                  type="button"
-                  onClick={() => handleSectionClick(section.id)}
-                  className={[
-                    'shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors',
-                    activeSection === section.id
-                      ? 'bg-primary text-white'
-                      : 'bg-[#f3f4f1] text-[#4f5964]'
-                  ].join(' ')}>
-                  {section.title}
-                </button>
-              ))}
+                {sections.map((section) => (
+                  <button
+                    key={section.id}
+                    type="button"
+                    onClick={() => handleSectionClick(section.id)}
+                    className={[
+                      'shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                      activeSection === section.id
+                        ? 'bg-primary text-white'
+                        : 'bg-[#f3f4f1] text-[#4f5964]'
+                    ].join(' ')}>
+                    {section.title}
+                  </button>
+                ))}
               </div>
             </div>
 

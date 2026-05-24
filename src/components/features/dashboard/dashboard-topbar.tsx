@@ -176,41 +176,43 @@ export function DashboardTopbar({ config }: DashboardTopbarProps) {
                   </p>
                 </div>
 
-              <div className="mt-2 space-y-1">
-                {mobileNavItems.map((item) => {
-                  const Icon = mobileIconMap[item.icon];
-                  const isActive = pathname === item.href;
+                <div className="mt-2 space-y-1">
+                  {mobileNavItems.map((item) => {
+                    const Icon = mobileIconMap[item.icon];
+                    const isActive = pathname === item.href;
 
-                  return (
-                    <motion.div
-                      key={item.href}
-                      initial={{
-                        opacity: 0,
-                        y: shouldReduceMotion ? 0 : -6
-                      }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: shouldReduceMotion ? 0 : 0.2,
-                        delay: shouldReduceMotion ? 0 : 0.06 + mobileNavItems.indexOf(item) * 0.04
-                      }}>
-                      <Link
-                        prefetch
-                        href={item.href}
-                        onClick={() => setIsNavMenuOpen(false)}
-                        className={[
-                          'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-                          isActive
-                            ? 'bg-muted text-primary'
-                            : 'text-foreground hover:bg-muted hover:text-primary'
-                        ].join(' ')}>
-                        <Icon className="h-4 w-4 shrink-0" />
-                        <span className="min-w-0 flex-1">{item.label}</span>
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
+                    return (
+                      <motion.div
+                        key={item.href}
+                        initial={{
+                          opacity: 0,
+                          y: shouldReduceMotion ? 0 : -6
+                        }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: shouldReduceMotion ? 0 : 0.2,
+                          delay: shouldReduceMotion
+                            ? 0
+                            : 0.06 + mobileNavItems.indexOf(item) * 0.04
+                        }}>
+                        <Link
+                          prefetch
+                          href={item.href}
+                          onClick={() => setIsNavMenuOpen(false)}
+                          className={[
+                            'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                            isActive
+                              ? 'bg-muted text-primary'
+                              : 'text-foreground hover:bg-muted hover:text-primary'
+                          ].join(' ')}>
+                          <Icon className="h-4 w-4 shrink-0" />
+                          <span className="min-w-0 flex-1">{item.label}</span>
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </motion.div>
             ) : null}
           </AnimatePresence>
         </div>

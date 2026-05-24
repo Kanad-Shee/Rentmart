@@ -1,7 +1,7 @@
 'use client';
 
-import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import { getDashboardRevealProps } from './dashboard-motion';
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import {
   Dialog,
   DialogContent,
@@ -686,51 +686,51 @@ export function OwnerRentalRequestsContent() {
               activeBookings.length > 0 ? (
                 <div className="space-y-8">
                   {activeBookings.map((booking, index) => (
-                  <BookingCard
-                    key={booking.id}
-                    booking={booking}
-                    index={index}
-                    helper={
-                      <div className="space-y-3">
-                        <textarea
-                          value={rejectReasons[booking.id] ?? ''}
-                          onChange={(event) =>
-                            setRejectReasons((current) => ({
-                              ...current,
-                              [booking.id]: event.target.value
-                            }))
-                          }
-                          placeholder="Optional approval note or add rejection reason here"
-                          className="min-h-24 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary"
-                        />
-                      </div>
-                    }
-                    actions={
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => handleApprove(booking.id)}
-                          disabled={
-                            approveMutation.isPending ||
-                            rejectMutation.isPending
-                          }
-                          className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
-                          Approve Request
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleReject(booking.id)}
-                          disabled={
-                            approveMutation.isPending ||
-                            rejectMutation.isPending
-                          }
-                          className="rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
-                          Reject Request
-                        </button>
-                      </>
-                    }
-                  />
-                ))}
+                    <BookingCard
+                      key={booking.id}
+                      booking={booking}
+                      index={index}
+                      helper={
+                        <div className="space-y-3">
+                          <textarea
+                            value={rejectReasons[booking.id] ?? ''}
+                            onChange={(event) =>
+                              setRejectReasons((current) => ({
+                                ...current,
+                                [booking.id]: event.target.value
+                              }))
+                            }
+                            placeholder="Optional approval note or add rejection reason here"
+                            className="min-h-24 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary"
+                          />
+                        </div>
+                      }
+                      actions={
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => handleApprove(booking.id)}
+                            disabled={
+                              approveMutation.isPending ||
+                              rejectMutation.isPending
+                            }
+                            className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
+                            Approve Request
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleReject(booking.id)}
+                            disabled={
+                              approveMutation.isPending ||
+                              rejectMutation.isPending
+                            }
+                            className="rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
+                            Reject Request
+                          </button>
+                        </>
+                      }
+                    />
+                  ))}
                 </div>
               ) : (
                 <EmptyState message={groupMeta[activeGroup].empty} />
@@ -741,28 +741,28 @@ export function OwnerRentalRequestsContent() {
               activeBookings.length > 0 ? (
                 <div className="space-y-8">
                   {activeBookings.map((booking, index) => (
-                  <BookingCard
-                    key={booking.id}
-                    booking={booking}
-                    index={index}
-                    helper={
-                      <div className="flex items-start gap-3 rounded-xl border border-[#f5deb3] bg-[#fffaf0] p-4">
-                        <Clock3 className="mt-0.5 h-5 w-5 shrink-0 text-[#9a6700]" />
-                        <div>
-                          <p className="text-sm font-semibold text-[#9a6700]">
-                            {getDeadlineLabel(
-                              booking.renterPaymentDeadlineAt
-                            ) ?? 'Payment window active'}
-                          </p>
-                          <p className="mt-1 text-xs leading-6 text-[#7c5a00]">
-                            These dates stay blocked while the renter completes
-                            payment for this booking.
-                          </p>
+                    <BookingCard
+                      key={booking.id}
+                      booking={booking}
+                      index={index}
+                      helper={
+                        <div className="flex items-start gap-3 rounded-xl border border-[#f5deb3] bg-[#fffaf0] p-4">
+                          <Clock3 className="mt-0.5 h-5 w-5 shrink-0 text-[#9a6700]" />
+                          <div>
+                            <p className="text-sm font-semibold text-[#9a6700]">
+                              {getDeadlineLabel(
+                                booking.renterPaymentDeadlineAt
+                              ) ?? 'Payment window active'}
+                            </p>
+                            <p className="mt-1 text-xs leading-6 text-[#7c5a00]">
+                              These dates stay blocked while the renter
+                              completes payment for this booking.
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    }
-                  />
-                ))}
+                      }
+                    />
+                  ))}
                 </div>
               ) : (
                 <EmptyState message={groupMeta[activeGroup].empty} />
@@ -773,80 +773,83 @@ export function OwnerRentalRequestsContent() {
               activeBookings.length > 0 ? (
                 <div className="space-y-8">
                   {activeBookings.map((booking, index) => (
-                  <BookingCard
-                    key={booking.id}
-                    booking={booking}
-                    index={index}
-                    helper={(() => {
-                      const rentalWindowEnded = hasBookingWindowEnded(
-                        booking.endDate
-                      );
+                    <BookingCard
+                      key={booking.id}
+                      booking={booking}
+                      index={index}
+                      helper={(() => {
+                        const rentalWindowEnded = hasBookingWindowEnded(
+                          booking.endDate
+                        );
 
-                      return (
-                        <div className="flex items-start gap-3 rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4">
-                          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                          <div>
-                            <p className="text-sm font-semibold text-primary">
-                              {rentalWindowEnded
-                                ? 'Rental window ended'
-                                : 'Payment marked complete'}
-                            </p>
-                            <p className="mt-1 text-xs leading-6 text-muted-foreground">
-                              {rentalWindowEnded
-                                ? 'This rental period has ended. Mark it returned safely or open a dispute if something went wrong during handoff or return.'
-                                : 'Start the booking when the equipment handoff begins. Admin payout is tracked after the rental is completed.'}
-                            </p>
-                          </div>
-                        </div>
-                      );
-                    })()}
-                    actions={(() => {
-                      if (
-                        canOwnerCompleteBooking(booking.status, booking.endDate)
-                      ) {
                         return (
-                          <>
-                            <button
-                              type="button"
-                              onClick={() => handleComplete(booking.id)}
-                              disabled={
-                                completeMutation.isPending ||
-                                disputeMutation.isPending
-                              }
-                              className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
-                              Mark Returned Safely
-                            </button>
-                            {canOwnerDisputeBooking(
-                              booking.status,
-                              booking.endDate
-                            ) ? (
+                          <div className="flex items-start gap-3 rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4">
+                            <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                            <div>
+                              <p className="text-sm font-semibold text-primary">
+                                {rentalWindowEnded
+                                  ? 'Rental window ended'
+                                  : 'Payment marked complete'}
+                              </p>
+                              <p className="mt-1 text-xs leading-6 text-muted-foreground">
+                                {rentalWindowEnded
+                                  ? 'This rental period has ended. Mark it returned safely or open a dispute if something went wrong during handoff or return.'
+                                  : 'Start the booking when the equipment handoff begins. Admin payout is tracked after the rental is completed.'}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })()}
+                      actions={(() => {
+                        if (
+                          canOwnerCompleteBooking(
+                            booking.status,
+                            booking.endDate
+                          )
+                        ) {
+                          return (
+                            <>
                               <button
                                 type="button"
-                                onClick={() => openDisputeModal(booking)}
+                                onClick={() => handleComplete(booking.id)}
                                 disabled={
                                   completeMutation.isPending ||
                                   disputeMutation.isPending
                                 }
-                                className="rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
-                                Open Dispute
+                                className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
+                                Mark Returned Safely
                               </button>
-                            ) : null}
-                          </>
-                        );
-                      }
+                              {canOwnerDisputeBooking(
+                                booking.status,
+                                booking.endDate
+                              ) ? (
+                                <button
+                                  type="button"
+                                  onClick={() => openDisputeModal(booking)}
+                                  disabled={
+                                    completeMutation.isPending ||
+                                    disputeMutation.isPending
+                                  }
+                                  className="rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
+                                  Open Dispute
+                                </button>
+                              ) : null}
+                            </>
+                          );
+                        }
 
-                      return (
-                        <button
-                          type="button"
-                          onClick={() => handleStart(booking.id)}
-                          disabled={startMutation.isPending}
-                          className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
-                          Start Rental
-                        </button>
-                      );
-                    })()}
-                  />
-                ))}
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => handleStart(booking.id)}
+                            disabled={startMutation.isPending}
+                            className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
+                            Start Rental
+                          </button>
+                        );
+                      })()}
+                    />
+                  ))}
                 </div>
               ) : (
                 <EmptyState message={groupMeta[activeGroup].empty} />
@@ -857,43 +860,43 @@ export function OwnerRentalRequestsContent() {
               activeBookings.length > 0 ? (
                 <div className="space-y-8">
                   {activeBookings.map((booking, index) => (
-                  <BookingCard
-                    key={booking.id}
-                    booking={booking}
-                    index={index}
-                    helper={
-                      <div className="rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4 text-sm leading-7 text-muted-foreground">
-                        Close the rental after safe return, or open a dispute
-                        with notes and optional evidence images if there was
-                        damage or a return issue.
-                      </div>
-                    }
-                    actions={
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => handleComplete(booking.id)}
-                          disabled={
-                            completeMutation.isPending ||
-                            disputeMutation.isPending
-                          }
-                          className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
-                          Mark Returned Safely
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => openDisputeModal(booking)}
-                          disabled={
-                            completeMutation.isPending ||
-                            disputeMutation.isPending
-                          }
-                          className="rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
-                          Open Dispute
-                        </button>
-                      </>
-                    }
-                  />
-                ))}
+                    <BookingCard
+                      key={booking.id}
+                      booking={booking}
+                      index={index}
+                      helper={
+                        <div className="rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4 text-sm leading-7 text-muted-foreground">
+                          Close the rental after safe return, or open a dispute
+                          with notes and optional evidence images if there was
+                          damage or a return issue.
+                        </div>
+                      }
+                      actions={
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => handleComplete(booking.id)}
+                            disabled={
+                              completeMutation.isPending ||
+                              disputeMutation.isPending
+                            }
+                            className="rounded-[4px] bg-[#1b4332] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
+                            Mark Returned Safely
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => openDisputeModal(booking)}
+                            disabled={
+                              completeMutation.isPending ||
+                              disputeMutation.isPending
+                            }
+                            className="rounded-[4px] border border-[#d8dfdb] px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
+                            Open Dispute
+                          </button>
+                        </>
+                      }
+                    />
+                  ))}
                 </div>
               ) : (
                 <EmptyState message={groupMeta[activeGroup].empty} />
@@ -903,71 +906,71 @@ export function OwnerRentalRequestsContent() {
             {activeGroup === 'HISTORY' ? (
               activeBookings.length > 0 ? (
                 <div className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
-                <div className="overflow-x-auto">
-                  <table className="min-w-full border-collapse">
-                    <thead className="bg-[#f8faf7]">
-                      <tr>
-                        {['Item', 'Renter', 'Dates', 'Total', 'Status'].map(
-                          (heading) => (
-                            <th
-                              key={heading}
-                              className="px-6 py-4 text-left text-sm font-semibold uppercase tracking-[0.2em] text-[#64748b]">
-                              {heading}
-                            </th>
-                          )
-                        )}
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#edf1ee]">
-                      {activeBookings.map((booking, index) => (
-                        <motion.tr
-                          key={booking.id}
-                          {...getDashboardRevealProps(
-                            shouldReduceMotion,
-                            index
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full border-collapse">
+                      <thead className="bg-[#f8faf7]">
+                        <tr>
+                          {['Item', 'Renter', 'Dates', 'Total', 'Status'].map(
+                            (heading) => (
+                              <th
+                                key={heading}
+                                className="px-6 py-4 text-left text-sm font-semibold uppercase tracking-[0.2em] text-[#64748b]">
+                                {heading}
+                              </th>
+                            )
                           )}
-                          className="transition-colors hover:bg-[#fbfcfa]">
-                          <td className="px-6 py-5">
-                            <div className="flex min-w-[240px] items-center gap-4">
-                              <div className="relative h-12 w-12 overflow-hidden rounded-lg bg-[#eef2ed]">
-                                <Image
-                                  src={getImageSrc(booking)}
-                                  alt={booking.equipment.title}
-                                  loading={'lazy'}
-                                  fill
-                                  className="object-cover"
-                                  unoptimized
-                                />
-                              </div>
-                              <p className="text-lg font-medium text-primary">
-                                {booking.equipment.title}
-                              </p>
-                            </div>
-                          </td>
-                          <td className="px-6 py-5 text-base text-[#475569]">
-                            {booking.renter.fullName}
-                          </td>
-                          <td className="px-6 py-5 text-base text-[#475569]">
-                            {formatDateRange(
-                              booking.startDate,
-                              booking.endDate
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#edf1ee]">
+                        {activeBookings.map((booking, index) => (
+                          <motion.tr
+                            key={booking.id}
+                            {...getDashboardRevealProps(
+                              shouldReduceMotion,
+                              index
                             )}
-                          </td>
-                          <td className="px-6 py-5 text-lg font-semibold text-primary">
-                            {formatCurrency(booking.totalAuthorized)}
-                          </td>
-                          <td className="px-6 py-5">
-                            <span
-                              className={`inline-flex rounded-full px-3 py-1 text-sm font-medium ${getStatusTone(booking.status)}`}>
-                              {getStatusLabel(booking.status)}
-                            </span>
-                          </td>
-                        </motion.tr>
-                      ))}
-                    </tbody>
-                  </table>
+                            className="transition-colors hover:bg-[#fbfcfa]">
+                            <td className="px-6 py-5">
+                              <div className="flex min-w-[240px] items-center gap-4">
+                                <div className="relative h-12 w-12 overflow-hidden rounded-lg bg-[#eef2ed]">
+                                  <Image
+                                    src={getImageSrc(booking)}
+                                    alt={booking.equipment.title}
+                                    loading={'lazy'}
+                                    fill
+                                    className="object-cover"
+                                    unoptimized
+                                  />
+                                </div>
+                                <p className="text-lg font-medium text-primary">
+                                  {booking.equipment.title}
+                                </p>
+                              </div>
+                            </td>
+                            <td className="px-6 py-5 text-base text-[#475569]">
+                              {booking.renter.fullName}
+                            </td>
+                            <td className="px-6 py-5 text-base text-[#475569]">
+                              {formatDateRange(
+                                booking.startDate,
+                                booking.endDate
+                              )}
+                            </td>
+                            <td className="px-6 py-5 text-lg font-semibold text-primary">
+                              {formatCurrency(booking.totalAuthorized)}
+                            </td>
+                            <td className="px-6 py-5">
+                              <span
+                                className={`inline-flex rounded-full px-3 py-1 text-sm font-medium ${getStatusTone(booking.status)}`}>
+                                {getStatusLabel(booking.status)}
+                              </span>
+                            </td>
+                          </motion.tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
               ) : (
                 <EmptyState message={groupMeta[activeGroup].empty} />
               )

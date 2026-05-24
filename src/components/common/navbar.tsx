@@ -295,7 +295,7 @@ export function Navbar({
           </motion.div>
 
           {resolvedLinks.length > 0 ? (
-              <nav
+            <nav
               className={[
                 'hidden items-center gap-6 lg:flex lg:gap-8',
                 linksClassName

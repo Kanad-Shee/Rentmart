@@ -304,7 +304,9 @@ export async function getMe() {
 }
 
 export async function getAdminUsersPage(input: AdminUsersQueryInput = {}) {
-  const searchParams = buildPaginationSearchParams(input satisfies PaginationInput);
+  const searchParams = buildPaginationSearchParams(
+    input satisfies PaginationInput
+  );
 
   if (input.search?.trim()) {
     searchParams.set('search', input.search.trim());

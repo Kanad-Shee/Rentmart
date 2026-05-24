@@ -1,7 +1,7 @@
 'use client';
 
-import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import { getDashboardRevealProps } from './dashboard-motion';
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import {
   useOwnerBookingsPageQuery,
   useOwnerBookingsQuery
@@ -185,91 +185,91 @@ export function OwnerTransactionsContent() {
       {!bookingsQuery.isPending && !bookingsQuery.isError ? (
         bookings.length > 0 ? (
           <>
-          <div className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="min-w-full border-collapse">
-                <thead className="bg-[#f8faf7]">
-                  <tr>
-                    {[
-                      'Booking',
-                      'Dates',
-                      'Rental Fee',
-                      'Total Captured',
-                      'Payout Status',
-                      'Deposit Status',
-                      'Financial State'
-                    ].map((heading) => (
-                      <th
-                        key={heading}
-                        className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.2em] text-[#64748b]">
-                        {heading}
-                      </th>
+            <div className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="min-w-full border-collapse">
+                  <thead className="bg-[#f8faf7]">
+                    <tr>
+                      {[
+                        'Booking',
+                        'Dates',
+                        'Rental Fee',
+                        'Total Captured',
+                        'Payout Status',
+                        'Deposit Status',
+                        'Financial State'
+                      ].map((heading) => (
+                        <th
+                          key={heading}
+                          className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.2em] text-[#64748b]">
+                          {heading}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#edf1ee]">
+                    {bookings.map((booking, index) => (
+                      <motion.tr
+                        key={booking.id}
+                        {...getDashboardRevealProps(shouldReduceMotion, index)}
+                        className="align-top transition-colors hover:bg-[#fbfcfa]">
+                        <td className="px-6 py-5">
+                          <div className="flex min-w-[260px] items-start gap-4">
+                            <div className="relative h-14 w-14 overflow-hidden rounded-lg bg-[#eef2ed]">
+                              <Image
+                                src={getImageSrc(booking)}
+                                alt={booking.equipment.title}
+                                fill
+                                loading={'lazy'}
+                                className="object-cover"
+                                unoptimized
+                              />
+                            </div>
+                            <div>
+                              <p className="text-base font-semibold text-primary">
+                                {booking.equipment.title}
+                              </p>
+                              <p className="mt-1 text-sm text-[#64748b]">
+                                Renter: {booking.renter.fullName}
+                              </p>
+                              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-[#94a3b8]">
+                                {booking.status.replaceAll('_', ' ')}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-5 text-sm leading-6 text-[#475569]">
+                          {formatDateRange(booking.startDate, booking.endDate)}
+                        </td>
+                        <td className="px-6 py-5 text-sm font-semibold text-primary">
+                          {formatCurrency(booking.rentalFee)}
+                        </td>
+                        <td className="px-6 py-5 text-sm text-[#475569]">
+                          {formatCurrency(booking.totalAuthorized)}
+                        </td>
+                        <td className="px-6 py-5 text-sm text-[#475569]">
+                          {getPayoutLabel(booking)}
+                        </td>
+                        <td className="px-6 py-5 text-sm text-[#475569]">
+                          {getDepositLabel(booking)}
+                        </td>
+                        <td className="px-6 py-5 text-sm text-[#475569]">
+                          {booking.financialStatus.replaceAll('_', ' ')}
+                        </td>
+                      </motion.tr>
                     ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#edf1ee]">
-                  {bookings.map((booking, index) => (
-                    <motion.tr
-                      key={booking.id}
-                      {...getDashboardRevealProps(shouldReduceMotion, index)}
-                      className="align-top transition-colors hover:bg-[#fbfcfa]">
-                      <td className="px-6 py-5">
-                        <div className="flex min-w-[260px] items-start gap-4">
-                          <div className="relative h-14 w-14 overflow-hidden rounded-lg bg-[#eef2ed]">
-                            <Image
-                              src={getImageSrc(booking)}
-                              alt={booking.equipment.title}
-                              fill
-                              loading={'lazy'}
-                              className="object-cover"
-                              unoptimized
-                            />
-                          </div>
-                          <div>
-                            <p className="text-base font-semibold text-primary">
-                              {booking.equipment.title}
-                            </p>
-                            <p className="mt-1 text-sm text-[#64748b]">
-                              Renter: {booking.renter.fullName}
-                            </p>
-                            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-[#94a3b8]">
-                              {booking.status.replaceAll('_', ' ')}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-5 text-sm leading-6 text-[#475569]">
-                        {formatDateRange(booking.startDate, booking.endDate)}
-                      </td>
-                      <td className="px-6 py-5 text-sm font-semibold text-primary">
-                        {formatCurrency(booking.rentalFee)}
-                      </td>
-                      <td className="px-6 py-5 text-sm text-[#475569]">
-                        {formatCurrency(booking.totalAuthorized)}
-                      </td>
-                      <td className="px-6 py-5 text-sm text-[#475569]">
-                        {getPayoutLabel(booking)}
-                      </td>
-                      <td className="px-6 py-5 text-sm text-[#475569]">
-                        {getDepositLabel(booking)}
-                      </td>
-                      <td className="px-6 py-5 text-sm text-[#475569]">
-                        {booking.financialStatus.replaceAll('_', ' ')}
-                      </td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-          <DashboardPaginationControls
-            page={bookingsQuery.data.page}
-            totalPages={bookingsQuery.data.totalPages}
-            totalItems={bookingsQuery.data.totalItems}
-            pageSize={bookingsQuery.data.pageSize}
-            onPageChange={setPage}
-            className="m-6 mt-0 border-0 bg-[#f8faf7] shadow-none"
-          />
+            <DashboardPaginationControls
+              page={bookingsQuery.data.page}
+              totalPages={bookingsQuery.data.totalPages}
+              totalItems={bookingsQuery.data.totalItems}
+              pageSize={bookingsQuery.data.pageSize}
+              onPageChange={setPage}
+              className="m-6 mt-0 border-0 bg-[#f8faf7] shadow-none"
+            />
           </>
         ) : (
           <div className="rounded-xl border border-dashed border-[#d8dfdb] bg-white px-6 py-12 text-center text-sm text-[#5c5f60]">

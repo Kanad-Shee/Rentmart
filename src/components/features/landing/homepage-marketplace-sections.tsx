@@ -1,9 +1,7 @@
 'use client';
 
 import { useCategoriesQuery } from '@/hooks/use-category';
-import {
-  useFeaturedEquipmentQuery
-} from '@/hooks/use-equipment';
+import { useFeaturedEquipmentQuery } from '@/hooks/use-equipment';
 import type { Category } from '@/lib/category';
 import type { EquipmentListing } from '@/lib/equipment';
 import {

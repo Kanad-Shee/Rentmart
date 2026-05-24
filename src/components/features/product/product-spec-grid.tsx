@@ -15,7 +15,9 @@ export function ProductSpecGrid({ specs }: ProductSpecGridProps) {
           <p className="mb-2 text-xs font-semibold uppercase text-muted-foreground">
             {spec.label}
           </p>
-          <p className="text-sm font-bold text-primary sm:text-base">{spec.value}</p>
+          <p className="text-sm font-bold text-primary sm:text-base">
+            {spec.value}
+          </p>
         </div>
       ))}
     </div>

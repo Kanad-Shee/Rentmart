@@ -507,6 +507,21 @@ export function ProductReviewsSection({
           ) : null}
         </div>
 
+        {product.reviewSummary ? (
+          <div className="mt-8 rounded-2xl border border-[#c1c8c2] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#5c5f60]">
+              What renters are saying
+            </p>
+            <p className="mt-3 text-sm leading-7 text-[#414844]">
+              {product.reviewSummary.text}
+            </p>
+            <p className="mt-3 text-xs text-[#717973]">
+              Based on {product.reviewSummary.reviewCount} review
+              {product.reviewSummary.reviewCount === 1 ? '' : 's'}
+            </p>
+          </div>
+        ) : null}
+
         <div className="group relative mt-8">
           <div className="no-scrollbar flex gap-8 overflow-x-auto pb-4">
             {product.reviews.length > 0 ? (

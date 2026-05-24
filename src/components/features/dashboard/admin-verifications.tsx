@@ -1,7 +1,7 @@
 'use client';
 
-import { DashboardAddListingMapPreview } from '@/components/features/dashboard/dashboard-add-listing-map-preview';
 import { DashboardPaginationControls } from './dashboard-pagination-controls';
+import { DashboardAddListingMapPreview } from '@/components/features/dashboard/dashboard-add-listing-map-preview';
 import {
   useApproveEquipmentMutation,
   usePendingEquipmentPageQuery,

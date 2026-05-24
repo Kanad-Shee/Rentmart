@@ -1,7 +1,7 @@
 'use client';
 
-import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import { getDashboardRevealProps } from './dashboard-motion';
+import { DashboardPaginationControls } from './dashboard-pagination-controls';
 import {
   useDeleteOwnerEquipmentMutation,
   useOwnerEquipmentPageQuery,
