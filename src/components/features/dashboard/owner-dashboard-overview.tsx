@@ -21,7 +21,7 @@ import Link from 'next/link';
 
 type OverviewMetric = {
   label: string;
-  value: number;
+  value: string;
   helper: string;
 };
 
@@ -195,7 +195,25 @@ function formatRelativeDate(value: string) {
   return rtf.format(Math.round(diffMs / dayMs), 'day');
 }
 
-function buildMetrics(listings: EquipmentListing[]): OverviewMetric[] {
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
+  }).format(value);
+}
+
+function toLocalDateKey(value: Date) {
+  const year = value.getFullYear();
+  const month = `${value.getMonth() + 1}`.padStart(2, '0');
+  const day = `${value.getDate()}`.padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function buildMetrics(
+  listings: EquipmentListing[],
+  bookings: BookingSummary[]
+): OverviewMetric[] {
   const activeCount = listings.filter(
     (listing) => listing.status === 'ACTIVE'
   ).length;
@@ -208,11 +226,32 @@ function buildMetrics(listings: EquipmentListing[]): OverviewMetric[] {
   const draftCount = listings.filter(
     (listing) => listing.status === 'DRAFT'
   ).length;
+  const todayKey = toLocalDateKey(new Date());
+  const paidBookings = bookings.filter((booking) => booking.isPaymentCompleted);
+  const todaysEarnings = paidBookings.reduce((sum, booking) => {
+    if (!booking.paymentCapturedAt) {
+      return sum;
+    }
+
+    const capturedAt = new Date(booking.paymentCapturedAt);
+
+    if (Number.isNaN(capturedAt.getTime())) {
+      return sum;
+    }
+
+    return toLocalDateKey(capturedAt) === todayKey
+      ? sum + booking.rentalFee
+      : sum;
+  }, 0);
+  const estimatedEarnings = paidBookings.reduce(
+    (sum, booking) => sum + booking.rentalFee,
+    0
+  );
 
   return [
     {
       label: 'Active Listings',
-      value: activeCount,
+      value: activeCount.toString(),
       helper:
         activeCount > 0
           ? `${activeCount} listing${activeCount === 1 ? '' : 's'} currently visible to renters.`
@@ -220,7 +259,7 @@ function buildMetrics(listings: EquipmentListing[]): OverviewMetric[] {
     },
     {
       label: 'Pending Review',
-      value: pendingCount,
+      value: pendingCount.toString(),
       helper:
         pendingCount > 0
           ? `${pendingCount} listing${pendingCount === 1 ? '' : 's'} waiting for admin verification.`
@@ -228,7 +267,7 @@ function buildMetrics(listings: EquipmentListing[]): OverviewMetric[] {
     },
     {
       label: 'Needs Attention',
-      value: rejectedCount,
+      value: rejectedCount.toString(),
       helper:
         rejectedCount > 0
           ? `${rejectedCount} listing${rejectedCount === 1 ? '' : 's'} require updates before going live.`
@@ -236,11 +275,22 @@ function buildMetrics(listings: EquipmentListing[]): OverviewMetric[] {
     },
     {
       label: 'Draft Listings',
-      value: draftCount,
+      value: draftCount.toString(),
       helper:
         draftCount > 0
           ? `${draftCount} draft${draftCount === 1 ? '' : 's'} saved for later edits and review submission.`
           : 'No saved drafts right now.'
+    },
+    {
+      label: "Today's Earnings",
+      value: formatCurrency(todaysEarnings),
+      helper: 'Rental revenue from renter payments captured today.'
+    },
+    {
+      label: 'Estimated Earnings',
+      value: formatCurrency(estimatedEarnings),
+      helper:
+        'Captured rental revenue currently in or already moving through owner settlement.'
     }
   ];
 }
@@ -272,7 +322,7 @@ function OwnerOverviewContent({
   bookings: BookingSummary[];
 }) {
   const shouldReduceMotion = useReducedMotion() ?? false;
-  const metrics = buildMetrics(listings);
+  const metrics = buildMetrics(listings, bookings);
   const bookingMetrics = buildBookingMetrics(bookings);
   const recentListings = [...listings].sort((left, right) => {
     return (
@@ -297,7 +347,7 @@ function OwnerOverviewContent({
             {...getDashboardRevealProps(shouldReduceMotion, index + 1)}>
             <StatCard
               label={metric.label}
-              value={metric.value.toString()}
+              value={metric.value}
               helper={metric.helper}
             />
           </motion.div>
