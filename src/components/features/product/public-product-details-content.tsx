@@ -259,9 +259,6 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
                   <ShieldCheck className="h-3.5 w-3.5" />
                   Active
                 </span>
-                <span className="text-xs font-semibold uppercase text-muted-foreground">
-                  Listing ID: {product.id}
-                </span>
               </div>
 
               <h1 className="max-w-4xl text-3xl font-semibold text-primary sm:text-4xl lg:text-5xl">

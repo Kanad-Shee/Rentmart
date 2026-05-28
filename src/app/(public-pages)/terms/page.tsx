@@ -2,7 +2,8 @@
 
 import { MarketingFooter } from '@/components/common/marketing-footer';
 import { Navbar } from '@/components/common/navbar';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Shield, FileText, Zap } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -18,7 +19,7 @@ const sections = [
 
 function Paragraph({ children }: { children: ReactNode }) {
   return (
-    <p className="break-words text-sm leading-7 text-[#5e6661] sm:text-base">
+    <p className="text-base leading-8 text-muted-foreground sm:text-lg">
       {children}
     </p>
   );
@@ -26,23 +27,24 @@ function Paragraph({ children }: { children: ReactNode }) {
 
 function getSectionCardClass(isActive: boolean) {
   return [
-    'min-w-0 overflow-hidden scroll-mt-28 rounded-[1.75rem] border border-transparent px-6 py-8 transition-all duration-200 sm:px-8 sm:py-10',
+    'min-w-0 overflow-hidden scroll-mt-32 rounded-2xl border px-7 py-8 transition-all duration-300 sm:px-10 sm:py-12',
     isActive
-      ? 'border-primary/20 bg-[#e8f2e9] shadow-[0_8px_24px_rgba(27,67,50,0.08)]'
-      : 'bg-transparent'
+      ? 'border-primary/20 bg-gradient-to-br from-white via-white to-white/95 shadow-lg shadow-primary/15 ring-1 ring-inset ring-primary/10'
+      : 'border-primary/8 bg-white/60 shadow-md shadow-primary/5 ring-1 ring-inset ring-primary/5 hover:border-primary/15 hover:shadow-md hover:shadow-primary/8'
   ].join(' ');
 }
 
 function getDisclaimerQuoteClass(isActive: boolean) {
   return [
-    'font-semibold italic leading-[1.6] tracking-[-0.02em] text-[#1f2421] transition-all duration-200',
-    isActive ? 'text-2xl sm:text-[2.1rem]' : 'text-xl sm:text-2xl'
+    'font-semibold italic leading-8 tracking-[-0.02em] text-primary transition-all duration-300',
+    isActive ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
   ].join(' ');
 }
 
 export default function TermsPage() {
   const [activeSection, setActiveSection] =
     useState<(typeof sections)[number]['id']>('disclaimer');
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
   const sectionIds = useMemo(() => sections.map((section) => section.id), []);
 
@@ -131,268 +133,397 @@ export default function TermsPage() {
         className="bg-white/95"
       />
 
-      <section className="border-b border-[#e2e3e0] bg-white">
-        <div className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-16 lg:py-16">
-          <nav
+      {/* Hero Section */}
+      <section className="border-b border-primary/10 bg-gradient-to-br from-white via-white to-[#f7f8f3]">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
+          <motion.nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-lg text-[#6b7075]">
+            className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary/70"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}>
             <Link
               prefetch
               href="/"
               className="transition-colors hover:text-primary">
               Home
             </Link>
-            <ChevronRight className="h-4 w-4" />
-            <Link
-              prefetch
-              href="/terms"
-              className="transition-colors hover:text-primary">
-              Legal
-            </Link>
-            <ChevronRight className="h-4 w-4" />
-            <span className="font-medium text-primary">Terms of Service</span>
-          </nav>
+            <ChevronRight className="h-3.5 w-3.5" />
+            <span className="text-primary">Terms of Service</span>
+          </motion.nav>
 
-          <div className="mt-14 max-w-4xl">
-            <h1 className="text-2xl font-semibold tracking-[-0.05em] text-primary sm:text-3xl lg:text-4xl">
-              Terms of Service
-            </h1>
-            <p className="mt-5 text-base font-medium text-[#6b7075] sm:text-lg">
-              Last updated: March 24, 2026
-            </p>
-          </div>
+          <motion.div
+            className="mt-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}>
+            <div className="flex items-start gap-4 sm:gap-6">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-primary/15 bg-primary/10 shadow-md shadow-primary/10 ring-1 ring-inset ring-primary/10">
+                <FileText className="h-7 w-7 text-primary" />
+              </div>
+              <div className="flex-1">
+                <h1 className="text-4xl font-semibold tracking-[-0.04em] text-primary sm:text-5xl lg:text-6xl leading-tight">
+                  Terms of Service
+                </h1>
+                <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg max-w-2xl">
+                  Guidelines, obligations, and legal protections that govern
+                  your use of the Rentmart platform and all equipment
+                  transactions.
+                </p>
+                <div className="mt-6 flex items-center gap-2 text-sm font-medium text-primary/70">
+                  <span>Last updated: March 24, 2026</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-[1440px] min-w-0 gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-20 lg:px-16 lg:py-20">
-        <aside className="min-w-0 lg:sticky lg:top-28 lg:h-fit">
-          <div className="hidden border-l border-[#d9dcd5] pl-6 lg:block">
-            <nav className="flex flex-col gap-2">
-              {sections.map((section) => (
-                <button
-                  key={section.id}
-                  type="button"
-                  onClick={() => handleSectionClick(section.id)}
-                  className={[
-                    'border-l-2 py-1.5 pl-5 text-left text-sm leading-tight transition-colors',
-                    activeSection === section.id
-                      ? 'border-emerald-600 bg-emerald-50 shadow-md/5 font-medium text-primary'
-                      : 'border-transparent text-[#6b7075] hover:border-primary hover:text-primary'
-                  ].join(' ')}>
-                  {section.title}
-                </button>
-              ))}
-            </nav>
-
-            <div className="mt-10 rounded-xl bg-[#f3f4f1] px-6 py-6 text-xs text-[#4f5752] shadow-[0_1px_0_rgba(0,0,0,0.02)]">
-              <p>Need legal assistance regarding these terms?</p>
-              <p>Contact our compliance department at</p>
-              <p className="break-words">legal@rentmart.com</p>
-            </div>
-          </div>
-
-          <div className="lg:hidden">
-            <div className="max-w-full overflow-x-auto rounded-2xl border border-[#e2e3e0] bg-white p-3 pb-4">
-              <div className="flex min-w-max gap-3">
-                {sections.map((section) => (
-                  <button
+      {/* Main Content Grid */}
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
+        <div className="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-12">
+          {/* Sidebar Navigation */}
+          <motion.aside
+            className="lg:sticky lg:top-28 lg:h-fit"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}>
+            {/* Desktop Navigation */}
+            <div className="hidden lg:block">
+              <nav className="space-y-1.5 rounded-2xl border border-primary/10 bg-gradient-to-br from-white to-white/95 p-5 shadow-md shadow-primary/8 ring-1 ring-inset ring-primary/5">
+                {sections.map((section, index) => (
+                  <motion.button
                     key={section.id}
                     type="button"
                     onClick={() => handleSectionClick(section.id)}
                     className={[
-                      'shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                      'w-full rounded-lg border px-4 py-3 text-left text-sm font-medium transition-all duration-300 flex items-start gap-3',
                       activeSection === section.id
-                        ? 'bg-primary text-white'
-                        : 'bg-[#f3f4f1] text-[#4f5964]'
-                    ].join(' ')}>
-                    {section.title}
-                  </button>
+                        ? 'border-primary/30 bg-gradient-to-r from-primary/10 to-primary/5 text-primary shadow-md shadow-primary/10'
+                        : 'border-transparent text-muted-foreground hover:border-primary/20 hover:text-primary hover:bg-white'
+                    ].join(' ')}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.25 + index * 0.05 }}>
+                    <span className="mt-0.5 text-xs font-semibold opacity-70">
+                      {(index + 1).toString().padStart(2, '0')}
+                    </span>
+                    <span className="leading-snug">{section.title}</span>
+                  </motion.button>
                 ))}
+              </nav>
+
+              {/* Legal Contact Card */}
+              <motion.div
+                className="mt-8 rounded-2xl border border-primary/10 bg-gradient-to-br from-primary/8 to-primary/3 px-6 py-6 shadow-md shadow-primary/8 ring-1 ring-inset ring-primary/8"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 }}>
+                <div className="flex items-start gap-3">
+                  <Shield className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-primary">
+                      Legal Support
+                    </p>
+                    <p className="mt-2 text-xs leading-6 text-muted-foreground">
+                      Questions about these terms?
+                    </p>
+                    <p className="mt-1 text-xs font-medium text-primary break-words">
+                      legal@rentmart.com
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Mobile Navigation */}
+            <div className="lg:hidden">
+              <motion.div
+                className="rounded-2xl border border-primary/10 bg-white p-4 shadow-md shadow-primary/8"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}>
+                <div className="max-w-full overflow-x-auto">
+                  <div className="flex min-w-max gap-2">
+                    {sections.map((section) => (
+                      <motion.button
+                        key={section.id}
+                        type="button"
+                        onClick={() => handleSectionClick(section.id)}
+                        className={[
+                          'shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-xs font-semibold transition-all duration-300 border',
+                          activeSection === section.id
+                            ? 'border-primary bg-primary text-white shadow-md shadow-primary/30'
+                            : 'border-primary/15 bg-white text-muted-foreground hover:border-primary/30 hover:text-primary'
+                        ].join(' ')}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}>
+                        {section.title}
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className="mt-6 rounded-2xl border border-primary/10 bg-gradient-to-br from-primary/8 to-primary/3 px-5 py-5 shadow-md shadow-primary/8"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}>
+                <div className="flex items-start gap-3">
+                  <Shield className="h-4 w-4 shrink-0 text-primary mt-0.5" />
+                  <div>
+                    <p className="text-sm font-semibold text-primary">
+                      Legal Support
+                    </p>
+                    <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                      Questions? Contact legal@rentmart.com
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.aside>
+
+          {/* Content Sections */}
+          <motion.article
+            className="min-w-0 max-w-full space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}>
+            <section
+              id="definitions"
+              className={getSectionCardClass(activeSection === 'definitions')}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/20">
+                    <Zap className="h-5 w-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
+                    1. Definitions
+                  </h2>
+                </div>
+              </motion.div>
+              <div className="mt-8 space-y-6">
+                <Paragraph>
+                  In these Terms of Service, &quot;Rentmart,&quot;
+                  &quot;we,&quot; &quot;us,&quot; and &quot;our&quot; refer to
+                  the digital platform operating as Rentmart Industrial
+                  Marketplace. &quot;User&quot; refers to any individual or
+                  entity utilizing the platform for listing, renting, or
+                  purchasing industrial machinery.
+                </Paragraph>
+                <Paragraph>
+                  &quot;Platform&quot; means the Rentmart website, mobile
+                  applications, and associated services. &quot;Asset&quot;
+                  refers to any heavy machinery, industrial equipment, or
+                  high-value tool listed for transaction on the platform.
+                </Paragraph>
               </div>
-            </div>
+            </section>
 
-            <div className="mt-6 rounded-2xl bg-[#f3f4f1] px-5 py-5 text-sm leading-7 text-[#4f5752]">
-              <p>Need legal assistance regarding these terms?</p>
-              <p>Contact our compliance department at</p>
-              <p className="break-words">legal@rentmart.com</p>
-            </div>
-          </div>
-        </aside>
-
-        <article className="min-w-0 max-w-full space-y-16">
-          <section
-            id="definitions"
-            className={getSectionCardClass(activeSection === 'definitions')}>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-primary md:text-2xl">
-              1. Definitions
-            </h2>
-            <div className="mt-8 space-y-6">
-              <Paragraph>
-                In these Terms of Service, &quot;Rentmart,&quot; &quot;we,&quot;
-                &quot;us,&quot; and &quot;our&quot; refer to the digital
-                platform operating as Rentmart Industrial Marketplace.
-                &quot;User&quot; refers to any individual or entity utilizing
-                the platform for listing, renting, or purchasing industrial
-                machinery.
-              </Paragraph>
-              <Paragraph>
-                &quot;Platform&quot; means the Rentmart website, mobile
-                applications, and associated services. &quot;Asset&quot; refers
-                to any heavy machinery, industrial equipment, or high-value tool
-                listed for transaction on the platform.
-              </Paragraph>
-            </div>
-          </section>
-
-          <section
-            id="obligations"
-            className={getSectionCardClass(activeSection === 'obligations')}>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-primary md:text-2xl">
-              2. User Obligations
-            </h2>
-            <div className="mt-8 space-y-6">
-              <Paragraph>
-                Users must provide accurate, current, and complete information
-                during the registration process. You are responsible for
-                safeguarding your account credentials and for all activities
-                that occur under your account.
-              </Paragraph>
-              <div className="space-y-3 pl-2 text-lg font-semibold text-[#4a524d]">
-                <p>
-                  Maintain compliance with all local industrial safety
-                  regulations.
-                </p>
-                <p>
-                  Ensure all listed machinery meets certified inspection
-                  standards.
-                </p>
-                <p>
-                  Provide accurate hour-meter readings and maintenance logs for
-                  all assets.
-                </p>
+            <section
+              id="obligations"
+              className={getSectionCardClass(activeSection === 'obligations')}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/20">
+                    <Zap className="h-5 w-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
+                    2. User Obligations
+                  </h2>
+                </div>
+              </motion.div>
+              <div className="mt-8 space-y-6">
+                <Paragraph>
+                  Users must provide accurate, current, and complete information
+                  during the registration process. You are responsible for
+                  safeguarding your account credentials and for all activities
+                  that occur under your account.
+                </Paragraph>
+                <div className="space-y-3 rounded-lg border border-primary/10 bg-primary/5 p-5 ring-1 ring-inset ring-primary/10">
+                  <p className="text-sm font-semibold text-primary/80">
+                    Key Compliance Areas:
+                  </p>
+                  <ul className="space-y-2 text-sm leading-7 text-muted-foreground">
+                    <li className="flex gap-2">
+                      <span className="text-primary font-bold">•</span>
+                      <span>
+                        Maintain compliance with all local industrial safety
+                        regulations.
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-primary font-bold">•</span>
+                      <span>
+                        Ensure all listed machinery meets certified inspection
+                        standards.
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-primary font-bold">•</span>
+                      <span>
+                        Provide accurate hour-meter readings and maintenance
+                        logs for all assets.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <section
-            id="process"
-            className={getSectionCardClass(activeSection === 'process')}>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-primary md:text-2xl">
-              3. Rental Process
-            </h2>
-            <div className="mt-8 space-y-6">
-              <Paragraph>
-                The rental process begins when a Renter submits a formal request
-                via the platform. Owners have 24 hours to accept or decline the
-                request. Once accepted, the Renter&apos;s payment method is
-                authorized for the full transaction value plus a security
-                deposit.
-              </Paragraph>
-              <Paragraph>
-                Physical handover must be documented via the Rentmart Mobile
-                Inspection App. Both parties are required to take
-                high-resolution photographs of the asset at the time of delivery
-                and return.
-              </Paragraph>
-            </div>
-          </section>
+            <section
+              id="process"
+              className={getSectionCardClass(activeSection === 'process')}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/20">
+                    <Zap className="h-5 w-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
+                    3. Rental Process
+                  </h2>
+                </div>
+              </motion.div>
+              <div className="mt-8 space-y-6">
+                <Paragraph>
+                  The rental process begins when a Renter submits a formal
+                  request via the platform. Owners have 24 hours to accept or
+                  decline the request. Once accepted, the Renter&apos;s payment
+                  method is authorized for the full transaction value plus a
+                  security deposit.
+                </Paragraph>
+                <Paragraph>
+                  Physical handover must be documented via the Rentmart Mobile
+                  Inspection App. Both parties are required to take
+                  high-resolution photographs of the asset at the time of
+                  delivery and return.
+                </Paragraph>
+              </div>
+            </section>
 
-          <section
-            id="disclaimer"
-            className={[
-              getSectionCardClass(activeSection === 'disclaimer'),
-              activeSection === 'disclaimer'
-                ? 'border-l-[6px] border-primary sm:px-12 sm:py-14'
-                : 'border-border/60 bg-white/40 sm:px-10 sm:py-12'
-            ].join(' ')}>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-primary md:text-2xl">
-              4. Liability Disclaimer
-            </h2>
-            <div className="mt-8 space-y-8">
-              <Paragraph>
-                Rentmart is not an insurance company, brokerage, or agent. We
-                are a technology facilitator.
-              </Paragraph>
-              <p
-                className={getDisclaimerQuoteClass(
-                  activeSection === 'disclaimer'
-                )}>
-                You agree that Rentmart shall not be liable for any damage to or
-                loss of machinery, personal injury, or catastrophic loss, and
-                all legal disputes are between owner and renter directly.
-              </p>
-              <p className="max-w-4xl text-base leading-7 text-[#5b6460] sm:text-lg sm:leading-8">
-                Users are strongly advised to maintain independent commercial
-                general liability insurance and equipment floater policies for
-                all high-capital assets.
-              </p>
-            </div>
-          </section>
+            <section
+              id="disclaimer"
+              className={getSectionCardClass(activeSection === 'disclaimer')}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/20">
+                    <Shield className="h-5 w-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
+                    4. Liability Disclaimer
+                  </h2>
+                </div>
+              </motion.div>
+              <div className="mt-8 space-y-8">
+                <Paragraph>
+                  Rentmart is not an insurance company, brokerage, or agent. We
+                  are a technology facilitator.
+                </Paragraph>
+                <motion.div
+                  className="rounded-lg border border-primary/15 bg-gradient-to-br from-primary/8 to-primary/3 p-6 ring-1 ring-inset ring-primary/10"
+                  animate={
+                    activeSection === 'disclaimer'
+                      ? { scale: 1, opacity: 1 }
+                      : { scale: 0.98, opacity: 0.85 }
+                  }
+                  transition={{ duration: 0.3 }}>
+                  <p
+                    className={getDisclaimerQuoteClass(
+                      activeSection === 'disclaimer'
+                    )}>
+                    You agree that Rentmart shall not be liable for any damage
+                    to or loss of machinery, personal injury, or catastrophic
+                    loss, and all legal disputes are between owner and renter
+                    directly.
+                  </p>
+                </motion.div>
+                <div className="rounded-lg border border-primary/10 bg-white/50 p-5 ring-1 ring-inset ring-primary/5">
+                  <p className="text-sm leading-7 text-muted-foreground">
+                    <span className="font-semibold text-primary">
+                      Important:
+                    </span>{' '}
+                    Users are strongly advised to maintain independent
+                    commercial general liability insurance and equipment floater
+                    policies for all high-capital assets.
+                  </p>
+                </div>
+              </div>
+            </section>
 
-          <section
-            id="payouts"
-            className={getSectionCardClass(activeSection === 'payouts')}>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-primary md:text-2xl">
-              5. Payouts
-            </h2>
-            <div className="mt-8 space-y-6">
-              <Paragraph>
-                Payouts to Owners are initiated 48 hours after the confirmed
-                return of the machinery, provided no damage claims have been
-                filed. Rentmart retains a platform fee as specified in the Fee
-                Schedule at the time of listing.
-              </Paragraph>
-            </div>
-          </section>
+            <section
+              id="payouts"
+              className={getSectionCardClass(activeSection === 'payouts')}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/20">
+                    <Zap className="h-5 w-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
+                    5. Payouts
+                  </h2>
+                </div>
+              </motion.div>
+              <div className="mt-8 space-y-6">
+                <Paragraph>
+                  Payouts to Owners are initiated 48 hours after the confirmed
+                  return of the machinery, provided no damage claims have been
+                  filed. Rentmart retains a platform fee as specified in the Fee
+                  Schedule at the time of listing.
+                </Paragraph>
+              </div>
+            </section>
 
-          <section
-            id="dispute"
-            className={getSectionCardClass(activeSection === 'dispute')}>
-            <h2 className="text-xl font-semibold tracking-[-0.03em] text-primary md:text-2xl">
-              6. Dispute Resolution
-            </h2>
-            <div className="mt-8 space-y-6">
-              <Paragraph>
-                Any dispute arising out of or in connection with these Terms,
-                including any question regarding its existence, validity, or
-                termination, shall be referred to and finally resolved by
-                arbitration in accordance with the rules of the International
-                Chamber of Commerce (ICC).
-              </Paragraph>
-              <Paragraph>
-                The seat of arbitration shall be Delaware, USA. The language of
-                the arbitration shall be English.
-              </Paragraph>
-            </div>
-          </section>
-        </article>
+            <section
+              id="dispute"
+              className={getSectionCardClass(activeSection === 'dispute')}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-inset ring-primary/20">
+                    <Shield className="h-5 w-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
+                    6. Dispute Resolution
+                  </h2>
+                </div>
+              </motion.div>
+              <div className="mt-8 space-y-6">
+                <Paragraph>
+                  Any dispute arising out of or in connection with these Terms,
+                  including any question regarding its existence, validity, or
+                  termination, shall be referred to and finally resolved by
+                  arbitration in accordance with the rules of the International
+                  Chamber of Commerce (ICC).
+                </Paragraph>
+                <Paragraph>
+                  The seat of arbitration shall be Delaware, USA. The language
+                  of the arbitration shall be English.
+                </Paragraph>
+              </div>
+            </section>
+          </motion.article>
+        </div>
       </div>
 
-      {/* <footer className='border-t border-[#e2e3e0] bg-white'>
-        <div className='mx-auto flex max-w-[1440px] flex-col gap-10 px-6 py-14 lg:flex-row lg:items-start lg:justify-between lg:px-16 lg:py-16'>
-          <div className='max-w-sm'>
-            <Link
-              href='/'
-              className='text-3xl font-black tracking-[-0.04em] text-slate-900'
-            >
-              Rentmart
-            </Link>
-            <p className='mt-4 text-lg leading-8 text-[#6c7480]'>
-              © 2026 Rentmart Industrial Marketplace. All rights reserved.
-              High-capital asset procurement.
-            </p>
-          </div>
-
-          <div className='flex flex-wrap gap-x-12 gap-y-4 lg:pt-4'>
-            <FooterLink>Terms of Service</FooterLink>
-            <FooterLink>Privacy Policy</FooterLink>
-            <FooterLink>Cookie Policy</FooterLink>
-            <FooterLink>Compliance</FooterLink>
-            <FooterLink>Safety Standards</FooterLink>
-            <FooterLink>Contact Support</FooterLink>
-          </div>
-        </div>
-      </footer> */}
       <MarketingFooter />
     </main>
   );

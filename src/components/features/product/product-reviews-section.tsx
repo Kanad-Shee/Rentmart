@@ -207,9 +207,9 @@ function ReviewCard({ review }: { review: EquipmentReviewSummary }) {
   );
 
   return (
-    <article className="flex w-90 shrink-0 flex-col rounded border border-[#c1c8c2] bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
+    <article className="flex w-90 m-3 shrink-0 flex-col rounded-md border border-neutral-200 bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#e8e8e5] text-sm font-semibold text-primary">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#e8e8e5] text-sm font-semibold text-neutral-800">
           {review.renter.fullName.slice(0, 1).toUpperCase()}
         </div>
         <div>
@@ -226,7 +226,7 @@ function ReviewCard({ review }: { review: EquipmentReviewSummary }) {
       <h3 className="mt-5 text-lg font-semibold text-primary">
         {review.title}
       </h3>
-      <p className="mt-3 text-sm leading-7 text-[#414844]">
+      <p className="mt-3 text-sm text-[#414844]">
         {isExpanded ? review.description : preview.text}
       </p>
 
@@ -263,11 +263,11 @@ function ReviewCard({ review }: { review: EquipmentReviewSummary }) {
       ) : null}
 
       <div className="mt-auto flex items-center justify-between pt-5">
-        <span className="text-xs text-[#717973]">
+        <span className="text-xs font-medium text-[#717973]">
           {formatLongDate(review.updatedAt)}
         </span>
-        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#5c5f60]">
-          Verified renter
+        <span className="text-xs bg-emerald-100 px-2 py-0.5 rounded-full shadow font-semibold uppercase tracking-[0.16em] text-[#5c5f60]">
+          Verified
         </span>
       </div>
     </article>
@@ -463,7 +463,7 @@ export function ProductReviewsSection({
           <div className="flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-10">
               <div>
-                <h2 className="text-3xl font-semibold tracking-[-0.03em] text-primary">
+                <h2 className="text-2xl font-semibold tracking-[-0.03em] text-primary">
                   Customer Reviews
                 </h2>
                 <div className="mt-3 flex flex-wrap items-center gap-3">

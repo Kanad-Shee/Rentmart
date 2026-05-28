@@ -43,9 +43,7 @@ export function ProductOwnerSummary({
         )}
         <div>
           <p className="font-semibold text-foreground">{name}</p>
-          <p className="text-sm text-muted-foreground">
-            {meta} <span className="text-primary">• {responseRate}</span>
-          </p>
+          <p className="text-sm text-muted-foreground">{meta}</p>
         </div>
       </div>
     </div>

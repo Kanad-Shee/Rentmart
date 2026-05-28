@@ -155,23 +155,35 @@ function JourneyStep({
       ].join(' ')}
       {...getRevealProps(shouldReduceMotion, index)}>
       <div className={reverse ? 'md:order-2' : ''}>
-        <span className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#6d8b7b]">
+        <span className="text-xs font-bold uppercase tracking-[0.32em] text-primary/70">
           {step}
         </span>
-        <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl">
+        <h3 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl leading-tight">
           {title}
         </h3>
-        <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">
+        <p className="mt-6 max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
           {body}
         </p>
       </div>
 
       <div
         className={[
-          'relative overflow-hidden rounded-2xl border border-border bg-white p-4 shadow-[0_18px_50px_rgba(0,0,0,0.05)] sm:p-6',
+          'relative overflow-hidden rounded-none border border-neutral-200/35 bg-gradient-to-br from-white via-white to-white/95 p-6 shadow-md shadow-primary/10 ring-1 ring-inset ring-primary/3 transition-all duration-300 hover:shadow-lg hover:shadow-primary/15 hover:border-neutral-200/50 sm:p-8',
           reverse ? 'md:order-1' : ''
         ].join(' ')}>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(193,236,212,0.35),_transparent_48%)]" />
+        {/* Top-left corner conic gradient */}
+        <div className="pointer-events-none absolute top-0 left-0 w-20 h-20 bg-[conic-gradient(from_135deg_at_100%_100%,rgba(27,67,50,0.12),rgba(27,67,50,0.03),transparent)] opacity-60" />
+
+        {/* Top-right corner conic gradient */}
+        <div className="pointer-events-none absolute top-0 right-0 w-20 h-20 bg-[conic-gradient(from_225deg_at_0%_100%,rgba(27,67,50,0.12),rgba(27,67,50,0.03),transparent)] opacity-60" />
+
+        {/* Bottom-left corner conic gradient */}
+        <div className="pointer-events-none absolute bottom-0 left-0 w-20 h-20 bg-[conic-gradient(from_45deg_at_100%_0%,rgba(27,67,50,0.12),rgba(27,67,50,0.03),transparent)] opacity-60" />
+
+        {/* Bottom-right corner conic gradient */}
+        <div className="pointer-events-none absolute bottom-0 right-0 w-20 h-20 bg-[conic-gradient(from_315deg_at_0%_0%,rgba(27,67,50,0.12),rgba(27,67,50,0.03),transparent)] opacity-60" />
+
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(193,236,212,0.15),_transparent_48%)]" />
         <Image
           src={image}
           alt={alt}
@@ -261,7 +273,7 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.div
-              className="relative min-h-[300px] overflow-hidden rounded-[32px] bg-[#f7f8f3] sm:min-h-[420px] lg:min-h-[620px]"
+              className="relative min-h-[300px] overflow-hidden rounded-3xl bg-[#f7f8f3] sm:min-h-[420px] lg:min-h-[620px] border border-primary/10 shadow-lg shadow-primary/12 ring-1 ring-inset ring-primary/5"
               {...getRevealProps(shouldReduceMotion, 2)}>
               <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0)_48%,_rgba(249,250,246,0.28)_68%,_rgba(249,250,246,0.82)_86%,_rgba(249,250,246,1)_100%)]" />
               <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,_rgba(249,250,246,0.92)_0%,_rgba(249,250,246,0.08)_18%,_rgba(249,250,246,0.02)_50%,_rgba(249,250,246,0.12)_82%,_rgba(249,250,246,0.88)_100%),linear-gradient(90deg,_rgba(249,250,246,0.82)_0%,_rgba(249,250,246,0.06)_16%,_rgba(249,250,246,0)_50%,_rgba(249,250,246,0.06)_84%,_rgba(249,250,246,0.82)_100%)]" />
@@ -278,11 +290,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2">
             <motion.article
-              className="rounded-2xl border border-[#e4d4d1] bg-[#f5efee] p-8 shadow-[0_12px_30px_rgba(0,0,0,0.03)]"
+              className="rounded-2xl border border-[#e4d4d1]/60 bg-gradient-to-br from-[#f5efee] to-[#f9f6f5] p-8 shadow-md shadow-red-950/8 ring-1 ring-inset ring-red-950/5 transition-all duration-300 hover:shadow-lg hover:shadow-red-950/12 hover:border-[#e4d4d1]"
               {...getRevealProps(shouldReduceMotion, 0)}>
               <div className="flex items-center gap-3 text-[#9a463d]">
                 <TrendingDown className="h-5 w-5" />
@@ -303,7 +315,7 @@ export default function AboutPage() {
             </motion.article>
 
             <motion.article
-              className="rounded-2xl border border-[#cce3d6] bg-[#dff3e6] p-8 shadow-[0_12px_30px_rgba(0,0,0,0.03)]"
+              className="rounded-2xl border border-[#cce3d6]/60 bg-gradient-to-br from-[#dff3e6] to-[#f0f8f2] p-8 shadow-md shadow-primary/8 ring-1 ring-inset ring-primary/5 transition-all duration-300 hover:shadow-lg hover:shadow-primary/12 hover:border-[#cce3d6]"
               {...getRevealProps(shouldReduceMotion, 1)}>
               <div className="flex items-center gap-3 text-primary">
                 <TrendingUp className="h-5 w-5" />
@@ -326,16 +338,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-12">
+      <section className="py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             className="text-center"
             {...getRevealProps(shouldReduceMotion, 0)}>
             <SectionEyebrow>Owner Journey</SectionEyebrow>
-            <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl lg:text-4xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl">
               How It Works For Owners
             </h2>
-            <div className="mx-auto mt-5 h-px w-24 bg-primary/45" />
+            <div className="mx-auto mt-6 h-1 w-32 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           </motion.div>
 
           <div className="mt-14 space-y-16 sm:space-y-20 lg:space-y-24">
@@ -352,16 +364,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-[#f1f2ee] py-20">
+      <section className="bg-gradient-to-b from-[#f1f2ee] to-background py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             className="text-center"
             {...getRevealProps(shouldReduceMotion, 0)}>
             <SectionEyebrow>Renter Journey</SectionEyebrow>
-            <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl lg:text-4xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl">
               How It Works For Renters
             </h2>
-            <div className="mx-auto mt-5 h-px w-24 bg-primary/45" />
+            <div className="mx-auto mt-6 h-1 w-32 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           </motion.div>
 
           <div className="mt-14 space-y-16 sm:space-y-20 lg:space-y-24">
@@ -378,43 +390,53 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             className="text-center"
             {...getRevealProps(shouldReduceMotion, 0)}>
             <SectionEyebrow>Platform Standards</SectionEyebrow>
-            <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl lg:text-4xl">
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl">
               Trust & Safety
             </h2>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
+            <p className="mt-4 text-sm leading-7 text-muted-foreground sm:text-base lg:text-lg">
               The protections that make equipment rentals feel more
               professional, more transparent, and easier to scale.
             </p>
           </motion.div>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {trustHighlights.map(
               ({ title, body, accent, icon: Icon, className }, index) => (
                 <motion.article
                   key={title}
                   className={[
-                    'rounded-2xl border p-6 shadow-[0_10px_30px_rgba(0,0,0,0.03)]',
-                    className
+                    'rounded-2xl border p-7 shadow-md ring-1 ring-inset transition-all duration-300',
+                    className ===
+                    'md:col-span-2 bg-primary text-primary-foreground border-primary/80'
+                      ? 'md:col-span-2 bg-gradient-to-br from-primary to-primary/95 text-primary-foreground border-primary/60 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-1 ring-primary/20'
+                      : 'bg-gradient-to-br from-[#efefeb] to-[#f5f5f2] text-foreground border-border/60 shadow-primary/5 hover:shadow-lg hover:shadow-primary/10 hover:border-primary/20 hover:-translate-y-1 ring-primary/8'
                   ].join(' ')}
                   {...getRevealProps(shouldReduceMotion, index + 1)}>
                   <div className="flex items-start justify-between gap-4">
-                    <div className="rounded-xl bg-white/10 p-3">
+                    <div
+                      className={[
+                        'rounded-xl p-3.5 transition-all duration-300',
+                        className ===
+                        'md:col-span-2 bg-primary text-primary-foreground border-primary/80'
+                          ? 'bg-white/15 backdrop-blur-sm'
+                          : 'bg-primary/10'
+                      ].join(' ')}>
                       <Icon className="h-6 w-6" />
                     </div>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.24em] opacity-65">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.24em] opacity-70">
                       {accent}
                     </span>
                   </div>
-                  <h3 className="mt-8 text-2xl font-semibold tracking-[-0.04em]">
+                  <h3 className="mt-6 text-2xl font-semibold tracking-[-0.04em] leading-tight">
                     {title}
                   </h3>
-                  <p className="mt-4 max-w-xl text-sm leading-7 opacity-85 sm:text-base">
+                  <p className="mt-4 text-sm leading-7 opacity-90 sm:text-base">
                     {body}
                   </p>
                 </motion.article>
@@ -424,37 +446,37 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="pb-20">
+      <section className="pb-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
-            className="relative overflow-hidden rounded-[28px] bg-primary px-6 py-14 text-center text-primary-foreground shadow-[0_24px_60px_rgba(1,45,29,0.22)] sm:px-10 lg:px-16 lg:py-18"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-primary/90 px-6 py-20 text-center text-primary-foreground shadow-2xl shadow-primary/25 ring-1 ring-inset ring-primary/30 lg:px-16 lg:py-24 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/35"
             {...getRevealProps(shouldReduceMotion, 0)}>
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(165,208,185,0.16),_transparent_45%)]" />
-            <div className="pointer-events-none absolute inset-x-10 top-10 h-px bg-white/20" />
-            <div className="pointer-events-none absolute inset-x-10 bottom-10 h-px bg-white/10" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(165,208,185,0.2),_transparent_45%)]" />
+            <div className="pointer-events-none absolute inset-x-10 top-10 h-px bg-white/25" />
+            <div className="pointer-events-none absolute inset-x-10 bottom-10 h-px bg-white/15" />
             <div className="relative mx-auto max-w-3xl">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/8">
-                <Tractor className="h-7 w-7" />
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/20 bg-white/10 shadow-lg">
+                <Tractor className="h-8 w-8" />
               </div>
-              <h2 className="mt-6 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl lg:text-4xl xl:text-5xl">
+              <h2 className="mt-8 text-3xl font-semibold tracking-[-0.05em] text-white sm:text-4xl lg:text-5xl xl:text-6xl leading-tight">
                 Ready to join the Rentmart community?
               </h2>
-              <p className="mt-4 text-sm leading-7 text-[#cde4d7] sm:text-base">
+              <p className="mt-6 text-base leading-8 text-[#cde4d7] sm:text-lg">
                 Whether you want to monetize your fleet or source dependable
                 machinery for the next project, Rentmart is built to make the
                 process faster and more trusted.
               </p>
-              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link
                   prefetch
                   href="/dashboard/add-listing"
-                  className="inline-flex items-center justify-center rounded-md bg-[#c1ecd4] px-6 py-3 text-sm font-semibold text-[#022618] transition-colors hover:bg-[#d2f4df]">
+                  className="inline-flex items-center justify-center rounded-lg bg-[#c1ecd4] px-7 py-4 text-sm font-semibold text-[#022618] transition-all duration-300 shadow-md hover:bg-[#d2f4df] hover:shadow-lg hover:-translate-y-0.5">
                   List My Equipment
                 </Link>
                 <Link
                   prefetch
                   href="/#featured"
-                  className="inline-flex items-center justify-center rounded-md border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/8">
+                  className="inline-flex items-center justify-center rounded-lg border border-white/25 px-7 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/40 hover:-translate-y-0.5">
                   <Search className="mr-2 h-4 w-4" />
                   Browse Machinery
                 </Link>

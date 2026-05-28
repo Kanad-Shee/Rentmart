@@ -72,13 +72,15 @@ export default function Home() {
       <HomepageMarketplaceSections />
 
       <section className="border-b border-border bg-primary">
-        <div className="mx-auto grid max-w-7xl gap-4 px-4 py-6 text-primary-foreground sm:grid-cols-2 lg:grid-cols-4 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 text-primary-foreground sm:grid-cols-2 lg:grid-cols-4 sm:px-6 lg:px-8">
           {trustItems.map(({ icon: Icon, label }) => (
             <div
               key={label}
-              className="flex items-center gap-3">
-              <Icon className="h-4 w-4 text-[#a5d0b9]" />
-              <span className="text-xs font-semibold uppercase tracking-[0.22em]">
+              className="group flex items-center gap-4 transition-all duration-300 hover:scale-105">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/10 transition-all duration-300 group-hover:bg-white/20 group-hover:shadow-lg">
+                <Icon className="h-5 w-5 text-[#a5d0b9] transition-transform duration-300 group-hover:scale-110" />
+              </div>
+              <span className="text-xs font-semibold uppercase tracking-[0.28em] group-hover:text-[#c1ecd4] transition-colors duration-300">
                 {label}
               </span>
             </div>
@@ -88,27 +90,27 @@ export default function Home() {
 
       <section
         id="how-it-works"
-        className="border-y border-border bg-[#f3f4f1] py-20">
+        className="border-y border-border bg-linear-to-b from-[#f3f4f1] to-[#eef0eb] py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <SectionEyebrow>Seamless Process</SectionEyebrow>
-            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-foreground sm:text-3xl">
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-4xl lg:text-5xl">
               How Rentmart Works
             </h2>
           </div>
 
-          <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {steps.map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
-                className="text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-border bg-background shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
-                  <Icon className="h-5 w-5 text-primary" />
+                className="group relative text-center border border-solid border-neutral-300/40 ring-1 ring-inset ring-black/5 p-8 rounded-xl shadow-sm transition-all duration-300 hover:shadow-lg hover:border-primary/20 hover:-translate-y-1 bg-gradient-to-br from-white to-white/50">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary/15 to-primary/5 shadow-md ring-1 ring-inset ring-primary/10 transition-all duration-300 group-hover:from-primary/25 group-hover:to-primary/10">
+                  <Icon className="h-5 w-5 text-primary transition-transform duration-300 group-hover:scale-110" />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold tracking-[-0.02em] text-foreground">
+                <h3 className="mt-6 text-xl font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
                   {title}
                 </h3>
-                <p className="mx-auto mt-4 max-w-sm text-sm leading-7 text-muted-foreground">
+                <p className="mx-auto mt-4 max-w-sm text-sm leading-7 text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">
                   {text}
                 </p>
               </div>
@@ -117,24 +119,24 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-2xl bg-primary px-6 py-16 text-center shadow-[0_18px_50px_rgba(0,0,0,0.12)] sm:px-10 lg:px-16">
-            <div className="pointer-events-none absolute inset-0 opacity-15">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-primary/90 px-6 py-20 text-center shadow-2xl shadow-primary/20 sm:px-10 lg:px-16 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/30">
+            <div className="pointer-events-none absolute inset-0 opacity-10">
               <div className="absolute inset-x-10 top-10 h-px bg-white/40" />
               <div className="absolute inset-x-10 bottom-10 h-px bg-white/20" />
               <div className="absolute left-10 top-10 bottom-10 w-px bg-white/20" />
               <div className="absolute right-10 top-10 bottom-10 w-px bg-white/20" />
             </div>
 
-            <h2 className="relative text-2xl font-extrabold tracking-[-0.04em] text-white sm:text-3xl lg:text-4xl xl:text-5xl">
+            <h2 className="relative text-3xl font-extrabold tracking-[-0.05em] text-white sm:text-4xl lg:text-5xl xl:text-6xl leading-tight">
               Ready to Scale Your Fleet?
             </h2>
-            <p className="relative mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#c1ecd4] sm:text-base">
+            <p className="relative mx-auto mt-6 max-w-2xl text-base leading-8 text-[#c1ecd4] sm:text-lg">
               Join over 10,000 industrial businesses optimizing their capital
               expenditure through Rentmart&apos;s marketplace.
             </p>
-            <div className="relative mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="relative mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <HomepageRoleCtaActions />
             </div>
           </div>

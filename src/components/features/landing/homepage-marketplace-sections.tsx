@@ -188,7 +188,7 @@ function CategoryCard({ category }: { category: Category }) {
       <Link
         prefetch
         href={`/category/${category.id}` as Route}>
-        <div className="overflow-hidden rounded-lg border border-border bg-background shadow-[0_12px_30px_rgba(27,67,50,0.05)] transition-shadow duration-300 hover:shadow-[0_22px_45px_rgba(27,67,50,0.12)]">
+        <div className="group overflow-hidden rounded-2xl border border-primary/10 bg-background shadow-md shadow-primary/8 ring-1 ring-inset ring-primary/5 transition-all duration-300 hover:shadow-lg hover:shadow-primary/15 hover:border-primary/20 hover:-translate-y-1">
           <div className="relative aspect-square">
             <motion.div
               className="h-full w-full"
@@ -205,10 +205,10 @@ function CategoryCard({ category }: { category: Category }) {
             </motion.div>
           </div>
         </div>
-        <h3 className="mt-4 text-lg font-semibold tracking-[-0.02em] text-foreground">
+        <h3 className="mt-5 text-lg font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
           {category.title}
         </h3>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-2 text-sm font-medium text-muted-foreground group-hover:text-foreground/70 transition-colors duration-300">
           {getCategoryCountLabel(category.activeListingCount)}
         </p>
       </Link>
@@ -234,15 +234,15 @@ function FeaturedCard({ listing }: { listing: EquipmentListing }) {
               transition: { duration: 0.24, ease: 'easeOut' }
             }
       }
-      className="overflow-hidden rounded-lg border border-border bg-background shadow-[0_8px_24px_rgba(0,0,0,0.03)] transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(27,67,50,0.12)]">
+      className="group overflow-hidden rounded-2xl border border-primary/10 bg-background shadow-md shadow-primary/8 ring-1 ring-inset ring-primary/5 transition-all duration-300 hover:shadow-xl hover:shadow-primary/15 hover:border-primary/20 hover:-translate-y-2">
       <Link
         prefetch
         href={`/details/${listing.id}`}>
-        <div className="relative aspect-[4/3]">
+        <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-primary/5 to-transparent">
           {listing.images[0] ? (
             <motion.div
               className="h-full w-full"
-              whileHover={shouldReduceMotion ? undefined : { scale: 1.03 }}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}>
               <Image
                 src={listing.images[0].url}
@@ -254,53 +254,51 @@ function FeaturedCard({ listing }: { listing: EquipmentListing }) {
               />
             </motion.div>
           ) : (
-            <div className="flex h-full items-center justify-center bg-muted text-muted-foreground">
+            <div className="flex h-full items-center justify-center bg-gradient-to-br from-muted to-muted/50 text-muted-foreground">
               No image
             </div>
           )}
-          <div className="absolute left-3 top-3 inline-flex items-center gap-1 rounded bg-background/95 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-primary shadow-sm">
+          <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-white/95 to-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-primary shadow-md ring-1 ring-inset ring-white/50 backdrop-blur-sm">
             <ShieldCheck className="h-3 w-3 fill-current" />
             Verified
           </div>
         </div>
 
-        <div className="p-5">
-          <h3 className="text-lg font-semibold tracking-[-0.02em] text-foreground">
+        <div className="p-6">
+          <h3 className="text-lg font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
             {listing.title}
           </h3>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-2 text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">
             {getLocationLabel(listing)}
           </p>
 
-          <div className="mt-4 grid grid-cols-2 gap-2">
+          <div className="mt-5 grid grid-cols-2 gap-3">
             {specs.map((spec) => (
               <motion.div
                 key={spec.label}
-                className="rounded bg-muted p-2"
-                whileHover={
-                  shouldReduceMotion
-                    ? undefined
-                    : { y: -2, backgroundColor: 'rgba(226,227,224,0.7)' }
-                }
+                className="rounded-lg bg-gradient-to-br from-muted/60 to-muted/40 p-3 border border-primary/5 ring-1 ring-inset ring-primary/5 transition-all duration-300 group-hover:from-primary/10 group-hover:to-primary/5 group-hover:border-primary/10"
+                whileHover={shouldReduceMotion ? undefined : { y: -2 }}
                 transition={{ duration: 0.2 }}>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                   {spec.label}
                 </p>
-                <p className="mt-1 text-sm font-semibold text-foreground">
+                <p className="mt-2 text-sm font-semibold text-foreground">
                   {spec.value}
                 </p>
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-4 flex items-center justify-between gap-4 border-t border-border pt-4">
+          <div className="mt-6 flex items-center justify-between gap-4 border-t border-primary/10 pt-5">
             <p className="text-lg font-bold text-primary">
               {formatPrice(listing.price)}{' '}
-              <span className="text-sm font-normal text-muted-foreground">
+              <span className="text-xs font-medium text-muted-foreground">
                 / day
               </span>
             </p>
-            <span className="text-sm font-semibold text-primary">Rent Now</span>
+            <span className="text-sm font-semibold text-primary group-hover:text-primary/80 transition-colors duration-300">
+              Rent Now
+            </span>
           </div>
         </div>
       </Link>
@@ -346,7 +344,7 @@ export function HomepageMarketplaceSections() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border bg-background">
+      <section className="relative overflow-hidden border-b border-border bg-linear-to-b from-emerald-50 via-slate-100 to-background">
         <motion.div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
@@ -399,9 +397,9 @@ export function HomepageMarketplaceSections() {
                 animate: { opacity: 1, y: 0 }
               }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
-              className="max-w-xl text-3xl font-bold font-display leading-[1.02] tracking-[-0.04em] text-center text-primary sm:text-4xl lg:text-start lg:text-5xl xl:text-6xl">
+              className="max-w-xl text-4xl font-bold font-display leading-[1.08] tracking-[-0.05em] text-center text-primary sm:text-5xl lg:text-start lg:text-5xl xl:text-7xl">
               Rent the Power You Need.
-              <span className="mt-3 block text-[#86af99]">
+              <span className="mt-4 block text-[#86af99] font-display">
                 Monetize the Fleet You Own.
               </span>
             </motion.h1>
@@ -412,7 +410,7 @@ export function HomepageMarketplaceSections() {
                 animate: { opacity: 1, y: 0 }
               }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
-              className="mt-5 max-w-xl text-center text-sm font-medium tracking-tight text-muted-foreground sm:text-base lg:mt-6 lg:text-start lg:text-lg">
+              className="mt-7 max-w-xl text-center text-sm font-medium leading-7 tracking-tight text-muted-foreground sm:text-base lg:mt-8 lg:text-start lg:text-lg lg:leading-8">
               The world&apos;s premier industrial marketplace for heavy
               machinery. High-capacity equipment, verified owners, and
               comprehensive protection for every project.
@@ -424,31 +422,31 @@ export function HomepageMarketplaceSections() {
                 animate: { opacity: 1, y: 0 }
               }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
-              className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap lg:items-start">
-              <div className="flex -space-x-2">
+              className="mt-10 flex flex-col items-center gap-5 sm:flex-row sm:flex-wrap lg:items-start">
+              <div className="flex -space-x-3 group">
                 <motion.div
-                  className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-[#e2e3e0] text-xs font-bold text-primary"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-background bg-gradient-to-br from-[#e2e3e0] to-[#d9dbd7] text-xs font-bold text-primary shadow-md ring-1 ring-inset ring-black/5 transition-all duration-300 group-hover:scale-105"
                   whileHover={
-                    shouldReduceMotion ? undefined : { y: -2, scale: 1.04 }
+                    shouldReduceMotion ? undefined : { y: -3, scale: 1.08 }
                   }>
                   RM
                 </motion.div>
                 <motion.div
-                  className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-[#c1c8c2] text-xs font-bold text-primary"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-background bg-gradient-to-br from-[#c1c8c2] to-[#b3b9b4] text-xs font-bold text-primary shadow-md ring-1 ring-inset ring-black/5 transition-all duration-300 group-hover:scale-105"
                   whileHover={
-                    shouldReduceMotion ? undefined : { y: -2, scale: 1.04 }
+                    shouldReduceMotion ? undefined : { y: -3, scale: 1.08 }
                   }>
                   FM
                 </motion.div>
                 <motion.div
-                  className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-[#a5d0b9] text-xs font-bold text-[#002114]"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-background bg-gradient-to-br from-[#a5d0b9] to-[#8fc7a8] text-xs font-bold text-[#002114] shadow-md ring-1 ring-inset ring-primary/10 transition-all duration-300 group-hover:scale-105"
                   whileHover={
-                    shouldReduceMotion ? undefined : { y: -2, scale: 1.04 }
+                    shouldReduceMotion ? undefined : { y: -3, scale: 1.08 }
                   }>
                   AG
                 </motion.div>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm font-medium text-muted-foreground leading-6">
                 <span className="font-semibold text-primary">
                   Live inventory
                 </span>{' '}
@@ -470,11 +468,11 @@ export function HomepageMarketplaceSections() {
               delay: shouldReduceMotion ? 0 : 0.2
             }}>
             <motion.div
-              className="relative mx-auto max-w-xl overflow-hidden rounded-2xl border border-border bg-card shadow-[0_24px_70px_rgba(0,0,0,0.12)] lg:mx-0"
+              className="relative mx-auto max-w-xl overflow-hidden rounded-3xl border border-primary/10 bg-card shadow-lg shadow-primary/15 ring-1 ring-inset ring-primary/5 lg:mx-0 transition-all duration-300"
               whileHover={
                 shouldReduceMotion
                   ? undefined
-                  : { y: -6, boxShadow: '0 34px 90px rgba(27,67,50,0.16)' }
+                  : { y: -8, boxShadow: '0 40px 100px rgba(27,67,50,0.2)' }
               }
               transition={{ duration: 0.35, ease: 'easeOut' }}>
               <div className="relative aspect-4/4.25 w-full">
@@ -546,7 +544,7 @@ export function HomepageMarketplaceSections() {
               {featuredEquipmentQuery.isPending ? (
                 <HeroFeaturedSkeleton />
               ) : heroListing ? (
-                <div className="absolute inset-x-3 bottom-3 rounded-xl border border-border bg-background/95 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur sm:inset-x-5 sm:bottom-5 sm:p-5">
+                <div className="absolute inset-x-3 bottom-3 rounded-2xl border border-primary/15 bg-background/97 p-5 shadow-lg shadow-black/10 backdrop-blur-md ring-1 ring-inset ring-white/50 sm:inset-x-5 sm:bottom-5 sm:p-6">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={heroListing.id}
@@ -567,7 +565,7 @@ export function HomepageMarketplaceSections() {
                         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#86af99]">
                           Featured Unit
                         </p>
-                        <span className="rounded bg-[#c1ecd4] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#002114]">
+                        <span className="rounded-lg bg-gradient-to-r from-[#c1ecd4] to-[#b0e6c7] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#002114] shadow-sm ring-1 ring-inset ring-primary/20">
                           Available
                         </span>
                       </div>
@@ -596,7 +594,7 @@ export function HomepageMarketplaceSections() {
                   </AnimatePresence>
 
                   {heroListings.length > 1 ? (
-                    <div className="mt-4 flex items-center gap-2 border-t border-border pt-4">
+                    <div className="mt-5 flex items-center gap-2.5 border-t border-primary/10 pt-5">
                       {heroListings.map((listing, index) => (
                         <button
                           key={listing.id}
@@ -604,10 +602,10 @@ export function HomepageMarketplaceSections() {
                           aria-label={`Show featured listing ${index + 1}`}
                           onClick={() => setActiveHeroIndex(index)}
                           className={[
-                            'h-2.5 rounded-full transition-all',
+                            'rounded-full transition-all duration-300',
                             index === activeHeroIndex
-                              ? 'w-8 bg-primary'
-                              : 'w-2.5 bg-primary/25 hover:bg-primary/45'
+                              ? 'h-3 w-10 bg-primary shadow-md'
+                              : 'h-3 w-3 bg-primary/30 hover:bg-primary/50'
                           ].join(' ')}
                         />
                       ))}
@@ -615,14 +613,14 @@ export function HomepageMarketplaceSections() {
                   ) : null}
                 </div>
               ) : (
-                <div className="absolute inset-x-3 bottom-3 rounded-xl border border-border bg-background/95 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur sm:inset-x-5 sm:bottom-5 sm:p-5">
+                <div className="absolute inset-x-3 bottom-3 rounded-2xl border border-primary/15 bg-background/97 p-5 shadow-lg shadow-black/10 backdrop-blur-md ring-1 ring-inset ring-white/50 sm:inset-x-5 sm:bottom-5 sm:p-6">
                   <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#86af99]">
                     Featured Unit
                   </p>
                   <h2 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-foreground sm:text-2xl">
                     New listings coming soon
                   </h2>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
                     As owners publish active equipment, the freshest listing
                     will appear here automatically.
                   </p>
@@ -633,21 +631,21 @@ export function HomepageMarketplaceSections() {
         </div>
       </section>
 
-      <section className="bg-[#f9faf6] py-20">
+      <section className="bg-[#f9faf6] py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="mb-10 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
+            className="mb-14 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
             viewport={{ once: true, amount: 0.3 }}
             {...fadeUp(shouldReduceMotion)}>
             <div>
               <SectionEyebrow>Marketplace</SectionEyebrow>
-              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-foreground sm:text-3xl">
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-4xl">
                 Browse by Category
               </h2>
             </div>
-            <span className="hidden items-center gap-2 border-b border-primary pb-1 text-sm font-semibold text-primary sm:inline-flex">
-              Live inventory from the marketplace
-              <ArrowUpRight className="h-4 w-4" />
+            <span className="hidden items-center gap-2 border-b border-primary pb-1 text-sm font-semibold text-muted-foreground/50 sm:inline-flex">
+              More to come
+              {/* <ArrowUpRight className="h-4 w-4" /> */}
             </span>
           </motion.div>
 
@@ -677,28 +675,28 @@ export function HomepageMarketplaceSections() {
 
       <section
         id="featured"
-        className="bg-muted/30 py-20">
+        className="bg-gradient-to-b from-muted/40 to-background py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="mb-10 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
+            className="mb-14 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
             viewport={{ once: true, amount: 0.3 }}
             {...fadeUp(shouldReduceMotion)}>
             <div>
               <SectionEyebrow>High Demand</SectionEyebrow>
-              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-foreground sm:text-3xl">
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-4xl">
                 Featured Machinery
               </h2>
             </div>
-            <div className="hidden items-center gap-2 sm:flex">
+            <div className="hidden items-center gap-3 sm:flex">
               <button
                 aria-label="Previous"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-muted">
-                <ChevronLeft className="h-4 w-4" />
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary/20 bg-background text-foreground shadow-sm ring-1 ring-inset ring-primary/10 transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:border-primary">
+                <ChevronLeft className="h-5 w-5" />
               </button>
               <button
                 aria-label="Next"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-muted">
-                <ChevronRight className="h-4 w-4" />
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary/20 bg-background text-foreground shadow-sm ring-1 ring-inset ring-primary/10 transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:border-primary">
+                <ChevronRight className="h-5 w-5" />
               </button>
             </div>
           </motion.div>
