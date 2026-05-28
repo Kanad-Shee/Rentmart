@@ -226,20 +226,20 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
         }}>
         <motion.nav
           aria-label="Breadcrumb"
-          className="mb-8 flex items-center gap-2 text-xs text-muted-foreground"
+          className="mb-8 flex items-center gap-2 text-xs font-medium text-muted-foreground/70 tracking-[0.05em]"
           {...getRevealProps(shouldReduceMotion, 0)}>
           <Link
             prefetch
             href="/"
-            className="transition-colors hover:text-primary">
+            className="transition-colors hover:text-primary hover:font-semibold">
             Home
           </Link>
           <ChevronRight className="h-3.5 w-3.5" />
-          <span className="transition-colors hover:text-primary">
+          <span className="transition-colors hover:text-primary hover:font-semibold">
             {product.category.title}
           </span>
           <ChevronRight className="h-3.5 w-3.5" />
-          <span className="font-medium text-foreground">{product.title}</span>
+          <span className="font-semibold text-foreground">{product.title}</span>
         </motion.nav>
 
         <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
@@ -255,13 +255,13 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
               className="space-y-4"
               {...getRevealProps(shouldReduceMotion, 2)}>
               <div className="flex flex-wrap items-center gap-3">
-                <span className="inline-flex items-center gap-1 rounded-sm bg-[#c1ecd4] px-3 py-1 text-xs font-bold uppercase text-[#002114]">
-                  <ShieldCheck className="h-3.5 w-3.5" />
+                <span className="inline-flex items-center gap-1 rounded-lg bg-gradient-to-r from-[#c1ecd4] to-[#a5d0b9] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-[#002114] shadow-sm shadow-primary/10 border border-primary/15">
+                  <ShieldCheck className="h-4 w-4" />
                   Active
                 </span>
               </div>
 
-              <h1 className="max-w-4xl text-3xl font-semibold text-primary sm:text-4xl lg:text-5xl">
+              <h1 className="max-w-4xl bg-gradient-to-r from-primary via-primary/95 to-primary/90 bg-clip-text text-transparent text-4xl font-bold tracking-tight leading-tight">
                 {product.title}
               </h1>
             </motion.div>
@@ -280,14 +280,18 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
             </motion.div>
 
             <motion.section
-              className="space-y-4"
+              className="space-y-6 border-t-2 border-primary/15 pt-8"
               {...getRevealProps(shouldReduceMotion, 4)}>
-              <h2 className="text-2xl font-semibold text-primary sm:text-3xl">
+              {/* <h2 className="text-3xl font-bold text-primary sm:text-3xl tracking-[-0.01em]">
                 Description
-              </h2>
-              <div className="max-w-4xl space-y-4 text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
+              </h2> */}
+              <div className="max-w-4xl space-y-6 text-sm text-muted-foreground/80 sm:text-base font-medium">
                 {description.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+                  <p
+                    key={paragraph}
+                    className="text-justify">
+                    {paragraph}
+                  </p>
                 ))}
               </div>
             </motion.section>
@@ -297,9 +301,9 @@ export function PublicProductDetailsContent({ id }: { id: string }) {
             </motion.div>
 
             <motion.section
-              className="space-y-4"
+              className="space-y-6 border-t-2 border-primary/15 pt-8"
               {...getRevealProps(shouldReduceMotion, 6)}>
-              <h2 className="text-2xl font-semibold text-primary sm:text-3xl">
+              <h2 className="text-3xl font-bold text-primary sm:text-3xl tracking-[-0.01em]">
                 Delivery Area
               </h2>
               <ProductDeliveryMap

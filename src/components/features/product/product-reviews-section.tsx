@@ -207,7 +207,7 @@ function ReviewCard({ review }: { review: EquipmentReviewSummary }) {
   );
 
   return (
-    <article className="flex w-90 m-3 shrink-0 flex-col rounded-md border border-neutral-200 bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
+    <article className="flex w-90 m-3 shrink-0 flex-col rounded-xl border-t border-neutral-200 bg-linear-to-b from-white to-[#f3f4f1] p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#e8e8e5] text-sm font-semibold text-neutral-800">
           {review.renter.fullName.slice(0, 1).toUpperCase()}

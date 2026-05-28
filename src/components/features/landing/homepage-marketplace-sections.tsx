@@ -344,7 +344,7 @@ export function HomepageMarketplaceSections() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border bg-linear-to-b from-emerald-50 via-slate-100 to-background">
+      <section className="relative overflow-hidden border-b border-border bg-linear-to-br from-emerald-50 via-slate-100 to-background">
         <motion.div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"

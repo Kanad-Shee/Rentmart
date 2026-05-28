@@ -206,12 +206,12 @@ export function ProductRentalCard({
 
   return (
     <aside className="space-y-4 lg:sticky lg:top-28">
-      <div className="rounded-xl border border-border bg-background p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
-        <div className="mb-6 flex items-baseline gap-2">
-          <span className="text-3xl font-semibold text-primary sm:text-4xl">
+      <div className="rounded-2xl border border-primary/15 bg-gradient-to-br from-white/80 to-white/40 p-7 shadow-[0_10px_30px_rgba(27,67,50,0.05)]">
+        <div className="mb-6 rounded-xl bg-gradient-to-br from-primary/8 to-transparent p-5">
+          <span className="text-4xl font-bold tracking-tight text-primary sm:text-5xl">
             {formatCurrency(pricePerDay)}
           </span>
-          <span className="text-sm font-medium text-muted-foreground">
+          <span className="ml-2 text-sm font-semibold text-muted-foreground/70">
             / day
           </span>
         </div>
@@ -222,7 +222,7 @@ export function ProductRentalCard({
               open={calendarOpen}
               onOpenChange={setCalendarOpen}>
               <PopoverTrigger
-                className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/15 px-4 py-4 text-left transition-colors hover:border-primary/30 hover:bg-muted/30"
+                className="flex w-full items-center justify-between rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/6 to-transparent px-5 py-4 text-left transition-all duration-300 hover:border-primary/40 hover:bg-gradient-to-br hover:from-primary/10 hover:to-primary/2 hover:shadow-md hover:shadow-primary/8"
                 aria-label="Open rental date picker">
                 <div className="min-w-0">
                   <div className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
@@ -257,14 +257,14 @@ export function ProductRentalCard({
             </Popover>
           ) : null}
 
-          <div className="rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4">
-            <div className="flex gap-3">
+          <div className="rounded-2xl border border-primary/15 bg-gradient-to-r from-primary/8 to-primary/4 p-5 shadow-sm shadow-primary/5">
+            <div className="flex gap-4">
               <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
               <div>
-                <p className="text-sm font-semibold text-primary">
+                <p className="text-sm font-bold text-primary">
                   Escrow-Protected Booking
                 </p>
-                <p className="mt-1 text-xs leading-6 text-muted-foreground">
+                <p className="mt-1.5 text-xs text-muted-foreground">
                   Rentmart only places the authorization hold after the owner
                   approves your request. Your refundable security hold is 30% of
                   the rental fee, capped between
@@ -276,48 +276,50 @@ export function ProductRentalCard({
           </div>
         </div>
 
-        <div className="space-y-3 border-b border-border pb-5 text-sm text-muted-foreground">
-          <div className="flex justify-between gap-4">
-            <span>
+        <div className="space-y-4 border-b border-primary/10 bg-gradient-to-r from-muted/30 to-transparent rounded-lg px-4 py-5 text-sm">
+          <div className="flex justify-between gap-4 text-muted-foreground/70">
+            <span className="font-medium">
               Rental Fee
               {rentalDays > 0
                 ? ` (${formatCurrency(pricePerDay)} x ${rentalDays} day${rentalDays === 1 ? '' : 's'})`
                 : ''}
             </span>
-            <span>
+            <span className="font-semibold text-foreground">
               {pricing ? formatCurrency(pricing.rentalFee) : 'Select dates'}
             </span>
           </div>
-          <div className="flex justify-between gap-4">
-            <span>
+          <div className="flex justify-between gap-4 text-muted-foreground/70">
+            <span className="font-medium">
               Platform Fee
               <span className="ml-1 text-xs">
                 ({Math.round(BOOKING_PLATFORM_FEE_RATE * 100)}%)
               </span>
             </span>
-            <span>
+            <span className="font-semibold text-foreground">
               {pricing ? formatCurrency(pricing.platformFee) : 'Select dates'}
             </span>
           </div>
-          <div className="flex justify-between gap-4">
-            <span>Damage Waiver</span>
-            <span>{formatCurrency(BOOKING_DAMAGE_WAIVER_FEE)}</span>
+          <div className="flex justify-between gap-4 text-muted-foreground/70">
+            <span className="font-medium">Damage Waiver</span>
+            <span className="font-semibold text-foreground">
+              {formatCurrency(BOOKING_DAMAGE_WAIVER_FEE)}
+            </span>
           </div>
-          <div className="flex justify-between gap-4">
-            <span>
+          <div className="flex justify-between gap-4 text-muted-foreground/70">
+            <span className="font-medium">
               Refundable Security Hold
               <span className="ml-1 text-xs">
                 ({Math.round(BOOKING_SECURITY_DEPOSIT_RATE * 100)}%)
               </span>
             </span>
-            <span>
+            <span className="font-semibold text-foreground">
               {pricing
                 ? formatCurrency(pricing.securityDeposit)
                 : 'Select dates'}
             </span>
           </div>
           {showBookingPricingDetails ? (
-            <div className="flex justify-between gap-4 border-t border-border pt-4 text-lg font-semibold text-primary">
+            <div className="flex justify-between gap-4 border-t border-primary/15 pt-5 text-base font-bold text-primary">
               <span>Total Authorized</span>
               <span>
                 {pricing
