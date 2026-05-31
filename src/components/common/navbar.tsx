@@ -177,7 +177,9 @@ export function Navbar({
     });
 
     return {
-      primaryLinks: withTerms.filter((link) => !groupedStaticLinks.includes(link)),
+      primaryLinks: withTerms.filter(
+        (link) => !groupedStaticLinks.includes(link)
+      ),
       staticLinks: groupedStaticLinks
     };
   }, [links]);
@@ -662,7 +664,7 @@ export function Navbar({
                   {getUserInitials(currentUser.fullName)}
                 </span>
                 <span className="hidden min-w-0 sm:block">
-                  <span className="block max-w-[120px] truncate text-sm font-semibold text-foreground">
+                  <span className="block max-w-30 truncate text-sm font-semibold text-foreground">
                     {currentUser.fullName}
                   </span>
                   <span className="block text-xs text-muted-foreground">
@@ -754,7 +756,7 @@ export function Navbar({
             exit={{ opacity: 0 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             onClick={() => setIsSearchSheetOpen(false)}
-            className="fixed inset-0 z-[60] bg-black/35 px-4 py-5">
+            className="fixed inset-0 z-60 bg-black/35 px-4 py-5">
             <motion.div
               initial={{
                 opacity: 0,
