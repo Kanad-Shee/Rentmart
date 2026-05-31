@@ -60,7 +60,7 @@ function SectionTitle({
       <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
         {title}
       </h1>
-      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+      <p className="mt-3 max-w-3xl text-sm  text-muted-foreground">
         {description}
       </p>
     </div>
@@ -114,9 +114,7 @@ function ChartCard({
               {title}
             </h2>
           </div>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">
-            {description}
-          </p>
+          <p className="mt-3 text-sm  text-muted-foreground">{description}</p>
         </div>
         <Link
           prefetch

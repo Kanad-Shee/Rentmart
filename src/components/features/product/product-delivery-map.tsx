@@ -36,7 +36,7 @@ export function ProductDeliveryMap({
             <h3 className="text-2xl font-semibold text-primary">
               {deliveryRadiusKm} km delivery radius
             </h3>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+            <p className="mt-3 text-sm  text-muted-foreground">
               Delivery coverage is centered on the owner&apos;s verified pickup
               location and reflects the exact service area shown on the map.
             </p>

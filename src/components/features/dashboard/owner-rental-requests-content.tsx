@@ -124,7 +124,7 @@ function SectionHeader({
         <h2 className="text-xl font-semibold tracking-[-0.04em] text-primary">
           {title}
         </h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
+        <p className="mt-3 max-w-3xl text-sm  text-[#5c5f60] sm:text-base">
           {description}
         </p>
       </div>
@@ -604,7 +604,7 @@ export function OwnerRentalRequestsContent() {
         <h1 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
           Rental Requests
         </h1>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
+        <p className="mt-3 max-w-3xl text-sm  text-[#5c5f60] sm:text-base">
           Review renter requests, track renter payment, and manage each rental
           until admin settles payout manually after completion.
         </p>
@@ -754,7 +754,7 @@ export function OwnerRentalRequestsContent() {
                                 booking.renterPaymentDeadlineAt
                               ) ?? 'Payment window active'}
                             </p>
-                            <p className="mt-1 text-xs leading-6 text-[#7c5a00]">
+                            <p className="mt-1 text-xs  text-[#7c5a00]">
                               These dates stay blocked while the renter
                               completes payment for this booking.
                             </p>
@@ -791,7 +791,7 @@ export function OwnerRentalRequestsContent() {
                                   ? 'Rental window ended'
                                   : 'Payment marked complete'}
                               </p>
-                              <p className="mt-1 text-xs leading-6 text-muted-foreground">
+                              <p className="mt-1 text-xs  text-muted-foreground">
                                 {rentalWindowEnded
                                   ? 'This rental period has ended. Mark it returned safely or open a dispute if something went wrong during handoff or return.'
                                   : 'Start the booking when the equipment handoff begins. Admin payout is tracked after the rental is completed.'}
@@ -865,7 +865,7 @@ export function OwnerRentalRequestsContent() {
                       booking={booking}
                       index={index}
                       helper={
-                        <div className="rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4 text-sm leading-7 text-muted-foreground">
+                        <div className="rounded-xl border border-[#dce4df] bg-[#f7faf7] p-4 text-sm  text-muted-foreground">
                           Close the rental after safe return, or open a dispute
                           with notes and optional evidence images if there was
                           damage or a return issue.
@@ -1023,7 +1023,7 @@ export function OwnerRentalRequestsContent() {
                   onChange={(event) => setDisputeReason(event.target.value)}
                   maxLength={400}
                   rows={6}
-                  className="mt-3 min-h-32 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm leading-7 text-primary outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary"
+                  className="mt-3 min-h-32 w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm  text-primary outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary"
                   placeholder="Describe the damage, return issue, or anything that needs admin review."
                 />
                 <p className="mt-2 text-right text-xs text-[#94a3b8]">

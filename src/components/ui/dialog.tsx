@@ -90,7 +90,7 @@ const DialogDescription = React.forwardRef<
   return (
     <BaseDialog.Description
       ref={ref}
-      className={cn('text-sm leading-7 text-muted-foreground', className)}
+      className={cn('text-sm  text-muted-foreground', className)}
       {...props}
     />
   );

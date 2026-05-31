@@ -55,7 +55,7 @@ function SummaryCard({
       <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary">
         {value}
       </p>
-      <p className="mt-2 text-sm leading-6 text-[#5c5f60]">{helper}</p>
+      <p className="mt-2 text-sm  text-[#5c5f60]">{helper}</p>
     </article>
   );
 }
@@ -113,7 +113,7 @@ export function AdminSupportQueries() {
           <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             Support Queries
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
+          <p className="mt-3 max-w-3xl text-sm  text-[#5c5f60] sm:text-base">
             Review support messages submitted by owners and renters, then
             resolve each query by clearing it from the active admin queue.
           </p>
@@ -211,7 +211,7 @@ export function AdminSupportQueries() {
               We couldn&apos;t load support queries
             </h2>
           </div>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
+          <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">
             Try refreshing this page in a moment. The admin queue will re-run
             automatically.
           </p>
@@ -271,9 +271,7 @@ export function AdminSupportQueries() {
                 </div>
 
                 <div className="mt-5 rounded-xl border border-[#e5ebe6] bg-[#fbfcfa] p-4">
-                  <p className="text-sm leading-7 text-[#45514b]">
-                    {query.message}
-                  </p>
+                  <p className="text-sm  text-[#45514b]">{query.message}</p>
                 </div>
               </article>
             ))}
@@ -292,7 +290,7 @@ export function AdminSupportQueries() {
             <h2 className="text-2xl font-semibold tracking-[-0.03em] text-primary">
               No active support queries
             </h2>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+            <p className="mt-3 text-sm  text-muted-foreground">
               New owner and renter messages will appear here when they submit
               the contact form.
             </p>

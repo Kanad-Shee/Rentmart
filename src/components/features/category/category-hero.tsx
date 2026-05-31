@@ -40,7 +40,7 @@ export function CategoryHero({
             <h1 className="mt-6 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl xl:text-[3.15rem]">
               {title}
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#4f5964] sm:text-base sm:leading-8">
+            <p className="mt-4 max-w-2xl text-sm  text-[#4f5964] sm:text-base sm:">
               {description}
             </p>
           </div>

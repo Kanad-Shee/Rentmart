@@ -129,7 +129,7 @@ export function DashboardSettingsContent({
         <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Account Settings
         </h1>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="mt-3 max-w-3xl text-sm  text-muted-foreground">
           Review your account details, keep your address current, verify your
           phone number, and manage your password securely.
         </p>
@@ -188,7 +188,7 @@ export function DashboardSettingsContent({
             <h2 className="text-2xl font-semibold tracking-[-0.03em] text-foreground">
               Address
             </h2>
-            <p className="mt-2 text-sm leading-7 text-muted-foreground">
+            <p className="mt-2 text-sm  text-muted-foreground">
               Update the address stored on your account. This is the same
               address used elsewhere in the platform.
             </p>
@@ -243,7 +243,7 @@ export function DashboardSettingsContent({
             <h2 className="text-2xl font-semibold tracking-[-0.03em] text-foreground">
               Update Password
             </h2>
-            <p className="mt-2 text-sm leading-7 text-muted-foreground">
+            <p className="mt-2 text-sm  text-muted-foreground">
               Change your password by confirming the current one first.
             </p>
           </div>
@@ -326,7 +326,7 @@ export function DashboardSettingsContent({
           <UserRound className="mt-1 h-5 w-5 text-primary" />
           <div>
             <p className="text-sm font-semibold text-primary">Account Health</p>
-            <p className="mt-1 text-sm leading-7 text-muted-foreground">
+            <p className="mt-1 text-sm  text-muted-foreground">
               Your email is {user.emailVerified ? 'verified' : 'not verified'}{' '}
               and your phone is{' '}
               {user.phoneVerified ? 'verified' : 'not verified'}. Verified

@@ -109,7 +109,7 @@ function SummaryCard({
       <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary">
         {value}
       </p>
-      <p className="mt-2 text-sm leading-6 text-[#5c5f60]">{helper}</p>
+      <p className="mt-2 text-sm  text-[#5c5f60]">{helper}</p>
     </article>
   );
 }
@@ -164,7 +164,7 @@ export function RenterTransactionsContent() {
           <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             Transactions
           </h1>
-          <p className="mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]">
+          <p className="mt-3 max-w-3xl text-base  text-[#5c5f60]">
             Review rental charges, marketplace fees, and manual deposit-refund
             status for every booking from one place.
           </p>
@@ -269,7 +269,7 @@ export function RenterTransactionsContent() {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-5 text-sm leading-6 text-[#475569]">
+                        <td className="px-6 py-5 text-sm  text-[#475569]">
                           {formatDateRange(booking.startDate, booking.endDate)}
                         </td>
                         <td className="px-6 py-5 text-sm font-semibold text-primary">
@@ -310,7 +310,7 @@ export function RenterTransactionsContent() {
             <h2 className="text-2xl font-semibold tracking-[-0.03em] text-primary">
               No transaction activity yet
             </h2>
-            <p className="mt-3 text-sm leading-7 text-[#5c5f60]">
+            <p className="mt-3 text-sm  text-[#5c5f60]">
               Once you start sending rental requests, your fees, holds, and
               booking-linked payment states will show up here, including manual
               refund progress.

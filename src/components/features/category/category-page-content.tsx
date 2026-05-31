@@ -194,9 +194,7 @@ function ErrorState({ message }: { message: string }) {
           We couldn&apos;t load this category
         </h2>
       </div>
-      <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
-        {message}
-      </p>
+      <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">{message}</p>
     </div>
   );
 }
@@ -232,7 +230,7 @@ function ExploreMoreCategories({
               Check Out Other Categories
             </h2>
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-[#5d6f8f]">
+          <p className="max-w-2xl text-sm  text-[#5d6f8f]">
             Discover more verified equipment types across the marketplace.
           </p>
         </div>

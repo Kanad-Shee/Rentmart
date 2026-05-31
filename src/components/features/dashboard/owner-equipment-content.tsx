@@ -132,7 +132,7 @@ function EmptyState({ tab }: { tab: EquipmentTab }) {
       <h3 className="mt-5 text-2xl font-semibold tracking-[-0.03em] text-primary">
         {copy.title}
       </h3>
-      <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#5c5f60]">
+      <p className="mx-auto mt-3 max-w-xl text-sm  text-[#5c5f60]">
         {copy.description}
       </p>
       <Link
@@ -197,7 +197,7 @@ function EquipmentErrorState({ message }: { message: string }) {
         <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           My Machinery
         </h1>
-        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="max-w-3xl text-sm  text-muted-foreground">
           Manage your active listings, pending approvals, and draft equipment.
         </p>
       </div>
@@ -209,9 +209,7 @@ function EquipmentErrorState({ message }: { message: string }) {
             We couldn&apos;t load your equipment
           </h2>
         </div>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
-          {message}
-        </p>
+        <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">{message}</p>
       </div>
     </section>
   );
@@ -310,7 +308,7 @@ export function OwnerEquipmentContent() {
           <h1 className="text-2xl font-extrabold tracking-[-0.04em] text-primary sm:text-3xl">
             My Machinery
           </h1>
-          <p className="max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
+          <p className="max-w-3xl text-sm  text-[#5c5f60] sm:text-base">
             Manage your active listings, pending approvals, and draft equipment.
           </p>
         </div>
@@ -425,7 +423,7 @@ export function OwnerEquipmentContent() {
                       </div>
                       {listing.status === 'REJECTED' &&
                       listing.rejectionReason ? (
-                        <p className="mt-3 max-w-2xl text-sm leading-6 text-[#9c1f16]">
+                        <p className="mt-3 max-w-2xl text-sm  text-[#9c1f16]">
                           Rejection reason: {listing.rejectionReason}
                         </p>
                       ) : null}

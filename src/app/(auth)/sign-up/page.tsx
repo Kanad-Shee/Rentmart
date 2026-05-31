@@ -146,14 +146,14 @@ export default function SignUpPage() {
 
       <div className="flex min-h-[calc(100vh-80px)] flex-col lg:flex-row">
         <section className="relative hidden overflow-hidden bg-[linear-gradient(135deg,#f0fdf4_0%,#ecfeff_52%,#ffffff_100%)] px-10 py-10 lg:flex lg:w-[46%] lg:flex-col lg:justify-start xl:px-14 xl:py-14">
-          <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(#012d1d_1px,transparent_1px)] [background-size:42px_42px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(#012d1d_1px,transparent_1px)] bg-size-[42px_42px] opacity-[0.05]" />
           <div className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-primary-fixed opacity-25 blur-3xl" />
 
           <div className="relative pt-10 w-fit ml-auto z-10 max-w-xl">
             <h1 className="max-w-lg text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-[2.65rem] lg:text-[3.2rem] xl:text-[3.35rem] xl:leading-[1.06]">
               Join the Future of Rural Machinery
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-[#5c615e] lg:text-[17px]">
+            <p className="mt-5 max-w-xl text-base  text-[#5c615e] lg:text-[17px]">
               Experience the most reliable machinery ecosystem. Precision in
               procurement for owners and renters alike.
             </p>
@@ -167,7 +167,7 @@ export default function SignUpPage() {
                   <p className="text-[13px] font-semibold uppercase tracking-[0.22em] text-primary">
                     Secure Payments
                   </p>
-                  <p className="mt-1 text-sm leading-6 text-[#5e6661]">
+                  <p className="mt-1 text-sm  text-[#5e6661]">
                     Escrow-protected transactions for every rental contract.
                   </p>
                 </div>
@@ -181,7 +181,7 @@ export default function SignUpPage() {
                   <p className="text-[13px] font-semibold uppercase tracking-[0.22em] text-primary">
                     Verified Users
                   </p>
-                  <p className="mt-1 text-sm leading-6 text-[#5e6661]">
+                  <p className="mt-1 text-sm  text-[#5e6661]">
                     Strict identity verification for a high-trust marketplace.
                   </p>
                 </div>
@@ -195,7 +195,7 @@ export default function SignUpPage() {
                   <p className="text-[13px] font-semibold uppercase tracking-[0.22em] text-primary">
                     Platform Insurance
                   </p>
-                  <p className="mt-1 text-sm leading-6 text-[#5e6661]">
+                  <p className="mt-1 text-sm  text-[#5e6661]">
                     Comprehensive damage coverage on all industrial equipment.
                   </p>
                 </div>
@@ -210,14 +210,14 @@ export default function SignUpPage() {
         </section>
 
         <section className="relative flex w-full flex-1 items-center justify-center bg-white px-6 py-10 sm:px-10 lg:w-[54%] lg:px-14 lg:py-14 xl:px-20">
-          <div className="absolute inset-0 opacity-[0.03] [background-image:radial-gradient(#012d1d_1px,transparent_1px)] [background-size:36px_36px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(#012d1d_1px,transparent_1px)] bg-size-[36px_36px] opacity-[0.03]" />
 
           <div className="relative z-10 w-fit lg:mr-auto max-w-xl">
             <header className="mb-7">
               <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-[2.15rem]">
                 Create your account
               </h2>
-              <p className="mt-2 text-sm leading-6 text-[#5e6661] sm:text-[15px]">
+              <p className="mt-2 text-sm  text-[#5e6661] sm:text-[15px]">
                 Join our industrial network and start trading today.
               </p>
             </header>
@@ -251,7 +251,7 @@ export default function SignUpPage() {
                                 <p className="text-base font-medium tracking-[-0.02em] text-primary">
                                   {option.title}
                                 </p>
-                                <p className="mt-1.5 text-sm leading-6 text-[#5e6661]">
+                                <p className="mt-1.5 text-sm  text-[#5e6661]">
                                   {option.description}
                                 </p>
                               </div>
@@ -320,7 +320,7 @@ export default function SignUpPage() {
                 <Button
                   type="submit"
                   disabled={signUpMutation.isPending}
-                  className="h-[52px] w-full rounded-md bg-linear-to-b from-primary/85 via-primary/90 to-primary/95 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90">
+                  className="h-13 w-full rounded-md bg-linear-to-b from-primary/85 via-primary/90 to-primary/95 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90">
                   {signUpMutation.isPending
                     ? 'Creating Account...'
                     : 'Create Account'}
@@ -339,7 +339,7 @@ export default function SignUpPage() {
 
               <Separator className="bg-[#d8dbd7]" />
 
-              <p className="text-center text-xs leading-6 text-[#6b7075] sm:text-sm">
+              <p className="text-center text-xs  text-[#6b7075] sm:text-sm">
                 By signing up, you agree to our{' '}
                 <Link
                   prefetch

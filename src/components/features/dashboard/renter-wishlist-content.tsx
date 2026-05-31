@@ -136,7 +136,7 @@ function EmptyState() {
       <h2 className="mt-8 text-3xl font-semibold tracking-[-0.03em] text-primary">
         No saved machinery yet
       </h2>
-      <p className="mx-auto mt-4 max-w-2xl text-base leading-8 text-[#5c5f60]">
+      <p className="mx-auto mt-4 max-w-2xl text-base  text-[#5c5f60]">
         Build your wishlist for upcoming projects. Browse our marketplace to
         find the best heavy equipment for your needs.
       </p>
@@ -168,7 +168,7 @@ export function RenterWishlistContent() {
           <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             My Wishlist
           </h1>
-          <p className="max-w-3xl text-base leading-8 text-[#5c5f60]">
+          <p className="max-w-3xl text-base  text-[#5c5f60]">
             Keep your saved equipment close so you can compare and revisit it
             any time.
           </p>
@@ -181,7 +181,7 @@ export function RenterWishlistContent() {
               We couldn&apos;t load your wishlist
             </h2>
           </div>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
+          <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">
             {wishlistQuery.error instanceof ApiError
               ? wishlistQuery.error.message
               : 'Try refreshing this page in a moment.'}
@@ -200,7 +200,7 @@ export function RenterWishlistContent() {
           <h1 className="text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             Saved Machinery
           </h1>
-          <p className="max-w-3xl text-base leading-8 text-[#5c5f60]">
+          <p className="max-w-3xl text-base  text-[#5c5f60]">
             {listings.length === 0
               ? 'Start saving equipment to compare options and revisit them quickly.'
               : `You have ${listings.length} saved item${listings.length === 1 ? '' : 's'} in your wishlist.`}
@@ -286,7 +286,7 @@ export function RenterWishlistContent() {
 
                     <div className="flex shrink-0 items-start gap-1 text-sm text-[#64748b]">
                       <MapPin className="mt-0.5 h-4 w-4" />
-                      <span className="max-w-24 leading-6">
+                      <span className="max-w-24 ">
                         {getLocationLabel(listing.normalizedAddress)}
                       </span>
                     </div>

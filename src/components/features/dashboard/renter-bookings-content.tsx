@@ -109,7 +109,7 @@ function SectionHeader({
         <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl xl:text-4xl">
           {title}
         </h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
+        <p className="mt-3 max-w-3xl text-sm  text-[#5c5f60] sm:text-base">
           {description}
         </p>
       </div>
@@ -384,7 +384,7 @@ export function RenterBookingsContent() {
           <h1 className="text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             My Bookings
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
+          <p className="mt-3 max-w-3xl text-sm  text-[#5c5f60] sm:text-base">
             Track owner approvals, complete Cashfree checkout when a request is
             accepted, and follow your rental progress until the admin settles
             owner payout and your deposit refund.
@@ -441,7 +441,7 @@ export function RenterBookingsContent() {
                           <p className="text-sm font-semibold text-primary">
                             Waiting on owner response
                           </p>
-                          <p className="mt-1 text-xs leading-6 text-muted-foreground">
+                          <p className="mt-1 text-xs  text-muted-foreground">
                             No payment hold is placed yet. If the owner
                             approves, you will get a 1-hour window to complete
                             payment in Cashfree.
@@ -482,7 +482,7 @@ export function RenterBookingsContent() {
                               booking.renterPaymentDeadlineAt
                             ) ?? 'Payment window active'}
                           </p>
-                          <p className="mt-1 text-xs leading-6 text-[#7c5a00]">
+                          <p className="mt-1 text-xs  text-[#7c5a00]">
                             These dates are reserved for you until the payment
                             window ends. Your booking will be confirmed only
                             after Cashfree payment confirmation completes, and
@@ -490,7 +490,7 @@ export function RenterBookingsContent() {
                             a safe return.
                           </p>
                           {booking.lastPaymentError ? (
-                            <p className="mt-2 text-xs leading-6 text-[#b42318]">
+                            <p className="mt-2 text-xs  text-[#b42318]">
                               Last payment issue: {booking.lastPaymentError}
                             </p>
                           ) : null}

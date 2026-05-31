@@ -128,12 +128,12 @@ export default function SignInPage() {
 
       <div className="flex min-h-[calc(100vh-80px)] flex-col lg:flex-row">
         <section className="relative flex w-full flex-1 items-center justify-center bg-white px-6 py-10 sm:px-10 lg:w-[48%] lg:px-14 lg:py-14 xl:px-20">
-          <div className="relative z-10 w-full max-w-[420px]">
+          <div className="relative z-10 w-full max-w-105">
             <header className="mb-7">
               <h1 className="max-w-xl text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-[2.55rem] sm:leading-[1.1]">
                 Welcome back to Rentmart
               </h1>
-              <p className="mt-3 max-w-md text-sm leading-6 text-[#5e6661] sm:text-[15px]">
+              <p className="mt-3 max-w-md text-sm  text-[#5e6661] sm:text-[15px]">
                 Please enter your details to access your dashboard.
               </p>
             </header>
@@ -192,7 +192,7 @@ export default function SignInPage() {
               <Button
                 type="submit"
                 disabled={signInMutation.isPending}
-                className="h-[52px] w-full rounded-md text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90">
+                className="h-13 w-full rounded-md text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90">
                 {signInMutation.isPending ? 'Signing In...' : 'Sign In'}
               </Button>
             </form>
@@ -212,10 +212,10 @@ export default function SignInPage() {
         </section>
 
         <section className="relative hidden overflow-hidden bg-[linear-gradient(135deg,#f0fdf4_0%,#ecfeff_50%,#ffffff_100%)] px-10 py-10 lg:flex lg:w-[52%] lg:flex-col lg:items-center lg:justify-center xl:px-14 xl:py-14">
-          <div className="absolute inset-0 opacity-[0.03] [background-image:radial-gradient(#012d1d_1px,transparent_1px)] [background-size:40px_40px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(#012d1d_1px,transparent_1px)] bg-size-[40px_40px] opacity-[0.03]" />
 
-          <div className="relative z-10 w-full max-w-[600px]">
-            <div className="relative mx-auto aspect-[1.05] w-full max-w-[520px] overflow-hidden">
+          <div className="relative z-10 w-full max-w-150">
+            <div className="relative mx-auto aspect-[1.05] w-full max-w-130 overflow-hidden">
               <div className="absolute inset-0 rounded-md bg-primary-fixed/40 blur-3xl" />
               <div className="relative h-full w-full overflow-hidden rounded-md border border-[#dce0db] bg-white shadow-[0_20px_50px_rgba(1,45,29,0.08)]">
                 <Image
@@ -227,10 +227,10 @@ export default function SignInPage() {
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
 
-                <Card className="absolute bottom-6 right-5 w-[280px] border border-[#dce0db] bg-white/95 py-0 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur">
+                <Card className="absolute bottom-6 right-5 w-70 border border-[#dce0db] bg-white/95 py-0 shadow-[0_10px_30px_rgba(0,0,0,0.05)] backdrop-blur">
                   <CardContent className="flex items-center gap-3 px-4 py-3">
                     <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary-fixed">
-                      <ShieldCheck className="h-[18px] w-[18px] text-primary" />
+                      <ShieldCheck className="h-4.5 w-4.5 text-primary" />
                     </div>
                     <div>
                       <CardTitle className="text-xl font-semibold tracking-[-0.03em] text-primary">
@@ -245,7 +245,7 @@ export default function SignInPage() {
               </div>
             </div>
 
-            <p className="mx-auto mt-10 max-w-xl text-center text-base leading-7 text-primary">
+            <p className="mx-auto mt-10 max-w-xl text-center text-base  text-primary">
               Experience the most reliable machinery ecosystem for owners and
               renters alike.
             </p>

@@ -161,14 +161,14 @@ function JourneyStep({
         <h3 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl leading-tight">
           {title}
         </h3>
-        <p className="mt-6 max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
+        <p className="mt-6 max-w-xl text-base  text-muted-foreground sm:text-lg">
           {body}
         </p>
       </div>
 
       <div
         className={[
-          'relative overflow-hidden rounded-none border border-neutral-200/35 bg-gradient-to-br from-white via-white to-white/95 p-6 shadow-md shadow-primary/10 ring-1 ring-inset ring-primary/3 transition-all duration-300 hover:shadow-lg hover:shadow-primary/15 hover:border-neutral-200/50 sm:p-8',
+          'relative overflow-hidden rounded-none border border-neutral-200/35 bg-linear-to-br from-white via-white to-white/95 p-6 shadow-md shadow-primary/10 ring-1 ring-inset ring-primary/3 transition-all duration-300 hover:shadow-lg hover:shadow-primary/15 hover:border-neutral-200/50 sm:p-8',
           reverse ? 'md:order-1' : ''
         ].join(' ')}>
         {/* Top-left corner conic gradient */}
@@ -183,7 +183,7 @@ function JourneyStep({
         {/* Bottom-right corner conic gradient */}
         <div className="pointer-events-none absolute bottom-0 right-0 w-20 h-20 bg-[conic-gradient(from_315deg_at_0%_0%,rgba(27,67,50,0.12),rgba(27,67,50,0.03),transparent)] opacity-60" />
 
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(193,236,212,0.15),_transparent_48%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(193,236,212,0.15),transparent_48%)]" />
         <Image
           src={image}
           alt={alt}
@@ -246,10 +246,10 @@ export default function AboutPage() {
               <SectionEyebrow>
                 Built For Modern Equipment Sharing
               </SectionEyebrow>
-              <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-[-0.05em] text-primary sm:text-4xl lg:text-5xl xl:text-6xl">
+              <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tighter text-primary sm:text-4xl lg:text-5xl xl:text-6xl">
                 Moving idle machines into active, revenue-generating work.
               </h1>
-              <p className="mt-6 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base lg:text-lg lg:leading-8">
+              <p className="mt-6 max-w-2xl text-sm  text-muted-foreground sm:text-base lg:text-lg lg:">
                 Rentmart helps equipment owners earn from underused assets and
                 helps contractors, builders, and industrial teams book verified
                 machinery faster with clearer trust, logistics, and payment
@@ -273,17 +273,17 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.div
-              className="relative min-h-[300px] overflow-hidden rounded-3xl bg-[#f7f8f3] sm:min-h-[420px] lg:min-h-[620px] border border-primary/10 shadow-lg shadow-primary/12 ring-1 ring-inset ring-primary/5"
+              className="relative min-h-75 overflow-hidden rounded-3xl border border-primary/10 bg-[#f7f8f3] shadow-lg shadow-primary/12 ring-1 ring-inset ring-primary/5 sm:min-h-105 lg:min-h-155"
               {...getRevealProps(shouldReduceMotion, 2)}>
-              <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0)_48%,_rgba(249,250,246,0.28)_68%,_rgba(249,250,246,0.82)_86%,_rgba(249,250,246,1)_100%)]" />
-              <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,_rgba(249,250,246,0.92)_0%,_rgba(249,250,246,0.08)_18%,_rgba(249,250,246,0.02)_50%,_rgba(249,250,246,0.12)_82%,_rgba(249,250,246,0.88)_100%),linear-gradient(90deg,_rgba(249,250,246,0.82)_0%,_rgba(249,250,246,0.06)_16%,_rgba(249,250,246,0)_50%,_rgba(249,250,246,0.06)_84%,_rgba(249,250,246,0.82)_100%)]" />
-              <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,_rgba(193,236,212,0.18),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(193,236,212,0.14),_transparent_24%)]" />
+              <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0)_48%,rgba(249,250,246,0.28)_68%,rgba(249,250,246,0.82)_86%,rgba(249,250,246,1)_100%)]" />
+              <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(249,250,246,0.92)_0%,rgba(249,250,246,0.08)_18%,rgba(249,250,246,0.02)_50%,rgba(249,250,246,0.12)_82%,rgba(249,250,246,0.88)_100%),linear-gradient(90deg,rgba(249,250,246,0.82)_0%,rgba(249,250,246,0.06)_16%,rgba(249,250,246,0)_50%,rgba(249,250,246,0.06)_84%,rgba(249,250,246,0.82)_100%)]" />
+              <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,rgba(193,236,212,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(193,236,212,0.14),transparent_24%)]" />
               <Image
                 src="/assets/rentmart-marketplace-assets/rentmart_about_page_design/rentmart_about_hero.webp"
                 alt="Rentmart hero illustration showing a trusted equipment marketplace handoff"
                 fill
                 priority
-                className="object-cover object-center scale-[1.06] [mask-image:radial-gradient(circle_at_center,black_52%,rgba(0,0,0,0.94)_68%,rgba(0,0,0,0.58)_84%,transparent_100%)]"
+                className="object-cover object-center scale-[1.06] mask-[radial-gradient(circle_at_center,black_52%,rgba(0,0,0,0.94)_68%,rgba(0,0,0,0.58)_84%,transparent_100%)]"
               />
             </motion.div>
           </div>
@@ -294,7 +294,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2">
             <motion.article
-              className="rounded-2xl border border-[#e4d4d1]/60 bg-gradient-to-br from-[#f5efee] to-[#f9f6f5] p-8 shadow-md shadow-red-950/8 ring-1 ring-inset ring-red-950/5 transition-all duration-300 hover:shadow-lg hover:shadow-red-950/12 hover:border-[#e4d4d1]"
+              className="rounded-2xl border border-[#e4d4d1]/60 bg-linear-to-br from-[#f5efee] to-[#f9f6f5] p-8 shadow-md shadow-red-950/8 ring-1 ring-inset ring-red-950/5 transition-all duration-300 hover:shadow-lg hover:shadow-red-950/12 hover:border-[#e4d4d1]"
               {...getRevealProps(shouldReduceMotion, 0)}>
               <div className="flex items-center gap-3 text-[#9a463d]">
                 <TrendingDown className="h-5 w-5" />
@@ -302,7 +302,7 @@ export default function AboutPage() {
                   The Problem
                 </h2>
               </div>
-              <ul className="mt-6 space-y-4 text-sm leading-7 text-[#6f6664] sm:text-base">
+              <ul className="mt-6 space-y-4 text-sm  text-[#6f6664] sm:text-base">
                 <li>
                   Idle machinery loses value while still carrying maintenance,
                   financing, and storage costs.
@@ -315,7 +315,7 @@ export default function AboutPage() {
             </motion.article>
 
             <motion.article
-              className="rounded-2xl border border-[#cce3d6]/60 bg-gradient-to-br from-[#dff3e6] to-[#f0f8f2] p-8 shadow-md shadow-primary/8 ring-1 ring-inset ring-primary/5 transition-all duration-300 hover:shadow-lg hover:shadow-primary/12 hover:border-[#cce3d6]"
+              className="rounded-2xl border border-[#cce3d6]/60 bg-linear-to-br from-[#dff3e6] to-[#f0f8f2] p-8 shadow-md shadow-primary/8 ring-1 ring-inset ring-primary/5 transition-all duration-300 hover:shadow-lg hover:shadow-primary/12 hover:border-[#cce3d6]"
               {...getRevealProps(shouldReduceMotion, 1)}>
               <div className="flex items-center gap-3 text-primary">
                 <TrendingUp className="h-5 w-5" />
@@ -323,7 +323,7 @@ export default function AboutPage() {
                   The Rentmart Solution
                 </h2>
               </div>
-              <ul className="mt-6 space-y-4 text-sm leading-7 text-[#355344] sm:text-base">
+              <ul className="mt-6 space-y-4 text-sm  text-[#355344] sm:text-base">
                 <li>
                   Owners unlock new revenue from existing fleets without adding
                   heavy admin overhead.
@@ -347,7 +347,7 @@ export default function AboutPage() {
             <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl">
               How It Works For Owners
             </h2>
-            <div className="mx-auto mt-6 h-1 w-32 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+            <div className="mx-auto mt-6 h-1 w-32 bg-linear-to-r from-transparent via-primary/40 to-transparent" />
           </motion.div>
 
           <div className="mt-14 space-y-16 sm:space-y-20 lg:space-y-24">
@@ -364,7 +364,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-[#f1f2ee] to-background py-28">
+      <section className="bg-linear-to-b from-[#f1f2ee] to-background py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -373,7 +373,7 @@ export default function AboutPage() {
             <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl">
               How It Works For Renters
             </h2>
-            <div className="mx-auto mt-6 h-1 w-32 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+            <div className="mx-auto mt-6 h-1 w-32 bg-linear-to-r from-transparent via-primary/40 to-transparent" />
           </motion.div>
 
           <div className="mt-14 space-y-16 sm:space-y-20 lg:space-y-24">
@@ -399,7 +399,7 @@ export default function AboutPage() {
             <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl">
               Trust & Safety
             </h2>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground sm:text-base lg:text-lg">
+            <p className="mt-4 text-sm  text-muted-foreground sm:text-base lg:text-lg">
               The protections that make equipment rentals feel more
               professional, more transparent, and easier to scale.
             </p>
@@ -414,8 +414,8 @@ export default function AboutPage() {
                     'rounded-2xl border p-7 shadow-md ring-1 ring-inset transition-all duration-300',
                     className ===
                     'md:col-span-2 bg-primary text-primary-foreground border-primary/80'
-                      ? 'md:col-span-2 bg-gradient-to-br from-primary to-primary/95 text-primary-foreground border-primary/60 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-1 ring-primary/20'
-                      : 'bg-gradient-to-br from-[#efefeb] to-[#f5f5f2] text-foreground border-border/60 shadow-primary/5 hover:shadow-lg hover:shadow-primary/10 hover:border-primary/20 hover:-translate-y-1 ring-primary/8'
+                      ? 'md:col-span-2 border-primary/60 bg-linear-to-br from-primary to-primary/95 text-primary-foreground shadow-lg shadow-primary/20 ring-primary/20 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25'
+                      : 'border-border/60 bg-linear-to-br from-[#efefeb] to-[#f5f5f2] text-foreground shadow-primary/5 ring-primary/8 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/10'
                   ].join(' ')}
                   {...getRevealProps(shouldReduceMotion, index + 1)}>
                   <div className="flex items-start justify-between gap-4">
@@ -436,7 +436,7 @@ export default function AboutPage() {
                   <h3 className="mt-6 text-2xl font-semibold tracking-[-0.04em] leading-tight">
                     {title}
                   </h3>
-                  <p className="mt-4 text-sm leading-7 opacity-90 sm:text-base">
+                  <p className="mt-4 text-sm  opacity-90 sm:text-base">
                     {body}
                   </p>
                 </motion.article>
@@ -449,19 +449,19 @@ export default function AboutPage() {
       <section className="pb-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-primary/90 px-6 py-20 text-center text-primary-foreground shadow-2xl shadow-primary/25 ring-1 ring-inset ring-primary/30 lg:px-16 lg:py-24 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/35"
+            className="relative overflow-hidden rounded-3xl bg-linear-to-br from-primary via-primary to-primary/90 px-6 py-20 text-center text-primary-foreground shadow-2xl shadow-primary/25 ring-1 ring-inset ring-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/35 lg:px-16 lg:py-24"
             {...getRevealProps(shouldReduceMotion, 0)}>
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(165,208,185,0.2),_transparent_45%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(165,208,185,0.2),transparent_45%)]" />
             <div className="pointer-events-none absolute inset-x-10 top-10 h-px bg-white/25" />
             <div className="pointer-events-none absolute inset-x-10 bottom-10 h-px bg-white/15" />
             <div className="relative mx-auto max-w-3xl">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/20 bg-white/10 shadow-lg">
                 <Tractor className="h-8 w-8" />
               </div>
-              <h2 className="mt-8 text-3xl font-semibold tracking-[-0.05em] text-white sm:text-4xl lg:text-5xl xl:text-6xl leading-tight">
+              <h2 className="mt-8 text-3xl font-semibold leading-tight tracking-tighter text-white sm:text-4xl lg:text-5xl xl:text-6xl">
                 Ready to join the Rentmart community?
               </h2>
-              <p className="mt-6 text-base leading-8 text-[#cde4d7] sm:text-lg">
+              <p className="mt-6 text-base  text-[#cde4d7] sm:text-lg">
                 Whether you want to monetize your fleet or source dependable
                 machinery for the next project, Rentmart is built to make the
                 process faster and more trusted.

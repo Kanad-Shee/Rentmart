@@ -694,7 +694,7 @@ export function DashboardAddListingContent() {
               We couldn&apos;t load categories
             </h2>
           </div>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
+          <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">
             {categoriesQuery.error instanceof ApiError
               ? categoriesQuery.error.message
               : 'Try refreshing this page in a moment.'}
@@ -748,7 +748,7 @@ export function DashboardAddListingContent() {
               We couldn&apos;t find that listing
             </h2>
           </div>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
+          <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">
             It may have been deleted already or you might not have access to it.
           </p>
           <Link
@@ -788,7 +788,7 @@ export function DashboardAddListingContent() {
             ? 'Edit Equipment Listing'
             : 'Create New Equipment Listing'}
         </h1>
-        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="max-w-3xl text-sm  text-muted-foreground">
           {isEditing
             ? 'Update your machinery details, manage images, and choose whether to keep it as draft or submit it for verification.'
             : 'Provide accurate details to ensure your machinery is verified and listed as soon as possible.'}
@@ -803,7 +803,7 @@ export function DashboardAddListingContent() {
               Verify your phone number before submitting listings
             </h2>
           </div>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5b4300]">
+          <p className="mt-3 max-w-3xl text-sm  text-[#5b4300]">
             You can still save this listing as a draft now. Phone verification
             is required only when you submit it for admin review.
           </p>
@@ -877,7 +877,7 @@ export function DashboardAddListingContent() {
                 maxLength={2000}
                 rows={6}
                 placeholder="Share the machine condition, ideal use cases, included attachments, and anything renters should know before booking."
-                className="w-full rounded-md border border-border bg-background px-4 py-3 text-sm leading-7 outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
+                className="w-full rounded-md border border-border bg-background px-4 py-3 text-sm  outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
               />
               <p className="mt-2 text-xs leading-5 text-muted-foreground">
                 Leave this blank if you want Rentmart to keep showing the
@@ -995,7 +995,7 @@ export function DashboardAddListingContent() {
               <p className="mt-5 text-base font-semibold text-foreground">
                 Upload 3 to 5 high-resolution images
               </p>
-              <p className="mt-2 max-w-md text-sm leading-7 text-muted-foreground">
+              <p className="mt-2 max-w-md text-sm  text-muted-foreground">
                 Drag and drop your files here or click to browse. JPEG and PNG
                 supported. Saved images stay attached unless you remove them.
               </p>

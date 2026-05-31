@@ -42,7 +42,7 @@ function SectionTitle({
       <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
         {title}
       </h1>
-      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+      <p className="mt-3 max-w-3xl text-sm  text-muted-foreground">
         {description}
       </p>
     </div>
@@ -412,7 +412,7 @@ function OwnerOverviewContent({
               <h3 className="mt-4 text-xl font-semibold tracking-[-0.03em] text-foreground">
                 No listing activity yet
               </h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              <p className="mt-3 text-sm  text-muted-foreground">
                 Your overview will populate automatically once you create
                 equipment listings and they move through review.
               </p>
@@ -566,7 +566,7 @@ function OwnerOverviewErrorState({ error }: { error: unknown }) {
               : 'We couldn&apos;t load your equipment overview'}
           </h2>
         </div>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
+        <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">
           {isPhoneVerificationError
             ? 'Owner equipment data is currently protected until your phone number is verified. Once verification is complete, your listing and review counts will appear here automatically.'
             : 'Try refreshing this page in a moment. Your listings and review counts will appear here once the connection is restored.'}

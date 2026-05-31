@@ -383,7 +383,7 @@ export function ProductRentalCard({
             <p className="text-sm font-semibold text-primary">
               Booking Protection
             </p>
-            <p className="mt-1 text-xs leading-6 text-muted-foreground">
+            <p className="mt-1 text-xs  text-muted-foreground">
               Damage waiver and platform charges are mandatory. Payment
               authorization happens after owner approval, and final routing
               completes after safe return or dispute handling.

@@ -82,7 +82,7 @@ function SummaryCard({
       <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary">
         {value}
       </p>
-      <p className="mt-2 text-sm leading-6 text-[#5c5f60]">{helper}</p>
+      <p className="mt-2 text-sm  text-[#5c5f60]">{helper}</p>
     </article>
   );
 }
@@ -127,7 +127,7 @@ export function AdminUserManagement() {
           <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             User Management
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
+          <p className="mt-3 max-w-3xl text-sm  text-[#5c5f60] sm:text-base">
             Search platform accounts, review verification readiness, and inspect
             owner and renter activity from one queue.
           </p>
@@ -219,7 +219,7 @@ export function AdminUserManagement() {
               We couldn&apos;t load platform users
             </h2>
           </div>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
+          <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">
             Try refreshing this page in a moment. Admin user filters will re-run
             automatically.
           </p>

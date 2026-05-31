@@ -75,7 +75,7 @@ function SummaryCard({
       <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary">
         {value}
       </p>
-      <p className="mt-2 text-sm leading-6 text-[#5c5f60]">{helper}</p>
+      <p className="mt-2 text-sm  text-[#5c5f60]">{helper}</p>
     </article>
   );
 }
@@ -134,7 +134,7 @@ export function OwnerTransactionsContent() {
           <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             Transactions
           </h1>
-          <p className="mt-3 max-w-3xl text-base leading-8 text-[#5c5f60]">
+          <p className="mt-3 max-w-3xl text-base  text-[#5c5f60]">
             Track captured renter payments, owner payout progress, and
             deposit-refund state across your bookings.
           </p>
@@ -238,7 +238,7 @@ export function OwnerTransactionsContent() {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-5 text-sm leading-6 text-[#475569]">
+                        <td className="px-6 py-5 text-sm  text-[#475569]">
                           {formatDateRange(booking.startDate, booking.endDate)}
                         </td>
                         <td className="px-6 py-5 text-sm font-semibold text-primary">
@@ -286,7 +286,7 @@ export function OwnerTransactionsContent() {
             <p className="text-sm font-semibold text-primary">
               Settlement note
             </p>
-            <p className="mt-2 text-sm leading-7 text-[#5c5f60]">
+            <p className="mt-2 text-sm  text-[#5c5f60]">
               Owner payouts and security-deposit refunds are still
               admin-recorded settlement actions in this build, so disputed or
               completed bookings may remain pending until operations marks them

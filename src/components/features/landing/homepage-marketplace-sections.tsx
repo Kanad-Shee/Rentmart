@@ -144,7 +144,7 @@ function EmptyState({
       <h3 className="text-xl font-semibold tracking-[-0.03em] text-foreground sm:text-2xl">
         {title}
       </h3>
-      <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
+      <p className="mx-auto mt-3 max-w-2xl text-sm  text-muted-foreground">
         {description}
       </p>
     </div>
@@ -410,7 +410,7 @@ export function HomepageMarketplaceSections() {
                 animate: { opacity: 1, y: 0 }
               }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
-              className="mt-7 max-w-xl text-center text-sm font-medium leading-7 tracking-tight text-muted-foreground sm:text-base lg:mt-8 lg:text-start lg:text-lg lg:leading-8">
+              className="mt-7 max-w-xl text-center text-sm font-medium  tracking-tight text-muted-foreground sm:text-base lg:mt-8 lg:text-start lg:text-lg lg:">
               The world&apos;s premier industrial marketplace for heavy
               machinery. High-capacity equipment, verified owners, and
               comprehensive protection for every project.
@@ -446,7 +446,7 @@ export function HomepageMarketplaceSections() {
                   AG
                 </motion.div>
               </div>
-              <p className="text-sm font-medium text-muted-foreground leading-6">
+              <p className="text-sm font-medium text-muted-foreground ">
                 <span className="font-semibold text-primary">
                   Live inventory
                 </span>{' '}
@@ -620,7 +620,7 @@ export function HomepageMarketplaceSections() {
                   <h2 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-foreground sm:text-2xl">
                     New listings coming soon
                   </h2>
-                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                  <p className="mt-1 text-sm  text-muted-foreground">
                     As owners publish active equipment, the freshest listing
                     will appear here automatically.
                   </p>

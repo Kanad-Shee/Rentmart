@@ -103,14 +103,14 @@ export default function Home() {
             {steps.map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
-                className="group relative text-center border border-solid border-neutral-300/40 ring-1 ring-inset ring-black/5 p-8 rounded-xl shadow-sm transition-all duration-300 hover:shadow-lg hover:border-primary/20 hover:-translate-y-1 bg-gradient-to-br from-white to-white/50">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary/15 to-primary/5 shadow-md ring-1 ring-inset ring-primary/10 transition-all duration-300 group-hover:from-primary/25 group-hover:to-primary/10">
+                className="group relative rounded-xl border border-solid border-neutral-300/40 bg-linear-to-br from-white to-white/50 p-8 text-center shadow-sm ring-1 ring-inset ring-black/5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-primary/15 to-primary/5 shadow-md ring-1 ring-inset ring-primary/10 transition-all duration-300 group-hover:from-primary/25 group-hover:to-primary/10">
                   <Icon className="h-5 w-5 text-primary transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
                   {title}
                 </h3>
-                <p className="mx-auto mt-4 max-w-sm text-sm leading-7 text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">
+                <p className="mx-auto mt-4 max-w-sm text-sm  text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">
                   {text}
                 </p>
               </div>
@@ -121,7 +121,7 @@ export default function Home() {
 
       <section className="py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-primary/90 px-6 py-20 text-center shadow-2xl shadow-primary/20 sm:px-10 lg:px-16 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/30">
+          <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-primary via-primary to-primary/90 px-6 py-20 text-center shadow-2xl shadow-primary/20 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/30 sm:px-10 lg:px-16">
             <div className="pointer-events-none absolute inset-0 opacity-10">
               <div className="absolute inset-x-10 top-10 h-px bg-white/40" />
               <div className="absolute inset-x-10 bottom-10 h-px bg-white/20" />
@@ -129,10 +129,10 @@ export default function Home() {
               <div className="absolute right-10 top-10 bottom-10 w-px bg-white/20" />
             </div>
 
-            <h2 className="relative text-3xl font-extrabold tracking-[-0.05em] text-white sm:text-4xl lg:text-5xl xl:text-6xl leading-tight">
+            <h2 className="relative text-3xl font-extrabold tracking-tighter text-white sm:text-4xl lg:text-5xl xl:text-6xl">
               Ready to Scale Your Fleet?
             </h2>
-            <p className="relative mx-auto mt-6 max-w-2xl text-base leading-8 text-[#c1ecd4] sm:text-lg">
+            <p className="relative mx-auto mt-6 max-w-2xl text-base  text-[#c1ecd4] sm:text-lg">
               Join over 10,000 industrial businesses optimizing their capital
               expenditure through Rentmart&apos;s marketplace.
             </p>

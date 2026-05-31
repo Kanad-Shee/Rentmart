@@ -147,7 +147,7 @@ function EmptyState() {
       <h2 className="mt-5 text-xl font-semibold tracking-[-0.03em] text-primary sm:text-2xl">
         No updates yet
       </h2>
-      <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">
+      <p className="mx-auto mt-3 max-w-2xl text-sm  text-muted-foreground">
         Listing moderation alerts and booking request updates will appear here
         with direct actions into the right dashboard workspace.
       </p>
@@ -164,9 +164,7 @@ function ErrorState({ message }: { message: string }) {
           We couldn&apos;t load your notifications
         </h2>
       </div>
-      <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
-        {message}
-      </p>
+      <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">{message}</p>
     </div>
   );
 }
@@ -253,9 +251,7 @@ function NotificationCardRow({
             {formatTimestamp(item.createdAt)}
           </span>
         </div>
-        <p className="mt-1 text-sm leading-7 text-muted-foreground">
-          {item.message}
-        </p>
+        <p className="mt-1 text-sm  text-muted-foreground">{item.message}</p>
 
         <div className="mt-4 flex flex-wrap gap-3">
           {item.actionLabel && item.actionHref ? (
@@ -318,7 +314,7 @@ export function NotificationsContent({
                 </h1>
               </div>
             </div>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+            <p className="mt-4 max-w-3xl text-sm  text-muted-foreground">
               Track listing and booking updates from one shared inbox.
             </p>
           </div>
@@ -346,7 +342,7 @@ export function NotificationsContent({
                 </h1>
               </div>
             </div>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+            <p className="mt-4 max-w-3xl text-sm  text-muted-foreground">
               Track listing and booking updates from one shared inbox.
             </p>
           </div>
@@ -403,7 +399,7 @@ export function NotificationsContent({
               </h1>
             </div>
           </div>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+          <p className="mt-4 max-w-3xl text-sm  text-muted-foreground">
             Track listing moderation and booking request updates from one shared
             inbox.
           </p>
@@ -552,7 +548,7 @@ export function NotificationsContent({
                       <p className="text-sm font-semibold text-foreground">
                         {item.title}
                       </p>
-                      <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                      <p className="mt-1 text-sm  text-muted-foreground">
                         {item.text}
                       </p>
                     </div>

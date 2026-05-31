@@ -512,7 +512,7 @@ export function ProductReviewsSection({
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#5c5f60]">
               What renters are saying
             </p>
-            <p className="mt-3 text-sm leading-7 text-[#414844]">
+            <p className="mt-3 text-sm  text-[#414844]">
               {product.reviewSummary.text}
             </p>
             <p className="mt-3 text-xs text-[#717973]">
@@ -673,7 +673,7 @@ export function ProductReviewsSection({
                     }
                     maxLength={2000}
                     rows={5}
-                    className="mt-3 w-full resize-none rounded-lg border border-[#c1c8c2] bg-white px-4 py-3 text-sm leading-7 text-[#1a1c1a] outline-none transition-colors placeholder:text-[#8c938e] focus:border-[#1b4332] focus:ring-1 focus:ring-[#1b4332]/20"
+                    className="mt-3 w-full resize-none rounded-lg border border-[#c1c8c2] bg-white px-4 py-3 text-sm  text-[#1a1c1a] outline-none transition-colors placeholder:text-[#8c938e] focus:border-[#1b4332] focus:ring-1 focus:ring-[#1b4332]/20"
                     placeholder="Tell others about the condition of the equipment and the owner communication..."
                   />
                   <p className="mt-2 text-right text-xs text-[#717973]">

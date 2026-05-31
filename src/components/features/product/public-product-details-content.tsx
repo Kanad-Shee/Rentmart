@@ -156,7 +156,7 @@ function ProductUnavailableState({ message }: { message: string }) {
           <h1 className="text-3xl font-semibold text-primary sm:text-4xl">
             Listing unavailable
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-2xl text-sm  text-muted-foreground">
             {message}
           </p>
           <Link

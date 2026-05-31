@@ -190,7 +190,7 @@ function SummaryCard({
       <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary">
         {value}
       </p>
-      <p className="mt-2 text-sm leading-6 text-[#5c5f60]">{helper}</p>
+      <p className="mt-2 text-sm  text-[#5c5f60]">{helper}</p>
     </article>
   );
 }
@@ -416,7 +416,7 @@ export function AdminTransactionsContent() {
           <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
             Transactions
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5c5f60] sm:text-base">
+          <p className="mt-3 max-w-3xl text-sm  text-[#5c5f60] sm:text-base">
             Review booking-level money flow first, then inspect raw Cashfree
             webhook events for reconciliation, debugging, and payout follow-up.
           </p>
@@ -755,7 +755,7 @@ export function AdminTransactionsContent() {
                               <p className="mt-2 text-sm font-semibold text-primary">
                                 {getOwnerPayoutLabel(booking)}
                               </p>
-                              <p className="mt-1 text-xs leading-6 text-[#5c5f60]">
+                              <p className="mt-1 text-xs  text-[#5c5f60]">
                                 {booking.ownerPaidAt
                                   ? `Recorded at ${formatDateTime(booking.ownerPaidAt)}`
                                   : 'Record this after you send money to the owner manually.'}
@@ -768,7 +768,7 @@ export function AdminTransactionsContent() {
                               <p className="mt-2 text-sm font-semibold text-primary">
                                 {getDepositRefundLabel(booking)}
                               </p>
-                              <p className="mt-1 text-xs leading-6 text-[#5c5f60]">
+                              <p className="mt-1 text-xs  text-[#5c5f60]">
                                 {booking.depositRefundedAt
                                   ? `Recorded at ${formatDateTime(booking.depositRefundedAt)}`
                                   : "Record this after you return the renter's security deposit manually."}
@@ -931,7 +931,7 @@ export function AdminTransactionsContent() {
                 <h2 className="text-2xl font-semibold tracking-[-0.03em] text-primary">
                   No bookings match the current ledger filters
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-[#5c5f60]">
+                <p className="mt-3 text-sm  text-[#5c5f60]">
                   Try broadening the search or clearing a few filters to inspect
                   more transaction records.
                 </p>
@@ -1033,7 +1033,7 @@ export function AdminTransactionsContent() {
                   We couldn&apos;t load the webhook event log
                 </h2>
               </div>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
+              <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">
                 Retry in a moment. The raw event stream is used for
                 reconciliation and payment debugging.
               </p>
@@ -1169,7 +1169,7 @@ export function AdminTransactionsContent() {
                           </div>
 
                           <div className="overflow-x-auto rounded-xl border border-[#d8dfdb] bg-[#0f172a] p-4">
-                            <pre className="min-w-[320px] whitespace-pre-wrap break-words text-xs leading-6 text-[#dbeafe]">
+                            <pre className="min-w-[320px] whitespace-pre-wrap break-words text-xs  text-[#dbeafe]">
                               {JSON.stringify(event.payload, null, 2)}
                             </pre>
                           </div>
@@ -1193,7 +1193,7 @@ export function AdminTransactionsContent() {
                 <h2 className="text-2xl font-semibold tracking-[-0.03em] text-primary">
                   No webhook events match the current filters
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                <p className="mt-3 text-sm  text-muted-foreground">
                   Clear one or two filters to inspect more payment events and
                   reconciliation history.
                 </p>

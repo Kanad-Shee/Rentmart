@@ -158,7 +158,7 @@ function VerificationsErrorState({ message }: { message: string }) {
         <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Verifications
         </h1>
-        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="max-w-3xl text-sm  text-muted-foreground">
           Review new listings and equipment data before they go live.
         </p>
       </div>
@@ -169,9 +169,7 @@ function VerificationsErrorState({ message }: { message: string }) {
             We couldn&apos;t load the verification queue
           </h2>
         </div>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
-          {message}
-        </p>
+        <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">{message}</p>
       </div>
     </section>
   );
@@ -187,7 +185,7 @@ function EmptyVerificationsState() {
         <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Verifications
         </h1>
-        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="max-w-3xl text-sm  text-muted-foreground">
           Review new listings and equipment data before they go live.
         </p>
       </div>
@@ -198,7 +196,7 @@ function EmptyVerificationsState() {
         <h2 className="mt-5 text-2xl font-bold tracking-[-0.03em] text-primary">
           No pending listings right now
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
+        <p className="mx-auto mt-3 max-w-xl text-sm  text-muted-foreground">
           New equipment submissions will appear here automatically when owners
           send listings for verification.
         </p>
@@ -349,7 +347,7 @@ export function AdminVerifications() {
         <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Verifications
         </h1>
-        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="max-w-3xl text-sm  text-muted-foreground">
           Review new listings, inspect equipment media, and moderate submissions
           before they go live.
         </p>
@@ -364,7 +362,7 @@ export function AdminVerifications() {
                   <h2 className="text-3xl font-extrabold tracking-[-0.04em] text-primary">
                     Pending Verifications
                   </h2>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  <p className="mt-2 text-sm  text-muted-foreground">
                     Review new listings and equipment data.
                   </p>
                 </div>
@@ -627,7 +625,7 @@ export function AdminVerifications() {
                           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#9ba6b2]">
                             Registered Address
                           </p>
-                          <p className="mt-1 text-sm font-medium leading-6 text-foreground">
+                          <p className="mt-1 text-sm font-medium  text-foreground">
                             {selectedListing.owner.address}
                           </p>
                         </div>
@@ -726,7 +724,7 @@ export function AdminVerifications() {
                       <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#6d7b7a]">
                         Category Guidance
                       </h3>
-                      <p className="mt-5 text-sm leading-7 text-foreground">
+                      <p className="mt-5 text-sm  text-foreground">
                         {selectedListing.category.description}
                       </p>
                       {selectedListing.rejectionReason ? (
@@ -734,7 +732,7 @@ export function AdminVerifications() {
                           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#9c1f16]">
                             Latest Rejection Reason
                           </p>
-                          <p className="mt-2 text-sm leading-6 text-[#7a120c]">
+                          <p className="mt-2 text-sm  text-[#7a120c]">
                             {selectedListing.rejectionReason}
                           </p>
                         </div>
@@ -761,7 +759,7 @@ export function AdminVerifications() {
                           <h3 className="text-lg font-semibold tracking-[-0.02em] text-[#7a120c]">
                             Reject Listing
                           </h3>
-                          <p className="mt-1 text-sm leading-6 text-[#7a120c]">
+                          <p className="mt-1 text-sm  text-[#7a120c]">
                             Share a clear reason so the owner can fix the
                             submission and resubmit it.
                           </p>

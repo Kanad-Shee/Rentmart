@@ -19,9 +19,7 @@ const sections = [
 
 function Paragraph({ children }: { children: ReactNode }) {
   return (
-    <p className="text-base leading-8 text-muted-foreground sm:text-lg">
-      {children}
-    </p>
+    <p className="text-base  text-muted-foreground sm:text-lg">{children}</p>
   );
 }
 
@@ -36,7 +34,7 @@ function getSectionCardClass(isActive: boolean) {
 
 function getDisclaimerQuoteClass(isActive: boolean) {
   return [
-    'font-semibold italic leading-8 tracking-[-0.02em] text-primary transition-all duration-300',
+    'font-semibold italic  tracking-[-0.02em] text-primary transition-all duration-300',
     isActive ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
   ].join(' ');
 }
@@ -165,7 +163,7 @@ export default function TermsPage() {
                 <h1 className="text-4xl font-semibold tracking-[-0.04em] text-primary sm:text-5xl lg:text-6xl leading-tight">
                   Terms of Service
                 </h1>
-                <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg max-w-2xl">
+                <p className="mt-4 text-base  text-muted-foreground sm:text-lg max-w-2xl">
                   Guidelines, obligations, and legal protections that govern
                   your use of the Rentmart platform and all equipment
                   transactions.
@@ -225,7 +223,7 @@ export default function TermsPage() {
                     <p className="text-sm font-semibold text-primary">
                       Legal Support
                     </p>
-                    <p className="mt-2 text-xs leading-6 text-muted-foreground">
+                    <p className="mt-2 text-xs  text-muted-foreground">
                       Questions about these terms?
                     </p>
                     <p className="mt-1 text-xs font-medium text-primary break-words">
@@ -352,7 +350,7 @@ export default function TermsPage() {
                   <p className="text-sm font-semibold text-primary/80">
                     Key Compliance Areas:
                   </p>
-                  <ul className="space-y-2 text-sm leading-7 text-muted-foreground">
+                  <ul className="space-y-2 text-sm  text-muted-foreground">
                     <li className="flex gap-2">
                       <span className="text-primary font-bold">•</span>
                       <span>
@@ -452,7 +450,7 @@ export default function TermsPage() {
                   </p>
                 </motion.div>
                 <div className="rounded-lg border border-primary/10 bg-white/50 p-5 ring-1 ring-inset ring-primary/5">
-                  <p className="text-sm leading-7 text-muted-foreground">
+                  <p className="text-sm  text-muted-foreground">
                     <span className="font-semibold text-primary">
                       Important:
                     </span>{' '}

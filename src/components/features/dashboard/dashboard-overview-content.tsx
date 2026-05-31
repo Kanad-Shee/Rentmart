@@ -39,7 +39,7 @@ function SectionTitle({
       <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
         {title}
       </h1>
-      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+      <p className="mt-3 max-w-3xl text-sm  text-muted-foreground">
         {description}
       </p>
     </div>
@@ -348,7 +348,7 @@ function RenterOverview() {
                 <p className="text-sm font-semibold text-foreground">
                   Approvals waiting
                 </p>
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                <p className="mt-1 text-sm  text-muted-foreground">
                   {stats.waitingOnOwner > 0
                     ? `${stats.waitingOnOwner} request${stats.waitingOnOwner === 1 ? '' : 's'} currently need an owner decision.`
                     : 'No requests are waiting on owner approval right now.'}
@@ -358,7 +358,7 @@ function RenterOverview() {
                 <p className="text-sm font-semibold text-foreground">
                   Payment confirmations
                 </p>
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                <p className="mt-1 text-sm  text-muted-foreground">
                   {stats.waitingOnPayment > 0
                     ? `${stats.waitingOnPayment} approved booking${stats.waitingOnPayment === 1 ? '' : 's'} need your next step.`
                     : 'No approved requests are waiting on your Cashfree payment confirmation.'}

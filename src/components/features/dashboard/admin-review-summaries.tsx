@@ -127,7 +127,7 @@ function ReviewSummaryErrorState({ message }: { message: string }) {
         <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Review Summaries
         </h1>
-        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="max-w-3xl text-sm  text-muted-foreground">
           Generate compact AI summaries for public product review sections.
         </p>
       </div>
@@ -138,9 +138,7 @@ function ReviewSummaryErrorState({ message }: { message: string }) {
             We couldn&apos;t load review summary listings
           </h2>
         </div>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
-          {message}
-        </p>
+        <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">{message}</p>
       </div>
     </section>
   );
@@ -235,7 +233,7 @@ export function AdminReviewSummaries() {
         <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Review Summaries
         </h1>
-        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="max-w-3xl text-sm  text-muted-foreground">
           Generate short public summaries from review text only. Ratings and
           review counts continue to come from application data.
         </p>
@@ -446,7 +444,7 @@ export function AdminReviewSummaries() {
               </div>
 
               {selectedListing.reviewCount === 0 ? (
-                <div className="rounded-xl border border-[#fff1c2] bg-[#fffaf0] p-5 text-sm leading-7 text-[#5b4300]">
+                <div className="rounded-xl border border-[#fff1c2] bg-[#fffaf0] p-5 text-sm  text-[#5b4300]">
                   This active listing does not have any reviews yet, so a public
                   summary cannot be generated.
                 </div>
@@ -481,11 +479,11 @@ export function AdminReviewSummaries() {
                 </div>
 
                 {selectedListing.reviewSummary ? (
-                  <p className="mt-4 text-sm leading-7 text-[#414844]">
+                  <p className="mt-4 text-sm  text-[#414844]">
                     {selectedListing.reviewSummary.text}
                   </p>
                 ) : (
-                  <p className="mt-4 text-sm leading-7 text-[#5c5f60]">
+                  <p className="mt-4 text-sm  text-[#5c5f60]">
                     No summary has been generated for this listing yet.
                   </p>
                 )}

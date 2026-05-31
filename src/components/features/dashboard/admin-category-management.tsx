@@ -119,9 +119,7 @@ function CategoriesErrorState({ message }: { message: string }) {
             We couldn&apos;t load categories
           </h2>
         </div>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-[#7a120c]">
-          {message}
-        </p>
+        <p className="mt-3 max-w-2xl text-sm  text-[#7a120c]">{message}</p>
       </div>
     </section>
   );
@@ -260,7 +258,7 @@ export function AdminCategoryManagement() {
         <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Category Management
         </h1>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+        <p className="mt-3 max-w-3xl text-sm  text-muted-foreground">
           Review recent categories and manage the marketplace taxonomy from one
           admin workspace.
         </p>
@@ -471,7 +469,7 @@ export function AdminCategoryManagement() {
                           </span>
                         ) : null}
                       </div>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                      <p className="mt-3 text-sm  text-muted-foreground">
                         {category.description.substring(0, 70)} ...
                       </p>
                       <div className="mt-5 flex gap-3">
@@ -512,7 +510,7 @@ export function AdminCategoryManagement() {
               <h3 className="mt-4 text-xl font-semibold tracking-[-0.03em] text-foreground">
                 No categories created yet
               </h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              <p className="mt-3 text-sm  text-muted-foreground">
                 Create the first category so owners can assign their listings to
                 the right equipment type.
               </p>

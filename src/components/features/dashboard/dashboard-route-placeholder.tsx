@@ -16,9 +16,7 @@ export function DashboardRoutePlaceholder({
         {title}
       </h1>
       {description ? (
-        <p className="mt-4 text-sm leading-7 text-muted-foreground">
-          {description}
-        </p>
+        <p className="mt-4 text-sm  text-muted-foreground">{description}</p>
       ) : null}
     </section>
   );

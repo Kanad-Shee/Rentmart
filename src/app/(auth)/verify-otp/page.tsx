@@ -110,7 +110,7 @@ export default function VerifyOtpPage() {
           <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary">
             Verify your OTP
           </h1>
-          <p className="mt-3 text-sm leading-6 text-[#5e6661]">
+          <p className="mt-3 text-sm  text-[#5e6661]">
             Enter the verification code sent to your email to finish signing in.
           </p>
         </div>
@@ -175,7 +175,7 @@ export default function VerifyOtpPage() {
           <Button
             type="submit"
             disabled={verifyOtpMutation.isPending}
-            className="h-[52px] w-full rounded-md text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90">
+            className="h-13 w-full rounded-md text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/80 active:bg-primary/90">
             {verifyOtpMutation.isPending ? 'Verifying...' : 'Verify OTP'}
           </Button>
         </form>

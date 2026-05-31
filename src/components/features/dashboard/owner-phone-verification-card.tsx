@@ -126,9 +126,7 @@ export function PhoneVerificationCard({
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-foreground">
             {title}
           </h2>
-          <p className="mt-2 text-sm leading-7 text-muted-foreground">
-            {description}
-          </p>
+          <p className="mt-2 text-sm  text-muted-foreground">{description}</p>
         </div>
         <span
           className={[
