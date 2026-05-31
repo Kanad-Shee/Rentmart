@@ -106,6 +106,39 @@ export type EquipmentDetails = EquipmentListing & {
   viewerReviewState: EquipmentReviewViewerState;
 };
 
+export type EquipmentSearchSuggestionItem = {
+  id: string;
+  title: string;
+  category: {
+    id: string;
+    title: string;
+  };
+  price: number;
+  imageUrl: string;
+  normalizedAddress: string;
+  locationLabel: string;
+  isWishlisted: boolean;
+};
+
+export type EquipmentSearchSuggestionCategory = {
+  id: string;
+  title: string;
+  count: number;
+};
+
+export type EquipmentSearchSuggestionLocation = {
+  label: string;
+  count: number;
+};
+
+export type PublicEquipmentSearchSuggestions = {
+  query: string;
+  matches: EquipmentSearchSuggestionItem[];
+  related: EquipmentSearchSuggestionItem[];
+  categorySuggestions: EquipmentSearchSuggestionCategory[];
+  locationSuggestions: EquipmentSearchSuggestionLocation[];
+};
+
 export type EquipmentReviewPayload = {
   equipmentId: string;
   averageRating: number | null;
@@ -223,6 +256,15 @@ export type PendingEquipmentQueryInput = PaginationInput & {
   search?: string;
 };
 
+export type PublicEquipmentQueryInput = PaginationInput & {
+  categoryId?: string;
+  search?: string;
+};
+
+export type PublicEquipmentSearchSuggestionsInput = {
+  q: string;
+};
+
 export const equipmentQueryKeys = {
   ownerListings: ['equipment', 'owner-listings'] as const,
   pendingListings: ['equipment', 'pending-listings'] as const,
@@ -253,6 +295,17 @@ export const equipmentQueryKeys = {
   featuredListings: ['equipment', 'featured-listings'] as const,
   publicListings: (categoryId?: string) =>
     ['equipment', 'public-listings', categoryId ?? 'all'] as const,
+  publicListingsPage: (input: PublicEquipmentQueryInput) =>
+    [
+      'equipment',
+      'public-listings-page',
+      input.categoryId ?? 'all',
+      input.search?.trim() ?? '',
+      input.page ?? 1,
+      input.pageSize ?? 12
+    ] as const,
+  publicSearchSuggestions: (query: string) =>
+    ['equipment', 'public-search-suggestions', query.trim()] as const,
   publicListing: (id: string) => ['equipment', 'public-listing', id] as const
 };
 
@@ -393,6 +446,40 @@ export async function getPublicEquipment(input?: { categoryId?: string }) {
   const suffix = searchParams.toString();
   const response = await apiRequest<EquipmentListing[]>(
     `/equipment${suffix ? `?${suffix}` : ''}`
+  );
+
+  return response.data;
+}
+
+export async function getPublicEquipmentSearchPage(
+  input: PublicEquipmentQueryInput
+) {
+  const searchParams = buildPaginationSearchParams(input);
+
+  if (input.categoryId?.trim()) {
+    searchParams.set('categoryId', input.categoryId.trim());
+  }
+
+  if (input.search?.trim()) {
+    searchParams.set('search', input.search.trim());
+  }
+
+  const suffix = searchParams.toString();
+  const response = await apiRequest<PaginatedResponse<EquipmentListing>>(
+    `/equipment${suffix ? `?${suffix}` : ''}`
+  );
+
+  return response.data;
+}
+
+export async function getPublicEquipmentSearchSuggestions(
+  input: PublicEquipmentSearchSuggestionsInput
+) {
+  const searchParams = new URLSearchParams({
+    q: input.q.trim()
+  });
+  const response = await apiRequest<PublicEquipmentSearchSuggestions>(
+    `/equipment/search-suggestions?${searchParams.toString()}`
   );
 
   return response.data;

@@ -1,5 +1,6 @@
 'use client';
 
+import { PublicEquipmentSearch } from '@/components/features/search/public-equipment-search';
 import { useCurrentUserQuery, useLogoutMutation } from '@/hooks/use-auth';
 import { ApiError } from '@/lib/http';
 import {
@@ -9,7 +10,8 @@ import {
   Menu,
   Search,
   Settings,
-  ShieldCheck
+  ShieldCheck,
+  X
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import Image from 'next/image';
@@ -132,10 +134,13 @@ export function Navbar({
   const shouldReduceMotion = useReducedMotion() ?? false;
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const navMenuRef = useRef<HTMLDivElement | null>(null);
+  const staticLinksDropdownRef = useRef<HTMLDivElement | null>(null);
   const currentUserQuery = useCurrentUserQuery();
   const logoutMutation = useLogoutMutation();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
+  const [isSearchSheetOpen, setIsSearchSheetOpen] = useState(false);
+  const [isStaticLinksMenuOpen, setIsStaticLinksMenuOpen] = useState(false);
   const currentUser = currentUserQuery.data;
   const isAuthenticated = Boolean(currentUser);
   const shouldShowGuestActions =
@@ -153,29 +158,28 @@ export function Navbar({
     authActions?.settings?.href,
     '/dashboard/settings'
   );
-  const resolvedLinks = useMemo(() => {
-    const hasTermsLink = links.some(
+  const { primaryLinks, staticLinks } = useMemo(() => {
+    const withTerms = links.some(
       (link) =>
         link.href === '/terms' || link.label.trim().toLowerCase() === 'terms'
-    );
+    )
+      ? links
+      : [...links, { href: '/terms', label: 'Terms' }];
 
-    if (hasTermsLink) {
-      return links;
-    }
+    const groupedStaticLinks = withTerms.filter((link) => {
+      const normalizedLabel = link.label.trim().toLowerCase();
+      return (
+        normalizedLabel === 'support' ||
+        normalizedLabel === 'terms' ||
+        link.href === '/contact' ||
+        link.href === '/terms'
+      );
+    });
 
-    const trustSafetyIndex = links.findIndex(
-      (link) => link.label.trim().toLowerCase() === 'trust & safety'
-    );
-
-    if (trustSafetyIndex >= 0) {
-      return [
-        ...links.slice(0, trustSafetyIndex + 1),
-        { href: '/terms', label: 'Terms' },
-        ...links.slice(trustSafetyIndex + 1)
-      ];
-    }
-
-    return [...links, { href: '/terms', label: 'Terms' }];
+    return {
+      primaryLinks: withTerms.filter((link) => !groupedStaticLinks.includes(link)),
+      staticLinks: groupedStaticLinks
+    };
   }, [links]);
   const resolvedActions =
     isAuthenticated && currentUser
@@ -193,13 +197,19 @@ export function Navbar({
     (action) => !action.hideOnMobile
   );
   const hasMobileMenuContent =
-    resolvedLinks.length > 0 ||
+    primaryLinks.length > 0 ||
+    staticLinks.length > 0 ||
     mobileResolvedActions.length > 0 ||
     shouldShowGuestActions ||
     isAuthenticated;
 
   useEffect(() => {
-    if (!isProfileMenuOpen && !isNavMenuOpen) {
+    if (
+      !isProfileMenuOpen &&
+      !isNavMenuOpen &&
+      !isSearchSheetOpen &&
+      !isStaticLinksMenuOpen
+    ) {
       return;
     }
 
@@ -213,12 +223,18 @@ export function Navbar({
       if (!navMenuRef.current?.contains(target)) {
         setIsNavMenuOpen(false);
       }
+
+      if (!staticLinksDropdownRef.current?.contains(target)) {
+        setIsStaticLinksMenuOpen(false);
+      }
     }
 
     function handleEscape(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         setIsProfileMenuOpen(false);
         setIsNavMenuOpen(false);
+        setIsSearchSheetOpen(false);
+        setIsStaticLinksMenuOpen(false);
       }
     }
 
@@ -229,7 +245,12 @@ export function Navbar({
       document.removeEventListener('mousedown', handlePointerDown);
       document.removeEventListener('keydown', handleEscape);
     };
-  }, [isNavMenuOpen, isProfileMenuOpen]);
+  }, [
+    isNavMenuOpen,
+    isProfileMenuOpen,
+    isSearchSheetOpen,
+    isStaticLinksMenuOpen
+  ]);
 
   function handleLogout() {
     if (logoutMutation.isPending) {
@@ -294,13 +315,13 @@ export function Navbar({
             </Link>
           </motion.div>
 
-          {resolvedLinks.length > 0 ? (
+          {primaryLinks.length > 0 || staticLinks.length > 0 ? (
             <nav
               className={[
                 'hidden items-center gap-6 lg:flex lg:gap-8',
                 linksClassName
               ].join(' ')}>
-              {resolvedLinks.map((link: NavbarLink, index: number) => (
+              {primaryLinks.map((link: NavbarLink, index: number) => (
                 <motion.div
                   key={link.label}
                   initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
@@ -324,6 +345,64 @@ export function Navbar({
                   </Link>
                 </motion.div>
               ))}
+              {staticLinks.length > 0 ? (
+                <div
+                  ref={staticLinksDropdownRef}
+                  className="relative">
+                  <motion.button
+                    type="button"
+                    onClick={() => setIsStaticLinksMenuOpen((open) => !open)}
+                    className={[
+                      'flex items-center gap-2 text-sm font-display font-medium transition-colors hover:text-primary',
+                      staticLinks.some((link) => link.active)
+                        ? 'border-b-2 border-primary pb-1 text-primary'
+                        : 'text-muted-foreground'
+                    ].join(' ')}
+                    whileHover={shouldReduceMotion ? undefined : { y: -1 }}>
+                    More
+                    <motion.span
+                      animate={{ rotate: isStaticLinksMenuOpen ? 180 : 0 }}
+                      transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}>
+                      <ChevronDown className="h-4 w-4" />
+                    </motion.span>
+                  </motion.button>
+
+                  <AnimatePresence>
+                    {isStaticLinksMenuOpen ? (
+                      <motion.div
+                        initial={{
+                          opacity: 0,
+                          y: shouldReduceMotion ? 0 : -8,
+                          scale: shouldReduceMotion ? 1 : 0.98
+                        }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{
+                          opacity: 0,
+                          y: shouldReduceMotion ? 0 : -6,
+                          scale: shouldReduceMotion ? 1 : 0.985
+                        }}
+                        transition={{ duration: shouldReduceMotion ? 0 : 0.18 }}
+                        className="absolute left-0 top-[calc(100%+0.75rem)] min-w-44 rounded-xl border border-border bg-background p-2 shadow-[0_18px_50px_rgba(0,0,0,0.12)]">
+                        {staticLinks.map((link) => (
+                          <Link
+                            prefetch
+                            key={link.label}
+                            href={link.href}
+                            onClick={() => setIsStaticLinksMenuOpen(false)}
+                            className={[
+                              'flex rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-primary',
+                              link.active
+                                ? 'bg-muted text-primary'
+                                : 'text-foreground'
+                            ].join(' ')}>
+                            {link.label}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </div>
+              ) : null}
             </nav>
           ) : null}
         </div>
@@ -378,7 +457,7 @@ export function Navbar({
                     ) : null}
 
                     <div className="space-y-1">
-                      {resolvedLinks.map((link: NavbarLink) => (
+                      {primaryLinks.map((link: NavbarLink) => (
                         <Link
                           prefetch
                           key={link.label}
@@ -393,6 +472,26 @@ export function Navbar({
                           {link.label}
                         </Link>
                       ))}
+                      {staticLinks.length > 0 ? (
+                        <>
+                          <div className="my-1 border-t border-border" />
+                          {staticLinks.map((link) => (
+                            <Link
+                              prefetch
+                              key={link.label}
+                              href={link.href}
+                              onClick={() => setIsNavMenuOpen(false)}
+                              className={[
+                                'flex rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-primary',
+                                link.active
+                                  ? 'bg-muted text-primary'
+                                  : 'text-foreground'
+                              ].join(' ')}>
+                              {link.label}
+                            </Link>
+                          ))}
+                        </>
+                      ) : null}
 
                       {mobileResolvedActions.map((action) => (
                         <Link
@@ -481,15 +580,15 @@ export function Navbar({
           ) : null}
 
           {search ? (
-            <label className="hidden h-10 w-[220px] items-center gap-2 rounded-md border border-border bg-background px-3 text-sm text-muted-foreground lg:flex">
-              <Search className="h-4 w-4 shrink-0" />
-              <input
-                type="search"
-                placeholder={search.placeholder}
-                aria-label={search.ariaLabel ?? search.placeholder}
-                className="w-full bg-transparent outline-none placeholder:text-muted-foreground/70"
-              />
-            </label>
+            <>
+              <button
+                type="button"
+                onClick={() => setIsSearchSheetOpen(true)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-muted"
+                aria-label={search.ariaLabel ?? search.placeholder}>
+                <Search className="h-4 w-4 text-primary" />
+              </button>
+            </>
           ) : null}
 
           {resolvedActions.map((action) => (
@@ -646,6 +745,59 @@ export function Navbar({
           ) : null}
         </div>
       </div>
+
+      <AnimatePresence>
+        {search && isSearchSheetOpen ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+            onClick={() => setIsSearchSheetOpen(false)}
+            className="fixed inset-0 z-[60] bg-black/35 px-4 py-5">
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: shouldReduceMotion ? 0 : -12,
+                scale: shouldReduceMotion ? 1 : 0.98
+              }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{
+                opacity: 0,
+                y: shouldReduceMotion ? 0 : -8,
+                scale: shouldReduceMotion ? 1 : 0.985
+              }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+              onClick={(event) => event.stopPropagation()}
+              className="mx-auto max-w-2xl rounded-3xl border border-border bg-background p-4 shadow-[0_24px_80px_rgba(0,0,0,0.2)]">
+              <div className="mb-4 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#86af99]">
+                    Marketplace Search
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Search active equipment by machine, category, or city.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsSearchSheetOpen(false)}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-muted"
+                  aria-label="Close search">
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              <PublicEquipmentSearch
+                placeholder={search.placeholder}
+                variant="expanded"
+                autoFocus
+                showSubmitButton={false}
+                onNavigate={() => setIsSearchSheetOpen(false)}
+              />
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </motion.header>
   );
 }

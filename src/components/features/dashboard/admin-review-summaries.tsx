@@ -18,7 +18,7 @@ import {
   Star
 } from 'lucide-react';
 import Image from 'next/image';
-import { useDeferredValue, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 function formatRelativeDate(value: string | null) {
@@ -147,12 +147,21 @@ function ReviewSummaryErrorState({ message }: { message: string }) {
 export function AdminReviewSummaries() {
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const deferredSearchTerm = useDeferredValue(searchTerm);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm.trim());
+    }, 400);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [searchTerm]);
+
   const summariesQuery = useAdminEquipmentReviewSummariesPageQuery({
     page,
     pageSize: 10,
-    search: deferredSearchTerm
+    search: debouncedSearchTerm
   });
   const generateSummaryMutation = useGenerateEquipmentReviewSummaryMutation();
   const updateVisibilityMutation =
@@ -240,7 +249,7 @@ export function AdminReviewSummaries() {
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
-        <div className="rounded-2xl border border-border bg-background shadow-sm">
+        <div className="rounded-2xl border border-border bg-zinc-50 shadow-sm">
           <div className="border-b border-border p-6">
             <label className="relative block">
               <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />

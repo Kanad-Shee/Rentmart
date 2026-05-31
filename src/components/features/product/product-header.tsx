@@ -12,6 +12,7 @@ export function ProductHeader() {
     <Navbar
       brand="RENTMART"
       links={navItems}
+      search={{ placeholder: 'Search equipment, categories, or locations...' }}
       authActions={{
         signIn: { href: '/sign-in', label: 'Sign In' },
         signUp: { href: '/sign-up', label: 'Sign Up' },

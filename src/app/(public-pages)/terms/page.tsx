@@ -116,6 +116,7 @@ export default function TermsPage() {
           { href: '/contact', label: 'Support' },
           { href: '/terms', label: 'Terms', active: true }
         ]}
+        search={{ placeholder: 'Search equipment, categories, or locations...' }}
         authState="guest"
         authActions={{
           signIn: { href: '/sign-in', label: 'Login' },

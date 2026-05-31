@@ -210,6 +210,7 @@ export default function AboutPage() {
           { href: '/contact', label: 'Support' },
           { href: '/terms', label: 'Terms' }
         ]}
+        search={{ placeholder: 'Search equipment, categories, or locations...' }}
         authActions={{
           signIn: { href: '/sign-in', label: 'Login' },
           signUp: { href: '/sign-up', label: 'Sign Up' },

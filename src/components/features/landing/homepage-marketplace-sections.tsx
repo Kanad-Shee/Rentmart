@@ -1,5 +1,6 @@
 'use client';
 
+import { MarketplaceSearchSurface } from '@/components/features/search/marketplace-search-surface';
 import { useCategoriesQuery } from '@/hooks/use-category';
 import { useFeaturedEquipmentQuery } from '@/hooks/use-equipment';
 import type { Category } from '@/lib/category';
@@ -628,6 +629,16 @@ export function HomepageMarketplaceSections() {
               )}
             </motion.div>
           </motion.div>
+        </div>
+      </section>
+
+      <section className="bg-[#f8faf6] pb-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <MarketplaceSearchSurface
+            title="Search Across The Marketplace"
+            description="Find active equipment by machine name, category, or location and jump straight into the most relevant live listings."
+            className="-mt-10 relative z-20"
+          />
         </div>
       </section>
 

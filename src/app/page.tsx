@@ -54,6 +54,7 @@ export default function Home() {
           { href: '/about', label: 'About Us' },
           { href: '/contact', label: 'Support' }
         ]}
+        search={{ placeholder: 'Search equipment, categories, or locations...' }}
         authActions={{
           signIn: { href: '/sign-in', label: 'Login' },
           signUp: { href: '/sign-up', label: 'Sign Up' },

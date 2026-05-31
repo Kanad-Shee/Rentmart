@@ -143,6 +143,7 @@ export function ContactPageContent() {
           { href: '/about', label: 'About Us' },
           { href: '/contact', label: 'Support', active: true }
         ]}
+        search={{ placeholder: 'Search equipment, categories, or locations...' }}
         authActions={{
           signIn: { href: '/sign-in', label: 'Login' },
           signUp: { href: '/sign-up', label: 'Sign Up' },

@@ -18,6 +18,8 @@ import {
   getPendingEquipment,
   getPublicEquipment,
   getPublicEquipmentById,
+  getPublicEquipmentSearchPage,
+  getPublicEquipmentSearchSuggestions,
   rejectEquipment,
   saveDraftEquipment,
   submitOwnerEquipment,
@@ -33,6 +35,8 @@ import {
   type OwnerEquipmentQueryInput,
   type PendingEquipmentQueryInput,
   type PlaceIdInput,
+  type PublicEquipmentQueryInput,
+  type PublicEquipmentSearchSuggestionsInput,
   type RejectEquipmentInput,
   type SaveDraftEquipmentInput,
   type UpdateEquipmentReviewInput,
@@ -108,6 +112,34 @@ export function usePublicEquipmentListingsQuery(
     queryFn: () => getPublicEquipment({ categoryId }),
     enabled,
     staleTime: 60 * 1000
+  });
+}
+
+export function usePublicEquipmentSearchPageQuery(
+  input: PublicEquipmentQueryInput,
+  enabled = true
+) {
+  return useQuery({
+    queryKey: equipmentQueryKeys.publicListingsPage(input),
+    queryFn: () => getPublicEquipmentSearchPage(input),
+    enabled,
+    staleTime: 30 * 1000
+  });
+}
+
+export function usePublicEquipmentSearchSuggestionsQuery(
+  query: string,
+  enabled = true
+) {
+  return useQuery({
+    queryKey: equipmentQueryKeys.publicSearchSuggestions(query),
+    queryFn: () =>
+      getPublicEquipmentSearchSuggestions({
+        q: query
+      } satisfies PublicEquipmentSearchSuggestionsInput),
+    enabled: enabled && query.trim().length >= 2,
+    staleTime: 30 * 1000,
+    retry: false
   });
 }
 

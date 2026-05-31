@@ -18,7 +18,9 @@ export function CategoryHeader() {
         label: item,
         active: index === 0
       }))}
-      search={{ placeholder: 'Search equipment...' }}
+      search={{
+        placeholder: 'Search equipment, categories, or locations...'
+      }}
       authActions={{
         signIn: { href: '/sign-in', label: 'Sign In' },
         signUp: { href: '/sign-up', label: 'Sign Up' },

@@ -469,7 +469,7 @@ function AdminOverview() {
                 <motion.div
                   key={title}
                   {...getDashboardRevealProps(shouldReduceMotion, index)}
-                  className="rounded-lg border border-border bg-muted/20 p-4">
+                  className="rounded-lg border border-border/50 shadow-md bg-muted/20 p-4">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <p className="font-semibold text-foreground">{title}</p>
                     <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
