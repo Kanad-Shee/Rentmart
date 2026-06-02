@@ -55,7 +55,7 @@ function formatRoleLabel(role: 'ADMIN' | 'OWNER' | 'RENTER') {
   }
 
   if (role === 'RENTER') {
-    return 'Verified Renter';
+    return 'Renter';
   }
 
   return 'Platform Admin';
@@ -143,7 +143,9 @@ export function ContactPageContent() {
           { href: '/about', label: 'About Us' },
           { href: '/contact', label: 'Support', active: true }
         ]}
-        search={{ placeholder: 'Search equipment, categories, or locations...' }}
+        search={{
+          placeholder: 'Search equipment, categories, or locations...'
+        }}
         authActions={{
           signIn: { href: '/sign-in', label: 'Login' },
           signUp: { href: '/sign-up', label: 'Sign Up' },

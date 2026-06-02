@@ -46,7 +46,7 @@ function formatRoleLabel(role: User['role']) {
       return 'Equipment Owner';
     case 'RENTER':
     default:
-      return 'Verified Renter';
+      return 'Renter';
   }
 }
 
