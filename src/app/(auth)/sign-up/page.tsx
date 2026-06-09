@@ -15,7 +15,7 @@ import { signUpSchema, type SignUpInput } from '@/lib/auth';
 import { ApiError } from '@/lib/http';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Shield, ShieldCheck, Wallet } from 'lucide-react';
+import { Eye, EyeClosed, Shield, ShieldCheck, Wallet } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
@@ -43,34 +43,53 @@ function AuthField({
   label,
   placeholder,
   control,
-  type = 'text'
+  type = 'text',
+  isPassword = false
 }: {
   name: keyof SignUpInput;
   label: ReactNode;
   placeholder: string;
   control: Control<SignUpInput>;
   type?: string;
+  isPassword?: boolean;
 }) {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   return (
     <Controller
       control={control}
       name={name}
       render={({ field, fieldState }) => (
-        <Field data-invalid={fieldState.invalid}>
+        <Field
+          data-invalid={fieldState.invalid}
+          className="relative">
           <FieldLabel
             htmlFor={name}
             className="text-[13px] font-medium uppercase tracking-[0.08em] text-[#1f2421]">
             {label}
           </FieldLabel>
-          <Input
-            {...field}
-            id={name}
-            type={type}
-            placeholder={placeholder}
-            aria-invalid={fieldState.invalid}
-            value={field.value ?? ''}
-            className="h-11 rounded-md border-[#cfd3cf] bg-white px-4 text-sm placeholder:text-[#b8bcb8] focus:border-primary-container focus:ring-primary-container/25"
-          />
+          <div className="relative">
+            <Input
+              {...field}
+              id={name}
+              type={isPassword ? (showPassword ? 'text' : 'password') : type}
+              placeholder={placeholder}
+              aria-invalid={fieldState.invalid}
+              value={field.value ?? ''}
+              className={cn(
+                'h-11 rounded-md border-[#cfd3cf] bg-white px-4 text-sm placeholder:text-[#b8bcb8] focus:border-primary-container focus:ring-primary-container/25',
+                isPassword && 'pr-10'
+              )}
+            />
+            {isPassword && (
+              <span
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute top-1/2 -translate-y-1/2 my-auto right-2">
+                {showPassword ? <Eye /> : <EyeClosed />}
+              </span>
+            )}
+          </div>
+
           {fieldState.error ? <FieldError errors={[fieldState.error]} /> : null}
         </Field>
       )}
@@ -293,6 +312,7 @@ export default function SignUpPage() {
                     label="Password"
                     placeholder="••••••••"
                     type="password"
+                    isPassword={true}
                   />
                   <AuthField
                     control={form.control}
@@ -300,6 +320,7 @@ export default function SignUpPage() {
                     label="Confirm Password"
                     placeholder="••••••••"
                     type="password"
+                    isPassword={true}
                   />
                 </div>
               </FieldGroup>

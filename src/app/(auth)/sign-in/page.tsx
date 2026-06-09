@@ -19,7 +19,7 @@ import { useSignInMutation } from '@/hooks/use-auth';
 import { signInSchema, type SignInInput } from '@/lib/auth';
 import { ApiError } from '@/lib/http';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ShieldCheck } from 'lucide-react';
+import { EyeClosedIcon, EyeIcon, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -37,7 +37,8 @@ function AuthField({
   placeholder,
   register,
   error,
-  type = 'text'
+  type = 'text',
+  isPassword = false
 }: {
   name: keyof SignInInput;
   label: string;
@@ -45,7 +46,10 @@ function AuthField({
   register: UseFormRegister<SignInInput>;
   error?: RHFFieldError;
   type?: string;
+  isPassword?: boolean;
 }) {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   return (
     <Field data-invalid={!!error}>
       <FieldLabel
@@ -53,14 +57,23 @@ function AuthField({
         className="text-[13px] font-medium uppercase tracking-[0.08em] text-[#1f2421]">
         {label}
       </FieldLabel>
-      <Input
-        id={name}
-        type={type}
-        placeholder={placeholder}
-        className="h-11 rounded-md border-[#cfd3cf] bg-white px-4 text-sm placeholder:text-[#b8bcb8] focus:border-primary-container focus:ring-primary-container/25"
-        aria-invalid={!!error}
-        {...register(name)}
-      />
+      <div className="relative">
+        <Input
+          id={name}
+          type={isPassword ? (showPassword ? 'text' : 'password') : type}
+          placeholder={placeholder}
+          className="h-11 rounded-md border-[#cfd3cf] bg-white px-4 text-sm placeholder:text-[#b8bcb8] focus:border-primary-container focus:ring-primary-container/25"
+          aria-invalid={!!error}
+          {...register(name)}
+        />
+        {isPassword && (
+          <span
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute top-1/2 -translate-y-1/2 my-auto right-2">
+            {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
+          </span>
+        )}
+      </div>
       {error ? <FieldError errors={[error]} /> : null}
     </Field>
   );
@@ -158,6 +171,7 @@ export default function SignInPage() {
                   register={form.register}
                   error={form.formState.errors.password}
                   type="password"
+                  isPassword={true}
                 />
               </FieldGroup>
 
