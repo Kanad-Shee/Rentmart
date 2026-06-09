@@ -304,7 +304,7 @@ export function Navbar({
                 brandClassName
               ].join(' ')}>
               <Image
-                src="/rentmart-logo.webp"
+                src="/hero-logo.webp"
                 alt={`${brand} logo`}
                 width={144}
                 height={48}
