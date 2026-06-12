@@ -9,6 +9,9 @@ import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
+  ChevronRightIcon,
+  MapIcon,
+  MapPinIcon,
   ShieldCheck
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
@@ -46,10 +49,12 @@ function getLocationLabel(listing: EquipmentListing) {
     .filter(Boolean);
 
   if (parts.length >= 2) {
-    return `${listing.category.title} • ${parts[parts.length - 2]}, ${parts[parts.length - 1]}`;
+    // return `${listing.category.title} • ${parts[parts.length - 2]}, ${parts[parts.length - 1]}`;
+    return `${parts[parts.length - 2]}, ${parts[parts.length - 1]}`;
   }
 
-  return `${listing.category.title} • ${listing.normalizedAddress}`;
+  // return `${listing.category.title} • ${listing.normalizedAddress}`;
+  return `${listing.normalizedAddress}`;
 }
 
 function getListingSpecs(listing: EquipmentListing) {
@@ -209,7 +214,7 @@ function CategoryCard({ category }: { category: Category }) {
         <h3 className="mt-5 text-lg font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
           {category.title}
         </h3>
-        <p className="mt-2 text-sm font-medium text-muted-foreground group-hover:text-foreground/70 transition-colors duration-300">
+        <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground/70 transition-colors duration-300">
           {getCategoryCountLabel(category.activeListingCount)}
         </p>
       </Link>
@@ -265,27 +270,26 @@ function FeaturedCard({ listing }: { listing: EquipmentListing }) {
           </div>
         </div>
 
-        <div className="p-6">
-          <h3 className="text-lg font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
+        <div className="p-5">
+          <h3 className="text-lg truncate font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
             {listing.title}
           </h3>
-          <p className="mt-2 text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">
-            {getLocationLabel(listing)}
-          </p>
+          <div className="flex gap-x-1.5 items-center">
+            <MapPinIcon className="shrink-0 size-4" />
+            <p className="font-medium text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300 truncate">
+              {getLocationLabel(listing)}
+            </p>
+          </div>
 
-          <div className="mt-5 grid grid-cols-2 gap-3">
+          <div className="mt-3 flex flex-wrap gap-3">
             {specs.map((spec) => (
               <motion.div
                 key={spec.label}
-                className="rounded-lg bg-gradient-to-br from-muted/60 to-muted/40 p-3 border border-primary/5 ring-1 ring-inset ring-primary/5 transition-all duration-300 group-hover:from-primary/10 group-hover:to-primary/5 group-hover:border-primary/10"
+                className="rounded-full bg-gradient-to-br from-muted/40 to-muted/20 px-2 py-1.5 border border-primary/5 ring-1 ring-inset ring-primary/5 transition-all duration-300 group-hover:border-primary/10 text-muted-foreground/70 flex text-xs justify-center items-center gap-x-1"
                 whileHover={shouldReduceMotion ? undefined : { y: -2 }}
                 transition={{ duration: 0.2 }}>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  {spec.label}
-                </p>
-                <p className="mt-2 text-sm font-semibold text-foreground">
-                  {spec.value}
-                </p>
+                <p className="font-semibold">{spec.label}:</p>
+                <p className="font-medium">{spec.value}</p>
               </motion.div>
             ))}
           </div>
@@ -297,8 +301,9 @@ function FeaturedCard({ listing }: { listing: EquipmentListing }) {
                 / day
               </span>
             </p>
-            <span className="text-sm font-semibold text-primary group-hover:text-primary/80 transition-colors duration-300">
+            <span className="text-sm font-semibold text-white/90 text-shadow-xs group-hover:text-white transition-colors duration-300 flex flex-row items-center bg-primary px-4 py-2 rounded-lg">
               Rent Now
+              <ChevronRightIcon className="size-3.5 transition-all duration-300 ease-in-out group-hover:translate-x-1.5" />
             </span>
           </div>
         </div>
@@ -366,7 +371,7 @@ export function HomepageMarketplaceSections() {
             }}
           />
           <motion.div
-            className="absolute right-[-4rem] top-24 h-72 w-72 rounded-full bg-[#e6eee7] blur-3xl"
+            className="absolute -right-16 top-24 h-72 w-72 rounded-full bg-[#e6eee7] blur-3xl"
             animate={
               shouldReduceMotion
                 ? undefined
@@ -417,7 +422,7 @@ export function HomepageMarketplaceSections() {
               comprehensive protection for every project.
             </motion.p>
 
-            <motion.div
+            {/* <motion.div
               variants={{
                 initial: { opacity: 0, y: shouldReduceMotion ? 0 : 18 },
                 animate: { opacity: 1, y: 0 }
@@ -453,7 +458,7 @@ export function HomepageMarketplaceSections() {
                 </span>{' '}
                 updates automatically from verified active listings
               </p>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           <motion.div
@@ -698,7 +703,7 @@ export function HomepageMarketplaceSections() {
                 Featured Machinery
               </h2>
             </div>
-            <div className="hidden items-center gap-3 sm:flex">
+            {/* <div className="hidden items-center gap-3 sm:flex">
               <button
                 aria-label="Previous"
                 className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary/20 bg-background text-foreground shadow-sm ring-1 ring-inset ring-primary/10 transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:border-primary">
@@ -709,7 +714,7 @@ export function HomepageMarketplaceSections() {
                 className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary/20 bg-background text-foreground shadow-sm ring-1 ring-inset ring-primary/10 transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:border-primary">
                 <ChevronRight className="h-5 w-5" />
               </button>
-            </div>
+            </div> */}
           </motion.div>
 
           {featuredEquipmentQuery.isPending ? (

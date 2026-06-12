@@ -54,7 +54,9 @@ export default function Home() {
           { href: '/about', label: 'About Us' },
           { href: '/contact', label: 'Support' }
         ]}
-        search={{ placeholder: 'Search equipment, categories, or locations...' }}
+        search={{
+          placeholder: 'Search equipment, categories, or locations...'
+        }}
         authActions={{
           signIn: { href: '/sign-in', label: 'Login' },
           signUp: { href: '/sign-up', label: 'Sign Up' },
@@ -72,7 +74,7 @@ export default function Home() {
 
       <HomepageMarketplaceSections />
 
-      <section className="border-b border-border bg-primary">
+      <section className="border-b border-border bg-linear-to-r from-[#081f15] via-primary to-[#081f15]">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 text-primary-foreground sm:grid-cols-2 lg:grid-cols-4 sm:px-6 lg:px-8">
           {trustItems.map(({ icon: Icon, label }) => (
             <div
