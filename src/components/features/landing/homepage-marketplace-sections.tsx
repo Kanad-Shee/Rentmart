@@ -209,14 +209,22 @@ function CategoryCard({ category }: { category: Category }) {
                 sizes="(max-width: 1280px) 50vw, 25vw"
               />
             </motion.div>
+            <div className="absolute bottom-0 flex w-full flex-col items-start bg-white px-3 py-2 pl-6 transition-all duration-300 ease-in-out mask-t-from-70%">
+              <h3 className="mt-5 font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
+                {category.title}
+              </h3>
+              <p className="max-h-0 translate-y-2 overflow-hidden text-sm font-medium text-muted-foreground opacity-0 transition-all duration-300 ease-in-out group-hover:max-h-10 group-hover:translate-y-0 group-hover:text-foreground/70 group-hover:opacity-100">
+                {getCategoryCountLabel(category.activeListingCount)}
+              </p>
+            </div>
           </div>
         </div>
-        <h3 className="mt-5 text-lg font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
+        {/* <h3 className="mt-5 text-lg font-semibold tracking-[-0.02em] text-foreground group-hover:text-primary transition-colors duration-300">
           {category.title}
         </h3>
         <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground/70 transition-colors duration-300">
           {getCategoryCountLabel(category.activeListingCount)}
-        </p>
+        </p> */}
       </Link>
     </motion.div>
   );
@@ -264,9 +272,9 @@ function FeaturedCard({ listing }: { listing: EquipmentListing }) {
               No image
             </div>
           )}
-          <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-white/95 to-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-primary shadow-md ring-1 ring-inset ring-white/50 backdrop-blur-sm">
-            <ShieldCheck className="h-3 w-3 fill-current" />
-            Verified
+          <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-lg bg-emerald-500/10 backdrop-blur-3xl p-2.5 text-[10px] font-bold uppercase text-emerald-600 shadow-md ring-1 ring-inset ring-emerald-600">
+            <ShieldCheck className="size-5 shrink-0 fill-current" />
+            {/* Verified */}
           </div>
         </div>
 
@@ -657,7 +665,7 @@ export function HomepageMarketplaceSections() {
         </div>
       </section>
 
-      <section className="bg-[#f9faf6] py-28">
+      <section className="bg-[#f9faf6] pt-28 pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mb-14 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
