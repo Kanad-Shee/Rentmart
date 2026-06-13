@@ -350,7 +350,17 @@ export function HomepageMarketplaceSections() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border bg-linear-to-br from-emerald-50 via-slate-100 to-background">
+      <section className="relative overflow-hidden border-b border-border ">
+        <div className="absolute inset-0">
+          <Image
+            src={'/assets/landing/landing-harvesting.webp'}
+            alt="landing-harvesting"
+            width={500}
+            height={300}
+            className="w-full h-full aspect-video object-cover opacity-40"
+            unoptimized
+          />
+        </div>
         <motion.div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
@@ -384,7 +394,7 @@ export function HomepageMarketplaceSections() {
             }}
           />
         </motion.div>
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:items-center lg:justify-start lg:gap-12 lg:px-8 lg:py-24">
+        <div className="mx-auto relative grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:items-center lg:justify-start lg:gap-12 lg:px-8 lg:py-24">
           <motion.div
             className="relative z-10"
             initial="initial"
@@ -405,7 +415,7 @@ export function HomepageMarketplaceSections() {
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
               className="max-w-xl text-4xl font-bold font-display leading-[1.08] tracking-[-0.05em] text-center text-primary sm:text-5xl lg:text-start lg:text-5xl xl:text-7xl">
               Rent the Power You Need.
-              <span className="mt-4 block text-[#86af99] font-display">
+              <span className="mt-4 block text-slate-800 text-shadow-xs font-display">
                 Monetize the Fleet You Own.
               </span>
             </motion.h1>
@@ -416,7 +426,7 @@ export function HomepageMarketplaceSections() {
                 animate: { opacity: 1, y: 0 }
               }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.7 }}
-              className="mt-7 max-w-xl text-center text-sm font-medium  tracking-tight text-muted-foreground sm:text-base lg:mt-8 lg:text-start lg:text-lg lg:">
+              className="mt-7 max-w-xl text-center text-sm font-medium  tracking-tight text-neutral-800 text-shadow-xs sm:text-base lg:mt-8 lg:text-start lg:text-lg lg:">
               The world&apos;s premier industrial marketplace for heavy
               machinery. High-capacity equipment, verified owners, and
               comprehensive protection for every project.
