@@ -16,6 +16,7 @@ import { ApiError } from '@/lib/http';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeClosed, Shield, ShieldCheck, Wallet } from 'lucide-react';
+import { motion } from 'motion/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
@@ -231,7 +232,15 @@ export default function SignUpPage() {
         <section className="relative flex w-full flex-1 items-center justify-center bg-white px-6 py-10 sm:px-10 lg:w-[54%] lg:px-14 lg:py-14 xl:px-20">
           <div className="absolute inset-0 bg-[radial-gradient(#012d1d_1px,transparent_1px)] bg-size-[36px_36px] opacity-[0.03]" />
 
-          <div className="relative z-10 w-fit lg:mr-auto max-w-xl">
+          <motion.div
+            initial={{ opacity: 0, filter: 'blur(10px)', y: -20 }}
+            whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+            transition={{
+              type: 'spring',
+              stiffness: 100,
+              damping: 8
+            }}
+            className="relative z-10 w-fit lg:mr-auto max-w-xl">
             <header className="mb-7">
               <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-[2.15rem]">
                 Create your account
@@ -378,7 +387,7 @@ export default function SignUpPage() {
                 .
               </p>
             </form>
-          </div>
+          </motion.div>
         </section>
       </div>
     </main>

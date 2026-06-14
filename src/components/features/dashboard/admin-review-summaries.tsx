@@ -242,14 +242,14 @@ export function AdminReviewSummaries() {
         <h1 className="text-3xl font-extrabold tracking-[-0.04em] text-primary sm:text-4xl xl:text-5xl">
           Review Summaries
         </h1>
-        <p className="max-w-3xl text-sm  text-muted-foreground">
+        <p className="max-w-3xl font-display font-medium text-sm  text-muted-foreground">
           Generate short public summaries from review text only. Ratings and
           review counts continue to come from application data.
         </p>
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
-        <div className="rounded-2xl border border-border bg-zinc-50 shadow-sm">
+        <div className="rounded-2xl border border-border bg-[#edf2f1] shadow-sm">
           <div className="border-b border-border p-6">
             <label className="relative block">
               <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -280,7 +280,7 @@ export function AdminReviewSummaries() {
                     onClick={() => setSelectedId(listing.id)}
                     className={[
                       'w-full border-b border-border px-5 py-4 text-left transition-colors hover:bg-[#f8faf7]',
-                      isSelected ? 'bg-[#edf6f0]' : 'bg-transparent'
+                      isSelected ? 'bg-[#f5fff9]' : 'bg-transparent'
                     ].join(' ')}>
                     <div className="flex items-center justify-between gap-3">
                       <p className="line-clamp-2 text-sm font-semibold text-primary">
@@ -331,7 +331,7 @@ export function AdminReviewSummaries() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-border bg-background p-8 shadow-sm">
+        <div className="rounded-2xl border border-border bg-[#edf2f1] p-8 shadow-sm">
           {selectedListing ? (
             <div className="space-y-8">
               <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">

@@ -20,6 +20,7 @@ import { signInSchema, type SignInInput } from '@/lib/auth';
 import { ApiError } from '@/lib/http';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EyeClosedIcon, EyeIcon, ShieldCheck } from 'lucide-react';
+import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -141,7 +142,15 @@ export default function SignInPage() {
 
       <div className="flex min-h-[calc(100vh-80px)] flex-col lg:flex-row">
         <section className="relative flex w-full flex-1 items-center justify-center bg-white px-6 py-10 sm:px-10 lg:w-[48%] lg:px-14 lg:py-14 xl:px-20">
-          <div className="relative z-10 w-full max-w-105">
+          <motion.div
+            initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
+            whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+            transition={{
+              type: 'spring',
+              stiffness: 100,
+              damping: 8
+            }}
+            className="relative z-10 w-full max-w-110">
             <header className="mb-7">
               <h1 className="max-w-xl text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-[2.55rem] sm:leading-[1.1]">
                 Welcome back to Rentmart
@@ -222,7 +231,7 @@ export default function SignInPage() {
                 </Link>
               </p>
             </footer>
-          </div>
+          </motion.div>
         </section>
 
         <section className="relative hidden overflow-hidden bg-[linear-gradient(135deg,#f0fdf4_0%,#ecfeff_50%,#ffffff_100%)] px-10 py-10 lg:flex lg:w-[52%] lg:flex-col lg:items-center lg:justify-center xl:px-14 xl:py-14">

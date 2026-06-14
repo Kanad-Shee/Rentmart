@@ -8,7 +8,7 @@ type CategoryFiltersProps = {
 
 export function CategoryFilters({ filters, onChange }: CategoryFiltersProps) {
   return (
-    <div className="grid gap-4 border-t border-border pt-6 sm:grid-cols-3 xl:grid-cols-[repeat(3,minmax(0,180px))_1fr]">
+    <div className="grid gap-4 border-t border-border pt-6 sm:grid-cols-3 xl:grid-cols-[repeat(3,minmax(0,180px))_1fr] font-display">
       {filters.map((filter) => (
         <label
           key={filter.label}
@@ -19,9 +19,10 @@ export function CategoryFilters({ filters, onChange }: CategoryFiltersProps) {
           <select
             value={filter.value}
             onChange={(event) => onChange(filter.label, event.target.value)}
-            className="w-full rounded-sm border border-[#dfe4eb] bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary">
+            className="w-full rounded-sm border border-[#dfe4eb] bg-white px-2 py-1.5 text-sm text-foreground outline-none transition-colors focus:border-primary font-medium">
             {(filter.options ?? [filter.value]).map((option) => (
               <option
+                className="font-medium"
                 key={option}
                 value={option}>
                 {option}
@@ -31,14 +32,14 @@ export function CategoryFilters({ filters, onChange }: CategoryFiltersProps) {
         </label>
       ))}
 
-      <div className="hidden items-end xl:flex xl:justify-end">
+      {/* <div className="hidden items-end xl:flex xl:justify-end">
         <button
           type="button"
           className="inline-flex h-11 items-center gap-2 rounded-sm border border-[#dfe4eb] bg-white px-5 text-sm font-medium text-foreground transition-colors hover:bg-muted">
           <SlidersHorizontal className="h-4 w-4" />
           Advanced Filters
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

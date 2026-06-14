@@ -404,7 +404,7 @@ export function HomepageMarketplaceSections() {
         </motion.div>
         <div className="mx-auto relative grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:items-center lg:justify-start lg:gap-12 lg:px-8 lg:py-24">
           <motion.div
-            className="relative z-10"
+            className="relative z-10 mx-auto lg:mx-0"
             initial="initial"
             animate="animate"
             variants={{
@@ -665,7 +665,9 @@ export function HomepageMarketplaceSections() {
         </div>
       </section>
 
-      <section className="bg-[#f9faf6] pt-28 pb-20">
+      <section
+        id="categories"
+        className="bg-[#f9faf6] pt-28 pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="mb-14 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6"

@@ -12,6 +12,7 @@ import { CategoryHeader } from './category-header';
 import { CategoryHero } from './category-hero';
 import { CategoryPagination } from './category-pagination';
 import { CategoryTabs } from './category-tabs';
+import { MarketingFooter } from '@/components/common/marketing-footer';
 import { MarketplaceSearchSurface } from '@/components/features/search/marketplace-search-surface';
 import { useCurrentUserQuery } from '@/hooks/use-auth';
 import { useCategoriesQuery, useCategoryQuery } from '@/hooks/use-category';
@@ -408,13 +409,13 @@ export function CategoryPageContent({ categoryId }: { categoryId: string }) {
 
         <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
           <CategoryTabs tabs={tabs} />
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <MarketplaceSearchSurface
               eyebrow="Search Beyond This Category"
               title="Search Across All Active Equipment"
               description="Use global search to jump across categories, machine names, and nearby cities without losing your place in marketplace browsing."
             />
-          </div>
+          </div> */}
           <CategoryFilters
             filters={filters}
             onChange={(label, value) => {
@@ -461,7 +462,7 @@ export function CategoryPageContent({ categoryId }: { categoryId: string }) {
         <ExploreMoreCategories currentCategoryId={categoryId} />
       </main>
 
-      <CategoryFooter />
+      <MarketingFooter />
     </div>
   );
 }
