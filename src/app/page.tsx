@@ -45,6 +45,12 @@ function SectionEyebrow({ children }: { children: string }) {
   );
 }
 
+export const metadata: Metadata = {
+  title: 'Marketplace | Rentmart',
+  description:
+    'Rentmart Home page to showcase all core features in a minimalist way.'
+};
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground">
