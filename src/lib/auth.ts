@@ -403,3 +403,4 @@ export async function updatePassword(input: UpdatePasswordInput) {
 
   return response.data;
 }
+

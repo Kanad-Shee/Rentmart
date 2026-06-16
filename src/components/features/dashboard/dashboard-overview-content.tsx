@@ -430,7 +430,7 @@ function AdminOverview() {
           <div className="flex items-center justify-between gap-4 border-b border-border pb-5">
             <div>
               <h2 className="text-2xl font-semibold tracking-[-0.03em] text-foreground">
-                Priority Queue
+                Needs Attention
               </h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 The highest-priority items for review right now.
@@ -543,3 +543,4 @@ export function DashboardOverviewContent({ role }: { role: DashboardRole }) {
 
   return <OwnerDashboardOverview />;
 }
+

@@ -10,6 +10,7 @@ import {
   Sparkles,
   Wrench
 } from 'lucide-react';
+import { Metadata } from 'next';
 
 const trustItems = [
   { icon: ShieldCheck, label: 'Comprehensive Rental Insurance' },
@@ -43,6 +44,12 @@ function SectionEyebrow({ children }: { children: string }) {
     </p>
   );
 }
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description:
+    'Rentmart Home page to showcase all core features in a minimalist way.'
+};
 
 export default function Home() {
   return (
@@ -150,3 +157,4 @@ export default function Home() {
     </main>
   );
 }
+

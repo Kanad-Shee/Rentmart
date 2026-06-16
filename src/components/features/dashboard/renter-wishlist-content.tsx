@@ -208,7 +208,7 @@ export function RenterWishlistContent() {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold uppercase tracking-[0.24em] text-[#5c5f60]">
+          <span className="text-sm font-semibold uppercase tracking-tight text-[#5c5f60]">
             Sort By:
           </span>
           <div className="relative">
@@ -217,7 +217,7 @@ export function RenterWishlistContent() {
               onChange={(event) =>
                 setSortOption(event.target.value as WishlistSortOption)
               }
-              className="appearance-none rounded-lg border border-[#d8dfdb] bg-white py-3 pl-4 pr-11 text-sm text-primary outline-none transition-colors focus:border-[#1b4332]">
+              className="appearance-none rounded-lg border border-[#d8dfdb] bg-white py-2 pl-4 pr-11 text-sm text-primary outline-none transition-colors focus:border-[#1b4332]">
               <option value="recent">Recently Added</option>
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>
@@ -246,7 +246,7 @@ export function RenterWishlistContent() {
                     ? undefined
                     : { y: -5, transition: { duration: 0.2 } }
                 }
-                className="group overflow-hidden rounded-lg border border-[#d8dfdb] bg-white transition-shadow duration-300 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
+                className="group overflow-hidden rounded-2xl border border-[#d8dfdb] bg-white transition-shadow duration-300 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
                 <div className="relative h-64 overflow-hidden bg-[#f3f4f1]">
                   {listing.images[0] ? (
                     <Image
@@ -268,7 +268,7 @@ export function RenterWishlistContent() {
                     onClick={() => removeMutation.mutate(listing.id)}
                     disabled={isRemoving}
                     aria-label={`Remove ${listing.title} from wishlist`}
-                    className="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-[#ba1a1a] shadow-sm backdrop-blur-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60">
+                    className="absolute right-4 top-4 inline-flex size-10 items-center justify-center rounded-xl bg-red-500/10 ring ring-red-400 text-[#f72020] shadow-sm backdrop-blur-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60">
                     <Heart className="h-5 w-5 fill-current" />
                   </button>
                 </div>
@@ -276,10 +276,10 @@ export function RenterWishlistContent() {
                 <div className="p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <span className="inline-flex rounded-[4px] bg-[#f3f4f1] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5c5f60]">
+                      <span className="inline-flex rounded-full shadow-sm bg-[#f3f4f1] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5c5f60]">
                         {listing.category.title}
                       </span>
-                      <h2 className="mt-3 truncate text-[2rem] font-semibold leading-none tracking-[-0.04em] text-primary">
+                      <h2 className="mt-3 truncate text-xl font-semibold leading-none tracking-tight text-primary">
                         {listing.title}
                       </h2>
                     </div>
@@ -292,7 +292,7 @@ export function RenterWishlistContent() {
                     </div>
                   </div>
 
-                  <div className="mt-5 flex items-center gap-2">
+                  <div className="mt-3 flex items-center gap-2">
                     <span
                       className={`h-2.5 w-2.5 rounded-full ${availability.dotClassName}`}
                     />
@@ -303,9 +303,9 @@ export function RenterWishlistContent() {
                   </div>
 
                   <div className="mt-8 flex items-center justify-between border-t border-[#edf1ee] pt-5">
-                    <p className="text-[2rem] font-medium tracking-[-0.04em] text-primary">
+                    <p className="text-[2rem] font-semibold tracking-tight text-primary">
                       {formatPrice(listing.price)}
-                      <span className="ml-2 text-base font-normal text-[#5c5f60]">
+                      <span className="ml-2 text-base font-medium text-[#5c5f60]">
                         /day
                       </span>
                     </p>
@@ -313,7 +313,7 @@ export function RenterWishlistContent() {
                     <Link
                       prefetch
                       href={`/details/${listing.id}`}
-                      className="inline-flex items-center rounded-[4px] border border-[#1b4332] px-5 py-3 text-sm font-medium text-[#1b4332] transition-colors hover:bg-[#eef5f1]">
+                      className="inline-flex items-center rounded-lg border border-[#1b4332] px-5 py-3 text-sm font-medium text-[#e5fff5] hover:text-primary transition-colors hover:bg-[#eef5f1] bg-primary">
                       View & Rent
                     </Link>
                   </div>
@@ -332,3 +332,4 @@ export function RenterWishlistContent() {
     </section>
   );
 }
+

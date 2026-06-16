@@ -182,7 +182,7 @@ export function DashboardSidebar({ config }: DashboardSidebarProps) {
             href="/"
             className="flex items-center gap-3 text-primary">
             <Image
-              src="/rentmart-logo.webp"
+              src="/hero-logo.webp"
               alt={`${config.brand} logo`}
               width={40}
               height={40}
@@ -380,3 +380,4 @@ export function DashboardSidebar({ config }: DashboardSidebarProps) {
     </motion.aside>
   );
 }
+
