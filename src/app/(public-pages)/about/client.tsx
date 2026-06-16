@@ -229,7 +229,17 @@ export function AboutPage() {
       />
 
       <section className="border-b border-border bg-[#fbfbf8]">
-        <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
+        <div className="absolute inset-0">
+          <Image
+            src={'/assets/landing/landing-harvesting.webp'}
+            alt="landing-harvesting"
+            width={500}
+            height={300}
+            className="w-full h-full aspect-video object-cover opacity-30 mask-b-from-40% mask-b-to-90%"
+            unoptimized
+          />
+        </div>
+        <div className="mx-auto relative max-w-7xl px-6 py-10 lg:px-8">
           <motion.nav
             aria-label="Breadcrumb"
             className="flex items-center gap-2 text-xs text-muted-foreground"

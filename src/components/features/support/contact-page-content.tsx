@@ -30,6 +30,7 @@ import {
   SendHorizontal
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -181,8 +182,18 @@ export function ContactPageContent() {
 
       <section className="py-14">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.15fr] lg:gap-12 lg:px-8">
+          <div className="absolute inset-0">
+            <Image
+              src={'/assets/landing/landing-harvesting.webp'}
+              alt="landing-harvesting"
+              width={500}
+              height={300}
+              className="w-full h-full aspect-video object-cover opacity-30 mask-b-from-40% mask-b-to-90%"
+              unoptimized
+            />
+          </div>
           <motion.div
-            className="flex flex-col justify-between"
+            className="flex relative flex-col justify-between"
             {...getRevealProps(shouldReduceMotion, 1)}>
             <div>
               <h1 className="text-3xl font-semibold tracking-[-0.05em] text-primary sm:text-4xl lg:text-5xl">
@@ -222,7 +233,7 @@ export function ContactPageContent() {
           </motion.div>
 
           <motion.section
-            className="rounded-2xl border border-border bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] sm:p-8"
+            className="rounded-2xl relative border border-border bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.05)] sm:p-8"
             {...getRevealProps(shouldReduceMotion, 2)}>
             <div className="flex items-start gap-3">
               <Headphones className="mt-1 h-5 w-5 text-primary" />
@@ -393,3 +404,4 @@ export function ContactPageContent() {
     </main>
   );
 }
+

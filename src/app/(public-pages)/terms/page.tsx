@@ -4,6 +4,7 @@ import { MarketingFooter } from '@/components/common/marketing-footer';
 import { Navbar } from '@/components/common/navbar';
 import { ChevronRight, Shield, FileText, Zap } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -135,11 +136,21 @@ export default function TermsPage() {
       />
 
       {/* Hero Section */}
-      <section className="border-b border-primary/10 bg-gradient-to-br from-white via-white to-[#f7f8f3]">
+      <section className="border-b relative border-primary/10 bg-gradient-to-br from-white via-white to-[#f7f8f3]">
+        <div className="absolute inset-0">
+          <Image
+            src={'/assets/landing/landing-harvesting.webp'}
+            alt="landing-harvesting"
+            width={500}
+            height={300}
+            className="w-full h-full aspect-video object-cover opacity-30 mask-b-from-40% mask-b-to-90%"
+            unoptimized
+          />
+        </div>
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
           <motion.nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary/70"
+            className="flex items-center gap-2 relative text-xs font-semibold uppercase tracking-[0.16em] text-primary/70"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}>
@@ -158,7 +169,7 @@ export default function TermsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}>
-            <div className="flex items-start gap-4 sm:gap-6">
+            <div className="flex relative items-start gap-4 sm:gap-6">
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-primary/15 bg-primary/10 shadow-md shadow-primary/10 ring-1 ring-inset ring-primary/10">
                 <FileText className="h-7 w-7 text-primary" />
               </div>
@@ -182,7 +193,7 @@ export default function TermsPage() {
 
       {/* Main Content Grid */}
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
-        <div className="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-12">
+        <div className="relative grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-12">
           {/* Sidebar Navigation */}
           <motion.aside
             className="lg:sticky lg:top-28 lg:h-fit"
