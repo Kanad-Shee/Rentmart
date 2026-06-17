@@ -206,7 +206,7 @@ export function AdminUserManagement() {
       </div>
 
       {usersQuery.isPending ? (
-        <div className="flex min-h-[240px] items-center justify-center rounded-xl border border-[#d8dfdb] bg-white">
+        <div className="flex min-h-60 items-center justify-center rounded-xl border border-[#d8dfdb] bg-white">
           <Loader2 className="h-6 w-6 animate-spin text-primary" />
         </div>
       ) : null}
@@ -256,7 +256,7 @@ export function AdminUserManagement() {
                       key={user.id}
                       className="align-top transition-colors hover:bg-[#fbfcfa]">
                       <td className="px-6 py-5">
-                        <div className="min-w-[280px]">
+                        <div className="min-w-70">
                           <p className="text-base font-semibold text-primary">
                             {user.fullName}
                           </p>
@@ -278,7 +278,7 @@ export function AdminUserManagement() {
                         </span>
                       </td>
                       <td className="px-6 py-5 text-sm text-[#475569]">
-                        <div className="flex min-w-[180px] items-center gap-2">
+                        <div className="flex min-w-45 items-center gap-2">
                           <ShieldCheck className="h-4 w-4 text-primary" />
                           <span>{getVerificationLabel(user)}</span>
                         </div>
