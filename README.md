@@ -1,181 +1,214 @@
-# Rentmart
+# RentMart
 
-Frontend application for the Rentmart heavy-equipment marketplace. This app delivers the public marketplace, owner and renter workflows, admin operations, support surfaces, payment visibility, and data-rich dashboard experiences on top of Next.js App Router.
+RentMart is the frontend application for a full-stack equipment rental marketplace. It provides the public marketplace experience, authentication pages, role-based dashboards, booking and wishlist workflows, support surfaces, payment visibility, and admin analytics for the RentMart platform.
 
-## Visual Previews
+The client is built with **Next.js 16**, **React 19**, **TypeScript**, **Tailwind CSS v4**, and **TanStack Query**. It communicates with the backend through feature-specific API hooks and local App Router proxy routes.
 
-![Landing Page](public/assets/rentmart-marketplace-assets/rentmart_landing_page/screen.png)
+![Rentmart_landing_page](public/assets/landing/Landing_Page.png)
 
-![About Page](public/assets/rentmart-marketplace-assets/rentmart_about_page_design/screen.png)
+## Project Purpose
 
-![Contact Page](public/assets/rentmart-marketplace-assets/rentmart_contact_page/screen.png)
+RentMart solves the problem of unorganized equipment rental by giving owners, renters, and administrators a single digital platform.
 
-![Dashboard Reference](public/assets/rentmart-marketplace-assets/notification_page/screen.png)
+- Owners can list equipment, manage inventory, and respond to rental requests.
+- Renters can browse equipment, view details, save listings, create bookings, and track activity.
+- Admin users can verify listings, manage users/categories, inspect transactions, review support queries, and monitor platform health.
+- The frontend presents these workflows through public pages, authenticated screens, and role-specific dashboards.
+- The interface is designed to support academic project evaluation through clear modules, visible user flows, and complete full-stack integration.
 
-## What This Client Covers
+## Key Features
 
-| Product area       | What users can do                                                                                          |
-| ------------------ | ---------------------------------------------------------------------------------------------------------- |
-| Public marketplace | Browse featured machinery, categories, and public listing details                                          |
-| Authentication     | Sign up, sign in, verify OTP, and manage session-based access                                              |
-| Owner tools        | Create listings, manage inventory, review rental requests, view transactions                               |
-| Renter tools       | Search equipment, wishlist listings, book equipment, and track bookings                                    |
-| Admin portal       | Moderate listings, manage users/categories, resolve support queries, inspect transactions, and view charts |
-| Trust and legal    | Access About, Support, and Terms pages from the shared marketing navigation                                |
+- Public marketplace landing page with featured equipment and category-driven discovery.
+- About, contact/support, terms, search, category, and equipment detail pages.
+- Authentication screens for sign-in, sign-up, OTP verification, and logout flow.
+- Role-aware dashboard routing for owner, renter, and admin users.
+- Owner dashboard for listings, rental requests, settings, and transactions.
+- Renter dashboard for bookings, wishlist, notifications, transactions, and profile activity.
+- Admin dashboard for listing verification, users, categories, support queries, transactions, and charts.
+- Wishlist support for saving equipment before booking.
+- Notification screens for booking, listing, and account-related updates.
+- Payment and transaction visibility through dashboard pages.
+- Support query submission from the contact page and admin-side review.
+- Review and summary support for completed equipment rental experiences where the backend exposes review data.
+- Responsive layouts for desktop and mobile screen sizes.
+- Reusable UI, hooks, and API helpers for maintainable development.
 
-## Stack
+## Technology Stack
 
-| Layer         | Tooling                                              | How it is used in Rentmart                                                                       |
-| ------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| Framework     | Next.js 16 App Router                                | Route groups for public, auth, and protected dashboard experiences                               |
-| UI library    | React 19                                             | Component-driven rendering for marketplace and dashboard modules                                 |
-| Styling       | Tailwind CSS v4                                      | Utility-first styling with CSS variables and responsive layouts                                  |
-| Motion        | `motion`                                             | Page reveals, navbar transitions, product-page polish, hero carousel, and dashboard interactions |
-| Icons         | `lucide-react`                                       | Consistent iconography across marketplace and admin views                                        |
-| Data fetching | TanStack Query                                       | Server-state caching for auth, bookings, listings, notifications, payments, and support queries  |
-| Forms         | React Hook Form                                      | Controlled forms for auth, listing creation, contact, and settings flows                         |
-| Validation    | Zod + `@hookform/resolvers`                          | Shared client-side input constraints and safe form parsing                                       |
-| UI primitives | Base UI                                              | Non-Radix interactive primitives aligned with the current app setup                              |
-| shadcn setup  | `base-vega` style config                             | Local component composition and design tokens configured via `components.json`                   |
-| Charts        | Recharts + local shadcn-style wrappers               | Admin chart view, legends, tooltips, and responsive chart containers                             |
-| Utilities     | `clsx`, `tailwind-merge`, `class-variance-authority` | Cleaner class composition and variant handling                                                   |
+| Layer         | Technology                 | Usage in Client                                          |
+| ------------- | -------------------------- | -------------------------------------------------------- |
+| Framework     | Next.js 16 App Router      | Page routing, layouts, route groups, and proxy routes    |
+| UI library    | React 19                   | Component-based marketplace and dashboard UI             |
+| Language      | TypeScript                 | Safer props, API types, and domain models                |
+| Styling       | Tailwind CSS v4            | Responsive utility-first styling                         |
+| Server state  | TanStack Query             | Fetching, caching, mutations, and revalidation           |
+| Forms         | React Hook Form            | Auth, listing, support, and settings forms               |
+| Validation    | Zod + resolvers            | Client-side form validation                              |
+| Icons         | lucide-react               | Dashboard, navigation, action, and status icons          |
+| Motion        | motion                     | Page transitions, interactive polish, and reveal effects |
+| Charts        | Recharts                   | Admin analytics and visual reporting                     |
+| UI primitives | Base UI + local components | Reusable accessible interface building blocks            |
+| Utilities     | clsx, tailwind-merge, CVA  | Class composition and variant handling                   |
 
-## App Architecture
+## Application Structure
 
-| Directory                 | Purpose                                                                            |
-| ------------------------- | ---------------------------------------------------------------------------------- |
-| `src/app`                 | App Router pages, route groups, and Next proxy handlers                            |
-| `src/components/common`   | Shared navbar, footer, and reusable layout pieces                                  |
-| `src/components/features` | Product-specific UI grouped by domain: landing, dashboard, product, category, etc. |
-| `src/components/ui`       | Local UI building blocks including chart helpers                                   |
-| `src/hooks`               | React Query hooks for each API domain                                              |
-| `src/lib`                 | Typed API clients, auth cookie constants, domain types, and utility helpers        |
-| `public/assets`           | Design references, page mockups, and static media used by implemented screens      |
+```text
+client/
+├─ public/
+│  └─ assets/
+├─ src/
+│  ├─ app/
+│  ├─ components/
+│  ├─ hooks/
+│  ├─ lib/
+│  ├─ providers/
+│  └─ utils/
+├─ components.json
+├─ next.config.ts
+├─ package.json
+└─ tsconfig.json
+```
 
-## Route Groups
+## Important Directories
 
-| Route group                                | What lives there                                                  |
-| ------------------------------------------ | ----------------------------------------------------------------- |
-| `src/app/page.tsx`                         | Public marketplace landing page                                   |
-| `src/app/about`                            | About page built from provided visual references and local assets |
-| `src/app/contact`                          | Contact/support page plus support-query submission flow           |
-| `src/app/terms`                            | Terms page with section-aware navigation and highlight behavior   |
-| `src/app/details`                          | Single equipment detail pages                                     |
-| `src/app/categories` / `src/app/equipment` | Marketplace browsing surfaces                                     |
-| `src/app/(auth)`                           | Sign-in, sign-up, and OTP verification                            |
-| `src/app/(protected)/dashboard`            | Owner, renter, and admin dashboard pages                          |
-| `src/app/auth/[...auth]`                   | Safe auth proxy to backend routes                                 |
-| `src/app/payments/[...payments]`           | Safe payment/event proxy to backend routes                        |
+- `src/app`
+  - Contains App Router pages, layouts, route groups, protected routes, public pages, and local API proxy routes.
+- `src/app/(public-pages)`
+  - Contains public-facing marketplace pages such as about, contact, terms, search, category, and details.
+- `src/app/(auth)`
+  - Contains sign-in, sign-up, and OTP verification pages.
+- `src/app/(protected)`
+  - Contains dashboard and protected product/user workflows.
+- `src/app/(api)`
+  - Contains Next.js proxy routes for auth, bookings, categories, equipment, notifications, payments, support queries, and wishlists.
+- `src/components`
+  - Contains shared UI, feature components, dashboard pieces, cards, forms, navigation, and reusable page sections.
+- `src/hooks`
+  - Contains feature-specific TanStack Query hooks such as auth, bookings, equipment, category, notifications, payments, support query, and wishlist.
+- `src/lib`
+  - Contains API clients, HTTP helpers, types, constants, and shared utilities.
+- `public/assets`
+  - Contains screenshots, design references, and static assets used for marketplace and dashboard screens.
 
-## Dashboard Coverage
+## Route and Page Coverage
 
-| Section         | Highlights                                                               |
-| --------------- | ------------------------------------------------------------------------ |
-| Overview        | Role-specific snapshots and workflow entry points                        |
-| Verifications   | Admin moderation queue for listings and trust readiness                  |
-| User Management | Client-side searchable/filterable user administration                    |
-| Categories      | Category management with live listing awareness                          |
-| Support Queries | Admin queue for owner/renter contact submissions                         |
-| Transactions    | Ledger tab plus raw Cashfree event tab for reconciliation                |
-| Chart View      | Payment, booking, support, settlement, verification, and user-mix charts |
-| Owner views     | Listings, rental requests, settings, transactions                        |
-| Renter views    | Bookings, saved items, notifications, transactions                       |
+- `/`
+  - Public marketplace landing page.
+- `/about`
+  - Project/company information page.
+- `/contact`
+  - Contact and support query submission page.
+- `/terms`
+  - Terms of service page.
+- `/search`
+  - Equipment search and browsing page.
+- `/category/[categoryId]`
+  - Category-specific equipment listing page.
+- `/details/[id]`
+  - Single equipment detail page.
+- `/sign-in`
+  - User login page.
+- `/sign-up`
+  - User registration page.
+- `/verify-otp`
+  - OTP verification page.
+- `/dashboard`
+  - Protected role-based dashboard entry point.
+- `/dashboard/...`
+  - Admin, owner, renter, and shared dashboard sections.
 
-## Charts and Analytics
+## User Role Workflows
 
-The admin chart screen uses Recharts through a local shadcn-style wrapper in `src/components/ui/chart.tsx`. It supports:
+### Public Visitor
 
-- responsive measured containers
-- shared legend and tooltip components
-- CSS-variable-driven chart colors
-- grid layouts that adapt to smaller screens
-- mixed chart styles including line, area, bar, grouped bar, stacked bar, and donut/pie
+- Browse the RentMart landing page.
+- Explore equipment categories and featured listings.
+- Open equipment detail pages.
+- Read about, terms, and contact/support pages.
+- Move into authentication when booking or saving equipment is required.
 
-| Chart block             | Comparison                                       |
-| ----------------------- | ------------------------------------------------ |
-| Payment Success Trend   | Captured payments vs failed payments             |
-| Booking Flow Health     | Approved bookings vs rejected/cancelled bookings |
-| Settlement Queue Status | Owner payouts pending vs deposit refunds pending |
-| User Mix                | Owners vs renters                                |
-| Support Load Overview   | Owner queries vs renter queries                  |
-| Verification Pipeline   | Ready/verified vs pending/action required        |
+### Renter
 
-## Shared UX Systems
+- Sign up and verify account details.
+- Search and compare available equipment.
+- Save equipment to wishlist for later.
+- Submit booking requests.
+- Track booking status and notifications.
+- View transaction-related dashboard information.
+- Submit support queries when help is needed.
 
-| System              | Implementation detail                                                                                       |
-| ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Shared navbar       | Public links are normalized across pages and collapse into a mobile dropdown on smaller screens             |
-| Motion patterns     | Subtle transitions are used for hero surfaces, cards, detail pages, dropdowns, and dashboard panels         |
-| Role-aware CTAs     | Navigation and dashboard actions adapt for admin, owner, and renter roles                                   |
-| Asset-driven design | About, contact, terms, listing, and marketplace pages reuse provided design references from `public/assets` |
-| Responsive layout   | Marketing, dashboard, and chart surfaces are optimized for small through large screens                      |
+### Owner
 
-## Safety and Secure Frontend Patterns
+- Sign up and access protected owner dashboard.
+- Create and manage equipment listings.
+- Upload listing information and images.
+- Track listing verification state.
+- Accept or reject rental requests.
+- View transaction and booking activity.
+- Update settings and respond to platform notifications.
 
-The frontend does not replace backend security, but it is designed to cooperate with it safely.
+### Admin
 
-| Concern                  | Frontend implementation                                                                         |
-| ------------------------ | ----------------------------------------------------------------------------------------------- |
-| Auth cookie handling     | Uses a dedicated auth cookie constant and backend-proxied auth routes                           |
-| Credentialed requests    | `apiRequest()` sends `credentials: "include"` by default for authenticated flows                |
-| Typed API errors         | Central `ApiError` class normalizes server errors for safer UI handling                         |
-| Request body handling    | Helper only JSON-stringifies plain objects and leaves `FormData` intact for uploads             |
-| Proxy boundaries         | App Router proxy routes whitelist and forward only expected auth/payment endpoints              |
-| Validation before submit | Forms use React Hook Form + Zod resolvers to reduce invalid client submissions                  |
-| Protected UI             | Role-specific pages and actions are organized under protected route groups and dashboard shells |
-| Error resilience         | Payment proxy returns a controlled `502` response if backend connectivity fails                 |
-| Chart stability          | Local chart container measures width/height before rendering to avoid runtime sizing issues     |
+- Review and verify submitted listings.
+- Manage users and categories.
+- Inspect support queries from owners and renters.
+- Monitor booking/payment activity.
+- View raw payment events and transaction records.
+- Use chart view for platform-level operational insights.
 
-## How Frontend and Backend Work Together
+## Client-Server Integration
 
-| Frontend piece                   | Backend relationship                                                     |
-| -------------------------------- | ------------------------------------------------------------------------ |
-| `src/hooks/use-auth.ts`          | Talks to auth proxy routes and session endpoints                         |
-| `src/hooks/use-equipment.ts`     | Fetches featured listings, public listings, and owner/admin listing data |
-| `src/hooks/use-bookings.ts`      | Drives renter and owner booking flows                                    |
-| `src/hooks/use-payments.ts`      | Powers admin raw event visibility                                        |
-| `src/hooks/use-support-query.ts` | Submits contact queries and powers admin review UI                       |
-| `src/lib/http.ts`                | Shared transport layer for JSON APIs and typed error handling            |
+The client is designed around clear communication with the backend API.
 
-## Featured UI Flows
+- `src/lib` provides shared request helpers and typed API utilities.
+- `src/hooks/use-auth.ts` handles authentication and session-related state.
+- `src/hooks/use-equipment.ts` handles public listings, owner listings, and admin equipment views.
+- `src/hooks/use-category.ts` handles category data.
+- `src/hooks/use-bookings.ts` handles booking creation, approval, rejection, and lifecycle state.
+- `src/hooks/use-wishlist.ts` handles saved equipment.
+- `src/hooks/use-notification.ts` handles user notification feeds.
+- `src/hooks/use-support-query.ts` handles support form submission and admin review data.
+- `src/hooks/use-payments.ts` supports payment and raw event visibility.
+- App Router proxy routes under `src/app/(api)` forward expected API requests to the server boundary.
 
-### 1. Landing Experience
+## Dashboard and Analytics
 
-- Hero marketplace section rotates through recent featured listings
-- Public navbar stays consistent across Home, About, Support, and Terms
-- Category and featured sections pull from live listing data
+The dashboard is one of the most important evaluation areas because it demonstrates role separation and admin governance.
 
-### 2. Contact and Support
+- Owner dashboard focuses on inventory and rental request management.
+  ![Owner_dashboard](public/assets/landing/Owner_dashboard.png)
+- Renter dashboard focuses on bookings, saved items, alerts, and transaction visibility.
+  ![Renter_Dashboard](public/assets/landing/Renter_Dashboard.png)
+- Admin dashboard focuses on platform supervision and verification.
+  ![Admin_Dashboard](public/assets/landing/Admin_Dashboard.png)
+- Chart view summarizes marketplace health using Recharts.
+- Analytics include payment trends, booking flow, support load, user mix, verification status, and settlement-related information.
+- Dashboard screens are built from reusable components so the UI remains consistent across roles.
 
-- Contact page is built from the provided design reference set
-- Only owner and renter users can submit support queries
-- Admin users review those queries inside dashboard support management
+## Security-Aware Frontend Practices
 
-### 3. Transactions and Payments
+The frontend does not replace backend security, but it follows safe client patterns.
 
-- Admin transaction page provides a ledger tab and a raw-event tab
-- Ledger focuses on business settlement
-- Raw events focus on webhook inspection and reconciliation
+- Protected pages are grouped separately from public pages.
+- Auth-sensitive requests use shared HTTP utilities instead of scattered manual fetch calls.
+- API proxy routes keep backend communication centralized.
+- Forms use validation before submission.
+- Role-specific views reduce accidental access to irrelevant workflows.
+- API errors are normalized for predictable UI feedback.
+- File and image form data is preserved where upload flows require it.
+- Payment-related backend failures are handled through controlled UI states instead of broken screens.
 
-### 4. Chart View
+## Environment Setup
 
-- Dedicated sidebar entry in the admin dashboard
-- Visual overview of financial and operational health
-- Shadcn-style chart wrappers built on top of Recharts and the app's token system
+Create the required environment file for local API communication. The exact variable names may depend on the backend configuration, but the client should know the server/API base URL used by the proxy and hooks.
 
-## Assets and Design References
+Common setup points:
 
-The client ships with an asset library in `public/assets`, including:
-
-| Asset family                                                 | Usage                                         |
-| ------------------------------------------------------------ | --------------------------------------------- |
-| `rentmart_landing_page`                                      | Landing page visual direction                 |
-| `rentmart_about_page_design`                                 | About page layout and illustration references |
-| `rentmart_contact_page`                                      | Contact page design reference                 |
-| `single_machinery_listing`                                   | Product detail page inspiration               |
-| `single_category_products`                                   | Category browsing page reference              |
-| `terms_of_service_rentmart`                                  | Terms page visual basis                       |
-| `verifications`, `owner_listings`, `renter_dashboard_design` | Dashboard/admin workflow guidance             |
+- Install Bun.
+- Install project dependencies.
+- Make sure the server is running before testing authenticated or data-driven pages.
+- Configure the API/backend URL expected by the client.
+- Keep credentials and secrets outside source control.
 
 ## Local Development
 
@@ -184,24 +217,43 @@ bun install
 bun run dev
 ```
 
-Open `http://localhost:3000`.
+Then open:
 
-## Build
+```text
+http://localhost:3000
+```
+
+## Build and Production Run
 
 ```bash
 bun run build
 bun run start
 ```
 
-## Lint
+## Code Quality Commands
 
 ```bash
 bun run lint
+bun run format:check
+bun run format:fix
 ```
 
-## Notes for Contributors
+## Evaluation Highlights
 
-- Reuse domain hooks in `src/hooks` instead of scattering ad hoc fetch calls.
-- Keep shared marketing nav labels consistent across public pages.
-- If you add a new chart, wire it through `src/components/ui/chart.tsx` so legends, tokens, and sizing stay consistent.
-- Prefer existing Base UI and local shadcn-style patterns over introducing a separate Radix-based interaction layer.
+- Full-stack marketplace client with public, protected, and admin-facing pages.
+- Clear role-based user experience for owner, renter, and admin.
+- Modern App Router architecture with grouped routes.
+- Feature-specific React Query hooks for maintainable API state.
+- Structured forms and validation for important workflows.
+- Dashboard analytics and transaction visibility for evaluation depth.
+- Responsive UI with reusable components and marketplace-specific screens.
+- Strong alignment with the project report modules: authentication, listings, categories, bookings, payments, notifications, support, wishlist, and reviews/summary.
+
+## Contributor Notes
+
+- Reuse hooks from `src/hooks` before adding new fetch logic.
+- Keep public pages, protected pages, and API proxy routes in their existing route groups.
+- Keep shared UI inside `src/components` and domain logic inside `src/lib` or hooks.
+- Use existing Tailwind, Base UI, and local component patterns for consistency.
+- Update this README when new evaluation-visible pages, dashboard modules, or scripts are added.
+
