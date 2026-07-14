@@ -69,6 +69,18 @@ client/
 └─ tsconfig.json
 ```
 
+## Frontend Architecture
+
+The frontend follows a modular architecture based on the Next.js App Router. User requests are routed through pages and layouts, where reusable UI components, feature-specific hooks, and API utilities work together to fetch data from the backend and render responsive interfaces. This layered architecture promotes maintainability, code reusability, and clear separation of concerns.
+
+![RentMart Frontend Architecture](public/assets/frontend-architecture.png)
+
+## Module Interaction Flow
+
+The following diagram illustrates how a user interacts with the RentMart frontend. Requests pass through the App Router, reusable components, React Query hooks, API utilities, and proxy routes before reaching the backend. Responses are cached, processed, and rendered as interactive user interfaces.
+
+![RentMart Frontend Module Flow](public/assets/module-interaction-flow-diagram.png)
+
 ## Important Directories
 
 - `src/app`
