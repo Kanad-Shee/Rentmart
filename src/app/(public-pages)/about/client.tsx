@@ -111,10 +111,10 @@ function getRevealProps(shouldReduceMotion: boolean, index = 0) {
     transition: shouldReduceMotion
       ? { duration: 0, delay: 0 }
       : {
-          duration: 0.48,
-          delay: Math.min(index * 0.08, 0.32),
-          ease: [0.22, 1, 0.36, 1] as const
-        }
+        duration: 0.48,
+        delay: Math.min(index * 0.08, 0.32),
+        ease: [0.22, 1, 0.36, 1] as const
+      }
   };
 }
 
@@ -262,7 +262,7 @@ export function AboutPage() {
               <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tighter text-primary sm:text-4xl lg:text-5xl xl:text-6xl">
                 Moving idle machines into active, revenue-generating work.
               </h1>
-              <p className="mt-6 max-w-2xl text-sm  text-muted-foreground sm:text-base lg:text-lg lg:">
+              <p className="mt-6 max-w-2xl text-sm text-muted-foreground sm:text-base lg:text-lg">
                 Rentmart helps equipment owners earn from underused assets and
                 helps contractors, builders, and industrial teams book verified
                 machinery faster with clearer trust, logistics, and payment
@@ -315,7 +315,7 @@ export function AboutPage() {
                   The Problem
                 </h2>
               </div>
-              <ul className="mt-6 space-y-4 text-sm  text-[#6f6664] sm:text-base">
+              <ul className="mt-6 space-y-4 text-sm text-[#6f6664] sm:text-base">
                 <li>
                   Idle machinery loses value while still carrying maintenance,
                   financing, and storage costs.
@@ -336,7 +336,7 @@ export function AboutPage() {
                   The Rentmart Solution
                 </h2>
               </div>
-              <ul className="mt-6 space-y-4 text-sm  text-[#355344] sm:text-base">
+              <ul className="mt-6 space-y-4 text-sm text-[#355344] sm:text-base">
                 <li>
                   Owners unlock new revenue from existing fleets without adding
                   heavy admin overhead.
@@ -412,7 +412,7 @@ export function AboutPage() {
             <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-primary sm:text-4xl lg:text-5xl">
               Trust & Safety
             </h2>
-            <p className="mt-4 text-sm  text-muted-foreground sm:text-base lg:text-lg">
+            <p className="mt-4 text-sm text-muted-foreground sm:text-base lg:text-lg">
               The protections that make equipment rentals feel more
               professional, more transparent, and easier to scale.
             </p>
@@ -426,7 +426,7 @@ export function AboutPage() {
                   className={[
                     'rounded-2xl border p-7 shadow-md ring-1 ring-inset transition-all duration-300',
                     className ===
-                    'md:col-span-2 bg-primary text-primary-foreground border-primary/80'
+                      'md:col-span-2 bg-primary text-primary-foreground border-primary/80'
                       ? 'md:col-span-2 border-primary/60 bg-linear-to-br from-primary to-primary/95 text-primary-foreground shadow-lg shadow-primary/20 ring-primary/20 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25'
                       : 'border-border/60 bg-linear-to-br from-[#efefeb] to-[#f5f5f2] text-foreground shadow-primary/5 ring-primary/8 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/10'
                   ].join(' ')}
@@ -436,7 +436,7 @@ export function AboutPage() {
                       className={[
                         'rounded-xl p-3.5 transition-all duration-300',
                         className ===
-                        'md:col-span-2 bg-primary text-primary-foreground border-primary/80'
+                          'md:col-span-2 bg-primary text-primary-foreground border-primary/80'
                           ? 'bg-white/15 backdrop-blur-sm'
                           : 'bg-primary/10'
                       ].join(' ')}>
@@ -449,7 +449,7 @@ export function AboutPage() {
                   <h3 className="mt-6 text-2xl font-semibold tracking-[-0.04em] leading-tight">
                     {title}
                   </h3>
-                  <p className="mt-4 text-sm  opacity-90 sm:text-base">
+                  <p className="mt-4 text-sm opacity-90 sm:text-base">
                     {body}
                   </p>
                 </motion.article>
@@ -474,7 +474,7 @@ export function AboutPage() {
               <h2 className="mt-8 text-3xl font-semibold leading-tight tracking-tighter text-white sm:text-4xl lg:text-5xl xl:text-6xl">
                 Ready to join the Rentmart community?
               </h2>
-              <p className="mt-6 text-base  text-[#cde4d7] sm:text-lg">
+              <p className="mt-6 text-base text-[#cde4d7] sm:text-lg">
                 Whether you want to monetize your fleet or source dependable
                 machinery for the next project, Rentmart is built to make the
                 process faster and more trusted.

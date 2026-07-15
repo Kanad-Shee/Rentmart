@@ -32,17 +32,26 @@ export const metadata: Metadata = {
   },
   description:
     'Rentmart is an equipment rental marketplace that helps owners list machinery and renters book trusted industrial equipment with confidence.',
-  applicationName: 'Rentmart',
+  applicationName: 'Rentmart Marketplace',
   keywords: [
     'Rentmart',
     'equipment rental',
     'machinery rental',
     'industrial marketplace',
     'construction equipment',
-    'farm equipment rental'
+    'farm equipment rental',
+    'heavy equipment rental',
+    'machine booking platform',
+    'tractor rental',
+    'excavator rental'
   ],
+  authors: [{ name: "Rentmart Marketplace Team" }],
+  creator: 'Rentmart Marketplace Team',
+  category: 'Business',
   appleWebApp: {
-    title: 'Rentmart'
+    capable: true,
+    title: "Rentmart",
+    statusBarStyle: "default"
   }
 };
 

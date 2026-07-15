@@ -43,10 +43,10 @@ function getRevealProps(shouldReduceMotion: boolean, index = 0) {
     transition: shouldReduceMotion
       ? { duration: 0, delay: 0 }
       : {
-          duration: 0.42,
-          delay: Math.min(index * 0.08, 0.28),
-          ease: [0.22, 1, 0.36, 1] as const
-        }
+        duration: 0.42,
+        delay: Math.min(index * 0.08, 0.28),
+        ease: [0.22, 1, 0.36, 1] as const
+      }
   };
 }
 
@@ -199,7 +199,7 @@ export function ContactPageContent() {
               <h1 className="text-3xl font-semibold tracking-[-0.05em] text-primary sm:text-4xl lg:text-5xl">
                 We&apos;re here to help.
               </h1>
-              <p className="mt-5 max-w-md text-sm  text-muted-foreground sm:text-base lg:text-lg lg:">
+              <p className="mt-5 max-w-md text-sm text-muted-foreground sm:text-base lg:text-lg lg:">
                 Have a question about a rental or need help listing your
                 machinery? Reach out to our team.
               </p>
@@ -241,7 +241,7 @@ export function ContactPageContent() {
                 <h2 className="text-2xl font-semibold tracking-[-0.04em] text-primary sm:text-3xl">
                   Send us a message
                 </h2>
-                <p className="mt-2 text-sm  text-muted-foreground">
+                <p className="mt-2 text-sm text-muted-foreground">
                   Support queries can be submitted only by owner and renter
                   accounts. We use your logged-in profile details automatically.
                 </p>
@@ -250,7 +250,7 @@ export function ContactPageContent() {
 
             {!user ? (
               <div className="mt-6 rounded-xl border border-[#d9e0d9] bg-[#f8faf7] p-5">
-                <p className="text-sm  text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   Sign in as an owner or renter to submit a support request.
                 </p>
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row">
@@ -279,7 +279,7 @@ export function ContactPageContent() {
                       Admin accounts can review support queries but cannot
                       create them.
                     </p>
-                    <p className="mt-2 text-sm ">
+                    <p className="mt-2 text-sm">
                       Please use an owner or renter account if you need to
                       submit a marketplace support request.
                     </p>
