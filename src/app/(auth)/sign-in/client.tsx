@@ -23,7 +23,7 @@ import { EyeClosedIcon, EyeIcon, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import {
   type FieldError as RHFFieldError,
@@ -82,8 +82,14 @@ function AuthField({
 
 export default function SignInPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const signInMutation = useSignInMutation();
   const [formError, setFormError] = useState<string | null>(null);
+  const redirectToParam = searchParams.get('redirectTo');
+  const redirectTo =
+    redirectToParam && redirectToParam.startsWith('/')
+      ? redirectToParam
+      : '/dashboard';
   const form = useForm<SignInInput>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -99,11 +105,17 @@ export default function SignInPage() {
     try {
       await signInMutation.mutateAsync(values);
       toast.success('Signed in successfully.');
-      router.replace('/dashboard');
+      window.location.replace(redirectTo);
     } catch (error) {
       if (error instanceof ApiError && error.code === 'EMAIL_NOT_VERIFIED') {
         toast.error('Please verify your email before signing in.');
-        router.push(`/verify-otp?email=${encodeURIComponent(values.email)}`);
+        const verificationParams = new URLSearchParams({
+          email: values.email
+        });
+
+        verificationParams.set('redirectTo', redirectTo);
+
+        router.push(`/verify-otp?${verificationParams.toString()}`);
         return;
       }
 

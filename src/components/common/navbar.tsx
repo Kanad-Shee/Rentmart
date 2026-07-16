@@ -70,6 +70,10 @@ type NavbarProps = {
   actionClassName?: string;
 };
 
+function isProtectedDashboardHref(href: string) {
+  return href === '/dashboard' || href.startsWith('/dashboard/');
+}
+
 function resolveHref(href: string | undefined, fallbackHref: string) {
   if (!href || href === '#') {
     return fallbackHref;
@@ -143,6 +147,7 @@ export function Navbar({
   const [isStaticLinksMenuOpen, setIsStaticLinksMenuOpen] = useState(false);
   const currentUser = currentUserQuery.data;
   const isAuthenticated = Boolean(currentUser);
+  const shouldPrefetchProtectedRoutes = isAuthenticated;
   const shouldShowGuestActions =
     !isAuthenticated &&
     (currentUserQuery.isError ||
@@ -278,6 +283,14 @@ export function Navbar({
     });
   }
 
+  function shouldPrefetchHref(href: string) {
+    if (!isProtectedDashboardHref(href)) {
+      return true;
+    }
+
+    return shouldPrefetchProtectedRoutes;
+  }
+
   return (
     <motion.header
       className={[
@@ -297,7 +310,7 @@ export function Navbar({
             whileHover={shouldReduceMotion ? undefined : { y: -1, scale: 1.01 }}
             transition={{ duration: 0.2 }}>
             <Link
-              prefetch
+              prefetch={shouldPrefetchHref(brandHref)}
               href={brandHref}
               className={[
                 'flex items-center text-primary',
@@ -334,7 +347,7 @@ export function Navbar({
                   }}
                   whileHover={shouldReduceMotion ? undefined : { y: -1 }}>
                   <Link
-                    prefetch
+                    prefetch={shouldPrefetchHref(link.href)}
                     href={link.href}
                     className={[
                       'text-sm font-display font-medium transition-colors hover:text-primary',
@@ -387,7 +400,7 @@ export function Navbar({
                         className="absolute left-0 top-[calc(100%+0.75rem)] min-w-44 rounded-xl border border-border bg-background p-2 shadow-[0_18px_50px_rgba(0,0,0,0.12)]">
                         {staticLinks.map((link) => (
                           <Link
-                            prefetch
+                            prefetch={shouldPrefetchHref(link.href)}
                             key={link.label}
                             href={link.href}
                             onClick={() => setIsStaticLinksMenuOpen(false)}
@@ -461,7 +474,7 @@ export function Navbar({
                     <div className="space-y-1">
                       {primaryLinks.map((link: NavbarLink) => (
                         <Link
-                          prefetch
+                          prefetch={shouldPrefetchHref(link.href)}
                           key={link.label}
                           href={link.href}
                           onClick={() => setIsNavMenuOpen(false)}
@@ -479,7 +492,7 @@ export function Navbar({
                           <div className="my-1 border-t border-border" />
                           {staticLinks.map((link) => (
                             <Link
-                              prefetch
+                              prefetch={shouldPrefetchHref(link.href)}
                               key={link.label}
                               href={link.href}
                               onClick={() => setIsNavMenuOpen(false)}
@@ -497,7 +510,7 @@ export function Navbar({
 
                       {mobileResolvedActions.map((action) => (
                         <Link
-                          prefetch
+                          prefetch={shouldPrefetchHref(action.href)}
                           key={action.label}
                           href={action.href}
                           onClick={() => setIsNavMenuOpen(false)}
@@ -511,7 +524,7 @@ export function Navbar({
                       {shouldShowGuestActions ? (
                         <>
                           <Link
-                            prefetch
+                            prefetch={shouldPrefetchHref(signInHref)}
                             href={signInHref}
                             onClick={() => setIsNavMenuOpen(false)}
                             className="flex rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted hover:text-primary">
@@ -519,7 +532,7 @@ export function Navbar({
                           </Link>
 
                           <Link
-                            prefetch
+                            prefetch={shouldPrefetchHref(signUpHref)}
                             href={signUpHref}
                             onClick={() => setIsNavMenuOpen(false)}
                             className="flex rounded-lg px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted hover:text-primary">
@@ -533,7 +546,7 @@ export function Navbar({
                           <div className="my-1 border-t border-border" />
 
                           <Link
-                            prefetch
+                            prefetch={shouldPrefetchHref(dashboardHref)}
                             href={dashboardHref}
                             onClick={() => setIsNavMenuOpen(false)}
                             className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary">
@@ -542,7 +555,7 @@ export function Navbar({
                           </Link>
 
                           <Link
-                            prefetch
+                            prefetch={shouldPrefetchHref(settingsHref)}
                             href={settingsHref}
                             onClick={() => setIsNavMenuOpen(false)}
                             className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary">
@@ -551,7 +564,7 @@ export function Navbar({
                           </Link>
 
                           <Link
-                            prefetch
+                            prefetch={shouldPrefetchHref('/terms')}
                             href="/terms"
                             onClick={() => setIsNavMenuOpen(false)}
                             className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary">
@@ -600,7 +613,7 @@ export function Navbar({
               whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
               transition={{ duration: 0.18 }}>
               <Link
-                prefetch
+                prefetch={shouldPrefetchHref(action.href)}
                 href={action.href}
                 className={[
                   'inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-semibold transition-colors',
@@ -621,7 +634,7 @@ export function Navbar({
                 whileHover={shouldReduceMotion ? undefined : { y: -1 }}
                 transition={{ duration: 0.18 }}>
                 <Link
-                  prefetch
+                  prefetch={shouldPrefetchHref(signInHref)}
                   href={signInHref}
                   className={[
                     'hidden rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:inline-flex',
@@ -636,7 +649,7 @@ export function Navbar({
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 transition={{ duration: 0.18 }}>
                 <Link
-                  prefetch
+                  prefetch={shouldPrefetchHref(signUpHref)}
                   href={signUpHref}
                   className={[
                     'hidden lg:inline-flex items-center justify-center rounded-md bg-linear-to-b from-primary/85 via-primary/90 to-primary/95 px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-[#274e3d]',
@@ -705,7 +718,7 @@ export function Navbar({
 
                     <div className="mt-2 space-y-1">
                       <Link
-                        prefetch
+                        prefetch={shouldPrefetchHref(dashboardHref)}
                         href={dashboardHref}
                         onClick={() => setIsProfileMenuOpen(false)}
                         className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary">
@@ -714,7 +727,7 @@ export function Navbar({
                       </Link>
 
                       <Link
-                        prefetch
+                        prefetch={shouldPrefetchHref(settingsHref)}
                         href={settingsHref}
                         onClick={() => setIsProfileMenuOpen(false)}
                         className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary">
@@ -723,7 +736,7 @@ export function Navbar({
                       </Link>
 
                       <Link
-                        prefetch
+                        prefetch={shouldPrefetchHref('/terms')}
                         href="/terms"
                         onClick={() => setIsProfileMenuOpen(false)}
                         className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary">

@@ -17,7 +17,7 @@ import {
 import { ApiError } from '@/lib/http';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -27,13 +27,17 @@ type ResendOtpFormInput = {
 };
 
 export default function VerifyOtpPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const verifyOtpMutation = useVerifyOtpMutation();
   const resendOtpMutation = useResendOtpMutation();
   const [formError, setFormError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const emailFromQuery = searchParams.get('email') ?? '';
+  const redirectToParam = searchParams.get('redirectTo');
+  const redirectTo =
+    redirectToParam && redirectToParam.startsWith('/')
+      ? redirectToParam
+      : '/dashboard';
 
   const form = useForm<VerifyOtpInput>({
     resolver: zodResolver(verifyOtpSchema),
@@ -56,7 +60,7 @@ export default function VerifyOtpPage() {
     try {
       await verifyOtpMutation.mutateAsync(values);
       toast.success('Email verified successfully.');
-      router.replace('/dashboard');
+      window.location.replace(redirectTo);
     } catch (error) {
       toast.error(
         error instanceof ApiError ? error.message : 'Unable to verify OTP.'
