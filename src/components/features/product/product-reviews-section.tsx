@@ -485,7 +485,7 @@ export function ProductReviewsSection({
               <button
                 type="button"
                 onClick={() => setIsModalOpen(true)}
-                className="inline-flex items-center gap-2 rounded bg-[#1b4332] px-6 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all hover:opacity-90">
+                className="inline-flex items-center gap-2 rounded bg-[#1b4332] px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all hover:opacity-90">
                 <MessageSquarePlus className="h-4 w-4" />
                 {existingReview ? 'Update Your Review' : 'Add Your Review'}
               </button>
@@ -598,7 +598,9 @@ export function ProductReviewsSection({
               </DialogHeader>
             </div>
 
-            <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col">
+            <form
+              onSubmit={handleSubmit}
+              className="flex min-h-0 flex-1 flex-col">
               <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-6 sm:px-8">
                 <div className="flex items-center gap-4 rounded-lg border border-[#c1c8c2]/50 bg-[#f3f4f1] p-3">
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-[#dadad7]">

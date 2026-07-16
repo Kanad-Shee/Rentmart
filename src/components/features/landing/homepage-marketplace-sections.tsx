@@ -336,7 +336,7 @@ export function HomepageMarketplaceSections() {
             new Date(right.createdAt).getTime() -
             new Date(left.createdAt).getTime()
         )
-        .slice(0, 3),
+        .slice(0, 5),
     [featuredListings]
   );
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);
@@ -599,7 +599,7 @@ export function HomepageMarketplaceSections() {
                       <p className="text-sm text-muted-foreground">
                         {heroListing.category.title} • Recently added
                       </p>
-                      <div className="mt-3 flex items-end justify-between gap-2 border-t border-border pt-2">
+                      <div className="mt-3 flex items-end justify-between gap-2 border-t border-neutral-400 pt-2">
                         <p className="text-lg font-bold text-primary">
                           {formatPrice(heroListing.price)}{' '}
                           <span className="text-sm font-normal text-muted-foreground">
@@ -618,7 +618,7 @@ export function HomepageMarketplaceSections() {
                   </AnimatePresence>
 
                   {heroListings.length > 1 ? (
-                    <div className="mt-2 flex items-center gap-2.5 border-t border-primary/10 pt-5">
+                    <div className="mt-2 flex items-center gap-2.5 border-t border-primary/20 pt-5">
                       {heroListings.map((listing, index) => (
                         <button
                           key={listing.id}
