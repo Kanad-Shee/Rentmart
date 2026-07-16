@@ -568,7 +568,7 @@ export function HomepageMarketplaceSections() {
               {featuredEquipmentQuery.isPending ? (
                 <HeroFeaturedSkeleton />
               ) : heroListing ? (
-                <div className="absolute inset-x-3 bottom-3 rounded-2xl border border-primary/15 bg-background/97 p-5 shadow-lg shadow-black/10 backdrop-blur-md ring-1 ring-inset ring-white/50 sm:inset-x-5 sm:bottom-5 sm:p-6">
+                <div className="absolute inset-x-3 bottom-3 rounded-2xl border border-primary/15 bg-background/75 p-3 shadow-lg shadow-black/10 backdrop-blur-lg ring-1 ring-inset ring-white/50 sm:inset-x-5 sm:bottom-5 sm:p-6">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={heroListing.id}
@@ -585,21 +585,21 @@ export function HomepageMarketplaceSections() {
                         duration: shouldReduceMotion ? 0 : 0.55,
                         delay: shouldReduceMotion ? 0 : 0.12
                       }}>
-                      <div className="flex items-center justify-between gap-4">
-                        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#86af99]">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-[#385f4a] text-shadow-xs">
                           Featured Unit
                         </p>
                         <span className="rounded-lg bg-gradient-to-r from-[#c1ecd4] to-[#b0e6c7] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#002114] shadow-sm ring-1 ring-inset ring-primary/20">
                           Available
                         </span>
                       </div>
-                      <h2 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-foreground sm:text-2xl">
+                      <h2 className="text-lg font-semibold tracking-[-0.03em] text-foreground sm:text-xl text-shadow-xs">
                         {heroListing.title}
                       </h2>
-                      <p className="mt-1 text-sm text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         {heroListing.category.title} • Recently added
                       </p>
-                      <div className="mt-5 flex items-end justify-between gap-4 border-t border-border pt-4">
+                      <div className="mt-3 flex items-end justify-between gap-2 border-t border-border pt-2">
                         <p className="text-lg font-bold text-primary">
                           {formatPrice(heroListing.price)}{' '}
                           <span className="text-sm font-normal text-muted-foreground">
@@ -618,7 +618,7 @@ export function HomepageMarketplaceSections() {
                   </AnimatePresence>
 
                   {heroListings.length > 1 ? (
-                    <div className="mt-5 flex items-center gap-2.5 border-t border-primary/10 pt-5">
+                    <div className="mt-2 flex items-center gap-2.5 border-t border-primary/10 pt-5">
                       {heroListings.map((listing, index) => (
                         <button
                           key={listing.id}
@@ -628,8 +628,8 @@ export function HomepageMarketplaceSections() {
                           className={[
                             'rounded-full transition-all duration-300',
                             index === activeHeroIndex
-                              ? 'h-3 w-10 bg-primary shadow-md'
-                              : 'h-3 w-3 bg-primary/30 hover:bg-primary/50'
+                              ? 'h-2 w-8 bg-primary shadow-md'
+                              : 'h-2 w-2 bg-primary/30 hover:bg-primary/50'
                           ].join(' ')}
                         />
                       ))}
@@ -763,4 +763,3 @@ export function HomepageMarketplaceSections() {
     </>
   );
 }
-
