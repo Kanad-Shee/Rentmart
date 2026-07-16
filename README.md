@@ -214,6 +214,8 @@ The frontend does not replace backend security, but it follows safe client patte
 
 Create the required environment file for local API communication. The exact variable names may depend on the backend configuration, but the client should know the server/API base URL used by the proxy and hooks.
 
+Backend repository: [Kanad-Shee/rentmart-server](https://github.com/Kanad-Shee/rentmart-server)
+
 Common setup points:
 
 - Install Bun.
@@ -221,6 +223,15 @@ Common setup points:
 - Make sure the server is running before testing authenticated or data-driven pages.
 - Configure the API/backend URL expected by the client.
 - Keep credentials and secrets outside source control.
+
+Recommended local `.env` values:
+
+```env
+BACKEND_URL="http://localhost:8080"
+NEXT_PUBLIC_BACKEND_URL="http://localhost:8080"
+```
+
+Use this section for backend URL updates because both variables define how the client and its proxy routes reach the server during development.
 
 ## Local Development
 
