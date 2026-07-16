@@ -581,8 +581,8 @@ export function ProductReviewsSection({
       <Dialog
         open={isModalOpen}
         onOpenChange={handleModalOpenChange}>
-        <DialogContent className="w-[min(92vw,32rem)] overflow-hidden rounded-xl border border-[#c1c8c2] bg-white p-0 shadow-[0_24px_80px_rgba(0,0,0,0.22)]">
-          <div className="relative">
+        <DialogContent className="flex max-h-[90vh] w-[min(92vw,32rem)] flex-col overflow-hidden rounded-xl border border-[#c1c8c2] bg-white p-0 shadow-[0_24px_80px_rgba(0,0,0,0.22)]">
+          <div className="relative flex min-h-0 flex-1 flex-col">
             <div className="border-b border-[#c1c8c2] px-6 py-4 sm:px-8">
               <DialogDismissButton />
               <DialogHeader className="pr-12">
@@ -598,8 +598,8 @@ export function ProductReviewsSection({
               </DialogHeader>
             </div>
 
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-6 px-6 py-6 sm:px-8">
+            <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col">
+              <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-6 sm:px-8">
                 <div className="flex items-center gap-4 rounded-lg border border-[#c1c8c2]/50 bg-[#f3f4f1] p-3">
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-[#dadad7]">
                     <Image
