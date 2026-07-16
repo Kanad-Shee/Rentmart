@@ -188,7 +188,7 @@ export function PublicEquipmentSearch({
       {showPanel ? (
         <div
           className={[
-            'absolute left-0 top-[calc(100%+0.75rem)] z-50 rounded-2xl border border-border bg-background p-4 shadow-[0_22px_60px_rgba(0,0,0,0.14)]',
+            'absolute left-0 top-[calc(100%+0.75rem)] z-50 flex max-h-[min(32rem,calc(100vh-8rem))] flex-col overflow-hidden rounded-2xl border border-border bg-background p-4 shadow-[0_22px_60px_rgba(0,0,0,0.14)]',
             panelWidthClass
           ].join(' ')}>
           {suggestionsQuery.isPending ? (
@@ -201,7 +201,7 @@ export function PublicEquipmentSearch({
               {searchPrompt}
             </div>
           ) : hasSuggestions ? (
-            <div className="space-y-4">
+            <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pr-1">
               {visibleMatches.length > 0 ? (
                 <section className="space-y-2">
                   <p className="px-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#86af99]">
@@ -316,7 +316,7 @@ export function PublicEquipmentSearch({
             <button
               type="button"
               onClick={() => navigateTo(buildSearchUrl(trimmedQuery))}
-              className="mt-4 w-full rounded-xl border border-border px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-muted">
+              className="mt-4 w-full shrink-0 rounded-xl border border-border px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-muted">
               View all results for &quot;{trimmedQuery}&quot;
             </button>
           ) : null}
@@ -325,4 +325,3 @@ export function PublicEquipmentSearch({
     </div>
   );
 }
-
