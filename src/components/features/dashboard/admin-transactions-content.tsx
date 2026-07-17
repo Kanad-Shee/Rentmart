@@ -22,13 +22,22 @@ import { ApiError } from '@/lib/http';
 import type { AdminPaymentEvent } from '@/lib/payment';
 import {
   AlertTriangle,
+  BadgeCheck,
+  Banknote,
+  CalendarClock,
   ChevronDown,
   ExternalLink,
+  CreditCard,
   Loader2,
+  Layers3,
   ReceiptText,
   Search,
-  ShieldAlert
+  Shield,
+  ShieldAlert,
+  ShieldCheck,
+  ArrowRightLeftIcon
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useDeferredValue, useMemo, useState } from 'react';
 
@@ -61,7 +70,7 @@ function formatDateTime(value: string | null) {
 }
 
 function formatDateRange(startDate: string, endDate: string) {
-  return `${startDate} - ${endDate}`;
+  return `From: ${startDate}  To: ${endDate}`;
 }
 
 function getImageSrc(booking: BookingSummary) {
@@ -136,6 +145,8 @@ function getFinancialTone(status: FinancialStatus) {
 
 function getBookingStatusTone(status: BookingStatus) {
   switch (status) {
+    case 'CONFIRMED':
+      return 'bg-[#eefaf2] text-[#166534]';
     case 'COMPLETED':
       return 'bg-[#eefaf2] text-[#166534]';
     case 'DISPUTED':
@@ -201,9 +212,68 @@ function DetailRow({ label, value }: { label: string; value: string | null }) {
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#94a3b8]">
         {label}
       </p>
-      <p className="mt-2 break-words text-sm text-primary">
+      <p className="mt-2 wrap-break-word text-sm text-primary">
         {value || 'Not available'}
       </p>
+    </div>
+  );
+}
+
+function TransactionMetricCard({
+  icon: Icon,
+  label,
+  value
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-[#edf1ed] bg-[#fcfdfb] p-2 shadow-sm transition-transform duration-200 hover:-translate-y-0.5">
+      <div className="flex items-center gap-x-2">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f4f8f4] text-primary">
+          <Icon className="h-4.5 w-4.5" />
+        </div>
+        <p className="text-[11px] text-wrap font-semibold uppercase tracking-widest text-[#6d7886]">
+          {label}
+        </p>
+      </div>
+      <p className="ml-3 text-left wrap-break-word text-nowrap truncate text-sm md:text-base font-semibold tracking-[-0.03em] text-primary">
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function TransactionInfoCard({
+  icon: Icon,
+  label,
+  title,
+  description
+}: {
+  icon: LucideIcon;
+  label: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-[#edf1ed] bg-[#fbfcfa] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.03)]">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#94a3b8]">
+        {label}
+      </p>
+      <div className="mt-3 flex items-start gap-3">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-primary shadow-sm">
+          <Icon className="h-4.5 w-4.5" />
+        </span>
+        <div className="min-w-0">
+          <p className="text-base font-semibold tracking-[-0.02em] text-primary">
+            {title}
+          </p>
+          <p className="mt-1 text-sm font-display font-medium text-[#5c5f60]">
+            {description}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -631,7 +701,7 @@ export function AdminTransactionsContent() {
           </div>
 
           {bookingsQuery.isPending ? (
-            <div className="flex min-h-[240px] items-center justify-center rounded-xl border border-[#d8dfdb] bg-white">
+            <div className="flex min-h-60 items-center justify-center rounded-xl border border-[#d8dfdb] bg-white">
               <Loader2 className="h-6 w-6 animate-spin text-primary" />
             </div>
           ) : null}
@@ -654,91 +724,120 @@ export function AdminTransactionsContent() {
                   return (
                     <article
                       key={booking.id}
-                      className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
-                      <div className="flex flex-col xl:flex-row">
-                        <div className="relative h-64 w-full overflow-hidden bg-[#eef2ed] xl:h-auto xl:w-[24%]">
+                      className="overflow-hidden rounded-[28px] border border-[#e6ece7] bg-white shadow-[0_22px_60px_rgba(15,23,42,0.06)]">
+                      <div className="grid xl:grid-cols-[320px_minmax(0,1fr)]">
+                        <div className="relative min-h-80 overflow-hidden bg-[#f5f7f4] xl:min-h-full">
                           <Image
                             src={getImageSrc(booking)}
-                            loading={'lazy'}
+                            loading="lazy"
                             alt={booking.equipment.title}
                             fill
-                            className="object-cover"
+                            className="object-cover object-center"
                             unoptimized
                           />
+                          <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/85 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary shadow-sm backdrop-blur">
+                            <BadgeCheck className="h-4 w-4 text-[#166534]" />
+                            {normalizeLabel(booking.status)}
+                          </div>
                         </div>
 
-                        <div className="flex-1 p-6 md:p-8">
-                          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                            <div className="min-w-0">
-                              <div className="flex flex-wrap items-center gap-3">
-                                <h3 className="text-3xl font-semibold tracking-[-0.04em] text-primary">
-                                  {booking.equipment.title}
-                                </h3>
+                        <div className="p-6 md:p-8 xl:p-10">
+                          <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
+                            <div className="min-w-0 space-y-3">
+                              <h3 className="text-xl md:text-2xl font-semibold tracking-[-0.04em] text-primary">
+                                {booking.equipment.title}
+                              </h3>
+                              <div className="flex flex-wrap items-center gap-2">
                                 <span
                                   className={[
-                                    'inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]',
+                                    'inline-flex shadow-sm items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em]',
                                     getBookingStatusTone(booking.status)
                                   ].join(' ')}>
+                                  <ShieldCheck className="h-3.5 w-3.5" />
                                   {normalizeLabel(booking.status)}
                                 </span>
                                 <span
                                   className={[
-                                    'inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]',
+                                    'inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em]',
                                     getFinancialTone(booking.financialStatus)
                                   ].join(' ')}>
+                                  <CreditCard className="h-3.5 w-3.5" />
                                   {normalizeLabel(booking.financialStatus)}
                                 </span>
                               </div>
 
-                              <p className="mt-3 text-sm text-[#64748b]">
-                                Booking ID: {booking.id}
-                              </p>
-                              <p className="mt-1 text-sm text-[#64748b]">
-                                Owner: {booking.owner.fullName} | Renter:{' '}
-                                {booking.renter.fullName}
-                              </p>
-                              <p className="mt-1 text-sm text-[#64748b]">
-                                {formatDateRange(
-                                  booking.startDate,
-                                  booking.endDate
-                                )}
-                              </p>
+                              <div className="space-y-1 text-sm text-[#64748b]">
+                                <p>
+                                  {' '}
+                                  <strong>Booking ID</strong>: {booking.id}
+                                </p>
+                                <div className="flex items-center gap-x-2">
+                                  <p>
+                                    <strong>Owner</strong>:{' '}
+                                    {booking.owner.fullName}
+                                  </p>
+                                  <ArrowRightLeftIcon className="size-4" />
+                                  <p>
+                                    <strong>Renter</strong>:{' '}
+                                    {booking.renter.fullName}
+                                  </p>
+                                </div>
+                                <p className="text-gray-600 font-medium">
+                                  {formatDateRange(
+                                    booking.startDate,
+                                    booking.endDate
+                                  )}
+                                </p>
+                              </div>
                             </div>
 
-                            <div className="rounded-xl border border-[#d8dfdb] bg-[#fbfcfa] px-4 py-3 text-right">
-                              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#94a3b8]">
-                                Last Transaction Activity
+                            <div className="rounded-2xl border border-[#edf1ed] bg-[#fbfcfa] px-4 py-4 shadow-sm xl:min-w-55">
+                              <p className="text-[11px] font-semibold uppercase tracking-wide text-[#94a3b8]">
+                                Last Activity
                               </p>
-                              <p className="mt-2 text-sm font-semibold text-primary">
-                                {formatDateTime(
-                                  getLastTransactionTimestamp(booking)
-                                )}
-                              </p>
+                              <div className="mt-3 flex items-center gap-3">
+                                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-primary shadow-sm">
+                                  <CalendarClock className="h-4.5 w-4.5" />
+                                </span>
+                                <div>
+                                  <p className="text-base font-semibold tracking-[-0.02em] text-primary">
+                                    {formatDateTime(
+                                      getLastTransactionTimestamp(booking)
+                                    )}
+                                  </p>
+                                </div>
+                              </div>
                             </div>
                           </div>
 
-                          <div className="mt-8 grid gap-4 md:grid-cols-3 xl:grid-cols-6">
-                            <DetailRow
+                          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
+                            <TransactionMetricCard
+                              icon={CreditCard}
                               label="Total Paid"
                               value={formatCurrency(booking.totalAuthorized)}
                             />
-                            <DetailRow
+                            <TransactionMetricCard
+                              icon={ReceiptText}
                               label="Rental Fee"
                               value={formatCurrency(booking.rentalFee)}
                             />
-                            <DetailRow
+                            <TransactionMetricCard
+                              icon={Layers3}
                               label="Platform Fee"
                               value={formatCurrency(booking.platformFee)}
                             />
-                            <DetailRow
+                            <TransactionMetricCard
+                              icon={Shield}
                               label="Damage Waiver"
                               value={formatCurrency(booking.damageWaiverFee)}
                             />
-                            <DetailRow
+                            <TransactionMetricCard
+                              icon={Banknote}
                               label="Security Deposit"
                               value={formatCurrency(booking.securityDeposit)}
                             />
-                            <DetailRow
+                            <TransactionMetricCard
+                              icon={BadgeCheck}
                               label="Provider"
                               value={
                                 booking.paymentProvider?.toUpperCase() ??
@@ -748,32 +847,26 @@ export function AdminTransactionsContent() {
                           </div>
 
                           <div className="mt-6 grid gap-4 md:grid-cols-2">
-                            <div className="rounded-xl border border-[#d8dfdb] bg-[#f8faf7] p-4">
-                              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#94a3b8]">
-                                Owner Payout
-                              </p>
-                              <p className="mt-2 text-sm font-semibold text-primary">
-                                {getOwnerPayoutLabel(booking)}
-                              </p>
-                              <p className="mt-1 text-xs  text-[#5c5f60]">
-                                {booking.ownerPaidAt
+                            <TransactionInfoCard
+                              icon={CreditCard}
+                              label="Owner Payout"
+                              title={getOwnerPayoutLabel(booking)}
+                              description={
+                                booking.ownerPaidAt
                                   ? `Recorded at ${formatDateTime(booking.ownerPaidAt)}`
-                                  : 'Record this after you send money to the owner manually.'}
-                              </p>
-                            </div>
-                            <div className="rounded-xl border border-[#d8dfdb] bg-[#f8faf7] p-4">
-                              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#94a3b8]">
-                                Deposit Refund
-                              </p>
-                              <p className="mt-2 text-sm font-semibold text-primary">
-                                {getDepositRefundLabel(booking)}
-                              </p>
-                              <p className="mt-1 text-xs  text-[#5c5f60]">
-                                {booking.depositRefundedAt
+                                  : 'Record this after you send money to the owner manually.'
+                              }
+                            />
+                            <TransactionInfoCard
+                              icon={Shield}
+                              label="Deposit Refund"
+                              title={getDepositRefundLabel(booking)}
+                              description={
+                                booking.depositRefundedAt
                                   ? `Recorded at ${formatDateTime(booking.depositRefundedAt)}`
-                                  : "Record this after you return the renter's security deposit manually."}
-                              </p>
-                            </div>
+                                  : "Record this after you return the renter's security deposit manually."
+                              }
+                            />
                           </div>
 
                           <div className="mt-6">
@@ -786,7 +879,7 @@ export function AdminTransactionsContent() {
                                 }))
                               }
                               placeholder="Optional payout or refund reference, bank note, UPI ref, etc."
-                              className="w-full rounded-xl border border-[#d8dfdb] bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary"
+                              className="w-full rounded-2xl border border-[#e5ebe6] bg-[#fcfdfb] px-4 py-3.5 text-sm outline-none transition-colors placeholder:text-[#94a3b8] focus:border-primary"
                             />
                           </div>
 
@@ -798,7 +891,7 @@ export function AdminTransactionsContent() {
                                 isMutating ||
                                 booking.ownerPayoutStatus === 'PAID'
                               }
-                              className="rounded-[4px] bg-[#1b4332] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
+                              className="rounded-full bg-[#1b4332] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#274e3d] disabled:cursor-not-allowed disabled:opacity-70">
                               Mark Owner Paid
                             </button>
                             <button
@@ -810,7 +903,7 @@ export function AdminTransactionsContent() {
                                 isMutating ||
                                 isDepositResolved(booking.depositRefundStatus)
                               }
-                              className="rounded-[4px] border border-[#d8dfdb] px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
+                              className="rounded-full border border-[#dbe3dd] bg-white px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6] disabled:cursor-not-allowed disabled:opacity-70">
                               Mark Deposit Refunded
                             </button>
                             <button
@@ -820,7 +913,7 @@ export function AdminTransactionsContent() {
                                   current === booking.id ? null : booking.id
                                 )
                               }
-                              className="inline-flex items-center gap-2 rounded-[4px] border border-transparent px-2 py-3 text-sm font-semibold text-primary">
+                              className="inline-flex items-center gap-2 rounded-full bg-[#f3f6f3] px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#eaf1eb]">
                               {isExpanded ? 'Hide details' : 'Open details'}
                               <ChevronDown
                                 className={[
@@ -832,7 +925,7 @@ export function AdminTransactionsContent() {
                           </div>
 
                           {isExpanded ? (
-                            <div className="mt-8 grid gap-4 rounded-xl border border-[#d8dfdb] bg-[#fbfcfa] p-5 md:grid-cols-2 xl:grid-cols-3">
+                            <div className="mt-8 grid gap-4 rounded-2xl border border-[#e6ece7] bg-[#fbfcfa] p-5 md:grid-cols-2 xl:grid-cols-3">
                               <DetailRow
                                 label="Cashfree Order ID"
                                 value={booking.cashfreeOrderId}
@@ -1020,7 +1113,7 @@ export function AdminTransactionsContent() {
           </div>
 
           {paymentEventsQuery.isPending ? (
-            <div className="flex min-h-[220px] items-center justify-center rounded-xl border border-[#d8dfdb] bg-white">
+            <div className="flex min-h-55 items-center justify-center rounded-xl border border-[#d8dfdb] bg-white">
               <Loader2 className="h-6 w-6 animate-spin text-primary" />
             </div>
           ) : null}
@@ -1071,10 +1164,10 @@ export function AdminTransactionsContent() {
                             ) : null}
                           </div>
 
-                          <p className="mt-3 break-words text-sm text-[#64748b]">
+                          <p className="mt-3 wrap-break-word text-sm text-[#64748b]">
                             Event ID: {event.eventId}
                           </p>
-                          <p className="mt-1 break-words text-sm text-[#64748b]">
+                          <p className="mt-1 wrap-break-word text-sm text-[#64748b]">
                             Entity ID: {event.entityId ?? 'Not available'}
                           </p>
                           <p className="mt-1 text-sm text-[#64748b]">
@@ -1101,7 +1194,7 @@ export function AdminTransactionsContent() {
                                 current === event.id ? null : event.id
                               )
                             }
-                            className="inline-flex items-center gap-2 rounded-[4px] border border-[#d8dfdb] px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6]">
+                            className="inline-flex items-center gap-2 rounded-lg border border-[#d8dfdb] px-4 py-3 text-sm font-semibold text-primary transition-colors hover:bg-[#f7f9f6]">
                             {isExpanded ? 'Hide payload' : 'Open payload'}
                             <ChevronDown
                               className={[
@@ -1169,7 +1262,7 @@ export function AdminTransactionsContent() {
                           </div>
 
                           <div className="overflow-x-auto rounded-xl border border-[#d8dfdb] bg-[#0f172a] p-4">
-                            <pre className="min-w-[320px] whitespace-pre-wrap break-words text-xs  text-[#dbeafe]">
+                            <pre className="min-w-[320px] whitespace-pre-wrap wrap-break-word text-xs  text-[#dbeafe]">
                               {JSON.stringify(event.payload, null, 2)}
                             </pre>
                           </div>

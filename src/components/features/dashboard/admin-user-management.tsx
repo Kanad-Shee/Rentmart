@@ -94,6 +94,7 @@ export function AdminUserManagement() {
   const [verificationFilter, setVerificationFilter] =
     useState<AdminUserVerificationFilter>('ALL');
   const deferredSearchTerm = useDeferredValue(searchTerm);
+  const normalizedSearchTerm = deferredSearchTerm.trim().toLowerCase();
   const usersQuery = useAdminUsersPageQuery({
     page,
     pageSize: 10,
@@ -102,11 +103,43 @@ export function AdminUserManagement() {
     verification: verificationFilter
   });
   const users = useMemo(() => usersQuery.data?.items ?? [], [usersQuery.data]);
+  const visibleUsers = useMemo(
+    () =>
+      users.filter((user) => {
+        if (normalizedSearchTerm) {
+          const haystack = [user.fullName, user.email, user.phone, user.address]
+            .filter(Boolean)
+            .join(' ')
+            .toLowerCase();
+
+          if (!haystack.includes(normalizedSearchTerm)) {
+            return false;
+          }
+        }
+
+        if (roleFilter !== 'ALL' && user.role !== roleFilter) {
+          return false;
+        }
+
+        if (verificationFilter === 'VERIFIED') {
+          return user.emailVerified && user.phoneVerified;
+        }
+
+        if (verificationFilter === 'ACTION_REQUIRED') {
+          return !user.emailVerified || !user.phoneVerified;
+        }
+
+        return true;
+      }),
+    [normalizedSearchTerm, roleFilter, users, verificationFilter]
+  );
 
   const summaries = useMemo(() => {
-    const owners = users.filter((user) => user.role === 'OWNER').length;
-    const renters = users.filter((user) => user.role === 'RENTER').length;
-    const verificationReady = users.filter(
+    const owners = visibleUsers.filter((user) => user.role === 'OWNER').length;
+    const renters = visibleUsers.filter(
+      (user) => user.role === 'RENTER'
+    ).length;
+    const verificationReady = visibleUsers.filter(
       (user) => user.emailVerified && user.phoneVerified
     ).length;
 
@@ -115,7 +148,7 @@ export function AdminUserManagement() {
       renters,
       verificationReady
     };
-  }, [users]);
+  }, [visibleUsers]);
 
   return (
     <section className="space-y-10">
@@ -139,7 +172,7 @@ export function AdminUserManagement() {
               Visible Accounts
             </p>
             <p className="mt-1 text-lg font-semibold text-primary">
-              {users.length} users
+              {visibleUsers.length} users
             </p>
           </div>
         </div>
@@ -227,7 +260,7 @@ export function AdminUserManagement() {
       ) : null}
 
       {!usersQuery.isPending && !usersQuery.isError ? (
-        users.length > 0 ? (
+        visibleUsers.length > 0 ? (
           <div className="overflow-hidden rounded-xl border border-[#d8dfdb] bg-white shadow-sm">
             <div className="overflow-x-auto">
               <table className="min-w-full border-collapse">
@@ -251,7 +284,7 @@ export function AdminUserManagement() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#edf1ee]">
-                  {users.map((user) => (
+                  {visibleUsers.map((user) => (
                     <tr
                       key={user.id}
                       className="align-top transition-colors hover:bg-[#fbfcfa]">
